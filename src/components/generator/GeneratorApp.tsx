@@ -264,6 +264,8 @@ export function GeneratorApp({ locale, dict }: Props) {
                   variant="primary"
                   size="sm"
                   onCopied={saveToHistory}
+                  disabled={!valid}
+                  disabledTitle={validationMessage}
                 />
               </div>
             </div>

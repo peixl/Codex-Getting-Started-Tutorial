@@ -34,12 +34,12 @@ export const zh = {
   },
 
   home: {
-    heroEyebrow: '专为不懂代码的人',
+    heroEyebrow: '专为不懂代码的你',
     heroTitleLine1: '想做一个',
     heroTitleHighlight: '属于自己的小软件',
     heroTitleLine2: '跟 Codex 说一句话就够了',
     heroSubtitle:
-      '填几个空，复制一段话，粘贴到 Codex 桌面版。几分钟后，你桌面上多了一个能解决问题的小工具。不用写代码，不用装服务器，不用懂专业名词。',
+      '填几个空、复制一段话，粘贴到 Codex 桌面版。几分钟后，你的桌面上就会多一个帮你干活的小工具。不用写代码，不用装服务器，也不用懂专业名词。',
     heroCtaPrimary: '三分钟生成一个提示词',
     heroCtaSecondary: '先看看怎么玩',
     heroStatsLabel1: '现成部门案例',
@@ -88,8 +88,8 @@ export const zh = {
     caseTeaserSubtitle: '点进去，复制提示词，十分钟就能用上',
     caseTeaserMore: '看全部十个部门案例',
 
-    ctaTitle: '准备好了吗',
-    ctaBody: '三分钟后，你的电脑上可能就多了一个属于你自己的小工具',
+    ctaTitle: '准备好了吗？',
+    ctaBody: '三分钟之后，你的电脑上，可能就多了一个属于你自己的小工具。',
     ctaButton: '现在就开始',
 
     trustTitle: '网站背后的诚意',
@@ -101,9 +101,9 @@ export const zh = {
   generator: {
     pageTitle: '提示词生成器',
     pageSubtitle:
-      '像填表格一样简单。你不用懂任何技术名词，我们已经帮你挑好了最适合小白的默认项。专心写好"目标"和"功能"两个框，就能拿到一段能让 Codex 听懂的指令。',
+      '像填表格一样简单。你不用懂任何技术名词，我们已经为你挑好了最适合小白的默认项。你只需要专心写好"目标"和"功能"两个框，就能拿到一段能让 Codex 听懂的指令。',
 
-    defaultsHint: '推荐默认值已选好，不改也能直接用。',
+    defaultsHint: '我们已经替你挑好默认项，不改也能直接用。',
 
     sectionPlatform: '① 你想做什么样的软件',
     platformWindows: 'Windows 电脑上用',
@@ -162,29 +162,29 @@ export const zh = {
     resetButton: '清空重填',
     langToggle: '切换语言',
     langToggleHint:
-      '英文版本通常效果更好，但中文版本也能跑通。不放心的话，两份都试一下。',
+      '英文版本通常效果更好一点，中文版本也能跑通。不放心的话，两份都试试。',
 
     quickTemplatesTitle: '不想自己填？选一个现成模板',
-    quickTemplatesHint: '点一下就自动填好，你微调几个字就能用',
+    quickTemplatesHint: '点一下自动填好，你微调几个字就能用',
 
-    validationMissingGoal: '先写一下"目标"再复制',
-    validationMissingFeatures: '至少写一条功能再复制',
+    validationMissingGoal: '先把"目标"写一两句，再来复制就能用啦',
+    validationMissingFeatures: '至少写一条功能，再来复制就能用啦',
 
     historyTitle: '你最近生成的',
-    historyEmpty: '还没有历史。生成后会存在你浏览器里，不会上传任何地方。',
+    historyEmpty: '还没有历史记录。生成的提示词只会存在你自己的浏览器里，不会上传到任何地方。',
     historyLoad: '载入',
     historyDelete: '删除',
     historyClearAll: '全部清空',
 
-    tipCardTitle: '小白友好提醒',
+    tipCardTitle: '给小白的小提醒',
     tipCardBody:
-      '提示词里那些专业名词都是给 Codex 看的，你不用懂。你只要盯着"目标"和"功能"两个框写清楚就行。其它的都有默认值。',
+      '提示词里那些专业名词都是写给 Codex 看的，你完全不用懂。你只要盯着"目标"和"功能"两个框写清楚就行，其它的我们已经帮你选好默认值了。',
   },
 
   guide: {
     pageTitle: '新手上手',
     pageSubtitle:
-      '假装你从来没听过"编程"这两个字。下面这些话，我们用你能听懂的方式讲明白。跟着读，一遍就会。',
+      '假装你从来没听过"编程"这两个字。下面这些内容，我们都用你能听懂的方式讲明白，跟着读，一遍就会。',
 
     tocTitle: '目录',
 

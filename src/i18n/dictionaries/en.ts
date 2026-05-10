@@ -33,12 +33,12 @@ export const en = {
   },
 
   home: {
-    heroEyebrow: 'Built for non-developers',
+    heroEyebrow: 'Made for you — even if you don’t code',
     heroTitleLine1: 'You want',
     heroTitleHighlight: 'a small tool of your own.',
     heroTitleLine2: 'One message to Codex is enough.',
     heroSubtitle:
-      'Fill a short form. Copy the prompt. Paste it into Codex Desktop. A few minutes later, a useful local desktop tool lives on your computer. No code, no servers, no jargon.',
+      'Fill in a short form, copy the prompt, paste it into Codex Desktop. A few minutes later, a useful little tool lives on your desktop. No code, no servers, no jargon — just you and an idea.',
     heroCtaPrimary: 'Generate a prompt in 3 minutes',
     heroCtaSecondary: 'See how it works',
     heroStatsLabel1: 'Ready-made cases',
@@ -87,8 +87,8 @@ export const en = {
     caseTeaserSubtitle: 'Open it, copy the prompt, ten minutes to a working tool.',
     caseTeaserMore: 'See all ten department cases',
 
-    ctaTitle: 'Ready?',
-    ctaBody: 'Three minutes from now, your desktop may have a new tool built by you.',
+    ctaTitle: 'Ready to try?',
+    ctaBody: 'Three minutes from now, your desktop could have a brand-new tool — built by you.',
     ctaButton: 'Start now',
 
     trustTitle: 'What we care about',
@@ -102,7 +102,7 @@ export const en = {
     pageSubtitle:
       'As easy as filling a form. You do not need to understand any technical term — beginner-friendly defaults are already selected. Just describe your goal and features, and you get a prompt Codex will understand.',
 
-    defaultsHint: 'Recommended defaults are pre-selected. You can use them as is.',
+    defaultsHint: 'We’ve pre-selected the friendliest defaults. Use them as is — no need to change a thing.',
 
     sectionPlatform: '1. What kind of software?',
     platformWindows: 'For Windows PCs',
@@ -161,29 +161,29 @@ export const en = {
     resetButton: 'Reset form',
     langToggle: 'Switch language',
     langToggleHint:
-      'English prompts tend to work a bit better. If you are unsure, try both.',
+      'English prompts usually work a bit better, but Chinese works fine too. If in doubt, try both — it only takes a minute.',
 
-    quickTemplatesTitle: 'Not sure what to write? Start from a template',
-    quickTemplatesHint: 'One click fills the form. Tweak a few words and you are ready.',
+    quickTemplatesTitle: 'Don’t feel like writing? Start from a template',
+    quickTemplatesHint: 'One click fills the form. Tweak a few words and you’re ready.',
 
-    validationMissingGoal: 'Please fill in the goal before copying.',
-    validationMissingFeatures: 'Please list at least one feature before copying.',
+    validationMissingGoal: 'Add a sentence about the goal first — then you can copy.',
+    validationMissingFeatures: 'Add at least one feature first — then you can copy.',
 
     historyTitle: 'Recent prompts',
-    historyEmpty: 'No history yet. Prompts are stored in your browser only; nothing is uploaded.',
+    historyEmpty: 'Nothing here yet. Anything you generate is saved in your browser only — nothing is uploaded.',
     historyLoad: 'Load',
     historyDelete: 'Delete',
     historyClearAll: 'Clear all',
 
-    tipCardTitle: 'Beginner-friendly note',
+    tipCardTitle: 'Friendly heads-up',
     tipCardBody:
-      'The technical words in the generated prompt are there for Codex, not you. Focus on the goal and features — sensible defaults take care of the rest.',
+      'The technical wording in the generated prompt is for Codex — not for you. Just focus on the goal and features; the smart defaults take care of the rest.',
   },
 
   guide: {
     pageTitle: 'Get started',
     pageSubtitle:
-      'Pretend you have never heard the word "programming". Everything below is explained in plain language.',
+      'Pretend you’ve never heard the word “programming”. Everything below is in plain English — read along, and you’ll get it the first time.',
 
     tocTitle: 'Contents',
 

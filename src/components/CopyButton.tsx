@@ -12,6 +12,8 @@ type Props = {
   variant?: 'primary' | 'glass' | 'chip';
   size?: 'sm' | 'md';
   onCopied?: () => void;
+  disabled?: boolean;
+  disabledTitle?: string;
 };
 
 export function CopyButton({
@@ -22,6 +24,8 @@ export function CopyButton({
   variant = 'glass',
   size = 'md',
   onCopied,
+  disabled = false,
+  disabledTitle,
 }: Props) {
   const [copied, setCopied] = useState(false);
 
@@ -32,6 +36,7 @@ export function CopyButton({
   }, [copied]);
 
   const handleCopy = async () => {
+    if (disabled) return;
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(value);
@@ -68,10 +73,13 @@ export function CopyButton({
       type="button"
       onClick={handleCopy}
       aria-live="polite"
+      aria-disabled={disabled || undefined}
+      title={disabled ? disabledTitle : undefined}
       className={cn(
         'focus-ring inline-flex items-center gap-2 font-medium transition',
         padding,
         styles,
+        disabled && 'cursor-not-allowed opacity-50 hover:translate-y-0',
         className
       )}
     >
