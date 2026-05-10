@@ -1,0 +1,82 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { CheckIcon, CopyIcon } from './icons';
+import { cn } from '@/lib/cn';
+
+type Props = {
+  value: string;
+  label?: string;
+  copiedLabel?: string;
+  className?: string;
+  variant?: 'primary' | 'glass' | 'chip';
+  size?: 'sm' | 'md';
+  onCopied?: () => void;
+};
+
+export function CopyButton({
+  value,
+  label = 'Copy',
+  copiedLabel = 'Copied',
+  className,
+  variant = 'glass',
+  size = 'md',
+  onCopied,
+}: Props) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 1800);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = value;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      setCopied(true);
+      onCopied?.();
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const padding =
+    size === 'sm' ? 'px-3 py-1.5 text-[12px] rounded-full' : 'px-4 py-2 text-[13px] rounded-full';
+
+  const styles =
+    variant === 'primary'
+      ? 'bg-ink text-white shadow-soft hover:-translate-y-0.5'
+      : variant === 'chip'
+        ? 'border border-[color:var(--line)] bg-white/70 text-ink-soft backdrop-blur-xl hover:bg-white hover:text-ink'
+        : 'border border-[color:var(--line)] bg-white/80 text-ink backdrop-blur-xl shadow-soft hover:bg-white';
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      aria-live="polite"
+      className={cn(
+        'focus-ring inline-flex items-center gap-2 font-medium transition',
+        padding,
+        styles,
+        className
+      )}
+    >
+      {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
+      <span>{copied ? copiedLabel : label}</span>
+    </button>
+  );
+}

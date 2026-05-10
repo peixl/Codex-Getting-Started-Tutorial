@@ -1,0 +1,26 @@
+{
+  "name": "Codex Beginner Tutorial",
+  "short_name": "Codex Tutorial",
+  "description": "Beginner-friendly OpenAI Codex desktop tutorial for non-developers. Windows and macOS only.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F5F0FF",
+  "theme_color": "#8B7BFF",
+  "lang": "zh-CN",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

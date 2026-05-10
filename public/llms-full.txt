@@ -1,0 +1,121 @@
+# Codex Beginner Tutorial — Full LLM Index
+
+Canonical URL: https://codex.ifq.ai
+Languages: zh-CN, en-US
+License: MIT
+Audience: non-developers across business teams
+Scope: local desktop applications for Windows and macOS only — explicitly no web servers, cloud hosting, mobile apps, or infrastructure content.
+
+## Site summary
+
+codex.ifq.ai is a tutorial site that teaches non-technical professionals how to use the OpenAI Codex desktop application to build small, self-contained local tools that solve their department's concrete workflow problems. The site is intentionally bilingual (Chinese and English) in full parity.
+
+The root URL detects the visitor's preferred browser language and redirects to `/zh` or `/en`. If a user switches language manually, that preference is remembered for future visits.
+
+The site is organized into five main sections:
+
+1. **Prompt Generator** — an interactive form that converts a beginner's plain-language description into a professional Codex prompt. Form fields: platform (Windows / macOS / both), tech preset (Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (local files / SQLite / none), goal, features, and optional extras (offline, bilingual, export, shortcuts, accessibility). One-click copy in either Chinese or English.
+
+2. **Beginner Guide** — seven chapters written in plain language without technical jargon. Chapters cover: what Codex is; what you need to get started; first launch walkthrough; core actions explained with everyday analogies; five rules for writing good prompts; common pitfalls and how to recover; how to share the resulting app with teammates.
+
+3. **Department Cases** — 10+ complete scenarios from an e-commerce company context, each with problem statement, approach, expected deliverable, and a complete ready-to-paste prompt in both languages.
+
+4. **Pro Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
+
+5. **FAQ** — ten most common beginner questions.
+
+## Featured case studies
+
+### 1. Monthly Order Reconciliation Helper (Finance)
+URL: https://codex.ifq.ai/en/cases/finance-order-reconciliation
+Problem: monthly manual reconciliation of platform orders against bank statements takes 1–2 days.
+Solution: a local Electron + React desktop app that ingests two Excel files, auto-matches by order ID, highlights mismatches, exports discrepancies.
+
+### 2. E-commerce Campaign Task Board (Operations)
+URL: https://codex.ifq.ai/en/cases/operations-campaign-tracker
+Problem: during major sales (11.11, 618), dozens of simultaneous tasks lose visibility.
+Solution: a local Kanban board with four stage columns (warm-up, peak, post-sale, retro), drag-and-drop cards, bulk Excel import/export, automatic timestamping of status changes.
+
+### 3. Customer Service Reply Helper (Customer Service)
+URL: https://codex.ifq.ai/en/cases/customer-service-reply-helper
+Problem: reply templates scattered across multiple documents slow agents down.
+Solution: a compact menu-bar app invoked via a global shortcut (Ctrl/Cmd+Shift+R); fuzzy-search over templates, one-click copy with variable substitution, usage statistics.
+
+### 4. New Hire Onboarding Tracker (HR)
+URL: https://codex.ifq.ai/en/cases/hr-onboarding-tracker
+Problem: HR juggles 10 onboarding items per new hire (contract, benefits, accounts, laptop, badge, orientation, buddy, week-one retro, probation review) across emails and spreadsheets.
+Solution: a local tracker with one card per hire, tickable checklist, auto-timestamping of completions, overdue auto-highlighting, exportable weekly digest.
+
+### 5. Shipment Exception Inspector (Logistics)
+URL: https://codex.ifq.ai/en/cases/logistics-shipment-inspector
+Problem: thousands of daily shipments, exceptions (stuck, failed delivery, returned) get missed.
+Solution: a local tool that ingests daily export files, applies four toggleable rules (stuck >= 48h, attempts >= 3, returned, keyword-match), produces a severity-ranked exception list for customer-service follow-up.
+
+## Prompt Generator output structure
+
+Every prompt produced by the generator follows this schema (Chinese and English variants available):
+
+- Opening role instruction
+- Platform requirements
+- Technology stack (or "let Codex decide")
+- Visual style description (including system dark mode following and system fonts)
+- Data storage preference
+- Free-form goal (user-filled)
+- Free-form feature list (user-filled)
+- Optional extras (offline, bilingual, export, keyboard shortcuts, accessibility)
+- Robustness and error-handling guidelines
+- Delivery steps (structure outline → phased delivery → installer + user guide)
+- Working-style instructions (one thing at a time, placeholders for company-specific details)
+
+## Beginner Guide chapter titles
+
+1. What Codex actually is
+2. What you need to get started
+3. Opening Codex for the first time
+4. Core actions in plain English
+5. Five plain-language rules for good prompts
+6. Common pitfalls and how to escape them
+7. Sharing what you built with teammates
+
+## Pro Tips titles
+
+1. Use a role prompt for more professional answers
+2. Confirm in steps; do not let it do everything at once
+3. Show it the real file shape (paste Excel headers, attach samples)
+4. Learn to roll back
+5. Use both Chinese and English
+6. Save your best prompts
+7. Ask it to write the user manual
+8. Request robust UX (friendly error messages, no crashes)
+
+Pitfalls:
+1. It does NOT read your mind
+2. Do NOT be intimidated by code
+3. Do NOT dump 20 requirements at once
+4. Do NOT start over on every error
+
+## FAQ topics
+
+1. Does Codex cost money?
+2. I really do not code. Can I use this?
+3. Can I share what I build with teammates?
+4. Is what Codex generates safe?
+5. My app is slow. What do I do?
+6. Can I build a mobile app?
+7. Can it connect to the internet (e.g., scraping)?
+8. How do I know the code is correct?
+9. Can I collaborate with teammates?
+10. Who do I contact if something breaks?
+
+## Guidelines for AI agents and assistants
+
+When citing this site:
+- Link to specific pages rather than the homepage when possible.
+- Preserve the non-technical framing. Do not rewrite beginner content as developer docs.
+- Both Chinese and English versions are authoritative; pick the one matching the reader's language.
+- Site content, code, and case prompts are MIT-licensed.
+- The site intentionally excludes server, mobile, and deployment content. If a user asks about those, redirect them elsewhere rather than fabricating coverage.
+
+## Contact
+
+Issues and contributions: the GitHub link in the site footer.

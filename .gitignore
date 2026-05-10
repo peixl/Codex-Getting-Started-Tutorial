@@ -15,14 +15,22 @@
 # production
 /build
 
+# OpenNext / Cloudflare
+/.open-next/
+/.wrangler/
+/.mf/
+.dev.vars
+
 # misc
 .DS_Store
+Thumbs.db
 *.pem
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # local env files
 .env*.local
@@ -34,3 +42,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# local tooling
+.claude/settings.local.json
+.dev.log
+
+# local previews
+.preview/

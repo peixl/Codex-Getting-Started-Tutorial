@@ -1,2 +1,109 @@
-# Codex-Getting-Started-Tutorial
-Codex Getting Started Tutorial by ifq.ai
+# Codex Beginner Tutorial
+
+[简体中文](README.zh-CN.md)
+
+A beginner-first tutorial site for OpenAI Codex Desktop. It is designed for business users who do not write code but still want to build useful local tools for Windows and macOS.
+
+Live site: **https://codex.ifq.ai**
+
+## Overview
+
+This project is not an API reference and not a flashy demo.
+
+It is built around one practical goal:
+
+> help non-developers turn a clear business request into a real local desktop app.
+
+The site guides users through a simple path:
+
+1. Understand what Codex Desktop can do.
+2. Generate a stronger prompt with a fill-in-the-blank form.
+3. Paste that prompt into Codex and let it build step by step.
+4. Learn from real department cases, recipes, and FAQ.
+
+Typical scenarios include finance reconciliation, daily reporting, support helpers, HR onboarding, logistics follow-up, procurement quoting, marketing recap, legal tracking, admin records, and product feedback triage.
+
+## UX Goals
+
+- Auto-detect browser language and enter `/zh` or `/en` on first visit.
+- Remember explicit user language choice instead of resetting it later.
+- Keep prompt output aligned with the current site language.
+- Support deep links without locale prefixes such as `/guide` or `/faq`.
+- Stay focused on local desktop apps only, so beginners are not dragged into cloud or server concepts.
+- Explain everything in business language before technical language.
+
+## Main Sections
+
+### Prompt Generator
+
+- Produces a ready-to-copy Codex prompt from a lightweight form.
+- Includes quick templates, browser-local history, and prompt language switching.
+
+### Beginner Guide
+
+- Explains Codex in plain language from first launch to packaging and sharing.
+
+### 7-Day Learning Path
+
+- Breaks the learning curve into short daily tasks.
+
+### Department Cases
+
+- Covers realistic workflows across finance, operations, support, HR, logistics, procurement, marketing, legal, data, admin, and product teams.
+
+### Cookbook, Pro Tips, FAQ
+
+- Helps users move from “first successful prompt” to repeatable prompt-writing habits.
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+Useful checks during local testing:
+
+1. The root path redirects according to browser language.
+2. Manual language switching is remembered.
+3. Bare routes such as `/guide` redirect to a locale-prefixed route.
+4. The generator can produce a usable prompt with only goal + features filled in.
+
+## Project Structure
+
+```text
+src/app/[locale]        localized pages
+src/components          shared UI, home modules, generator, cases
+src/data                cases and prompt template data
+src/i18n                locale config and dictionaries
+public                  public assets, manifest, llms.txt, agents.md
+```
+
+## Deploy
+
+```bash
+npm run deploy
+```
+
+The site uses Next.js App Router and deploys to Cloudflare Workers via `@opennextjs/cloudflare`.
+
+## Stack
+
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS 3.4
+- Cloudflare Workers
+- Path-based i18n routing (`/zh/*`, `/en/*`)
+
+## Who This Is For
+
+- Teams helping non-developers adopt Codex.
+- Builders creating bilingual prompt-learning experiences.
+- Developers looking for a beginner-first Next.js content site reference.
+
+## License
+
+MIT License
