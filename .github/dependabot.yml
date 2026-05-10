@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: /
+    directory: "/"
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
@@ -18,15 +18,15 @@ updates:
         patterns:
           - eslint*
           - typescript
-          - @types/*
+          - "@types/*"
           - tailwindcss
           - postcss
           - autoprefixer
           - wrangler
-          - @opennextjs/*
+          - "@opennextjs/*"
 
   - package-ecosystem: github-actions
-    directory: /
+    directory: "/"
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
