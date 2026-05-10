@@ -19,6 +19,7 @@ export function NavBar({ locale, dict }: Props) {
   const pathname = usePathname() ?? '/';
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const brandLabel = locale === 'zh' ? dict.meta.siteName : 'Codex Tutorial';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -52,26 +53,27 @@ export function NavBar({ locale, dict }: Props) {
     <header
       className={cn(
         'sticky top-0 z-50 transition-all duration-500',
-        scrolled ? 'pt-2' : 'pt-4'
+        scrolled ? 'pt-2' : 'pt-3 sm:pt-4'
       )}
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-3 sm:px-6 lg:px-8">
         <nav
           className={cn(
-            'flex items-center justify-between gap-4 rounded-full border border-[color:var(--line)] backdrop-blur-2xl transition-all duration-500',
+            'flex items-center justify-between gap-2 rounded-[28px] border border-[color:var(--line)] backdrop-blur-2xl transition-all duration-500 sm:rounded-full sm:gap-4',
             scrolled
               ? 'bg-white/80 shadow-soft px-3 py-2'
-              : 'bg-white/60 px-4 py-2.5'
+              : 'bg-white/60 px-3 py-2.5 sm:px-4'
           )}
           aria-label={locale === 'zh' ? '主导航' : 'Primary navigation'}
         >
           <Link
             href={localePath(locale)}
-            className="focus-ring flex items-center gap-2 rounded-full pl-1 pr-3 py-1"
+            aria-label={dict.meta.siteName}
+            className="focus-ring flex min-w-0 flex-1 items-center gap-2 rounded-full py-1 pl-1 pr-2 sm:flex-none sm:pr-3"
           >
-            <CodexLogo size={28} />
-            <span className="hidden text-[13px] font-semibold tracking-tight text-ink sm:inline">
-              {dict.meta.siteName}
+            <CodexLogo size={28} className="shrink-0" />
+            <span className="min-w-0 truncate text-[12px] font-semibold text-ink sm:text-[13px]">
+              {brandLabel}
             </span>
           </Link>
 
@@ -93,8 +95,8 @@ export function NavBar({ locale, dict }: Props) {
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
-            <LanguageSwitcher currentLocale={locale} compact />
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <LanguageSwitcher currentLocale={locale} compact className="px-2.5 sm:px-3" />
             <Link
               href={localePath(locale, 'generator')}
               className="focus-ring hidden rounded-full bg-ink px-3.5 py-1.5 text-[13px] font-semibold text-white shadow-soft transition hover:-translate-y-0.5 sm:inline-flex"

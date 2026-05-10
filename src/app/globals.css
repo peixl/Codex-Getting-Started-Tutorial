@@ -32,7 +32,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 body {
@@ -59,7 +59,7 @@ html {
 
 @layer base {
   h1, h2, h3, h4 {
-    letter-spacing: -0.022em;
+    letter-spacing: 0;
     font-feature-settings: 'ss01';
   }
   h1 { font-weight: 700; }
@@ -131,15 +131,15 @@ html {
   }
   .section-heading {
     @apply text-3xl font-semibold tracking-tight text-[color:var(--fg-primary)] md:text-4xl;
-    letter-spacing: -0.028em;
+    letter-spacing: 0;
   }
   .section-subheading {
     @apply mt-3 max-w-2xl text-[15px] leading-relaxed text-[color:var(--fg-secondary)] md:text-base;
   }
   .display-title {
-    @apply text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl;
-    letter-spacing: -0.035em;
-    line-height: 1.04;
+    @apply text-[34px] font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl;
+    letter-spacing: 0;
+    line-height: 1.08;
   }
   .focus-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--surface)];

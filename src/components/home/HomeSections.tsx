@@ -24,18 +24,18 @@ type Props = { locale: Locale; dict: Dictionary };
 
 export function HomeHero({ locale, dict }: Props) {
   return (
-    <section className="relative overflow-hidden px-4 pb-20 pt-12 sm:px-6 md:pb-28 md:pt-16 lg:px-8">
+    <section className="relative overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 md:pb-28 md:pt-16 lg:px-8">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-6 flex items-center justify-center">
+        <div className="mb-5 flex items-center justify-center sm:mb-6">
           <span className="chip-accent">
             <SparkleIcon size={12} />
             {dict.home.heroEyebrow}
           </span>
         </div>
 
-        <h1 className="display-title text-balance text-center text-ink">
+        <h1 className="display-title mx-auto max-w-[13em] text-balance text-center text-ink sm:max-w-none">
           {dict.home.heroTitleLine1}
-          <span className="mx-2 inline-block align-baseline text-ink/90">
+          <span className="mx-1 inline-block align-baseline text-ink/90 sm:mx-2">
             {dict.home.heroTitleHighlight}
           </span>
           <br />
@@ -44,16 +44,16 @@ export function HomeHero({ locale, dict }: Props) {
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-2xl text-balance text-center text-[16px] leading-relaxed text-ink-soft md:text-[17px]">
+        <p className="mx-auto mt-5 max-w-2xl text-balance text-center text-[15px] leading-relaxed text-ink-soft sm:mt-6 md:text-[17px]">
           {dict.home.heroSubtitle}
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <LinkButton href={localePath(locale, 'generator')} variant="primary" size="lg">
+        <div className="mt-7 flex flex-col items-center justify-center gap-3 min-[430px]:flex-row sm:mt-8">
+          <LinkButton href={localePath(locale, 'generator')} variant="primary" size="lg" className="w-full max-w-[280px] min-[430px]:w-auto">
             {dict.home.heroCtaPrimary}
             <ArrowRightIcon size={16} />
           </LinkButton>
-          <LinkButton href={localePath(locale, 'guide')} variant="glass" size="lg">
+          <LinkButton href={localePath(locale, 'guide')} variant="glass" size="lg" className="w-full max-w-[280px] min-[430px]:w-auto">
             {dict.home.heroCtaSecondary}
           </LinkButton>
         </div>
@@ -69,11 +69,11 @@ export function HomeHero({ locale, dict }: Props) {
           </span>
         </div>
 
-        <div className="relative mt-16 md:mt-20">
+        <div className="relative mt-10 sm:mt-16 md:mt-20">
           <HeroVisual locale={locale} />
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-3">
           <StatCard value={dict.home.heroStatsValue1} label={dict.home.heroStatsLabel1} />
           <StatCard value={dict.home.heroStatsValue2} label={dict.home.heroStatsLabel2} />
           <StatCard value={dict.home.heroStatsValue3} label={dict.home.heroStatsLabel3} />
@@ -86,7 +86,7 @@ export function HomeHero({ locale, dict }: Props) {
 function StatCard({ value, label }: { value: string; label: string }) {
   return (
     <div className="rounded-[22px] border border-[color:var(--line)] bg-white/70 px-6 py-5 text-center backdrop-blur-xl">
-      <div className="text-[28px] font-semibold tracking-tight text-ink md:text-[32px]" style={{ letterSpacing: '-0.02em' }}>
+      <div className="text-[28px] font-semibold text-ink md:text-[32px]">
         {value}
       </div>
       <div className="mt-1 text-[12px] uppercase tracking-wider text-ink-mute">{label}</div>
