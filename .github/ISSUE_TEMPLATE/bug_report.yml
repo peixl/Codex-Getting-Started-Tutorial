@@ -1,0 +1,73 @@
+name: Bug report
+description: Report a bug, regression, or content problem / 提交 Bug、回归或内容问题
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this issue.
+
+        感谢反馈问题。请尽量提供可复现信息，方便快速定位。
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area / 影响范围
+      description: Which part is affected?
+      options:
+        - Docs / 文档
+        - UI / UX
+        - i18n / 多语言
+        - Generator / 提示词生成器
+        - Cloudflare deploy / Cloudflare 部署
+        - CI / GitHub Actions
+        - Other / 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened? / 问题现象
+      description: Describe the bug clearly.
+      placeholder: Tell us what you expected and what actually happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / 复现步骤
+      description: Provide the smallest reproducible steps.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See error ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 环境信息
+      description: Browser, OS, device, deployment environment, etc.
+      placeholder: Windows 11, Chrome 136, Cloudflare Workers, main branch
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, screenshots, or links / 日志、截图或链接
+      description: Paste relevant errors, screenshots, or page links.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist / 检查清单
+      options:
+        - label: I searched existing issues first / 我已先搜索现有 issue
+        - label: I can still reproduce this on the latest main / 最新 main 上仍可复现

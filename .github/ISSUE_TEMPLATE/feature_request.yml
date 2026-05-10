@@ -1,0 +1,67 @@
+name: Feature request
+description: Suggest an improvement for UX, content, docs, or workflow / 提交体验、内容、文档或流程优化建议
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share the user problem first, then the proposed solution.
+
+        请优先描述用户问题，再描述你建议的方案。
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / 领域
+      options:
+        - Docs / 文档
+        - UI / UX
+        - i18n / 多语言
+        - Lessons / 教程内容
+        - Generator / 提示词生成器
+        - Build / Deploy
+        - CI / GitHub Actions
+        - Other / 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem / 用户问题
+      description: What friction, confusion, or missing value are users facing?
+      placeholder: Describe the user pain point.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution / 建议方案
+      description: What change would improve the experience?
+      placeholder: Describe the improvement you want to see.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome / 预期效果
+      description: What should become easier, clearer, or more reliable?
+      placeholder: Explain the expected user-facing result.
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References / 参考信息
+      description: Add screenshots, examples, links, or related issues.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist / 检查清单
+      options:
+        - label: This request is focused on one clear improvement / 这个建议聚焦于一个明确改进点
+        - label: I checked whether this is already covered in docs or issues / 我已检查文档或现有 issue 中是否已覆盖
