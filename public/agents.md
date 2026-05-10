@@ -2,6 +2,8 @@
 
 > Agent-friendly index for autonomous systems browsing this site.
 
+Canonical agent guide: `/agent.md`. This `/agents.md` file remains available for tools that look for the plural filename.
+
 ## What this site is
 
 A bilingual (Chinese + English) tutorial for OpenAI's Codex desktop application, aimed at non-developers in business roles. Focus is strictly local desktop apps for Windows and macOS. It does not cover server, cloud, mobile, or deployment topics.
@@ -32,9 +34,11 @@ All pages are server-rendered and delivered as complete HTML — no client-side 
 ## Machine-readable files
 
 - Sitemap: `/sitemap.xml`
+- Sitemap index: `/sitemap-index.xml`
 - robots: `/robots.txt`
 - LLM summary: `/llms.txt`
 - Full LLM index: `/llms-full.txt`
+- Canonical agent guide: `/agent.md`
 - This agent guide: `/agents.md`
 - PWA manifest: `/manifest.webmanifest`
 - Structured data: JSON-LD embedded per-page (WebSite, Organization, Course, Article, HowTo, FAQPage, ItemList, SoftwareApplication)

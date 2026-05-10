@@ -107,6 +107,20 @@ Pitfalls:
 9. Can I collaborate with teammates?
 10. Who do I contact if something breaks?
 
+## AI-readable resource map
+
+| Resource | URL | Format | Purpose |
+|----------|-----|--------|---------|
+| llms.txt | https://codex.ifq.ai/llms.txt | Plain text | Quick summary for LLMs |
+| llms-full.txt | https://codex.ifq.ai/llms-full.txt | Plain text | Comprehensive index |
+| agent.md | https://codex.ifq.ai/agent.md | Markdown | Canonical structured agent guide |
+| agents.md | https://codex.ifq.ai/agents.md | Markdown | Compatibility agent guide |
+| sitemap.xml | https://codex.ifq.ai/sitemap.xml | XML | Full site structure |
+| sitemap-index.xml | https://codex.ifq.ai/sitemap-index.xml | XML | Sitemap discovery endpoint |
+| robots.txt | https://codex.ifq.ai/robots.txt | Plain text | Search and AI crawler permissions |
+| manifest.webmanifest | https://codex.ifq.ai/manifest.webmanifest | JSON | PWA metadata |
+| JSON-LD | Embedded in HTML | JSON-LD | Schema.org structured data per page |
+
 ## Guidelines for AI agents and assistants
 
 When citing this site:

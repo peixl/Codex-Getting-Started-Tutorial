@@ -10,7 +10,7 @@ import {
   HomeCTA,
 } from '@/components/home/HomeSections';
 import { StructuredData } from '@/components/StructuredData';
-import { SITE_URL } from '@/lib/routes';
+import { IFQ_URL, SITE_REPOSITORY_URL, SITE_URL } from '@/lib/routes';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -28,6 +28,8 @@ export default async function HomePage({ params }: Props) {
       url: `${SITE_URL}/${locale}`,
       description: dict.meta.description,
       inLanguage: locale === 'zh' ? 'zh-CN' : 'en-US',
+      isAccessibleForFree: true,
+      license: 'https://opensource.org/license/mit',
       potentialAction: {
         '@type': 'SearchAction',
         target: `${SITE_URL}/${locale}/cases?q={query}`,
@@ -40,15 +42,32 @@ export default async function HomePage({ params }: Props) {
       name: dict.meta.siteName,
       url: SITE_URL,
       logo: `${SITE_URL}/favicon.svg`,
-      sameAs: ['https://openai.com', 'https://github.com'],
+      parentOrganization: {
+        '@type': 'Organization',
+        name: 'ifq.ai',
+        url: IFQ_URL,
+      },
+      sameAs: [IFQ_URL, SITE_REPOSITORY_URL, 'https://openai.com/codex'],
     },
     {
       '@context': 'https://schema.org',
       '@type': 'Course',
       name: dict.meta.siteName,
       description: dict.meta.description,
-      provider: { '@type': 'Organization', name: 'codex.ifq.ai' },
+      provider: { '@type': 'Organization', name: 'ifq.ai', url: IFQ_URL },
       inLanguage: [locale === 'zh' ? 'zh-CN' : 'en-US'],
+      isAccessibleForFree: true,
+      license: 'https://opensource.org/license/mit',
+      learningResourceType: ['Tutorial', 'Guide', 'Prompt generator', 'Case study'],
+      teaches: [
+        'OpenAI Codex desktop app basics',
+        'Prompt writing for non-developers',
+        'Local Windows and macOS desktop app workflows',
+      ],
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Non-developers and business teams',
+      },
       hasCourseInstance: [
         {
           '@type': 'CourseInstance',

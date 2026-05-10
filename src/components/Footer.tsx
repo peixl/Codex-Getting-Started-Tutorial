@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n';
-import { localePath } from '@/lib/routes';
+import { IFQ_URL, SITE_REPOSITORY_URL, localePath } from '@/lib/routes';
 import { CodexLogo } from './icons';
 
 type Props = {
@@ -9,8 +9,7 @@ type Props = {
   dict: Dictionary;
 };
 
-const GITHUB_URL = 'https://github.com/peixl/Codex-Getting-Started-Tutorial';
-const IFQ_URL = 'https://ifq.ai';
+const GITHUB_URL = SITE_REPOSITORY_URL;
 
 export function Footer({ locale, dict }: Props) {
   const year = new Date().getFullYear();

@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next';
+import type { ReactNode } from 'react';
+import { Analytics } from '@/components/Analytics';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -8,11 +10,18 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
   viewportFit: 'cover',
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://codex.ifq.ai'),
+  applicationName: 'Codex Beginner Tutorial',
+  authors: [{ name: 'ifq.ai', url: 'https://ifq.ai' }],
+  creator: 'ifq.ai',
+  publisher: 'ifq.ai',
+  category: 'education',
+  classification: 'AI tutorial, Codex desktop, no-code desktop app, business automation',
   title: {
     default: 'Codex Beginner Tutorial · Codex 新手教程',
     template: '%s',
@@ -27,20 +36,83 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.webmanifest',
+  alternates: {
+    canonical: '/',
+    languages: {
+      'zh-CN': '/zh',
+      'en-US': '/en',
+      'x-default': '/',
+    },
+    types: {
+      'text/plain': [
+        { url: '/llms.txt', title: 'LLM Summary' },
+        { url: '/llms-full.txt', title: 'LLM Full Index' },
+      ],
+      'text/markdown': [
+        { url: '/agent.md', title: 'Agent Guide' },
+        { url: '/agents.md', title: 'Agents Guide' },
+      ],
+    },
+  },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large' },
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://codex.ifq.ai',
+    siteName: 'Codex Beginner Tutorial',
+    title: 'Codex Beginner Tutorial · Codex 新手教程',
+    description:
+      'Beginner-friendly OpenAI Codex desktop tutorial for non-developers — prompt generator, plain-language guide, and real department cases for Windows and macOS.',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Codex Beginner Tutorial',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Codex Beginner Tutorial · Codex 新手教程',
+    description:
+      'Beginner-friendly OpenAI Codex desktop tutorial for non-developers — prompt generator, plain-language guide, and real department cases for Windows and macOS.',
+    images: ['/og-image.svg'],
   },
   other: {
     'format-detection': 'telephone=no',
+    'mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'default',
+    'llms-txt': 'https://codex.ifq.ai/llms.txt',
+    'llms-full': 'https://codex.ifq.ai/llms-full.txt',
+    'agent-guide': 'https://codex.ifq.ai/agent.md',
+    'ai-crawl': 'allow',
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body className="min-h-screen antialiased">{children}</body>
+      <head>
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Summary" />
+        <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM Full Index" />
+        <link rel="alternate" type="text/markdown" href="/agent.md" title="Agent Guide" />
+        <link rel="alternate" type="text/markdown" href="/agents.md" title="Agents Guide" />
+      </head>
+      <body className="min-h-screen antialiased">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

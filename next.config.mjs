@@ -35,6 +35,36 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
+      {
+        source: '/llms.txt',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=86400' },
+        ],
+      },
+      {
+        source: '/llms-full.txt',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=86400' },
+        ],
+      },
+      {
+        source: '/agent.md',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=86400' },
+        ],
+      },
+      {
+        source: '/agents.md',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=86400' },
+        ],
+      },
+      {
+        source: '/sitemap-index.xml',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=86400' },
+        ],
+      },
     ];
   },
 };

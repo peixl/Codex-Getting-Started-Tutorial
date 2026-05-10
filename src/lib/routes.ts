@@ -2,6 +2,15 @@ import type { Locale } from '@/i18n/config';
 
 export const SITE_URL = 'https://codex.ifq.ai';
 export const SITE_NAME = 'Codex Tutorial';
+export const SITE_REPOSITORY_URL = 'https://github.com/peixl/Codex-Getting-Started-Tutorial';
+export const IFQ_URL = 'https://ifq.ai';
+
+export const AI_RESOURCE_PATHS = [
+  'llms.txt',
+  'llms-full.txt',
+  'agent.md',
+  'agents.md',
+] as const;
 
 export const ROUTES = {
   home: '',

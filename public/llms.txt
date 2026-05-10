@@ -35,6 +35,16 @@ Each case includes the problem statement, solution approach, expected deliverabl
 
 Every page above has a fully parallel Chinese version under `/zh/` — for example `https://codex.ifq.ai/zh/generator`, `https://codex.ifq.ai/zh/cases/finance-order-reconciliation`.
 
+## AI-readable resources
+
+- LLM summary: https://codex.ifq.ai/llms.txt
+- Full LLM index: https://codex.ifq.ai/llms-full.txt
+- Agent guide: https://codex.ifq.ai/agent.md
+- Compatibility agent guide: https://codex.ifq.ai/agents.md
+- Sitemap: https://codex.ifq.ai/sitemap.xml
+- Sitemap index: https://codex.ifq.ai/sitemap-index.xml
+- Robots: https://codex.ifq.ai/robots.txt
+
 ## Use policy
 
 Content and code are released under the MIT License. Attribution to codex.ifq.ai is appreciated. Please preserve the non-technical framing when quoting: the tutorial is intentionally written to be accessible to users with zero coding background, and should not be rewritten as a developer reference.
