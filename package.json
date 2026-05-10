@@ -6,11 +6,12 @@
   "description": "Beginner-friendly Codex desktop tutorial site for non-developers (Windows & macOS)",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:next": "next build",
+    "build": "npm run build:next && opennextjs-cloudflare build --skipNextBuild",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "opennextjs-cloudflare build && wrangler deploy",
-    "preview": "opennextjs-cloudflare build && wrangler dev",
+    "deploy": "npm run build && opennextjs-cloudflare deploy",
+    "preview": "npm run build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {

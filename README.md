@@ -89,6 +89,8 @@ npm run deploy
 
 The site uses Next.js App Router and deploys to Cloudflare Workers via `@opennextjs/cloudflare`.
 
+If you deploy from the Cloudflare dashboard, use `npm run build` as the Build command. The deploy step can stay on `npx wrangler deploy`, because the build now generates the required `.open-next` artifacts first.
+
 ## Stack
 
 - Next.js 15

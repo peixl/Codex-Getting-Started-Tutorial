@@ -89,6 +89,8 @@ npm run deploy
 
 项目基于 Next.js App Router，通过 `@opennextjs/cloudflare` 部署到 Cloudflare Workers。
 
+如果你在 Cloudflare 控制台里配置部署，Build command 用 `npm run build` 即可；Deploy command 继续使用 `npx wrangler deploy` 也可以，因为新的构建脚本会先产出 `.open-next` 所需文件。
+
 ## 技术栈
 
 - Next.js 15
