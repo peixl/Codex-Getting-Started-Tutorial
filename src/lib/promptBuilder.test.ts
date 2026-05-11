@@ -22,6 +22,8 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('标准业务版');
     expect(prompt).toContain('运行 lint、类型检查、测试和构建');
     expect(prompt).toContain('M1 ≤ 15 分钟');
+    expect(prompt).toContain('M2 跑通真实主流程');
+    expect(prompt).not.toContain('串通真实主流程');
     expect(prompt).toContain('完成判定（DoD）');
     expect(prompt).toContain('停止 Vibe Coding');
   });

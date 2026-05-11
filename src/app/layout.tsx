@@ -29,11 +29,7 @@ export const metadata: Metadata = {
   description:
     'Beginner-friendly OpenAI Codex desktop tutorial for non-developers — prompt generator, plain-language guide, and real department cases for Windows and macOS.',
   icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    apple: '/apple-touch-icon.png',
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
   manifest: '/manifest.webmanifest',
   alternates: {
