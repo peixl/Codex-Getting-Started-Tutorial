@@ -89,16 +89,16 @@ const SHORTCUT_EN: Record<Platform, string> = {
 };
 
 const TECH_ZH: Record<TechStack, string> = {
-  electron: 'Electron + React + TypeScript（最通用，适合文件处理、表格、PDF、图片等办公工具）',
-  tauri: 'Tauri + React + TypeScript（体积小、启动快；只有本机 Rust 环境已就绪且不会卡住新手时才用）',
-  pyqt: 'Python + PyQt6（适合很小的单窗口工具；打包和跨平台细节要提前验证）',
-  auto: '由你根据具体需求选择最省心的方案：涉及文件拖拽、预览、导出和跨平台打包时优先 Electron + React；简单单窗口工具可考虑 Python + PyQt6；只有环境成熟时才选 Tauri',
+  electron: 'Electron + React + TypeScript（最通用，适合文件处理、表格、PDF、图片等办公工具）。开启 TypeScript strict 模式；启用 contextIsolation、sandbox，nodeIntegration=false，渲染层只通过 preload 暴露最小必要 IPC。',
+  tauri: 'Tauri + React + TypeScript（体积小、启动快）。只有当本机已具备 Rust toolchain 且不会让新手卡在环境时才选；命令权限按需白名单开启。',
+  pyqt: 'Python + PyQt6（适合很小的单窗口工具）。固定 Python 版本（>=3.10），用 venv + requirements.txt 或 uv 管理依赖；提前用 PyInstaller / briefcase 验证打包，避免最后一步卡死。',
+  auto: '按以下规则二选一，不要犹豫：① 默认选 Electron + React + TypeScript（涉及文件、表格、PDF、图片、跨平台打包、安装体验都用它）；② 仅当应用就是一个极简单窗口、只跑本地脚本、又明确不需要前端体验时，才用 Python + PyQt6。Tauri 默认不用，除非用户明确要求且 Rust 环境已就绪。决定后说明 1 行理由，然后落地。',
 };
 const TECH_EN: Record<TechStack, string> = {
-  electron: 'Electron + React + TypeScript (most common; strong fit for file, spreadsheet, PDF, and image office tools)',
-  tauri: 'Tauri + React + TypeScript (small binary, fast startup; use only when the Rust setup is already ready and will not block a beginner)',
-  pyqt: 'Python + PyQt6 (good for tiny single-window utilities; verify packaging and cross-platform details early)',
-  auto: 'Pick the most beginner-safe stack: prefer Electron + React when the app needs drag-and-drop, preview, export, and cross-platform packaging; consider Python + PyQt6 for tiny single-window utilities; use Tauri only when the environment is ready',
+  electron: 'Electron + React + TypeScript (most common; strong fit for file, spreadsheet, PDF, and image office tools). Enable TypeScript strict mode; turn on contextIsolation and sandbox, set nodeIntegration=false, and expose only the minimum IPC needed via preload.',
+  tauri: 'Tauri + React + TypeScript (small binary, fast startup). Use only when the Rust toolchain is already installed and will not block a beginner; whitelist Tauri command permissions on demand.',
+  pyqt: 'Python + PyQt6 (good for tiny single-window utilities). Pin a Python version (>=3.10), manage deps with venv + requirements.txt or uv, and verify PyInstaller / briefcase packaging early so packaging does not block the final step.',
+  auto: 'Pick using this rule and do not waffle: (1) default to Electron + React + TypeScript for anything involving files, tables, PDFs, images, cross-platform packaging, or a polished install experience; (2) only choose Python + PyQt6 when the app is a single tiny window wrapping a local script and a richer frontend is unnecessary. Do not use Tauri unless explicitly requested and the Rust environment is ready. State the choice in one line, then proceed.',
 };
 
 const UI_ZH: Record<UiStyle, string> = {
@@ -134,6 +134,17 @@ const COMPLEXITY_EN: Record<Complexity, string> = {
   starter: 'Starter MVP: build only the one core workflow first. Keep UI and features sufficient, avoid extra settings, permissions, and edge features. Best for a first trial.',
   standard: 'Standard business version: complete the main flow, sample data, friendly errors, export, basic tests, and packaging scripts. Good for colleague trial use.',
   advanced: 'Team-ready version: add settings, history, permission/privacy toggles, batch processing, recovery records, and broader tests on top of the standard version. Good for long-term team use.',
+};
+
+const FONT_ZH: Record<Platform, string> = {
+  windows: '字体优先使用 Segoe UI、微软雅黑',
+  mac: '字体优先使用系统字体（San Francisco / 苹方）',
+  both: '字体使用系统默认（Windows 上用 Segoe UI / 微软雅黑，macOS 上用 San Francisco / 苹方）',
+};
+const FONT_EN: Record<Platform, string> = {
+  windows: 'Use system fonts (Segoe UI / Microsoft YaHei)',
+  mac: 'Use system fonts (San Francisco / PingFang)',
+  both: 'Use system fonts (Segoe UI / Microsoft YaHei on Windows, San Francisco / PingFang on macOS)',
 };
 
 function packageLine(platform: Platform, lang: PromptLang) {
@@ -189,7 +200,7 @@ ${PLATFORM_ZH[state.platform]}
 ${TECH_ZH[state.tech]}。使用成熟、社区活跃、文档齐全的库；避免过于小众、长时间未维护或需要复杂环境配置的依赖。不要为了炫技引入服务器、云服务或数据库后台。如果选择 Electron，渲染层和 Node 能力通过安全 preload / IPC 隔离；如果选择 Python，确保依赖安装和打包命令简单明确。
 
 【界面风格】
-${UI_ZH[state.ui]}。第一屏必须是可用的主工作台，不要做营销页或空洞介绍页。支持跟随系统切换深浅模式。关键操作给出明确反馈；动效只用于状态变化，不要喧宾夺主。字体使用系统默认（微软雅黑 / Segoe UI / 苹方），不要引入网络字体或 CDN。按钮、表格、输入框和提示文字在 320px 宽小窗口也不能截断或互相遮挡。
+${UI_ZH[state.ui]}。第一屏必须是可用的主工作台，不要做营销页或空洞介绍页。支持跟随系统切换深浅模式。关键操作给出明确反馈；动效只用于状态变化，不要喧宾夺主。${FONT_ZH[state.platform]}，不要引入网络字体或 CDN。按钮、表格、输入框和提示文字在 360px 宽小窗口也不能截断或互相遮挡，关键按钮的可点击区域 ≥ 32px。
 
 【桌面平台细节】
 - 使用系统原生打开 / 保存对话框、应用数据目录和剪贴板；不要让用户输入复杂路径。
@@ -218,13 +229,20 @@ ${goal || '（请补充：这个应用是给谁用的？解决他们什么问题
 【功能需求】
 ${features || '（请补充：希望这个应用具备哪些功能？一行一条，尽量具体）'}
 
-${extras.length ? `【附加要求】\n${extras.map((e) => `- ${e}`).join('\n')}\n` : ''}
+${extras.length ? `【附加要求】\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}【实现纪律】
+- 用到的第三方库必须真实存在、近一年仍在维护；不要凭印象编造 API 或包名，不确定时先在终端跑 \`npm view <pkg>\` 或读官方文档。
+- 在 package.json 中显式锁定主版本，避免新手 \`npm install\` 后行为漂移；记录所需 Node.js 版本（写进 README 与 \`.nvmrc\` 或 \`engines\`）。
+- 不要把 API Key、本机绝对路径、个人邮箱、内网地址写进代码；如必须配置，提供 \`.env.example\` 并在 README 说明。
+- 提供一键脚本，让不会用命令行的同事跟着 README 就能跑起来：\`npm run setup\`（装依赖 + 首次自检）、\`npm run dev\`、\`npm run package\` 至少要齐。
+- 改任何已存在的文件前先读，再以最小改动的方式修改；不要凭空覆盖未读过的内容。
+- 完成后必须真正启动应用、走完一次主流程、看到生成的产物，再宣布完成；只通过编译不算"完成"。如果环境受限跑不起来，在最终汇报里如实说明哪一步未验证。
+
 【稳健性与错误处理】
 - 任何错误都给出中文、友好的提示，不要直接暴露技术堆栈。
 - 输入格式不对时，先提示并引导修正，而不是崩溃。
 - 空数据、极端数据、大数据量（超过 1 万行）都要能正常处理或友好退化。
 - 所有会改动文件或数据的操作，先给预览或确认页；执行后提供撤销方式或恢复记录。
-- 重要数据每次保存都生成本地快照，至少保留最近 3 个版本。
+${state.storage === 'none' ? '- 不需要持久化存储时，也要把"最近一次输出"和"最近一次失败原因"暂存在内存或临时目录，方便用户立即重试。' : '- 重要数据每次保存都生成本地快照，至少保留最近 3 个版本。'}
 - 输出文件默认不覆盖原文件；如文件名冲突，自动加时间后缀。
 - 本地日志只记录排错必要信息，不记录敏感业务内容。
 
@@ -292,7 +310,7 @@ ${PLATFORM_EN[state.platform]}
 ${TECH_EN[state.tech]}. Use mature, well-documented, actively maintained libraries. Avoid obscure, abandoned, or setup-heavy dependencies. Do not introduce servers, cloud services, or backend infrastructure unless explicitly requested. If using Electron, isolate renderer and Node capabilities through a safe preload / IPC boundary; if using Python, keep dependency installation and packaging commands simple and explicit.
 
 [Visual Style]
-${UI_EN[state.ui]}. The first screen must be the usable workspace, not a landing page or feature explainer. Follow the system light/dark preference. Use clear feedback for key actions; animations should only support state changes. Use system fonts only (Segoe UI / Microsoft YaHei / San Francisco / PingFang). No web fonts or CDNs. Buttons, tables, inputs, and helper text must not clip or overlap even in a 320px-wide small window.
+${UI_EN[state.ui]}. The first screen must be the usable workspace, not a landing page or feature explainer. Follow the system light/dark preference. Use clear feedback for key actions; animations should only support state changes. ${FONT_EN[state.platform]}; no web fonts or CDNs. Buttons, tables, inputs, and helper text must not clip or overlap even in a 360px-wide small window, and primary buttons keep an interactive hit area of at least 32px.
 
 [Desktop Platform Details]
 - Use native open / save dialogs, app data directories, and clipboard APIs; do not ask users to type complex paths.
@@ -321,13 +339,20 @@ ${goal || '(Please fill in: who is the app for, and what problem does it solve? 
 [Features]
 ${features || '(Please fill in: what should it do? One item per line, as specific as possible.)'}
 
-${extras.length ? `[Additional Requirements]\n${extras.map((e) => `- ${e}`).join('\n')}\n` : ''}
+${extras.length ? `[Additional Requirements]\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}[Implementation Discipline]
+- Every third-party library you import must actually exist and be actively maintained within the last year. Do not invent package names or APIs; when unsure, run \`npm view <pkg>\` or read the official docs first.
+- Pin major versions in package.json so a beginner's \`npm install\` does not drift; record the required Node.js version in README plus \`.nvmrc\` or \`engines\`.
+- Never hard-code API keys, machine-specific absolute paths, personal emails, or internal hostnames. Use \`.env.example\` and document it in README when configuration is required.
+- Provide one-command scripts so a non-developer can follow the README and bring the app up: at minimum \`npm run setup\` (install + self-check), \`npm run dev\`, and \`npm run package\`.
+- Read any pre-existing file before changing it and prefer the minimum diff; never overwrite files you have not read.
+- "Done" means you actually launched the app, walked the main flow, and produced an output artifact — a successful compile is not enough. If your environment cannot run it, say so explicitly in the final report and list what was not verified.
+
 [Robustness & Error Handling]
 - Show friendly messages for every error — never expose raw stack traces.
 - On bad input, prompt and guide the user rather than crashing.
 - Handle empty data, edge cases, and large volumes (10k+ rows) gracefully.
 - For any action that changes files or data, show a preview or confirmation screen first; after execution, provide undo or recovery records.
-- Snapshot important data on every save and keep at least the last 3 versions.
+${state.storage === 'none' ? '- Even without persistence, keep the last output and last failure reason in memory or a temp directory so the user can retry instantly.' : '- Snapshot important data on every save and keep at least the last 3 versions.'}
 - Never overwrite the original input file by default; add a timestamp suffix on filename conflicts.
 - Local logs should include only troubleshooting details, not sensitive business content.
 
@@ -378,11 +403,17 @@ export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string 
 
 【请按这个顺序处理】
 1. 先用 5 行以内说明你看到的失败现象和最可能原因。
-2. 查看终端输出、日志、报错堆栈和相关文件，定位根因。
-3. 直接修改代码或配置；不要让我手动改文件。
-4. 重新运行必要命令：安装依赖、lint、类型检查、测试、构建或启动应用。
+2. 查看终端输出、日志、报错堆栈和相关文件，定位根因；不要凭印象猜，必要时加临时日志再删掉。
+3. 直接修改代码或配置；不要让我手动改文件。修改前先读相关文件，做最小改动。
+4. 重新运行必要命令：安装依赖、lint、类型检查、测试、构建或启动应用。命令报错先看完整输出再下结论。
 5. 如果是打包失败，区分是代码问题、依赖问题、系统权限、签名/公证限制还是跨平台限制，并给出可运行的替代产物或明确命令。
-6. 最后用中文汇报：修了什么、如何打开、验证结果、还剩什么限制。
+6. 修完后必须真正启动一次应用并走完主流程，截图或文字描述确认看到了预期输出。
+7. 最后用中文汇报：修了什么、根因是什么、如何打开、验证结果、还剩什么限制。
+
+【底线要求】
+- 不要引入未在 npm / PyPI 上真实存在的库；不确定的包名先验证。
+- 不要为了"修好"而删除掉用户已有的功能、配置或数据；如必须删除请先说明并征得确认。
+- 不要把 API Key、绝对路径、内网地址写进代码。
 
 【原应用背景】
 平台：${PLATFORM_ZH[state.platform]}
@@ -398,11 +429,17 @@ ${features}
 
 [Follow This Order]
 1. In 5 lines or fewer, summarize the failure symptom and most likely cause.
-2. Inspect terminal output, logs, stack traces, and relevant files to locate the root cause.
-3. Modify code or configuration directly; do not ask me to edit files manually.
-4. Re-run the needed commands: dependency install, lint, typecheck, tests, build, or app launch.
+2. Inspect terminal output, logs, stack traces, and relevant files to locate the root cause; do not guess — add temporary logging if useful, then remove it.
+3. Modify code or configuration directly; do not ask me to edit files manually. Read related files first, prefer the minimum diff.
+4. Re-run the needed commands: dependency install, lint, typecheck, tests, build, or app launch. Read the full error output before concluding.
 5. If packaging fails, distinguish code issues, dependency issues, OS permissions, signing/notarization limits, and cross-platform limits; provide a runnable alternative artifact or exact command.
-6. Final report: what you fixed, how to open it, verification results, and remaining limits.
+6. After fixing, actually launch the app and walk through the main flow; confirm in words (or a screenshot) that you saw the expected output.
+7. Final report: what you fixed, the root cause, how to open it, verification results, and remaining limits.
+
+[Non-Negotiables]
+- Do not introduce libraries that do not actually exist on npm / PyPI; verify any uncertain package name first.
+- Do not delete existing features, config, or data just to "make it work" — explain and confirm first if removal is needed.
+- Never hard-code API keys, absolute paths, or internal hostnames.
 
 [Original App Context]
 Platform: ${PLATFORM_EN[state.platform]}
