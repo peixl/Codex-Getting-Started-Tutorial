@@ -64,14 +64,15 @@ export const financeReconciliation: CaseBundle = {
 
 【核心功能】
 1. 首页两个醒目按钮：「导入订单 Excel」「导入银行流水 Excel」，支持拖拽。
-2. 导入后自动显示表头和前 5 行预览，让用户从下拉框里选「订单号」「金额」字段。记住选择下次默认回填。
-3. 「开始对账」按钮显示进度条。匹配逻辑：订单号为主键；金额差 <= 0.01 元视为匹配；否则列为差异。
-4. 结果页两栏：左边展示匹配数、差异数、匹配率、总金额；右边表格列出每一条差异，字段包括订单号、订单金额、银行金额、差额、可能原因（金额不一致 / 银行流水缺失 / 订单缺失）。
-5. 「导出差异明细到 Excel」按钮，默认文件名 "差异明细-YYYY-MM.xlsx"。
-6. 全部离线，数据不上传。
+2. 导入后自动显示表头和前 5 行预览，让用户从下拉框里选「订单号」「金额」「交易时间」「备注」字段。记住选择下次默认回填。
+3. 示例字段兼容：订单表常见列「订单号 / 实付金额 / 下单时间 / 店铺」；银行流水常见列「交易单号 / 收入金额 / 交易时间 / 摘要」。列名可有细微差异。
+4. 「开始对账」按钮显示进度条。匹配逻辑：订单号去空格后作为主键；金额差 <= 0.01 元视为匹配；重复订单号要合并提示；退款 / 冲正流水单独标记，不直接当异常。
+5. 结果页两栏：左边展示匹配数、差异数、匹配率、总金额；右边表格列出每一条差异，字段包括订单号、订单金额、银行金额、差额、可能原因（金额不一致 / 银行流水缺失 / 订单缺失 / 重复订单 / 疑似退款）。
+6. 「导出差异明细到 Excel」按钮，默认文件名 "差异明细-YYYY-MM.xlsx"。
+7. 全部离线，数据不上传。
 
 【界面风格】
-- 简洁风：白底、大字号、圆角卡片、留白多。
+- 简洁桌面工具风：浅色背景、清晰分区、圆角 8、信息密度适中。
 - 主按钮用低饱和深色，次要用浅灰。
 - 支持跟随 Windows 的深浅模式。
 - 字体使用系统默认（微软雅黑 / Segoe UI），不用联网字体。
@@ -80,11 +81,11 @@ export const financeReconciliation: CaseBundle = {
 - 文件格式不对时，弹出友好的中文提示，不要直接扔技术错误。
 - 字段识别失败时引导手动选择，不要崩溃。
 - 支持几万行数据；超过 10 万行分批处理并显示进度。
-- 附带 2-3 个脱敏测试样例文件，方便新用户一打开就能跑通。
+- 附带 3 个脱敏测试样例文件：完全匹配、金额差异、重复订单 + 退款流水，方便新用户一打开就能跑通。
 
 【交付流程】
 1. 先给 10 行以内方案摘要（含主界面安排和关键文件职责），然后直接实现、运行和验证。
-2. 按模块交付，每个模块做完跑起来让我看效果。
+2. 每完成一个模块就运行验证一次，发现问题先自行修复。
 3. 最后：
    - 打包成 Windows .exe 安装包。
    - 写一份 500 字内给财务同事看的中文使用说明，包括"安装 → 第一次使用 → 常见问题"。
@@ -110,14 +111,15 @@ Replace 1-2 days of monthly manual reconciliation with a tool that matches order
 
 [Core Features]
 1. Home screen with two prominent buttons: "Import Orders Excel" and "Import Bank Excel". Drag-and-drop works.
-2. After import, show headers and first 5 rows. Let the user pick "Order ID" and "Amount" columns from dropdowns. Remember and pre-fill next time.
-3. "Reconcile" button triggers a progress bar. Rule: order ID as key; difference <= 0.01 = match; else mismatch.
-4. Results page has two panes. Left: matched count, mismatched count, match rate, total amount. Right: a mismatch table with order ID, order amount, bank amount, diff, reason (amounts differ / missing in bank / missing in orders).
-5. "Export mismatches to Excel" with default filename "diff-YYYY-MM.xlsx".
-6. Fully offline; no uploads.
+2. After import, show headers and first 5 rows. Let the user pick Order ID / Amount / Transaction Time / Notes columns from dropdowns. Remember and pre-fill next time.
+3. Example headers to support: orders may use Order ID / Paid Amount / Order Time / Store; bank statements may use Transaction ID / Income Amount / Transaction Time / Memo. Tolerate minor header wording differences.
+4. "Reconcile" button triggers a progress bar. Rule: trim order IDs and use them as keys; difference <= 0.01 = match; duplicate order IDs are grouped and flagged; refunds / reversals are tagged separately, not treated as ordinary mismatches.
+5. Results page has two panes. Left: matched count, mismatched count, match rate, total amount. Right: a mismatch table with order ID, order amount, bank amount, diff, reason (amounts differ / missing in bank / missing in orders / duplicate order / likely refund).
+6. "Export mismatches to Excel" with default filename "diff-YYYY-MM.xlsx".
+7. Fully offline; no uploads.
 
 [Visual Style]
-- Minimal: white background, generous whitespace, rounded cards, large type.
+- Minimal desktop-tool style: light background, clear sections, radius 8, moderate information density.
 - Primary button: muted dark. Secondary: light gray.
 - Follows Windows light/dark setting.
 - Use system fonts (Segoe UI / Microsoft YaHei). No web fonts.
@@ -126,11 +128,11 @@ Replace 1-2 days of monthly manual reconciliation with a tool that matches order
 - On invalid file formats, show a friendly message, not a raw stack trace.
 - If field auto-detection fails, prompt for manual selection instead of crashing.
 - Handle tens of thousands of rows; batch processing for > 100k with progress.
-- Ship 2–3 anonymized sample files so new users can see it work immediately.
+- Ship 3 anonymized sample sets: fully matched, amount differences, duplicate orders + refund statements, so new users can see it work immediately.
 
 [Delivery]
 1. Start with a plan summary under 10 lines, then implement, run, and verify.
-2. Deliver in modules; run each one and show me.
+2. After each module, run a focused verification and fix issues yourself first.
 3. Final step:
    - Package as a Windows .exe installer.
    - Write a 500-word plain-language user guide covering Install -> First run -> Common issues.

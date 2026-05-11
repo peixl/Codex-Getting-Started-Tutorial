@@ -59,7 +59,7 @@ export const customerServiceReplyHelper: CaseBundle = {
 - Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite 存话术 + 本地配置存偏好
-- 全局快捷键 Ctrl+Shift+R 唤起
+- 全局快捷键 Ctrl+Shift+R 唤起；如果被系统或其它软件占用，在设置里提示并允许改成其它组合
 - 打包 Windows .exe 安装包，完全离线
 
 【核心功能】
@@ -68,13 +68,14 @@ export const customerServiceReplyHelper: CaseBundle = {
 3. 分类标签：全部 / 物流 / 退换货 / 尺码 / 发票 / 售后 / 自定义。
 4. 结果卡片：分类小标签 + 标题 + 正文预览（2 行，可展开）；右侧圆形「复制」按钮。
 5. 变量支持：\`{客户姓名}\` \`{订单号}\` \`{快递单号}\`。复制前弹出填值小窗，确认后复制替换后文本。
-6. Excel 批量导入，表头：分类 / 标题 / 正文 / 关键词（逗号分隔）。
-7. Excel 导出全部话术。
-8. 全局快捷键 Ctrl+Shift+R 显示 / 隐藏。窗口失焦自动隐藏。
+6. Excel 批量导入，表头：分类 / 标题 / 正文 / 关键词（逗号分隔）。重复标题时让用户选择「跳过 / 覆盖 / 合并关键词」。
+7. Excel 导出全部话术，字段包含分类、标题、正文、关键词、使用次数、最近使用时间。
+8. 全局快捷键 Ctrl+Shift+R 显示 / 隐藏。窗口失焦自动隐藏；快捷键冲突时给出中文提示并引导去设置修改。
 9. 记录每条话术使用次数；管理员可以按使用频率降序查看。
+10. 示例数据内置 20 条常见电商话术，覆盖物流、退换货、尺码、发票、售后和变量替换。
 
 【界面风格】
-- 简洁清爽：浅色背景、白色卡片、圆角 16。
+- 简洁清爽的桌面工具风：浅色背景、清晰分区、圆角 8，搜索和复制操作优先。
 - 复制按钮成功变绿；其他按钮柔和灰蓝。
 - 深浅模式跟随系统。
 - 中英双语切换（设置里）。
@@ -82,6 +83,7 @@ export const customerServiceReplyHelper: CaseBundle = {
 【稳健性】
 - Excel 表头错给高亮提示。
 - 正文含 HTML 或特殊字符时复制为纯文本。
+- 变量未填写时不复制，并高亮缺失项；订单号、快递单号只做格式提醒，不强制拦截。
 - 数据库损坏自动恢复。
 
 【交付】
@@ -99,7 +101,7 @@ Consolidate hundreds of reply templates into one searchable desktop helper.
 - Windows 10/11 desktop app
 - Electron + React + TypeScript
 - Local SQLite + config file
-- Global shortcut: Ctrl+Shift+R
+- Global shortcut: Ctrl+Shift+R; if occupied by the system or another app, show a clear settings prompt and allow a different combination
 - Windows .exe installer; fully offline
 
 [Core Features]
@@ -108,19 +110,21 @@ Consolidate hundreds of reply templates into one searchable desktop helper.
 3. Category chips: All / Shipping / Returns / Sizing / Invoices / Post-purchase / Custom.
 4. Result card: category chip + title + 2-line preview (expandable) + round Copy button.
 5. Variables: {customer}, {order_id}, {tracking}. Popup to fill before copy.
-6. Excel import with headers Category / Title / Body / Keywords (comma).
-7. Excel export all.
-8. Global shortcut toggles visibility; auto-hide on blur.
+6. Excel import with headers Category / Title / Body / Keywords (comma). On duplicate titles, ask Skip / Overwrite / Merge keywords.
+7. Excel export all fields: category, title, body, keywords, usage count, last-used time.
+8. Global shortcut toggles visibility; auto-hide on blur. On shortcut conflict, show a friendly prompt and guide the user to Settings.
 9. Per-template usage count; admin sort by frequency.
+10. Include 20 sample e-commerce replies covering shipping, returns, sizing, invoices, after-sales, and variable substitution.
 
 [Visual Style]
-- Minimal: light background, white cards, radius 16.
+- Clean desktop-tool style: light background, clear sections, radius 8, search and copy actions first.
 - Copy button greens on success; others soft gray-blue.
 - Follows system dark mode; bilingual toggle.
 
 [Robustness]
 - Highlight bad Excel headers.
 - Plain-text copy for templates with HTML/special chars.
+- Do not copy when required variables are blank; highlight missing fields. Order ID and tracking number format checks should warn, not block.
 - Auto-recover from DB corruption.
 
 [Delivery]

@@ -3,14 +3,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n';
-import { caseBundles, getCaseBySlug, getCasesByDepartment } from '@/data/cases';
+import { caseBundles, getCaseBySlug, getCasePrompt, getCasesByDepartment } from '@/data/cases';
 import { GlassCard, GlassPanel } from '@/components/GlassCard';
 import { Section } from '@/components/Section';
 import { CopyButton } from '@/components/CopyButton';
 import { StructuredData } from '@/components/StructuredData';
 import { LinkButton } from '@/components/Button';
 import { SITE_URL, caseUrl, localePath } from '@/lib/routes';
-import { withDesktopQualityBar } from '@/lib/promptQuality';
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -91,8 +90,8 @@ export default async function CasePage({ params }: Props) {
   if (!bundle) notFound();
   const dict = getDictionary(locale);
   const copy = bundle.i18n[locale];
-  const promptZh = withDesktopQualityBar(bundle.prompt.zh, 'zh');
-  const promptEn = withDesktopQualityBar(bundle.prompt.en, 'en');
+  const promptZh = getCasePrompt(bundle, 'zh');
+  const promptEn = getCasePrompt(bundle, 'en');
   const localizedPrompt = locale === 'zh' ? promptZh : promptEn;
   const related = getCasesByDepartment(bundle.department).filter(
     (c) => c.slug !== bundle.slug

@@ -13,6 +13,7 @@ const QUALITY_TAIL_ZH = `【高质量交付补充】
 - 用业务语言设计按钮、错误提示和说明文案，避免把命令行、依赖、堆栈错误暴露给非技术用户。
 - 支持拖拽和系统文件选择器 / 保存对话框；输出文件不覆盖原文件，冲突时自动加时间后缀。
 - 文件路径要兼容中文、空格、括号、长路径以及 Windows / macOS 路径分隔差异。
+- 如涉及快捷键，Windows 使用 Ctrl / Alt 组合，macOS 使用 Command / Option 组合，并避免覆盖系统常用快捷键。
 - 提供示例数据或试用模式，让用户不准备真实文件也能看到完整流程。
 - 对空数据、格式错误、重复文件、大文件、权限不足和用户取消操作做友好处理。
 - 核心业务逻辑要和界面分离，文件读取、解析、处理、导出边界清楚，方便测试和后续修改。
@@ -31,6 +32,7 @@ Also satisfy these requirements:
 - Use business-language labels, error messages, and help text. Do not expose command-line jargon, dependency details, or raw stack traces to non-technical users.
 - Support drag-and-drop plus native file picker / save dialogs; never overwrite input files by default, and add timestamp suffixes on output filename conflicts.
 - File paths must work with Chinese characters, spaces, parentheses, long paths, and Windows / macOS path separator differences.
+- If shortcuts are involved, use Ctrl / Alt combinations on Windows and Command / Option combinations on macOS, without overriding common system shortcuts.
 - Include sample data or demo mode so users can complete the flow without preparing real files.
 - Handle empty data, invalid formats, duplicate files, large files, missing permissions, and user-cancelled actions gracefully.
 - Keep core business logic separate from the UI, with clear boundaries for file reading, parsing, processing, and exporting so it is testable and easy to change.

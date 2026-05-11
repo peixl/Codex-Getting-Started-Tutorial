@@ -5,6 +5,7 @@ import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n';
 import {
   buildPrompt,
+  buildRecoveryPrompt,
   DEFAULT_FORM,
   quickTemplates,
   type FormState,
@@ -81,6 +82,7 @@ export function GeneratorApp({ locale, dict }: Props) {
     setState((prev) => ({ ...prev, ...partial }));
 
   const prompt = useMemo(() => buildPrompt(state, lang), [state, lang]);
+  const recoveryPrompt = useMemo(() => buildRecoveryPrompt(state, lang), [state, lang]);
 
   const valid = state.goal.trim().length > 0 && state.features.trim().length > 0;
 
@@ -186,7 +188,7 @@ export function GeneratorApp({ locale, dict }: Props) {
                   </span>
                   <span className="chip">
                     <MacWindowIcon size={10} />
-                    Mac
+                    macOS
                   </span>
                 </div>
               </div>
@@ -294,6 +296,28 @@ export function GeneratorApp({ locale, dict }: Props) {
             <pre className="max-h-[520px] overflow-auto rounded-2xl border border-[color:var(--line)] bg-[#0F1115] p-4 text-[12.5px] leading-[1.75] text-[#E5E7EB]">
               <code className="whitespace-pre-wrap break-words">{prompt}</code>
             </pre>
+
+            <div className="mt-4 rounded-2xl border border-[color:var(--line)] bg-white/65 p-3.5">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-[12.5px] font-semibold text-ink">
+                    {dict.generator.recoveryTitle}
+                  </h4>
+                  <p className="mt-1 text-[11.5px] leading-relaxed text-ink-mute">
+                    {dict.generator.recoveryHint}
+                  </p>
+                </div>
+                <CopyButton
+                  value={recoveryPrompt}
+                  label={dict.generator.copyRecoveryButton}
+                  copiedLabel={dict.generator.copied}
+                  variant="chip"
+                  size="sm"
+                  disabled={!valid}
+                  disabledTitle={validationMessage}
+                />
+              </div>
+            </div>
           </GlassPanel>
 
           <GlassPanel className="mt-4">

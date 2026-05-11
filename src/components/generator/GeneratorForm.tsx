@@ -4,6 +4,7 @@ import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n';
 import type {
   FormState,
+  Complexity,
   Platform,
   Storage,
   TechStack,
@@ -68,6 +69,12 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
     { value: 'localFile', label: dict.generator.dataOptionLocalFile, recommended: true },
     { value: 'sqlite', label: dict.generator.dataOptionSqlite },
     { value: 'none', label: dict.generator.dataOptionNone },
+  ];
+
+  const complexityOptions: Array<{ value: Complexity; label: string; recommended?: boolean }> = [
+    { value: 'starter', label: dict.generator.complexityOptionStarter },
+    { value: 'standard', label: dict.generator.complexityOptionStandard, recommended: true },
+    { value: 'advanced', label: dict.generator.complexityOptionAdvanced },
   ];
 
   const extraItems: Array<{
@@ -171,6 +178,26 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
               key={opt.value}
               active={state.storage === opt.value}
               onClick={() => update({ storage: opt.value })}
+              label={opt.label}
+              badge={opt.recommended ? dict.generator.techHintRecommended : undefined}
+            />
+          ))}
+        </div>
+      </GlassPanel>
+
+      <GlassPanel>
+        <h3 className="mb-1 text-[14px] font-semibold text-ink">
+          {dict.generator.sectionComplexity}
+        </h3>
+        <p className="mb-4 text-[12px] text-ink-mute">
+          {dict.generator.complexityHint}
+        </p>
+        <div className="grid gap-3 md:grid-cols-3">
+          {complexityOptions.map((opt) => (
+            <OptionCard
+              key={opt.value}
+              active={state.complexity === opt.value}
+              onClick={() => update({ complexity: opt.value })}
               label={opt.label}
               badge={opt.recommended ? dict.generator.techHintRecommended : undefined}
             />

@@ -14,7 +14,7 @@ The root URL detects the visitor's preferred browser language and redirects to `
 
 The site is organized into five main sections:
 
-1. **Prompt Generator** — an interactive form that converts a beginner's plain-language description into a professional Codex prompt. Form fields: platform (Windows / macOS / both), tech preset (Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (local files / SQLite / none), goal, features, and optional extras (offline, bilingual, export, shortcuts, accessibility). One-click copy in either Chinese or English.
+1. **Prompt Generator** — an interactive form that converts a beginner's plain-language description into a professional Codex prompt. Form fields: platform (Windows / macOS / both), tech preset (Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (local files / SQLite / none), complexity tier (Starter MVP / Standard business version / Team-ready version), goal, features, and optional extras (offline, bilingual, export, shortcuts, accessibility). One-click copy in either Chinese or English, plus a recovery/fix prompt for cases where Codex hits launch, test, build, or packaging failures.
 
 2. **Beginner Guide** — seven chapters written in plain language without technical jargon. Chapters cover: what Codex is; what you need to get started; first launch walkthrough; core actions explained with everyday analogies; five rules for writing good prompts; common pitfalls and how to recover; how to share the resulting app with teammates.
 
@@ -39,7 +39,7 @@ Solution: a local Kanban board with four stage columns (warm-up, peak, post-sale
 ### 3. Customer Service Reply Helper (Customer Service)
 URL: https://codex.ifq.ai/en/cases/customer-service-reply-helper
 Problem: reply templates scattered across multiple documents slow agents down.
-Solution: a compact menu-bar app invoked via a global shortcut (Ctrl/Cmd+Shift+R); fuzzy-search over templates, one-click copy with variable substitution, usage statistics.
+Solution: a compact helper invoked via a configurable global shortcut; fuzzy-search over templates, one-click copy with variable substitution, duplicate import handling, sample replies, and usage statistics.
 
 ### 4. New Hire Onboarding Tracker (HR)
 URL: https://codex.ifq.ai/en/cases/hr-onboarding-tracker
@@ -59,13 +59,20 @@ Every prompt produced by the generator follows this schema (Chinese and English 
 - Platform requirements
 - Technology stack (or "let Codex decide")
 - Visual style description (including system dark mode following and system fonts)
+- Desktop platform details (native dialogs, path compatibility, high DPI, window sizing, progress and cancellation)
 - Data storage preference
+- Complexity tier (Starter MVP, Standard business version, or Team-ready version)
 - Free-form goal (user-filled)
 - Free-form feature list (user-filled)
 - Optional extras (offline, bilingual, export, keyboard shortcuts, accessibility)
 - Robustness and error-handling guidelines
+- Engineering quality guidelines (business logic separation, safe desktop permissions, dev/test/build/package scripts)
 - Delivery mode (brief plan summary → direct implementation → run/fix/verify → installer + user guide)
 - Working-style instructions (ask only blocking questions, use placeholders for company-specific details, report verification evidence)
+
+The generator also provides a separate recovery prompt. If Codex fails to launch, build, test, import data, or package the app, the user can copy this follow-up prompt so Codex continues inspecting logs, editing files, rerunning commands, and reporting a verified fix instead of asking the beginner to debug manually.
+
+Case and cookbook prompts are passed through a shared high-quality desktop addendum before display/copy. This addendum reinforces: local runnable desktop output, workspace-first UI, business-language labels, drag-and-drop plus native dialogs, no default overwrites, sample data/demo mode, edge-case handling, test/build verification, packaging scripts, installer limitations, and platform-appropriate shortcuts (Ctrl/Alt on Windows, Command/Option on macOS).
 
 ## Beginner Guide chapter titles
 

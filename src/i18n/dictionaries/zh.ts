@@ -132,17 +132,23 @@ export const zh = {
     dataOptionSqlite: '存在一个本地小数据库（几万条数据都没问题）',
     dataOptionNone: '不用存（用完就关，不保留）',
 
-    sectionGoal: '⑤ 这个软件，是给谁用的？解决他们什么麻烦？',
+    sectionComplexity: '⑤ 想做到什么程度',
+    complexityHint: '默认选标准版：能跑、能试、能发给同事用。第一次探索可以选最小可用版。',
+    complexityOptionStarter: '最小可用版（先跑通主流程）',
+    complexityOptionStandard: '标准业务版（推荐，能发同事试用）',
+    complexityOptionAdvanced: '团队增强版（设置、历史、恢复更完整）',
+
+    sectionGoal: '⑥ 这个软件，是给谁用的？解决他们什么麻烦？',
     goalLabel: '目标（一两句话就好）',
     goalPlaceholder:
       '比如：给我们财务部用，解决每个月手动核对几百张订单和银行流水要花两天的问题。',
 
-    sectionFeatures: '⑥ 你希望它能做什么',
+    sectionFeatures: '⑦ 你希望它能做什么',
     featuresLabel: '功能（一行一条，越具体越好）',
     featuresPlaceholder:
       '- 我把订单 Excel 和银行流水 Excel 拖进去\n- 它自动按订单号比对，把对不上的挑出来\n- 把对不上的导出成一份新的 Excel',
 
-    sectionExtras: '⑦ 再来点要求（可选）',
+    sectionExtras: '⑧ 再来点要求（可选）',
     extraOfflineLabel: '没网也能用',
     extraOfflineHint: '不联网也要能跑',
     extraBilingualLabel: '界面中英双语',
@@ -159,6 +165,9 @@ export const zh = {
       '整段复制，打开 Codex 桌面版，新建一个任务粘贴进去就行。它会先简短说明方案，然后继续动手实现。',
     copyButton: '一键复制',
     copied: '已复制',
+    recoveryTitle: '跑不起来时，再复制这一段',
+    recoveryHint: '如果 Codex 卡在报错、启动或打包，把这段发给它，让它继续自己排查、修改、验证。',
+    copyRecoveryButton: '复制修复提示词',
     resetButton: '清空重填',
     langToggle: '切换语言',
     langToggleHint:

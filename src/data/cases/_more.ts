@@ -6,9 +6,9 @@ import type { CaseBundle } from './types';
 const SHARED_TAIL_ZH = `
 
 【界面风格】
-- 浅色背景、白色卡片、圆角 16，留白多。
+- 浅色背景、清晰分区、圆角 8，信息密度适中，像真正的桌面工具。
 - 主按钮低饱和深色，次要浅灰。
-- 跟随系统深浅模式；使用系统默认字体。
+- 避免大面积渐变、装饰插画和过度卡片化；跟随系统深浅模式；使用系统默认字体。
 
 【稳健性】
 - 全部数据存本地，不联网。
@@ -17,7 +17,7 @@ const SHARED_TAIL_ZH = `
 
 【交付】
 1. 先给 10 行以内方案摘要（目标、流程、技术、验收），然后直接实现、运行和验证。
-2. 按模块交付，每个模块跑起来给我看。
+2. 每完成一个模块就运行验证一次，发现问题先自行修复。
 3. 最后打包 Windows .exe 和 macOS .dmg，附 500 字内的中文使用说明，并列出已知限制。
 
 中文沟通，代码注释用中文。先给简短方案摘要，然后直接实现、运行和验证。`;
@@ -25,9 +25,9 @@ const SHARED_TAIL_ZH = `
 const SHARED_TAIL_EN = `
 
 [Visual Style]
-- Light background, white cards, radius 16, generous whitespace.
+- Light background, clear sections, radius 8, moderate information density, and a real desktop-tool feel.
 - Primary button muted dark; secondary light gray.
-- Follows system dark mode; system fonts.
+- Avoid large gradients, decorative illustrations, and an overly card-heavy layout. Follow system dark mode; system fonts.
 
 [Robustness]
 - All data stays on the local machine. Offline.
@@ -36,7 +36,7 @@ const SHARED_TAIL_EN = `
 
 [Delivery]
 1. Start with a plan summary under 10 lines, then implement, run, and verify.
-2. Deliver in modules; run each one for me to see.
+2. After each module, run a focused verification and fix issues yourself first.
 3. Package a Windows .exe and macOS .dmg, ship a 500-word plain-language user guide, list known limits.
 
 Start with a brief plan summary, then implement, run, and verify.`;

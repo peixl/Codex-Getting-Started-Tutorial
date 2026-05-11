@@ -100,8 +100,8 @@ function HeroVisual({ locale }: { locale: Locale }) {
       ? {
           formWindow: 'Codex · 新建任务',
           formTitle: '你的第一个小工具',
-          formMeta: 'Windows / Mac · 对账助手',
-          platform: '平台 ·  Windows / Mac',
+          formMeta: 'Windows / macOS · 对账助手',
+          platform: '平台 ·  Windows / macOS',
           ui: '界面 ·  简洁',
           data: '数据 ·  本地 Excel',
           goalLabel: '目标',
@@ -123,8 +123,8 @@ function HeroVisual({ locale }: { locale: Locale }) {
       : {
           formWindow: 'Codex · New task',
           formTitle: 'Your first tool',
-          formMeta: 'Windows / Mac · Reconciliation helper',
-          platform: 'Platform ·  Windows / Mac',
+          formMeta: 'Windows / macOS · Reconciliation helper',
+          platform: 'Platform ·  Windows / macOS',
           ui: 'UI ·  Minimal',
           data: 'Data ·  Local Excel',
           goalLabel: 'Goal',

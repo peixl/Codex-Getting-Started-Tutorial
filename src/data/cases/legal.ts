@@ -63,7 +63,7 @@ export const legalContractTracker: CaseBundle = {
 - 完全离线
 
 【数据模型】
-合同字段：编号（自动）、对方名称、合同类型、金额、币种、签署日、生效日、到期日、续约周期、经办人、当前状态、备注、附件路径（指向本地文件）。
+合同字段：编号（自动）、对方名称、合同类型、金额、币种、签署日、生效日、到期日、续约周期、经办人、当前状态、续约负责人、提前提醒天数、备注、附件路径（指向本地文件）。
 
 状态：起草中、待寄送、待签回、已生效、到期、已终止。
 
@@ -75,13 +75,14 @@ export const legalContractTracker: CaseBundle = {
    - 到期前 30 天 -> 红色
    - 到期前 60 天 -> 黄色
    - 其他 -> 绿色
-5. 导入 / 导出：
+5. 风险视图：集中列出缺附件、到期日为空、待签回超过 7 天、到期未续约、金额为空但合同类型需要金额的记录。
+6. 导入 / 导出：
    - Excel 批量导入，表头：对方 / 类型 / 金额 / 币种 / 签署日 / 生效日 / 到期日 / 状态 / 备注。
-   - 导出待办清单到 Excel，作为法务周会材料。
-6. 隐私保护：
+  - 导出待办清单到 Excel，字段包括：编号 / 对方 / 状态 / 到期日 / 剩余天数 / 风险原因 / 建议动作，作为法务周会材料。
+7. 隐私保护：
    - 敏感字段（金额、对方名称）在列表页可切换"隐藏"按钮，临时遮蔽便于共享屏幕。
    - 不联网，不上传。
-7. 搜索 / 筛选：支持关键词搜索合同编号、对方、备注。
+8. 搜索 / 筛选：支持关键词搜索合同编号、对方、备注。
 
 【界面风格】
 - 业务型：表格清晰、信息密度适中、分隔线柔和。
@@ -93,6 +94,7 @@ export const legalContractTracker: CaseBundle = {
 - 数据库损坏自动恢复到最近备份。
 - 表单必填项缺失时友好提示不崩溃。
 - 日期错乱（生效日晚于到期日）给出提示。
+- 附 3 份示例数据：正常合同、待签回超期、到期日缺失 / 日期错乱。
 
 【交付】
 1. 先给 10 行以内方案摘要（含首页 / 编辑页 / 待办看板界面安排），然后直接实现、运行和验证。
@@ -111,7 +113,7 @@ Central ledger for all contracts. Track by status. Auto-remind before expiry. No
 - Local SQLite; offline; ship a Windows .exe installer
 
 [Data Model]
-Contract: id (auto), counterparty, type, amount, currency, signed date, effective date, expiry date, renewal cadence, owner, status, notes, attachment path (relative).
+Contract: id (auto), counterparty, type, amount, currency, signed date, effective date, expiry date, renewal cadence, owner, status, renewal owner, reminder lead days, notes, attachment path (relative).
 
 Statuses: Drafting, To send, Awaiting signature, Active, Expiring, Terminated.
 
@@ -120,9 +122,10 @@ Statuses: Drafting, To send, Awaiting signature, Active, Expiring, Terminated.
 2. Create/edit form with clear required fields. Attachment field picks a local file; store relative path, do not copy.
 3. Follow-up board: aggregates To-send, Awaiting-signature, and Expiring-within-30-days — weekly-review ready.
 4. Rules (configurable): <=30 days red, <=60 days yellow, else green.
-5. Excel import/export. Import headers: Counterparty / Type / Amount / Currency / Signed / Effective / Expiry / Status / Notes. Export follow-ups to Excel.
-6. Privacy: toggle hide for sensitive fields (amount, counterparty) in list view. Nothing uploaded.
-7. Search by id, counterparty, notes.
+5. Risk view: missing attachment, blank expiry date, awaiting signature for more than 7 days, expired without renewal, blank amount where the contract type requires amount.
+6. Excel import/export. Import headers: Counterparty / Type / Amount / Currency / Signed / Effective / Expiry / Status / Notes. Export follow-ups with ID / Counterparty / Status / Expiry / Days left / Risk reason / Suggested action.
+7. Privacy: toggle hide for sensitive fields (amount, counterparty) in list view. Nothing uploaded.
+8. Search by id, counterparty, notes.
 
 [Visual Style]
 - Dashboard density with soft dividers.
@@ -134,6 +137,7 @@ Statuses: Drafting, To send, Awaiting signature, Active, Expiring, Terminated.
 - Auto-recover DB from last backup.
 - Friendly validation on required fields.
 - Catch invalid date ranges with a gentle hint.
+- Include 3 sample datasets: normal contracts, overdue awaiting-signature items, blank expiry / invalid date ranges.
 
 [Delivery]
 1. Start with a plan summary under 10 lines, then implement, run, and verify. Include the list, edit, follow-up board screens in the plan.

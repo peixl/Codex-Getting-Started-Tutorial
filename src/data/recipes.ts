@@ -1,3 +1,5 @@
+import { withDesktopQualityBar, type PromptQualityLang } from '@/lib/promptQuality';
+
 export type Recipe = {
   id: string;
   icon: string;
@@ -8,6 +10,10 @@ export type Recipe = {
   promptZh: string;
   promptEn: string;
 };
+
+export function getRecipePrompt(recipe: Recipe, locale: PromptQualityLang): string {
+  return withDesktopQualityBar(locale === 'zh' ? recipe.promptZh : recipe.promptEn, locale);
+}
 
 export const recipes: Recipe[] = [
   {

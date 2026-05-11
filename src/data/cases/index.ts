@@ -1,4 +1,5 @@
 import type { CaseBundle, Department } from './types';
+import { withDesktopQualityBar, type PromptQualityLang } from '../../lib/promptQuality';
 import { financeReconciliation } from './finance';
 import { operationsCampaign } from './operations';
 import { customerServiceReplyHelper } from './customer-service';
@@ -87,6 +88,10 @@ export function getCaseBySlug(slug: string): CaseBundle | undefined {
 
 export function getCasesByDepartment(department: Department): CaseBundle[] {
   return caseBundles.filter((c) => c.department === department);
+}
+
+export function getCasePrompt(bundle: CaseBundle, locale: PromptQualityLang): string {
+  return withDesktopQualityBar(bundle.prompt[locale], locale);
 }
 
 export const departments: Department[] = [

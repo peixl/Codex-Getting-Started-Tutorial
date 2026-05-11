@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import type { CaseBundle, Department } from '@/data/cases';
+import { getCasePrompt, type CaseBundle, type Department } from '@/data/cases';
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n';
 import { caseUrl } from '@/lib/routes';
@@ -11,7 +11,6 @@ import { cn } from '@/lib/cn';
 import { ArrowRightIcon, WindowsIcon } from '@/components/icons';
 import { deptIcons } from '@/components/cases/deptIcons';
 import { CopyButton } from '@/components/CopyButton';
-import { withDesktopQualityBar } from '@/lib/promptQuality';
 
 type Props = {
   cases: CaseBundle[];
@@ -147,7 +146,7 @@ export function CasesExplorer({ cases, locale, dict }: Props) {
                     <ArrowRightIcon size={14} />
                   </Link>
                   <CopyButton
-                    value={withDesktopQualityBar(c.prompt[locale], locale)}
+                    value={getCasePrompt(c, locale)}
                     label={dict.cases.copyPrompt}
                     copiedLabel={dict.cases.copied}
                     size="sm"

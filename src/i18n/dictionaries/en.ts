@@ -131,17 +131,23 @@ export const en = {
     dataOptionSqlite: 'In a local mini-database (handles tens of thousands of rows)',
     dataOptionNone: 'No storage (one-shot tool)',
 
-    sectionGoal: '5. Who is it for? What problem does it solve?',
+    sectionComplexity: '5. How complete should it be?',
+    complexityHint: 'Default to Standard: runnable, testable, and ready for a colleague trial. Use Starter for a first exploration.',
+    complexityOptionStarter: 'Starter MVP (main flow first)',
+    complexityOptionStandard: 'Standard business version (recommended)',
+    complexityOptionAdvanced: 'Team-ready version (settings, history, recovery)',
+
+    sectionGoal: '6. Who is it for? What problem does it solve?',
     goalLabel: 'Goal (one or two sentences)',
     goalPlaceholder:
       'Example: For our finance team. Today reconciling hundreds of orders against bank records takes two full days a month. I want to cut that to one hour.',
 
-    sectionFeatures: '6. What should it do?',
+    sectionFeatures: '7. What should it do?',
     featuresLabel: 'Features (one per line, be specific)',
     featuresPlaceholder:
       '- Import Excel files for orders and bank statements\n- Auto-match by order ID and highlight mismatches\n- Export the mismatches as a new Excel file',
 
-    sectionExtras: '7. Extra requests (optional)',
+    sectionExtras: '8. Extra requests (optional)',
     extraOfflineLabel: 'Works offline',
     extraOfflineHint: 'Runs without the internet',
     extraBilingualLabel: 'Bilingual UI',
@@ -158,6 +164,9 @@ export const en = {
       'Copy the whole block. Open Codex Desktop, start a new task, paste it in. It will summarize briefly, then continue implementing.',
     copyButton: 'Copy prompt',
     copied: 'Copied',
+    recoveryTitle: 'If it fails, copy this next',
+    recoveryHint: 'When Codex gets stuck on an error, launch, or packaging step, send this so it keeps debugging, editing, and verifying.',
+    copyRecoveryButton: 'Copy fix prompt',
     resetButton: 'Reset form',
     langToggle: 'Switch language',
     langToggleHint:
