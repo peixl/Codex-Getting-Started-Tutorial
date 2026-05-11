@@ -419,7 +419,7 @@ export const zh = {
     resourceOpenAI: 'Codex 官网',
     resourceCodexDocs: 'Codex 官方文档',
     resourceGithub: 'GitHub 开源仓库',
-    builtWith: '本站用 Next.js 搭建，部署在 Cloudflare Workers，已针对国内网络做好优化。',
+    builtWith: '本站采用现代前端架构构建，部署于全球边缘网络，已针对国内网络访问做了专项优化。',
     copyright: '© 2026 codex.ifq.ai · MIT License',
 
     languageLabel: '语言',

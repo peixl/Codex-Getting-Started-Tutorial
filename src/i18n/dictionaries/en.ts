@@ -428,7 +428,7 @@ export const en = {
     resourceOpenAI: 'Codex site',
     resourceCodexDocs: 'Codex docs',
     resourceGithub: 'GitHub repo',
-    builtWith: 'Built with Next.js, deployed on Cloudflare Workers, tuned for access from mainland China.',
+    builtWith: 'Built on a modern frontend stack and served from a global edge network, optimized for access from mainland China.',
     copyright: '© 2026 codex.ifq.ai — MIT License',
 
     languageLabel: 'Language',
