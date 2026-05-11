@@ -8,6 +8,7 @@ import { StructuredData } from '@/components/StructuredData';
 import { CopyButton } from '@/components/CopyButton';
 import { SITE_URL } from '@/lib/routes';
 import { recipes } from '@/data/recipes';
+import { withDesktopQualityBar } from '@/lib/promptQuality';
 import { LightBulbIcon, WindowsIcon, MacWindowIcon } from '@/components/icons';
 
 type Props = { params: Promise<{ locale: string }> };
@@ -54,7 +55,10 @@ export default async function CookbookPage({ params }: Props) {
           {recipes.map((r) => {
             const title = locale === 'zh' ? r.titleZh : r.titleEn;
             const pain = locale === 'zh' ? r.painZh : r.painEn;
-            const prompt = locale === 'zh' ? r.promptZh : r.promptEn;
+            const prompt = withDesktopQualityBar(
+              locale === 'zh' ? r.promptZh : r.promptEn,
+              locale
+            );
             return (
               <GlassPanel key={r.id} className="flex flex-col">
                 <div className="flex items-center gap-2">

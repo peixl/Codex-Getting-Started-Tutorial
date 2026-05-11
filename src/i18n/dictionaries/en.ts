@@ -60,7 +60,7 @@ export const en = {
       'We assemble a professional instruction for you. Just copy. You never have to understand how it is phrased.',
     flowStep3Title: 'Paste into Codex Desktop',
     flowStep3Body:
-      'Codex takes it from there — writes the code, runs the app, pops up a window. That is your first tool.',
+      'Codex first summarizes the plan, then writes the code, runs it, fixes errors, and verifies the flow. When a window pops up, that is your first tool.',
 
     featuresTitle: 'Why this tutorial works for beginners',
     featuresSubtitle: 'We assume zero coding, zero command line, zero GitHub experience.',
@@ -106,8 +106,8 @@ export const en = {
 
     sectionPlatform: '1. What kind of software?',
     platformWindows: 'For Windows PCs',
-    platformMac: 'For Macs',
-    platformBoth: 'Both Windows and Mac',
+    platformMac: 'For macOS',
+    platformBoth: 'Both Windows and macOS',
     platformHint: 'Most offices use Windows, so this is pre-selected.',
 
     sectionTech: '2. How should it be built (pick a direction)',
@@ -121,8 +121,8 @@ export const en = {
     sectionUI: '3. What should it look like',
     uiLabel: 'Look and feel',
     uiOptionMinimal: 'Minimal (white background, clean, spacious)',
-    uiOptionDark: 'Dark (black background, high contrast)',
-    uiOptionFresh: 'Soft (pastel gradients, rounded, airy)',
+    uiOptionDark: 'Dark (system-aware, clear, easy on the eyes)',
+    uiOptionFresh: 'Fresh (light, restrained accents, subtle dividers)',
     uiOptionBusiness: 'Dashboard (dense information, tables)',
 
     sectionData: '4. Where should data live?',
@@ -151,11 +151,11 @@ export const en = {
     extraShortcutLabel: 'Keyboard shortcuts',
     extraShortcutHint: 'Faster for power users',
     extraAccessibilityLabel: 'Accessible (screen reader friendly)',
-    extraAccessibilityHint: 'Works with Windows Narrator',
+    extraAccessibilityHint: 'Works with screen readers',
 
     sectionOutput: 'The prompt to copy',
     outputHint:
-      'Copy the whole block. Open Codex Desktop, start a new task, paste it in. No edits needed.',
+      'Copy the whole block. Open Codex Desktop, start a new task, paste it in. It will summarize briefly, then continue implementing.',
     copyButton: 'Copy prompt',
     copied: 'Copied',
     resetButton: 'Reset form',
@@ -177,7 +177,7 @@ export const en = {
 
     tipCardTitle: 'Friendly heads-up',
     tipCardBody:
-      'The technical wording in the generated prompt is for Codex — not for you. Just focus on the goal and features; the smart defaults take care of the rest.',
+      'The technical wording in the generated prompt is for Codex, not for you. Focus on goal and features; the defaults also ask Codex to run and verify the result.',
   },
 
   guide: {
@@ -196,7 +196,7 @@ export const en = {
       'This tutorial covers only one thing: Windows or macOS apps that double-click to open. No websites, no servers, no mobile.',
 
     sec2Title: 'Chapter 2 — What you need',
-    sec2Item1Title: 'A Windows PC or Mac',
+    sec2Item1Title: 'A Windows PC or macOS computer',
     sec2Item1Body: 'Windows 10/11 or a recent macOS version. 8 GB RAM minimum, 16 GB is nicer.',
     sec2Item2Title: 'A ChatGPT account',
     sec2Item2Body: 'Codex Desktop signs in with an OpenAI account. If you already use ChatGPT, the same login works.',
@@ -297,7 +297,7 @@ export const en = {
     sectionAfter: 'After copying',
     after1: 'Open Codex Desktop and create a new project',
     after2: 'Paste the prompt and send',
-    after3: 'Wait for Codex to finish; tweak company names, column names, button text as needed',
+    after3: 'Let Codex implement, run, and verify automatically; then tweak company names, column names, and button text as needed',
 
     backToCases: 'Back to cases',
     tryInGenerator: 'Customize this case in the generator',
@@ -312,9 +312,9 @@ export const en = {
     tip1Title: 'Use a role prompt for sharper answers',
     tip1Body:
       'Start with "You are an engineer who specializes in Windows and macOS desktop apps." Codex responds with a more focused style.',
-    tip2Title: 'Confirm in steps',
+    tip2Title: 'Ask for a summary, then let it work',
     tip2Body:
-      'Ask for a feature list first. Once you approve, let it write code. Checking the plan mid-way prevents drift.',
+      'Ask for a summary under 10 lines: goal, workflow, and acceptance criteria. If nothing is truly blocking, tell it to keep implementing, running, fixing, and verifying.',
     tip3Title: 'Show it the real file shape',
     tip3Body:
       'Paste the first few rows of your Excel (with header) into the chat, or attach a sanitized sample. Much better than describing.',
@@ -333,9 +333,9 @@ export const en = {
     tip8Title: 'Request robust UX',
     tip8Body:
       'Add: "If the user provides invalid input, show a friendly message and do not crash." Your app will hold up.',
-    tip9Title: 'Ask for use cases first',
+    tip9Title: 'Ask for acceptance criteria first',
     tip9Body:
-      'Before any code: "List 3 main use cases and the user actions in each." You\'ll instantly see if it understood the task.',
+      'Before code: "List 3 main use cases and how each will be accepted, then implement." You will quickly see whether it understood the task.',
     tip10Title: 'Say what NOT to change',
     tip10Body:
       'When iterating on screen A, lead with: "Keep B and C exactly as they are; only adjust A." That single line prevents most accidental regressions.',
@@ -408,7 +408,7 @@ export const en = {
     a12: 'Codex Desktop only reads files you explicitly drop into the conversation, and typically only the relevant slice. For sensitive sheets, anonymize first (e.g. replace names with ABC, mask middle digits of phone numbers). The habit matters more than any setting.',
 
     q13: 'The first response is full of jargon I cannot follow. What do I do?',
-    a13: 'Reply: "Plain Chinese only, no code. In five sentences, tell me what you\'re about to do next." It will switch tone. Approve, then say "OK, go ahead."',
+    a13: 'Reply: "Plain language only, no code. In five sentences, tell me what you will do next; if nothing blocks you, continue and verify." It will switch tone without getting stuck in explanation mode.',
 
     q14: 'How do I keep usage costs in check?',
     a14: 'Three habits: (1) one task per conversation; (2) once code runs, start a new chat for the next phase so context stays small; (3) reuse a known-good prompt instead of rewriting. These cut wasted calls roughly in half.',

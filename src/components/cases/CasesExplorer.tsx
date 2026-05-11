@@ -11,6 +11,7 @@ import { cn } from '@/lib/cn';
 import { ArrowRightIcon, WindowsIcon } from '@/components/icons';
 import { deptIcons } from '@/components/cases/deptIcons';
 import { CopyButton } from '@/components/CopyButton';
+import { withDesktopQualityBar } from '@/lib/promptQuality';
 
 type Props = {
   cases: CaseBundle[];
@@ -146,7 +147,7 @@ export function CasesExplorer({ cases, locale, dict }: Props) {
                     <ArrowRightIcon size={14} />
                   </Link>
                   <CopyButton
-                    value={c.prompt[locale]}
+                    value={withDesktopQualityBar(c.prompt[locale], locale)}
                     label={dict.cases.copyPrompt}
                     copiedLabel={dict.cases.copied}
                     size="sm"

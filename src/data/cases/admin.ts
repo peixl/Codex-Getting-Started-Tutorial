@@ -97,11 +97,11 @@ export const adminConferenceRoom: CaseBundle = {
 - 数据库损坏自动恢复。
 
 【交付】
-1. 给项目结构 + 三个标签页的线框图。
+1. 先给 10 行以内方案摘要（含三个标签页安排），然后直接实现、运行和验证。
 2. 分三步：会议室 -> 访客 -> 快递（每一步都能独立跑）。
 3. 打包 Windows .exe，附 500 字中文使用说明。
 
-中文沟通。从结构 + 线框图开始。`,
+中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for office admins / reception staff. Non-developer user.
 
 [Goal]
@@ -148,10 +148,10 @@ Left sidebar tabs: Rooms / Visitors / Parcels.
 - Auto-recover the DB.
 
 [Delivery]
-1. Structure + wireframes for all three tabs.
+1. Start with a plan summary under 10 lines, then implement, run, and verify. Include all three tabs in the plan.
 2. Phase 1: rooms. Phase 2: visitors. Phase 3: parcels.
 3. Package .exe; 500-word user guide.
 
-Start with structure and wireframes.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
 };

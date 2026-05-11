@@ -64,8 +64,8 @@ Every prompt produced by the generator follows this schema (Chinese and English 
 - Free-form feature list (user-filled)
 - Optional extras (offline, bilingual, export, keyboard shortcuts, accessibility)
 - Robustness and error-handling guidelines
-- Delivery steps (structure outline → phased delivery → installer + user guide)
-- Working-style instructions (one thing at a time, placeholders for company-specific details)
+- Delivery mode (brief plan summary → direct implementation → run/fix/verify → installer + user guide)
+- Working-style instructions (ask only blocking questions, use placeholders for company-specific details, report verification evidence)
 
 ## Beginner Guide chapter titles
 

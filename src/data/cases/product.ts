@@ -90,11 +90,11 @@ export const productFeedbackInbox: CaseBundle = {
 - 数据库损坏自动恢复。
 
 【交付】
-1. 结构 + 首页 / 新增页 / 矩阵页线框图。
+1. 先给 10 行以内方案摘要（含首页 / 新增页 / 矩阵页界面安排），然后直接实现、运行和验证。
 2. 分三步：反馈录入 + 自动打标 -> 矩阵视图 + 合并 -> 导出（Excel / Markdown）。
 3. 打包 .exe，附 500 字中文使用说明。
 
-中文沟通。从结构和线框图开始。`,
+中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a product manager. Non-developer user.
 
 [Goal]
@@ -128,10 +128,10 @@ Feedback card: id, body, source (chat / email / ticket / sales / internal / othe
 - Auto-recover DB from last backup.
 
 [Delivery]
-1. Structure + wireframes for feed, add, matrix.
+1. Start with a plan summary under 10 lines, then implement, run, and verify. Include the feed, add, matrix screens in the plan.
 2. Phase 1: entry + auto-tag. Phase 2: matrix + merge. Phase 3: export.
 3. Package .exe; 500-word user guide.
 
-Start with structure and wireframes.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
 };

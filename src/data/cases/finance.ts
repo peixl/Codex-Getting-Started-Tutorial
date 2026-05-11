@@ -83,7 +83,7 @@ export const financeReconciliation: CaseBundle = {
 - 附带 2-3 个脱敏测试样例文件，方便新用户一打开就能跑通。
 
 【交付流程】
-1. 先列项目结构和每个文件的作用，以及主界面的简单线框图（文字描述即可），等我确认再写代码。
+1. 先给 10 行以内方案摘要（含主界面安排和关键文件职责），然后直接实现、运行和验证。
 2. 按模块交付，每个模块做完跑起来让我看效果。
 3. 最后：
    - 打包成 Windows .exe 安装包。
@@ -95,7 +95,7 @@ export const financeReconciliation: CaseBundle = {
 - 公司名、字段名之类的个性化信息用占位符（如 {{公司名}}），最后集中列出让我替换。
 - 全程中文沟通，代码注释用中文。
 
-请从第一步开始：项目结构和界面线框图。`,
+请先给 10 行以内方案摘要，然后直接实现、运行和验证。`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows desktop tool for the finance team at an e-commerce company. The user is a non-developer.
 
 [Goal]
@@ -129,7 +129,7 @@ Replace 1-2 days of monthly manual reconciliation with a tool that matches order
 - Ship 2–3 anonymized sample files so new users can see it work immediately.
 
 [Delivery]
-1. First, outline the project structure and a plain-text wireframe. Wait for my confirmation.
+1. Start with a plan summary under 10 lines, then implement, run, and verify.
 2. Deliver in modules; run each one and show me.
 3. Final step:
    - Package as a Windows .exe installer.
@@ -140,6 +140,6 @@ Replace 1-2 days of monthly manual reconciliation with a tool that matches order
 - Advance one thing at a time. Ask me if unsure.
 - Use placeholders like {{COMPANY_NAME}} for personal details; summarize items to replace at the end.
 
-Please start with step 1: structure and wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
 };

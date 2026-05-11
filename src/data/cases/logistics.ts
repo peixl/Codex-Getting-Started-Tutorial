@@ -93,11 +93,11 @@ export const logisticsTracker: CaseBundle = {
 - 导入出错保留已解析部分。
 
 【交付】
-1. 结构 + 列表 / 异常 / 规则页线框图。
+1. 先给 10 行以内方案摘要（含列表、异常、规则页安排），然后直接实现、运行和验证。
 2. 分三步：导入 + 识别 + 列表 -> 规则自定义 + 时间粒度 -> 导出 + 历史对比。
 3. 打包 .exe，500 字中文使用说明。
 
-中文沟通。从结构和线框图开始。`,
+中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an e-commerce logistics / customer service team. Non-developer user.
 
 [Goal]
@@ -141,10 +141,10 @@ Handle common headers (Chinese + English): order id, carrier, tracking id, recip
 - Preserve parsed data on error.
 
 [Delivery]
-1. Structure + wireframes for list / exceptions / rules.
+1. Start with a plan summary under 10 lines, then implement, run, and verify. Include the list / exceptions / rules screens in the plan.
 2. Phase 1: import + detection + list. Phase 2: rule customization + time windows. Phase 3: export + history compare.
 3. Package .exe; 500-word user guide.
 
-Start with structure and wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
 };

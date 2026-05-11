@@ -95,11 +95,11 @@ export const legalContractTracker: CaseBundle = {
 - 日期错乱（生效日晚于到期日）给出提示。
 
 【交付】
-1. 先给项目结构 + 首页 / 编辑页 / 待办看板线框图。
+1. 先给 10 行以内方案摘要（含首页 / 编辑页 / 待办看板界面安排），然后直接实现、运行和验证。
 2. 分三步：卡片列表 + 新建 -> 待办看板 + 自动染色 -> 导入导出 + 隐私遮蔽。
 3. 打包 .exe，附 500 字内中文使用说明。
 
-全程中文沟通。请从结构 + 线框图开始。`,
+全程中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an in-house legal team. User is a non-developer.
 
 [Goal]
@@ -136,10 +136,10 @@ Statuses: Drafting, To send, Awaiting signature, Active, Expiring, Terminated.
 - Catch invalid date ranges with a gentle hint.
 
 [Delivery]
-1. Structure + wireframes for list, edit, follow-up board.
+1. Start with a plan summary under 10 lines, then implement, run, and verify. Include the list, edit, follow-up board screens in the plan.
 2. Phase 1: list + create. Phase 2: follow-up + auto-coloring. Phase 3: import/export + privacy toggle.
 3. Package .exe; write a 500-word user guide.
 
-Start with structure and wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
 };

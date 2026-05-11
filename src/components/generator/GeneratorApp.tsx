@@ -32,6 +32,14 @@ const STORAGE_KEY = 'codex-tutorial:generator:v2';
 const HISTORY_KEY = 'codex-tutorial:generator:history:v2';
 const MAX_HISTORY = 6;
 
+function normalizeFormState(state?: Partial<FormState>): FormState {
+  return {
+    ...DEFAULT_FORM,
+    ...(state ?? {}),
+    extras: { ...DEFAULT_FORM.extras, ...(state?.extras ?? {}) },
+  };
+}
+
 export function GeneratorApp({ locale, dict }: Props) {
   const [state, setState] = useState<FormState>(DEFAULT_FORM);
   const [lang, setLang] = useState<PromptLang>(locale);
@@ -44,7 +52,7 @@ export function GeneratorApp({ locale, dict }: Props) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as { state?: FormState };
-        if (parsed.state) setState({ ...DEFAULT_FORM, ...parsed.state });
+        if (parsed.state) setState(normalizeFormState(parsed.state));
       }
       const historyRaw = window.localStorage.getItem(HISTORY_KEY);
       if (historyRaw) {
@@ -83,7 +91,7 @@ export function GeneratorApp({ locale, dict }: Props) {
   }, [state.goal, state.features, dict]);
 
   const reset = () => {
-    setState(DEFAULT_FORM);
+    setState(normalizeFormState());
     try {
       window.localStorage.removeItem(STORAGE_KEY);
     } catch {
@@ -121,7 +129,7 @@ export function GeneratorApp({ locale, dict }: Props) {
   };
 
   const loadHistory = (entry: HistoryEntry) => {
-    setState({ ...DEFAULT_FORM, ...entry.state });
+    setState(normalizeFormState(entry.state));
     setLang(entry.lang);
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });

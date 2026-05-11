@@ -23,14 +23,14 @@ export const recipes: Recipe[] = [
 - 功能：把一张 Excel 文件（列：指标名、数值、环比）导入后，自动生成一张 1200×1800 的日报长图（和一份 A4 PDF），带标题 + 三张 KPI 卡 + 一条横条排名 + 页脚。
 - 配色以白底 + 深灰字为主，强调排版层级。
 - 同时打包成 Windows .exe 安装包和 macOS .dmg 安装包；附一份 500 字以内的中文使用说明。
-先给项目结构和界面线框图，确认后再写代码。全程中文沟通。`,
+先给 10 行以内方案摘要，然后直接实现、运行和验证。全程中文沟通。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript
 - Feature: import one Excel (columns: metric, value, delta) and auto-render a 1200x1800 PNG daily report plus an A4 PDF — title, 3 KPI cards, one ranking bar chart, footer.
 - Palette: white background, deep gray text; emphasize typographic hierarchy.
 - Package as Windows .exe and macOS .dmg; include a 500-word plain-language user guide.
-Start with project structure + wireframe. English throughout.`,
+Start with a brief plan summary, then implement, run, and verify. English throughout.`,
   },
   {
     id: 'pdf-to-excel',
@@ -45,14 +45,14 @@ Start with project structure + wireframe. English throughout.`,
 - 功能：拖入一个包含多份 PDF 的文件夹；软件批量读取每份发票的"发票号 / 开票日期 / 销方 / 购方 / 金额 / 税额 / 价税合计"；输出一张 Excel 台账。
 - 对识别不全的字段高亮为黄色，让用户手动补。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。
-先给项目结构和界面线框图。中文沟通。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文沟通。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript with pdfjs parsing
 - Feature: drop a folder of PDFs; extract invoice id / date / seller / buyer / amount / tax / total; write an Excel ledger.
 - Highlight uncertain fields in yellow for manual fix.
 - Package as Windows .exe and macOS .dmg; 500-word user guide.
-Start with structure + wireframe. English throughout.`,
+Start with a brief plan summary, then implement, run, and verify. English throughout.`,
   },
   {
     id: 'folder-rename',
@@ -67,14 +67,14 @@ Start with structure + wireframe. English throughout.`,
 - 功能：拖入一个文件夹；列出所有文件；允许用规则模板（如"YYYYMMDD-{序号3位}"）批量重命名，改名前预览对照，用户确认后再执行。
 - 支持撤销：每次重命名保存一份"还原对照表"到本地，最近三次操作都可回退。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。
-先给结构 + 界面线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript
 - Feature: drop a folder; show the file list; rename in bulk by a template (e.g. "YYYYMMDD-{idx3}"). Preview before/after, confirm, then execute.
 - Undo: save a reversal map locally so users can roll back the last three operations.
 - Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'quick-lookup',
@@ -90,7 +90,7 @@ Start with structure + wireframe.`,
 - 支持"一键复制某字段"，如复制产品编码到剪贴板。
 - Excel 更新后重启软件会自动重载。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 300 字说明。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript
@@ -98,7 +98,7 @@ Start with structure + wireframe.`,
 - One-click copy a specific field (e.g. copy SKU to clipboard).
 - Reload when Excel changes on disk, or on restart.
 - Package as Windows .exe and macOS .dmg; 300-word guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'timer-tracker',
@@ -117,7 +117,7 @@ Start with structure + wireframe.`,
   4. 一键导出到 Excel。
 - 窗口小（320x420），固定置顶可选。
 - 同时打包成 Windows .exe 和 macOS .dmg；300 字说明。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform time-tracker:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -128,7 +128,7 @@ Start with structure + wireframe.`,
   4. One-click Excel export.
 - Small window (320x420); always-on-top option.
 - Package as Windows .exe and macOS .dmg; 300-word guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'mini-kanban',
@@ -144,7 +144,7 @@ Start with structure + wireframe.`,
 - 软件启动默认打开最近一次工作视图。
 - 深浅模式跟随系统。
 - 同时打包成 Windows .exe 和 macOS .dmg；200 字说明。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a personal cross-platform Kanban:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -152,7 +152,7 @@ Start with structure + wireframe.`,
 - Opens in the last-used view.
 - Follows system dark mode.
 - Package as Windows .exe and macOS .dmg; 200-word guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'pdf-merge-split',
@@ -169,7 +169,7 @@ Start with structure + wireframe.`,
   2. 拆分模式：拖入一份 PDF，输入页码区间（如"1-10, 11-25, 26-end"），按区间导出为多份 PDF。
 - 全程不联网，文件只在本地处理；处理完后弹一个"打开输出文件夹"的按钮。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。
-先给项目结构和界面线框图，确认后再写代码。中文沟通。`,
+先给 10 行以内方案摘要，然后直接实现、运行和验证。中文沟通。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + pdf-lib
@@ -178,7 +178,7 @@ Start with structure + wireframe.`,
   2. Split: drop one PDF, type page ranges (e.g. "1-10, 11-25, 26-end"), export each range as a separate PDF.
 - Fully offline; files stay local. After completion, show an "Open output folder" button.
 - Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with structure + wireframe. English throughout.`,
+Start with a brief plan summary, then implement, run, and verify. English throughout.`,
   },
   {
     id: 'screenshot-watermark',
@@ -196,7 +196,7 @@ Start with structure + wireframe. English throughout.`,
   3. 一键批量处理，输出到"原目录_processed"。处理过程显示进度。
 - 不修改原图；保留原始 EXIF 时间。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + sharp
@@ -206,7 +206,7 @@ Start with structure + wireframe. English throughout.`,
   3. One-click batch with progress; output to "<originalFolder>_processed".
 - Never modify originals; preserve original EXIF timestamps.
 - Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'csv-cleaner',
@@ -223,7 +223,7 @@ Start with structure + wireframe.`,
   2. 提供"清洗动作清单"，复选打勾即可：去除空行、去除完全重复行、去除前后空格、统一日期格式（YYYY-MM-DD）、全角转半角、按某列去重保留首条。
   3. 右侧实时预览清洗后的结果；满意后导出为新文件，原文件不动。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含"如何向 Codex 描述新清洗规则"的小段。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx + papaparse
@@ -232,7 +232,7 @@ Start with structure + wireframe.`,
   2. Show a checklist of cleaning actions: remove blank rows, drop exact duplicates, trim whitespace, normalize dates (YYYY-MM-DD), convert full-width to half-width, dedupe by chosen column keeping the first.
   3. Live-preview the cleaned result on the right; export to a new file when ready, leaving the original untouched.
 - Package as Windows .exe and macOS .dmg; 400-word user guide including a short section on "how to describe new cleaning rules to Codex".
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'audio-to-text',
@@ -251,7 +251,7 @@ Start with structure + wireframe.`,
   4. 一键导出为 .docx 和 .md。
 - 全程在本机跑，不联网；首次模型下载提示用户磁盘占用。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local whisper.cpp (small multilingual model, auto-downloaded on first use)
@@ -262,7 +262,7 @@ Start with structure + wireframe.`,
   4. Export to .docx and .md.
 - Fully offline; warn the user about disk space when downloading the model.
 - Package as Windows .exe and macOS .dmg; 500-word user guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'sticky-notes',
@@ -281,7 +281,7 @@ Start with structure + wireframe.`,
   4. 关闭窗口最小化到任务栏 / Dock；开机自启可在设置里打开。
   5. 全部数据存在本地 SQLite，可一键导出为 .json 备份。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -292,7 +292,7 @@ Start with structure + wireframe.`,
   4. Close minimizes to tray/dock; launch-at-login optional in settings.
   5. All data in local SQLite; one-click export to .json backup.
 - Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'image-resizer',
@@ -311,7 +311,7 @@ Start with structure + wireframe.`,
   4. 一键批量导出到"原目录_resized"文件夹，原图不动。
 - 全程本地处理，不联网；处理过程显示进度。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。
-先给项目结构和界面线框图，确认后再写代码。中文沟通。`,
+先给 10 行以内方案摘要，然后直接实现、运行和验证。中文沟通。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + sharp
@@ -322,7 +322,7 @@ Start with structure + wireframe.`,
   4. One-click batch export to a sibling "<originalFolder>_resized"; originals untouched.
 - Fully offline; show progress.
 - Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'contact-deduper',
@@ -341,7 +341,7 @@ Start with structure + wireframe.`,
   4. 输出一份合并后的 Excel + 一份"被去掉的可疑重复条目"Excel 供复核，原文件不动。
 - 全程本地处理，不联网。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。
-先给结构 + 线框图。中文。`,
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx
@@ -352,7 +352,7 @@ Start with structure + wireframe.`,
   4. Export a merged Excel plus a "removed-as-duplicate" Excel for review; originals untouched.
 - Fully offline.
 - Package as Windows .exe and macOS .dmg; 400-word user guide.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
   {
     id: 'markdown-to-pptx',
@@ -371,7 +371,7 @@ Start with structure + wireframe.`,
   4. 一键导出 .pptx 文件到指定文件夹；同时保存当前 .md 草稿到本地。
 - 全程本地处理，不联网。
 - 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含 Markdown 速查表。
-先给项目结构和界面线框图，确认后再写代码。中文沟通。`,
+先给 10 行以内方案摘要，然后直接实现、运行和验证。中文沟通。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + pptxgenjs
@@ -382,6 +382,6 @@ Start with structure + wireframe.`,
   4. One-click export to .pptx; auto-save the current .md draft locally.
 - Fully offline.
 - Package as Windows .exe and macOS .dmg; 400-word user guide including a Markdown cheatsheet.
-Start with structure + wireframe.`,
+Start with a brief plan summary, then implement, run, and verify.`,
   },
 ];

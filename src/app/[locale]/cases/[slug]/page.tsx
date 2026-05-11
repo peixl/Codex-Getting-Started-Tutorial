@@ -10,6 +10,7 @@ import { CopyButton } from '@/components/CopyButton';
 import { StructuredData } from '@/components/StructuredData';
 import { LinkButton } from '@/components/Button';
 import { SITE_URL, caseUrl, localePath } from '@/lib/routes';
+import { withDesktopQualityBar } from '@/lib/promptQuality';
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -90,6 +91,9 @@ export default async function CasePage({ params }: Props) {
   if (!bundle) notFound();
   const dict = getDictionary(locale);
   const copy = bundle.i18n[locale];
+  const promptZh = withDesktopQualityBar(bundle.prompt.zh, 'zh');
+  const promptEn = withDesktopQualityBar(bundle.prompt.en, 'en');
+  const localizedPrompt = locale === 'zh' ? promptZh : promptEn;
   const related = getCasesByDepartment(bundle.department).filter(
     (c) => c.slug !== bundle.slug
   );
@@ -191,14 +195,14 @@ export default async function CasePage({ params }: Props) {
             </div>
             <div className="flex flex-wrap gap-2">
               <CopyButton
-                value={bundle.prompt.zh}
+                value={promptZh}
                 label={dict.cases.copyPromptZh}
                 copiedLabel={dict.cases.copied}
                 variant="chip"
                 size="sm"
               />
               <CopyButton
-                value={bundle.prompt.en}
+                value={promptEn}
                 label={dict.cases.copyPromptEn}
                 copiedLabel={dict.cases.copied}
                 variant="primary"
@@ -207,7 +211,7 @@ export default async function CasePage({ params }: Props) {
             </div>
           </div>
           <pre className="max-h-[480px] overflow-auto rounded-2xl border border-[color:var(--line)] bg-[#0F1115] p-4 text-[12.5px] leading-[1.75] text-[#E5E7EB]">
-            <code className="whitespace-pre-wrap break-words">{bundle.prompt[locale]}</code>
+            <code className="whitespace-pre-wrap break-words">{localizedPrompt}</code>
           </pre>
         </GlassPanel>
       </section>

@@ -16,11 +16,11 @@ const SHARED_TAIL_ZH = `
 - 输入格式不对时弹中文友好提示，不要直接抛技术错误。
 
 【交付】
-1. 先列项目结构 + 主界面文字线框图，等我确认。
+1. 先给 10 行以内方案摘要（目标、流程、技术、验收），然后直接实现、运行和验证。
 2. 按模块交付，每个模块跑起来给我看。
 3. 最后打包 Windows .exe 和 macOS .dmg，附 500 字内的中文使用说明，并列出已知限制。
 
-中文沟通，代码注释用中文。从结构和线框图开始。`;
+中文沟通，代码注释用中文。先给简短方案摘要，然后直接实现、运行和验证。`;
 
 const SHARED_TAIL_EN = `
 
@@ -35,11 +35,11 @@ const SHARED_TAIL_EN = `
 - Friendly messages on bad input, never raw stack traces.
 
 [Delivery]
-1. Outline project structure + plain-text wireframe first; wait for confirmation.
+1. Start with a plan summary under 10 lines, then implement, run, and verify.
 2. Deliver in modules; run each one for me to see.
 3. Package a Windows .exe and macOS .dmg, ship a 500-word plain-language user guide, list known limits.
 
-Start with structure and wireframe.`;
+Start with a brief plan summary, then implement, run, and verify.`;
 
 // ---------- Finance ----------
 
