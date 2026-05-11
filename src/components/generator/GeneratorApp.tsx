@@ -29,6 +29,8 @@ type HistoryEntry = {
   state: FormState;
 };
 
+type CopiedNotice = 'prompt' | 'recovery' | null;
+
 const STORAGE_KEY = 'codex-tutorial:generator:v2';
 const HISTORY_KEY = 'codex-tutorial:generator:history:v2';
 const MAX_HISTORY = 6;
@@ -45,6 +47,7 @@ export function GeneratorApp({ locale, dict }: Props) {
   const [state, setState] = useState<FormState>(DEFAULT_FORM);
   const [lang, setLang] = useState<PromptLang>(locale);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [copiedNotice, setCopiedNotice] = useState<CopiedNotice>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -68,6 +71,12 @@ export function GeneratorApp({ locale, dict }: Props) {
   useEffect(() => {
     setLang(locale);
   }, [locale]);
+
+  useEffect(() => {
+    if (!copiedNotice) return;
+    const timer = window.setTimeout(() => setCopiedNotice(null), 5200);
+    return () => window.clearTimeout(timer);
+  }, [copiedNotice]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -205,11 +214,33 @@ export function GeneratorApp({ locale, dict }: Props) {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
         <div>
-          <div className="mb-3 rounded-2xl border border-[color:var(--line)] bg-white/60 px-4 py-3 text-[12px] text-ink-soft backdrop-blur-xl">
-            <span className="mr-2 rounded-full bg-accent-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">
-              {dict.generator.tipCardTitle}
-            </span>
-            {dict.generator.tipCardBody}
+          <div className="mb-3 rounded-2xl border border-[color:var(--line)] bg-white/65 p-4 text-[12px] text-ink-soft backdrop-blur-xl">
+            <div className="flex flex-wrap items-start gap-2">
+              <span className="shrink-0 rounded-full bg-accent-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">
+                {dict.generator.tipCardTitle}
+              </span>
+              <p className="min-w-0 flex-1 leading-relaxed">{dict.generator.tipCardBody}</p>
+            </div>
+            <ol className="mt-3 grid gap-2 sm:grid-cols-3">
+              {[
+                [dict.generator.beginnerStep1Title, dict.generator.beginnerStep1Body],
+                [dict.generator.beginnerStep2Title, dict.generator.beginnerStep2Body],
+                [dict.generator.beginnerStep3Title, dict.generator.beginnerStep3Body],
+              ].map(([title, body], index) => (
+                <li
+                  key={title}
+                  className="rounded-xl border border-[color:var(--line)] bg-white/65 px-3 py-2"
+                >
+                  <div className="flex items-center gap-2 text-[12px] font-semibold text-ink">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ink text-[10px] text-white">
+                      {index + 1}
+                    </span>
+                    <span>{title}</span>
+                  </div>
+                  <p className="mt-1 text-[11.5px] leading-relaxed text-ink-mute">{body}</p>
+                </li>
+              ))}
+            </ol>
           </div>
           <GeneratorForm state={state} update={update} dict={dict} locale={locale} />
           <div className="mt-4 flex flex-wrap gap-2">
@@ -271,9 +302,13 @@ export function GeneratorApp({ locale, dict }: Props) {
                   value={prompt}
                   label={dict.generator.copyButton}
                   copiedLabel={dict.generator.copied}
+                  failedLabel={dict.generator.copyFailed}
                   variant="primary"
                   size="sm"
-                  onCopied={saveToHistory}
+                  onCopied={() => {
+                    saveToHistory();
+                    setCopiedNotice('prompt');
+                  }}
                   disabled={!valid}
                   disabledTitle={validationMessage}
                 />
@@ -282,6 +317,16 @@ export function GeneratorApp({ locale, dict }: Props) {
             <p className="mb-3 text-[12px] leading-relaxed text-ink-soft">
               {dict.generator.outputHint}
             </p>
+            {copiedNotice && (
+              <div
+                role="status"
+                className="mb-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-3.5 py-2 text-[12px] leading-relaxed text-emerald-800"
+              >
+                {copiedNotice === 'prompt'
+                  ? dict.generator.copyNextPrompt
+                  : dict.generator.copyNextRecovery}
+              </div>
+            )}
             {!valid && (
               <div
                 role="status"
@@ -311,8 +356,10 @@ export function GeneratorApp({ locale, dict }: Props) {
                   value={recoveryPrompt}
                   label={dict.generator.copyRecoveryButton}
                   copiedLabel={dict.generator.copied}
+                  failedLabel={dict.generator.copyFailed}
                   variant="chip"
                   size="sm"
+                  onCopied={() => setCopiedNotice('recovery')}
                   disabled={!valid}
                   disabledTitle={validationMessage}
                 />

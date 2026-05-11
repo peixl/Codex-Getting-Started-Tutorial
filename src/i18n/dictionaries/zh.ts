@@ -165,6 +165,9 @@ export const zh = {
       '整段复制，打开 Codex 桌面版，新建一个任务粘贴进去就行。它会先简短说明方案，然后继续动手实现。',
     copyButton: '一键复制',
     copied: '已复制',
+    copyFailed: '复制失败',
+    copyNextPrompt: '已复制。下一步：打开 Codex 桌面版 → 新建任务 → 粘贴 → 发送。',
+    copyNextRecovery: '修复提示词已复制。把它和报错内容一起发给 Codex，让它继续修。',
     recoveryTitle: '跑不起来时，再复制这一段',
     recoveryHint: '如果 Codex 卡在报错、启动或打包，把这段发给它，让它继续自己排查、修改、验证。',
     copyRecoveryButton: '复制修复提示词',
@@ -187,7 +190,13 @@ export const zh = {
 
     tipCardTitle: '给小白的小提醒',
     tipCardBody:
-      '提示词里那些专业名词都是写给 Codex 看的，你完全不用懂。你只要把"目标"和"功能"写清楚，其它默认值已经帮你选好，还会要求 Codex 自己运行和验证。',
+      '不用懂技术。先写清“给谁用、做什么”，其它推荐项保持默认就行。',
+    beginnerStep1Title: '先选模板',
+    beginnerStep1Body: '不确定就保留默认推荐项。',
+    beginnerStep2Title: '填两段话',
+    beginnerStep2Body: '写清给谁用、要输入什么、希望输出什么。',
+    beginnerStep3Title: '复制去 Codex',
+    beginnerStep3Body: '跑不起来再复制修复提示词。',
   },
 
   guide: {

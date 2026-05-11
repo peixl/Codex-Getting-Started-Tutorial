@@ -164,6 +164,9 @@ export const en = {
       'Copy the whole block. Open Codex Desktop, start a new task, paste it in. It will summarize briefly, then continue implementing.',
     copyButton: 'Copy prompt',
     copied: 'Copied',
+    copyFailed: 'Copy failed',
+    copyNextPrompt: 'Copied. Next: open Codex Desktop → create a new task → paste → send.',
+    copyNextRecovery: 'Fix prompt copied. Send it to Codex together with the error message so it keeps fixing.',
     recoveryTitle: 'If it fails, copy this next',
     recoveryHint: 'When Codex gets stuck on an error, launch, or packaging step, send this so it keeps debugging, editing, and verifying.',
     copyRecoveryButton: 'Copy fix prompt',
@@ -187,6 +190,12 @@ export const en = {
     tipCardTitle: 'Friendly heads-up',
     tipCardBody:
       'The technical wording in the generated prompt is for Codex, not for you. Focus on goal and features; the defaults also ask Codex to run and verify the result.',
+    beginnerStep1Title: 'Start from a template',
+    beginnerStep1Body: 'When unsure, keep the recommended defaults.',
+    beginnerStep2Title: 'Write two short parts',
+    beginnerStep2Body: 'Who uses it, what goes in, and what should come out.',
+    beginnerStep3Title: 'Paste into Codex',
+    beginnerStep3Body: 'If it fails, copy the fix prompt next.',
   },
 
   guide: {

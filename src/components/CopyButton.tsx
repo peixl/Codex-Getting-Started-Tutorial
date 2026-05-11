@@ -14,6 +14,7 @@ type Props = {
   onCopied?: () => void;
   disabled?: boolean;
   disabledTitle?: string;
+  failedLabel?: string;
 };
 
 export function CopyButton({
@@ -26,8 +27,10 @@ export function CopyButton({
   onCopied,
   disabled = false,
   disabledTitle,
+  failedLabel = 'Copy failed',
 }: Props) {
   const [copied, setCopied] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     if (!copied) return;
@@ -35,8 +38,15 @@ export function CopyButton({
     return () => clearTimeout(t);
   }, [copied]);
 
+  useEffect(() => {
+    if (!failed) return;
+    const t = setTimeout(() => setFailed(false), 2600);
+    return () => clearTimeout(t);
+  }, [failed]);
+
   const handleCopy = async () => {
     if (disabled) return;
+    setFailed(false);
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(value);
@@ -55,6 +65,7 @@ export function CopyButton({
       onCopied?.();
     } catch {
       setCopied(false);
+      setFailed(true);
     }
   };
 
@@ -72,6 +83,7 @@ export function CopyButton({
     <button
       type="button"
       onClick={handleCopy}
+      disabled={disabled}
       aria-live="polite"
       aria-disabled={disabled || undefined}
       title={disabled ? disabledTitle : undefined}
@@ -84,7 +96,7 @@ export function CopyButton({
       )}
     >
       {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
-      <span>{copied ? copiedLabel : label}</span>
+      <span>{failed ? failedLabel : copied ? copiedLabel : label}</span>
     </button>
   );
 }
