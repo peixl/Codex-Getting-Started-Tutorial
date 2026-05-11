@@ -12,7 +12,7 @@ import type {
 } from '@/lib/promptBuilder';
 import { GlassPanel } from '@/components/GlassCard';
 import { cn } from '@/lib/cn';
-import { MacWindowIcon, WindowsIcon } from '@/components/icons';
+import { CheckIcon, MacWindowIcon, WindowsIcon } from '@/components/icons';
 
 type Props = {
   state: FormState;
@@ -121,7 +121,7 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
           {dict.generator.sectionPlatform}
         </h3>
         <p className="mb-4 text-[12px] text-ink-mute">{dict.generator.platformHint}</p>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-3" role="group" aria-label={dict.generator.sectionPlatform}>
           {platformOptions.map((opt) => (
             <OptionCard
               key={opt.value}
@@ -139,10 +139,7 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
         <h3 className="mb-4 text-[14px] font-semibold text-ink">
           {dict.generator.sectionTech}
         </h3>
-        <label className="sr-only" htmlFor="tech-select">
-          {dict.generator.techLabel}
-        </label>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2" role="group" aria-label={dict.generator.sectionTech}>
           {techOptions.map((opt) => (
             <OptionCard
               key={opt.value}
@@ -157,7 +154,7 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
 
       <GlassPanel>
         <h3 className="mb-4 text-[14px] font-semibold text-ink">{dict.generator.sectionUI}</h3>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2" role="group" aria-label={dict.generator.sectionUI}>
           {uiOptions.map((opt) => (
             <OptionCard
               key={opt.value}
@@ -172,7 +169,7 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
 
       <GlassPanel>
         <h3 className="mb-4 text-[14px] font-semibold text-ink">{dict.generator.sectionData}</h3>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2" role="group" aria-label={dict.generator.sectionData}>
           {dataOptions.map((opt) => (
             <OptionCard
               key={opt.value}
@@ -192,7 +189,7 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
         <p className="mb-4 text-[12px] text-ink-mute">
           {dict.generator.complexityHint}
         </p>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2" role="group" aria-label={dict.generator.sectionComplexity}>
           {complexityOptions.map((opt) => (
             <OptionCard
               key={opt.value}
@@ -252,22 +249,27 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
             <label
               key={item.key}
               className={cn(
-                'flex cursor-pointer items-start gap-3 rounded-2xl border px-4 py-3 transition',
+                'relative flex min-h-[78px] cursor-pointer items-start gap-3 overflow-hidden rounded-2xl border px-4 py-3 transition-all duration-200 focus-within:ring-2 focus-within:ring-[color:var(--accent)] focus-within:ring-offset-2 focus-within:ring-offset-[color:var(--surface)]',
                 state.extras[item.key]
-                  ? 'border-ink/20 bg-white shadow-soft'
-                  : 'border-[color:var(--line)] bg-white/55 hover:bg-white/80'
+                  ? 'border-[color:var(--accent)] bg-[linear-gradient(135deg,rgba(10,132,255,0.12),rgba(255,255,255,0.96))] shadow-[0_0_0_1px_rgba(10,132,255,0.22),0_14px_34px_rgba(10,132,255,0.12)] ring-2 ring-[rgba(10,132,255,0.18)]'
+                  : 'border-[color:var(--line)] bg-white/55 hover:border-[color:var(--line-strong)] hover:bg-white/85 hover:shadow-soft'
               )}
             >
+              {state.extras[item.key] && (
+                <span className="absolute inset-y-3 left-0 w-1 rounded-r-full bg-[color:var(--accent)]" aria-hidden="true" />
+              )}
               <input
                 type="checkbox"
                 checked={state.extras[item.key]}
                 onChange={(e) =>
                   update({ extras: { ...state.extras, [item.key]: e.target.checked } })
                 }
-                className="mt-0.5 h-4 w-4 accent-[color:var(--fg-primary)]"
+                className="mt-0.5 h-4 w-4 shrink-0 accent-[color:var(--accent)]"
               />
-              <div>
-                <div className="text-[13px] font-medium text-ink">{item.label}</div>
+              <div className="min-w-0 flex-1">
+                <div className={cn('text-[13px] text-ink', state.extras[item.key] ? 'font-semibold' : 'font-medium')}>
+                  {item.label}
+                </div>
                 <div className="text-[11.5px] text-ink-mute">{item.hint}</div>
               </div>
             </label>
@@ -307,25 +309,68 @@ function OptionCard({
   icon?: React.ReactNode;
   badge?: string;
 }) {
+  const hasMeta = Boolean(icon || badge || active);
+
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        'focus-ring relative flex w-full items-start gap-3 rounded-2xl border px-4 py-3 text-left transition',
+        'focus-ring relative w-full overflow-hidden rounded-2xl border px-4 py-3 text-left transition-all duration-200',
+        hasMeta ? 'flex min-h-[88px] flex-col justify-between' : 'flex min-h-[76px] items-center',
         active
-          ? 'border-ink/25 bg-white shadow-soft'
-          : 'border-[color:var(--line)] bg-white/55 hover:bg-white/85'
+          ? 'border-[color:var(--accent)] bg-[linear-gradient(135deg,rgba(10,132,255,0.14),rgba(255,255,255,0.96))] pl-5 shadow-[0_0_0_1px_rgba(10,132,255,0.24),0_14px_34px_rgba(10,132,255,0.14)] ring-2 ring-[rgba(10,132,255,0.2)]'
+          : 'border-[color:var(--line)] bg-white/55 hover:border-[color:var(--line-strong)] hover:bg-white/85 hover:shadow-soft'
       )}
     >
-      {icon && <span className="mt-0.5 text-ink">{icon}</span>}
-      <span className="text-[13px] font-medium leading-relaxed text-ink">{label}</span>
-      {badge && (
-        <span className="ml-auto shrink-0 rounded-full bg-accent-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">
-          {badge}
+      {active && (
+        <span className="absolute inset-y-3 left-0 w-1 rounded-r-full bg-[color:var(--accent)]" aria-hidden="true" />
+      )}
+      {hasMeta && (
+        <span className="flex w-full items-center justify-between gap-2" aria-hidden="true">
+          {icon ? (
+            <span
+              className={cn(
+                'inline-flex h-8 min-w-8 shrink-0 items-center justify-center rounded-xl border px-1 transition-colors duration-200',
+                active
+                  ? 'border-[rgba(10,132,255,0.28)] bg-white/80 text-accent'
+                  : 'border-[color:var(--line)] bg-white/60 text-ink'
+              )}
+            >
+              {icon}
+            </span>
+          ) : (
+            <span className="h-8 min-w-0" />
+          )}
+          <span className="flex shrink-0 items-center gap-1.5">
+            {badge && (
+              <span
+                className={cn(
+                  'rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider',
+                  active ? 'bg-[color:var(--accent)] text-white' : 'bg-accent-soft text-accent'
+                )}
+              >
+                {badge}
+              </span>
+            )}
+            {active && (
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[color:var(--accent)] bg-[color:var(--accent)] text-white">
+                <CheckIcon size={13} strokeWidth={4} />
+              </span>
+            )}
+          </span>
         </span>
       )}
+      <span
+        className={cn(
+          'block w-full break-words text-[13px] leading-relaxed text-ink',
+          hasMeta && 'mt-2',
+          active ? 'font-semibold' : 'font-medium'
+        )}
+      >
+        {label}
+      </span>
     </button>
   );
 }
