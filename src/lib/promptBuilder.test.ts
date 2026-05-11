@@ -21,6 +21,9 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('核心业务逻辑放在独立模块');
     expect(prompt).toContain('标准业务版');
     expect(prompt).toContain('运行 lint、类型检查、测试和构建');
+    expect(prompt).toContain('M1 ≤ 15 分钟');
+    expect(prompt).toContain('完成判定（DoD）');
+    expect(prompt).toContain('停止 Vibe Coding');
   });
 
   it('uses platform-specific shortcut wording in Chinese prompts', () => {
@@ -43,6 +46,9 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('Command / Option combinations');
     expect(prompt).toContain('build a macOS .dmg installer');
     expect(prompt).toContain('native open / save dialogs');
+    expect(prompt).toContain('M1 (≤ 15 min)');
+    expect(prompt).toContain('Definition of Done');
+    expect(prompt).toContain('Stop-Vibe-Coding');
   });
 });
 
