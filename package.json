@@ -27,10 +27,11 @@
   },
   "devDependencies": {
     "@opennextjs/cloudflare": "^1.19.8",
-    "@types/node": "22.10.2",
+    "@types/node": "^22.16.0",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
     "autoprefixer": "10.4.20",
+    "esbuild": "^0.28.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "^15.5.18",
     "postcss": "8.5.14",
