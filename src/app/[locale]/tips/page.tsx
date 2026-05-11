@@ -42,6 +42,10 @@ export default async function TipsPage({ params }: Props) {
     { title: dict.tips.tip6Title, body: dict.tips.tip6Body },
     { title: dict.tips.tip7Title, body: dict.tips.tip7Body },
     { title: dict.tips.tip8Title, body: dict.tips.tip8Body },
+    { title: dict.tips.tip9Title, body: dict.tips.tip9Body },
+    { title: dict.tips.tip10Title, body: dict.tips.tip10Body },
+    { title: dict.tips.tip11Title, body: dict.tips.tip11Body },
+    { title: dict.tips.tip12Title, body: dict.tips.tip12Body },
   ];
 
   const pitfalls = [
@@ -49,6 +53,8 @@ export default async function TipsPage({ params }: Props) {
     { title: dict.tips.pitfall2Title, body: dict.tips.pitfall2Body },
     { title: dict.tips.pitfall3Title, body: dict.tips.pitfall3Body },
     { title: dict.tips.pitfall4Title, body: dict.tips.pitfall4Body },
+    { title: dict.tips.pitfall5Title, body: dict.tips.pitfall5Body },
+    { title: dict.tips.pitfall6Title, body: dict.tips.pitfall6Body },
   ];
 
   const ld = {

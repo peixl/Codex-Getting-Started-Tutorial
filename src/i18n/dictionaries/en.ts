@@ -333,6 +333,18 @@ export const en = {
     tip8Title: 'Request robust UX',
     tip8Body:
       'Add: "If the user provides invalid input, show a friendly message and do not crash." Your app will hold up.',
+    tip9Title: 'Ask for use cases first',
+    tip9Body:
+      'Before any code: "List 3 main use cases and the user actions in each." You\'ll instantly see if it understood the task.',
+    tip10Title: 'Say what NOT to change',
+    tip10Body:
+      'When iterating on screen A, lead with: "Keep B and C exactly as they are; only adjust A." That single line prevents most accidental regressions.',
+    tip11Title: 'Show, do not describe',
+    tip11Body:
+      'Instead of "make it look clean", paste a Notion / Linear screenshot and say "this kind of feel". One image beats five paragraphs.',
+    tip12Title: 'Start a fresh chat after a milestone',
+    tip12Body:
+      'Long threads accumulate noise that drags answers off-track. After finishing one feature, open a new chat and paste in the latest prompt + code as the seed.',
 
     pitfallsTitle: 'Common misconceptions',
     pitfall1Title: 'It does NOT read your mind',
@@ -347,6 +359,12 @@ export const en = {
     pitfall4Title: 'Do NOT start over on every error',
     pitfall4Body:
       'An error is information — the most digestible kind for Codex. Paste it back.',
+    pitfall5Title: 'Do NOT explain WHY, just say WHAT',
+    pitfall5Body:
+      'If you know how it should work, just say so. Skip the rationale. "It should X" beats "It should X because Y" tenfold for clarity.',
+    pitfall6Title: 'Do NOT skip checkpoints',
+    pitfall6Body:
+      'Every time the app runs, copy the folder to your desktop with a timestamped name. If a later change breaks things, you can roll back to a known-good state in seconds.',
   },
 
   faq: {
@@ -382,6 +400,24 @@ export const en = {
 
     q10: 'Who do I contact if something breaks?',
     a10: 'Codex itself is your first responder — tell it what broke. For account or billing issues, contact OpenAI support.',
+
+    q11: 'My computer is pretty average. Can it run Codex Desktop and the tools it builds?',
+    a11: 'Almost certainly yes. Codex Desktop is essentially a chat window and uses very little resources. The local tools it produces only work on the files you drop in and release memory once you close them. 8GB RAM is a comfortable baseline; keep about 10GB of disk free for installers and cache.',
+
+    q12: 'Will Codex upload my local files to the internet?',
+    a12: 'Codex Desktop only reads files you explicitly drop into the conversation, and typically only the relevant slice. For sensitive sheets, anonymize first (e.g. replace names with ABC, mask middle digits of phone numbers). The habit matters more than any setting.',
+
+    q13: 'The first response is full of jargon I cannot follow. What do I do?',
+    a13: 'Reply: "Plain Chinese only, no code. In five sentences, tell me what you\'re about to do next." It will switch tone. Approve, then say "OK, go ahead."',
+
+    q14: 'How do I keep usage costs in check?',
+    a14: 'Three habits: (1) one task per conversation; (2) once code runs, start a new chat for the next phase so context stays small; (3) reuse a known-good prompt instead of rewriting. These cut wasted calls roughly in half.',
+
+    q15: 'Can I commercialize what I build?',
+    a15: 'Internal company use and sharing with friends are fine. To resell, read OpenAI\'s terms of use, the commercial limits of your account tier, and the licenses of any open-source dependencies (MIT/Apache are commercial-friendly; GPL needs care).',
+
+    q16: 'Friends ask: "did you really build this?" — what do I say?',
+    a16: 'Honestly: "I designed it and Codex wrote the code." Specifying the requirement, accepting the result, and iterating it are real work. Anyone reasonable will get it.',
   },
 
   footer: {

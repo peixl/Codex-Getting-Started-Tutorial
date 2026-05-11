@@ -44,6 +44,12 @@ export default async function FAQPage({ params }: Props) {
     { q: dict.faq.q8, a: dict.faq.a8 },
     { q: dict.faq.q9, a: dict.faq.a9 },
     { q: dict.faq.q10, a: dict.faq.a10 },
+    { q: dict.faq.q11, a: dict.faq.a11 },
+    { q: dict.faq.q12, a: dict.faq.a12 },
+    { q: dict.faq.q13, a: dict.faq.a13 },
+    { q: dict.faq.q14, a: dict.faq.a14 },
+    { q: dict.faq.q15, a: dict.faq.a15 },
+    { q: dict.faq.q16, a: dict.faq.a16 },
   ];
 
   const ld = {

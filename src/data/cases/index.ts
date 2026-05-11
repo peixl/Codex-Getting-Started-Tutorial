@@ -33,6 +33,9 @@ import {
   adminAssetInventory,
   productPriorityBoard,
   productBetaTesterTracker,
+  financeMonthlyBudgetTracker,
+  marketingEventChecklist,
+  hrBirthdayReminder,
 } from './_more';
 
 export type { CaseBundle, CaseCopy, Department } from './types';
@@ -73,6 +76,9 @@ export const caseBundles: CaseBundle[] = [
   adminAssetInventory,
   productPriorityBoard,
   productBetaTesterTracker,
+  financeMonthlyBudgetTracker,
+  marketingEventChecklist,
+  hrBirthdayReminder,
 ];
 
 export function getCaseBySlug(slug: string): CaseBundle | undefined {

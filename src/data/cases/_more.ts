@@ -1783,6 +1783,239 @@ Every beta tester gets ongoing follow-up; feedback gets categorized and answered
   },
 };
 
+// ---------- Round-out trio (so cases divide evenly into 2 / 3 / 6 columns) ----------
+
+export const financeMonthlyBudgetTracker: CaseBundle = {
+  slug: 'finance-monthly-budget-tracker',
+  department: 'finance',
+  i18n: {
+    zh: {
+      title: '部门月度预算跟踪表',
+      departmentLabel: '财务',
+      summary:
+        '把每个部门当月的预算、已用、剩余、超支风险一屏看清，月中预警。',
+      painTitle: '这是什么问题',
+      painBody:
+        '月底才发现某个部门超支了，已经来不及调。需要月中就能看到苗头。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '本地小工具：导入年度预算表，每周更新一次实际支出，自动按"时间过半 / 预算过半"两条线发预警。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '部门预算总览：当月预算、已用、剩余、用预算百分比 vs 时间百分比。',
+        '红黄绿三色信号灯：用得快了/正常/用得慢。',
+        '点进部门看分类明细（人力 / 推广 / 差旅 / 办公…）。',
+        '一键导出"本月预算预警"PDF 给老板。',
+      ],
+      keywords: ['预算', '财务', '预警', '部门'],
+    },
+    en: {
+      title: 'Monthly Budget Tracker',
+      departmentLabel: 'Finance',
+      summary:
+        'See every department\'s budget, used, remaining, and overrun risk on one screen — mid-month alerts.',
+      painTitle: 'The problem',
+      painBody:
+        'You only spot the overrun at month-end, too late to course-correct. You need to see it building up.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'A local tool: import the annual budget, refresh actuals weekly, auto-warn when "time elapsed" and "budget consumed" diverge.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Per-department overview: month budget, used, remaining, % consumed vs % of month elapsed.',
+        'Traffic-light status: red/yellow/green for pacing.',
+        'Drill into a department for category breakdown (payroll / promo / travel / office…).',
+        'One-click "this month\'s budget alerts" PDF for the boss.',
+      ],
+      keywords: ['budget', 'finance', 'tracking', 'department'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是公司财务，不懂代码。
+
+【目标】
+让每个部门的当月预算执行情况可视化，提前发现超支风险。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；本地 SQLite
+
+【核心功能】
+1. 导入年度预算表（部门 + 类目 + 月度预算）；每周导入一次实际支出 Excel。
+2. 主视图：部门卡片网格，每张卡片显示当月预算、已用、剩余、消耗百分比 vs 时间过半线。
+3. 信号灯规则可改：消耗百分比 - 时间百分比 > 15% 红，5–15% 黄，其它绿。
+4. 点进部门：按类目柱状图，超支项标红。
+5. 一键导出 PDF 月度预警报告，第一页是总览，后续每个部门一页。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is finance staff, no coding background.
+
+[Goal]
+Visualize each department's mid-month budget execution; catch overruns early.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; local SQLite
+
+[Core Features]
+1. Import annual budget (dept + category + monthly amount); weekly import of actual spend Excel.
+2. Main view: department card grid showing month budget, used, remaining, % consumed vs % of month elapsed.
+3. Editable traffic-light rule: consumed% - elapsed% > 15 → red; 5–15 → yellow; else green.
+4. Drill-in: per-category bars; overruns highlighted.
+5. One-click PDF monthly alert report — overview page first, then one page per department.${SHARED_TAIL_EN}`,
+  },
+};
+
+export const marketingEventChecklist: CaseBundle = {
+  slug: 'marketing-event-checklist',
+  department: 'marketing',
+  i18n: {
+    zh: {
+      title: '线下活动筹备清单',
+      departmentLabel: '市场',
+      summary:
+        '把线下活动从立项到复盘的几十件事拆成可勾选的清单，按倒计时排好。',
+      painTitle: '这是什么问题',
+      painBody:
+        '一场线下活动几十件事，谁负责、什么时候做、做完没有，全靠脑子记，活动当天总有遗漏。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '本地小工具：内置一个"线下活动通用清单"，按活动日期倒推每件事的截止日，谁负责、状态、备注一栏看全。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '新建活动：填活动名、日期、规模，自动生成 40+ 项任务清单。',
+        '每项任务：截止日（按 D-X 自动算）、负责人、状态、备注。',
+        '主视图按"今天 / 三天内 / 一周内 / 已完成"分组。',
+        '活动结束后一键生成"复盘清单"Markdown：哪些没做完、哪些值得保留。',
+      ],
+      keywords: ['活动', '线下', '清单', '市场'],
+    },
+    en: {
+      title: 'Offline Event Checklist',
+      departmentLabel: 'Marketing',
+      summary:
+        'Break a live event from kickoff to retro into a tickable checklist, scheduled by countdown.',
+      painTitle: 'The problem',
+      painBody:
+        'A live event has dozens of moving parts. Who, when, done? — all in your head, and something always slips on the day.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'A local tool: a built-in "generic live-event checklist" auto-schedules each task back from event day, with owner, status, and notes.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'New event: name, date, scale → auto-generates 40+ task checklist.',
+        'Each task: due date (D-X auto), owner, status, notes.',
+        'Main view grouped: Today / Within 3 days / Within a week / Done.',
+        'Post-event one-click retro checklist Markdown: what slipped, what to keep.',
+      ],
+      keywords: ['event', 'offline', 'checklist', 'marketing'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是市场同事，不懂代码。
+
+【目标】
+让一场线下活动的所有筹备事项都按时间线井井有条，活动当天不慌。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；本地 SQLite
+
+【核心功能】
+1. 新建活动：名称、日期、规模（小型 < 50 / 中型 50–200 / 大型 > 200）；自动生成默认任务清单（40+ 项，按 D-30 / D-14 / D-7 / D-3 / D-1 / D 当日 / D+3 复盘 分桶）。
+2. 任务字段：截止日（D-X 自动计算）、负责人、状态（未开始 / 进行中 / 完成 / 跳过）、备注、附件链接。
+3. 主视图：按"今天 / 三天内 / 一周内 / 已完成"分组；可按负责人筛选。
+4. 默认任务模板可在"模板"页里改；下次新活动自动用最新模板。
+5. 活动结束后一键生成"复盘 Markdown"：哪些任务超时、跳过原因、值得沉淀进模板的新经验。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is on the marketing team, not a developer.
+
+[Goal]
+Make every prep task for a live event ordered by timeline so the day-of is calm.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; local SQLite
+
+[Core Features]
+1. New event: name, date, scale (small < 50 / medium 50–200 / large > 200) → auto-generates a 40+ task default checklist bucketed D-30 / D-14 / D-7 / D-3 / D-1 / Day-of / D+3 retro.
+2. Task fields: due date (D-X auto), owner, status (not started / doing / done / skipped), notes, attachment link.
+3. Main view: groups Today / Within 3 days / Within a week / Done; filter by owner.
+4. Editable task template page; next event uses the latest template.
+5. Post-event one-click retro Markdown: which tasks slipped, why skipped, what to bake into the template.${SHARED_TAIL_EN}`,
+  },
+};
+
+export const hrBirthdayReminder: CaseBundle = {
+  slug: 'hr-birthday-anniversary-reminder',
+  department: 'hr',
+  i18n: {
+    zh: {
+      title: '生日 & 入职周年提醒台',
+      departmentLabel: '人事',
+      summary:
+        '把全公司的生日和入职周年集中到一张本地小桌面，提前一周自动提醒。',
+      painTitle: '这是什么问题',
+      painBody:
+        '同事生日、入职周年常常忘记，临时发祝福不真诚。需要提前一周看到名单。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '本地小工具：导入员工花名册，自动算下次生日 / 周年的日子，按"今日 / 7 天内 / 本月"分组提醒。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '导入花名册 Excel（姓名 / 部门 / 生日 / 入职日 / 联系方式）。',
+        '主视图三栏：今日庆祝、未来 7 天、本月剩余。',
+        '每位同事卡片：今年是 X 岁生日 / 入职第 N 年；一键复制定制祝福语模板。',
+        '一键导出"本月生日 & 周年"PDF 给行政贴公告板。',
+      ],
+      keywords: ['生日', '入职周年', '员工关怀', '人事'],
+    },
+    en: {
+      title: 'Birthday & Work Anniversary Console',
+      departmentLabel: 'HR',
+      summary:
+        'Bring everyone\'s birthday and work anniversary onto one local desktop with a week-ahead heads-up.',
+      painTitle: 'The problem',
+      painBody:
+        'Birthdays and work anniversaries quietly slip past; last-minute wishes feel hollow. You need a week\'s lead time.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'A local tool: import the staff roster, compute the next birthday/anniversary, group by Today / Next 7 days / Rest of month.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Import roster Excel (name / dept / birthday / hire date / contact).',
+        'Three-column view: Today, Next 7 days, Rest of this month.',
+        'Per-person card: turning X this year / Year N at company; one-click copy a templated greeting.',
+        'One-click "this month\'s birthdays & anniversaries" PDF for admin\'s noticeboard.',
+      ],
+      keywords: ['birthday', 'anniversary', 'employee', 'hr'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是 HR 同事，不懂代码。
+
+【目标】
+让每位同事的生日和入职周年都被提前注意到，公司氛围更暖。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；本地 SQLite
+
+【核心功能】
+1. 导入花名册 Excel（姓名 / 部门 / 生日 / 入职日 / 联系方式 / 备注）。生日字段允许"只填月日"（隐去年份）。
+2. 主视图三栏：今日庆祝、未来 7 天、本月剩余；按部门筛选。
+3. 每位同事卡片显示：今年是第 X 岁生日 / 入职第 N 年；可在"祝福语模板"里编辑两套模板（生日 / 周年），点卡片一键复制对应模板。
+4. "本月汇总"一键导出 PDF：按日期排序，含姓名 / 部门 / 庆祝事项；行政可直接打印贴公告板。
+5. 设置里可勾选"系统通知开启"：每天上午 9 点提醒今日和未来 3 天的庆祝事项。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is on the HR team, not a developer.
+
+[Goal]
+Surface every teammate's birthday and work anniversary in time so the workplace feels warmer.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; local SQLite
+
+[Core Features]
+1. Import roster Excel (name / dept / birthday / hire date / contact / notes). Birthday may be month-day only (year hidden).
+2. Three-column view: Today, Next 7 days, Rest of this month; filter by department.
+3. Per-person card: "turning X this year" / "Year N at the company"; editable greeting templates (birthday / anniversary), one-click copy.
+4. "This month" one-click PDF export sorted by date with name / dept / event — admin can print and post.
+5. Settings toggle for OS notifications: 9am daily heads-up of today + next 3 days.${SHARED_TAIL_EN}`,
+  },
+};
+
 // Aggregated for the index
 export const extraCases: CaseBundle[] = [
   financeExpenseClassifier,
