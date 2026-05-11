@@ -74,9 +74,9 @@ export const zh = {
     feature3Title: '现成部门案例',
     feature3Body:
       '财务、运营、客服、人事、物流、采购、市场等十个部门都有完整案例，拿来就能用。',
-    feature4Title: '只做本地桌面软件',
+    feature4Title: '只做本地桌面小工具',
     feature4Body:
-      '不碰服务器、不碰网站、不碰域名。你做出来的就是一个双击 .exe 或 .dmg 就能打开的软件。',
+      '每个案例都聚焦在「双击就能打开的桌面小工具」，专门帮你解决眼前的小问题。',
     feature5Title: '中英双语对照',
     feature5Body:
       '中文帮你看懂，英文帮你更好地"喂"给 Codex。两份内容完全一致。',

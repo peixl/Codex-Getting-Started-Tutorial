@@ -73,9 +73,9 @@ export const en = {
     feature3Title: 'Ten ready-made cases',
     feature3Body:
       'Finance, operations, customer service, HR, logistics, procurement, marketing, legal, data, admin — real scenarios with complete prompts.',
-    feature4Title: 'Local desktop apps only',
+    feature4Title: 'Just small desktop tools',
     feature4Body:
-      'No servers, no websites, no mobile. What you ship is a double-clickable .exe or .dmg for your own machine or a teammate\'s.',
+      'Every case is a focused desktop tool you double-click and use — built to solve one real problem in front of you.',
     feature5Title: 'Bilingual (CN / EN)',
     feature5Body:
       'Chinese to understand concepts, English to talk to Codex more effectively. Full parity.',

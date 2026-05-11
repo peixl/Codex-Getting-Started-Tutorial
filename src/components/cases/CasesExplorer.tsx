@@ -8,21 +8,8 @@ import type { Dictionary } from '@/i18n';
 import { caseUrl } from '@/lib/routes';
 import { GlassCard } from '@/components/GlassCard';
 import { cn } from '@/lib/cn';
-import {
-  ArrowRightIcon,
-  FinanceIcon,
-  OpsIcon,
-  SupportIcon,
-  HRIcon,
-  LogisticsIcon,
-  ProcurementIcon,
-  MarketingIcon,
-  LegalIcon,
-  DataIcon,
-  AdminIcon,
-  ProductIcon,
-  WindowsIcon,
-} from '@/components/icons';
+import { ArrowRightIcon, WindowsIcon } from '@/components/icons';
+import { deptIcons } from '@/components/cases/deptIcons';
 import { CopyButton } from '@/components/CopyButton';
 
 type Props = {
@@ -45,20 +32,6 @@ const departmentOptions: Array<Department | 'all'> = [
   'admin',
   'product',
 ];
-
-export const deptIcons: Record<Department, React.ReactNode> = {
-  finance: <FinanceIcon size={24} />,
-  operations: <OpsIcon size={24} />,
-  'customer-service': <SupportIcon size={24} />,
-  hr: <HRIcon size={24} />,
-  logistics: <LogisticsIcon size={24} />,
-  procurement: <ProcurementIcon size={24} />,
-  marketing: <MarketingIcon size={24} />,
-  legal: <LegalIcon size={24} />,
-  data: <DataIcon size={24} />,
-  admin: <AdminIcon size={24} />,
-  product: <ProductIcon size={24} />,
-};
 
 export function CasesExplorer({ cases, locale, dict }: Props) {
   const [filter, setFilter] = useState<Department | 'all'>('all');

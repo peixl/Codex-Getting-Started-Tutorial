@@ -18,7 +18,7 @@ import {
   LightBulbIcon,
 } from '@/components/icons';
 import { caseBundles } from '@/data/cases';
-import { deptIcons } from '@/components/cases/CasesExplorer';
+import { deptIcons } from '@/components/cases/deptIcons';
 
 type Props = { locale: Locale; dict: Dictionary };
 

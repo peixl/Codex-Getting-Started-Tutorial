@@ -10,9 +10,35 @@ import { legalContractTracker } from './legal';
 import { dataDailyReport } from './data';
 import { adminConferenceRoom } from './admin';
 import { productFeedbackInbox } from './product';
+import {
+  financeExpenseClassifier,
+  financeInvoiceTaxChecker,
+  operationsDailyStandupBoard,
+  operationsCustomerLifecycleTracker,
+  customerServiceComplaintClassifier,
+  customerServiceFAQBuilder,
+  hrLeaveTracker,
+  hrInterviewSchedule,
+  logisticsWarehouseStock,
+  logisticsReturnTracker,
+  procurementPOTracker,
+  procurementSupplierQualification,
+  marketingContentCalendar,
+  marketingKOLTracker,
+  legalNDAVault,
+  legalTrademarkMonitor,
+  dataWeeklyTrendSnapshot,
+  dataKPIDashboard,
+  adminVisitorLog,
+  adminAssetInventory,
+  productPriorityBoard,
+  productBetaTesterTracker,
+} from './_more';
 
 export type { CaseBundle, CaseCopy, Department } from './types';
 
+// Ordered so the home-page teaser (first 8) shows distinct departments first,
+// while the /cases page lists everything.
 export const caseBundles: CaseBundle[] = [
   financeReconciliation,
   operationsCampaign,
@@ -25,6 +51,28 @@ export const caseBundles: CaseBundle[] = [
   dataDailyReport,
   adminConferenceRoom,
   productFeedbackInbox,
+  financeExpenseClassifier,
+  financeInvoiceTaxChecker,
+  operationsDailyStandupBoard,
+  operationsCustomerLifecycleTracker,
+  customerServiceComplaintClassifier,
+  customerServiceFAQBuilder,
+  hrLeaveTracker,
+  hrInterviewSchedule,
+  logisticsWarehouseStock,
+  logisticsReturnTracker,
+  procurementPOTracker,
+  procurementSupplierQualification,
+  marketingContentCalendar,
+  marketingKOLTracker,
+  legalNDAVault,
+  legalTrademarkMonitor,
+  dataWeeklyTrendSnapshot,
+  dataKPIDashboard,
+  adminVisitorLog,
+  adminAssetInventory,
+  productPriorityBoard,
+  productBetaTesterTracker,
 ];
 
 export function getCaseBySlug(slug: string): CaseBundle | undefined {
