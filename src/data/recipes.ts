@@ -21,8 +21,8 @@ export const recipes: Recipe[] = [
     icon: 'excel',
     titleZh: '把一张 Excel 变成一份漂亮日报',
     titleEn: 'Turn one Excel into a polished daily report',
-    painZh: '每天把 Excel 数据贴到 PPT 里太累。想让同事收到一张美观图片或 PDF。',
-    painEn: 'Pasting Excel into PPT every day is a grind. You want a clean image/PDF.',
+    painZh: 'Excel 数据每天手动贴 PPT，太慢。想一键出图片或 PDF。',
+    painEn: 'Manual Excel-to-PPT reporting is slow. Generate an image/PDF instead.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript
@@ -43,8 +43,8 @@ Start with a brief plan summary, then implement, run, and verify. English throug
     icon: 'pdf',
     titleZh: '把一堆 PDF 发票整理成 Excel',
     titleEn: 'Turn a pile of PDF invoices into an Excel',
-    painZh: '每月收到几十张 PDF 发票，要一张一张抄到 Excel 里。',
-    painEn: 'Dozens of PDF invoices land each month; typing them into Excel is painful.',
+    painZh: '几十张 PDF 发票，要手动抄进 Excel。',
+    painEn: 'Dozens of PDF invoices need to become one Excel ledger.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + pdfjs 解析
@@ -65,8 +65,8 @@ Start with a brief plan summary, then implement, run, and verify. English throug
     icon: 'folder',
     titleZh: '按规则批量重命名一堆文件',
     titleEn: 'Bulk-rename files by a rule',
-    painZh: '几百张照片、视频文件命名乱，想按日期 + 编号统一起来。',
-    painEn: 'Hundreds of photos or videos with messy names; want a consistent "date + index" scheme.',
+    painZh: '照片、视频命名太乱，想按日期 + 编号统一。',
+    painEn: 'Messy photo/video names. Rename by date + index.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript
@@ -87,8 +87,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'search',
     titleZh: '做一个小小的"查数表"',
     titleEn: 'Build a tiny lookup table app',
-    painZh: '公司有一份内部手册或产品参数表（Excel），同事总在群里问。',
-    painEn: 'Your company has an internal handbook or SKU spec Excel, and teammates keep asking in the group chat.',
+    painZh: '内部手册在 Excel 里，同事总在群里问。',
+    painEn: 'Internal handbook in Excel; teammates keep asking in chat.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript
@@ -141,8 +141,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'kanban',
     titleZh: '给自己做一个极简 Todo 看板',
     titleEn: 'A dead-simple personal Kanban',
-    painZh: '网上那些待办 App 都太复杂。想一个只给自己用的、打开就顺手的。',
-    painEn: 'Most todo apps feel heavy. You want something instant and personal.',
+    painZh: '待办 App 太复杂。想要一个打开就能用的。',
+    painEn: 'Todo apps feel heavy. Build one that opens fast.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地 Todo 看板：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + 本地 SQLite
@@ -165,8 +165,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'pdf',
     titleZh: '一键合并 / 拆分一堆 PDF',
     titleEn: 'Merge & split a pile of PDFs',
-    painZh: '收到一堆 PDF 要合并打印；或者一份 200 页 PDF 想按章节拆开存档。',
-    painEn: 'You get a pile of PDFs to merge for printing, or one 200-page PDF you want to split by chapter.',
+    painZh: 'PDF 要合并、拆分、归档，手动太麻烦。',
+    painEn: 'Merge, split, and archive PDFs without manual steps.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + pdf-lib
@@ -191,8 +191,8 @@ Start with a brief plan summary, then implement, run, and verify. English throug
     icon: 'image',
     titleZh: '给一批截图统一加水印 / 改尺寸',
     titleEn: 'Watermark and resize a batch of screenshots',
-    painZh: '产品截图发给客户前都要打公司水印、压缩、改成统一尺寸，一张一张做要半天。',
-    painEn: 'Every customer-facing screenshot needs a company watermark, compression, and a consistent size — doing them one by one eats a whole afternoon.',
+    painZh: '截图要加水印、压缩、统一尺寸，手动太慢。',
+    painEn: 'Watermark, compress, and resize screenshots in one pass.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + sharp
@@ -219,8 +219,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'excel',
     titleZh: '把脏脏的 CSV / Excel 一键洗干净',
     titleEn: 'One-click clean a messy CSV / Excel',
-    painZh: '从系统导出来的表里有空行、重复行、格式不一的日期、前后空格、半角全角混着，每次清洗都重复劳动。',
-    painEn: 'Exports from internal systems are full of blank rows, duplicates, mixed date formats, stray whitespace, and half/full-width mismatches — cleaning is a recurring chore.',
+    painZh: '系统导出的表有空行、重复、乱格式，每次都要清洗。',
+    painEn: 'System exports are messy. Clean blanks, duplicates, dates, and spaces.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + xlsx + papaparse
@@ -245,8 +245,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'mic',
     titleZh: '会议录音一键转文字 + 提炼要点',
     titleEn: 'Turn meeting audio into text + key points',
-    painZh: '一小时会议录音听两遍才能整理出纪要。希望本地跑、不上传录音。',
-    painEn: 'A one-hour recording takes two passes to summarize. You want everything to stay on your machine.',
+    painZh: '会议录音整理太慢，还希望全程本地处理。',
+    painEn: 'Summaries take too long. Keep audio processing local.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + 本地 whisper.cpp（small 中文模型，首次使用自动下载）
@@ -275,8 +275,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'note',
     titleZh: '桌面便签：常驻一角，开机自启',
     titleEn: 'Desktop sticky notes that boot with you',
-    painZh: '一会儿要查的小信息（外卖号、客户偏好、临时密码）总在微信和便签 App 里翻。',
-    painEn: 'Tiny things you look up often (a delivery code, a client preference, a temp password) keep getting buried in chat and note apps.',
+    painZh: '常查的小信息，总埋在聊天和便签里。',
+    painEn: 'Small notes keep getting buried in chat and note apps.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + 本地 SQLite
@@ -305,8 +305,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'image',
     titleZh: '一键把图片转成需要的尺寸 / 格式',
     titleEn: 'Bulk-convert images to the size & format you need',
-    painZh: '上传公众号要 900×500 的 jpg，发朋友圈又要 1080 见方，存档要原图 webp。每次都得开 PS 来回切。',
-    painEn: 'Different channels demand different sizes and formats — opening Photoshop just to resize is overkill.',
+    painZh: '不同渠道要不同尺寸，每次开 PS 太麻烦。',
+    painEn: 'Different channels need different sizes. Photoshop is overkill.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + sharp
@@ -335,8 +335,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'search',
     titleZh: '通讯录 / 客户名单去重合并',
     titleEn: 'Dedupe & merge a contacts / customer list',
-    painZh: '几张客户名单凑一起，重复的、写法不一样的（手机号有 +86、姓名前有空格）一大堆，手工挑要疯。',
-    painEn: 'Merging a few customer lists creates a forest of duplicates with mismatched formats (phones with +86, leading spaces in names) — manual cleanup is brutal.',
+    painZh: '客户名单一合并，重复和格式问题一大堆。',
+    painEn: 'Customer lists merge into duplicates and messy formats.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + xlsx
@@ -365,8 +365,8 @@ Start with a brief plan summary, then implement, run, and verify.`,
     icon: 'kanban',
     titleZh: '把一份 Markdown 大纲变成 PPT',
     titleEn: 'Turn a Markdown outline into a PPTX deck',
-    painZh: '写汇报先在 Markdown 里把要讲的列清楚，再翻译成 PPT 又得一页一页排版，重复劳动。',
-    painEn: 'You draft the talking points in Markdown, then have to rebuild the same content slide by slide in PowerPoint.',
+    painZh: 'Markdown 写完汇报，还要手动排成 PPT。',
+    painEn: 'Markdown drafts still need manual slide building.',
     promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：
 - 平台：Windows 10/11 和 macOS
 - 做法：Electron + React + TypeScript + pptxgenjs
