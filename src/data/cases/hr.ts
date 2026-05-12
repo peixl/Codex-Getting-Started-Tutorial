@@ -86,11 +86,10 @@ export const hrOnboardingTracker: CaseBundle = {
 - 数据库损坏自动修复。
 
 【交付】
-1. 先给 10 行以内方案摘要（含列表页 / 详情页 / 待办视图界面安排），然后直接实现、运行和验证。
+1. 摘要需包含列表页 / 详情页 / 待办视图界面安排。
 2. 分三步：新建 + 勾选 -> 批量导入 + 超期染色 -> 待办视图 + 导出。
 3. 打包 .exe，500 字中文使用说明。
-
-中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
+`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for HR at an e-commerce company. Non-developer user.
 
 [Goal]
@@ -126,10 +125,9 @@ Support custom add/remove.
 - Auto-repair DB.
 
 [Delivery]
-1. Start with a plan summary under 10 lines, then implement, run, and verify. Include list / detail / follow-up screens in the plan.
+1. Summary should include list / detail / follow-up screens.
 2. Phase 1: create + tick. Phase 2: bulk import + overdue coloring. Phase 3: follow-up + export.
 3. Package .exe; 500-word user guide.
-
-Start with a brief plan summary, then implement, run, and verify.`,
+`,
   },
 };

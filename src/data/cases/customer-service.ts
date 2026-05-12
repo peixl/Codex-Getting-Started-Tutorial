@@ -87,11 +87,10 @@ export const customerServiceReplyHelper: CaseBundle = {
 - 数据库损坏自动恢复。
 
 【交付】
-1. 先给 10 行以内方案摘要（含搜索页和变量填值弹窗安排），然后直接实现、运行和验证。
+1. 摘要需包含搜索页和变量填值弹窗安排。
 2. 分三步：搜索 + 复制 + 快捷键 -> 变量替换 -> 导入 / 导出 + 使用频率。
 3. 打包 .exe，300 字内中文使用说明。
-
-中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
+`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for customer service agents. Non-developer user.
 
 [Goal]
@@ -128,10 +127,9 @@ Consolidate hundreds of reply templates into one searchable desktop helper.
 - Auto-recover from DB corruption.
 
 [Delivery]
-1. Start with a plan summary under 10 lines, then implement, run, and verify. Include search + variable popup screens in the plan.
+1. Summary should include search + variable popup screens.
 2. Phase 1: search + copy + shortcut. Phase 2: variables. Phase 3: import/export + stats.
 3. Package .exe; 300-word user guide.
-
-Start with a brief plan summary, then implement, run, and verify.`,
+`,
   },
 };

@@ -92,11 +92,10 @@ export const dataDailyReport: CaseBundle = {
 - 中英数字混排时避免乱码。
 
 【交付】
-1. 先给 10 行以内方案摘要（含导入区、模板区、生成区安排），然后直接实现、运行和验证。
+1. 摘要需包含导入区、模板区、生成区安排。
 2. 分三步：数据导入 + 预览 -> 模板编辑 + 预览 -> 图片 / PDF 导出。
 3. 打包 Windows .exe，附 500 字中文使用说明。
-
-全程中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
+`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a data / ops-analytics colleague. User is a non-developer.
 
 [Goal]
@@ -136,10 +135,9 @@ Merge multiple daily Excel files (GMV, orders, traffic) into a "today at a glanc
 - Handle mixed CJK + Latin without glyph issues.
 
 [Delivery]
-1. Start with a plan summary under 10 lines, then implement, run, and verify. Include the three-pane layout in the plan.
+1. Summary should include the three-pane layout.
 2. Phase 1: import + preview. Phase 2: template edit. Phase 3: PNG/PDF export.
 3. Package .exe; 500-word user guide.
-
-Start with a brief plan summary, then implement, run, and verify.`,
+`,
   },
 };

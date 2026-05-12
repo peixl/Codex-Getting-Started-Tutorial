@@ -84,7 +84,7 @@ export const financeReconciliation: CaseBundle = {
 - 附带 3 个脱敏测试样例文件：完全匹配、金额差异、重复订单 + 退款流水，方便新用户一打开就能跑通。
 
 【交付流程】
-1. 先给 10 行以内方案摘要（含主界面安排和关键文件职责），然后直接实现、运行和验证。
+1. 摘要需包含主界面安排和关键文件职责。
 2. 每完成一个模块就运行验证一次，发现问题先自行修复。
 3. 最后：
    - 打包成 Windows .exe 安装包。
@@ -92,11 +92,10 @@ export const financeReconciliation: CaseBundle = {
    - 列出已知限制和后续可优化方向。
 
 【沟通】
-- 一次推进一件事。不确定的地方直接问我。
+- 一次推进一件事。只有真实阻塞问题再问我。
 - 公司名、字段名之类的个性化信息用占位符（如 {{公司名}}），最后集中列出让我替换。
 - 全程中文沟通，代码注释用中文。
-
-请先给 10 行以内方案摘要，然后直接实现、运行和验证。`,
+`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows desktop tool for the finance team at an e-commerce company. The user is a non-developer.
 
 [Goal]
@@ -131,7 +130,7 @@ Replace 1-2 days of monthly manual reconciliation with a tool that matches order
 - Ship 3 anonymized sample sets: fully matched, amount differences, duplicate orders + refund statements, so new users can see it work immediately.
 
 [Delivery]
-1. Start with a plan summary under 10 lines, then implement, run, and verify.
+1. Summary should include the main screen, acceptance, and key file responsibilities.
 2. After each module, run a focused verification and fix issues yourself first.
 3. Final step:
    - Package as a Windows .exe installer.
@@ -139,9 +138,8 @@ Replace 1-2 days of monthly manual reconciliation with a tool that matches order
    - List known limitations and future improvements.
 
 [Working Style]
-- Advance one thing at a time. Ask me if unsure.
+- Advance one thing at a time. Ask only for true blockers.
 - Use placeholders like {{COMPANY_NAME}} for personal details; summarize items to replace at the end.
-
-Start with a brief plan summary, then implement, run, and verify.`,
+`,
   },
 };

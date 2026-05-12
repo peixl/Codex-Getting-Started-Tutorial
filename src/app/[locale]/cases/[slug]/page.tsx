@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n';
 import { caseBundles, getCaseBySlug, getCasePrompt, getCasesByDepartment } from '@/data/cases';
+import { getCaseSampleFields } from '@/data/cases/sampleFields';
 import { GlassCard, GlassPanel } from '@/components/GlassCard';
 import { Section } from '@/components/Section';
 import { CopyButton } from '@/components/CopyButton';
@@ -93,6 +94,7 @@ export default async function CasePage({ params }: Props) {
   const promptZh = getCasePrompt(bundle, 'zh');
   const promptEn = getCasePrompt(bundle, 'en');
   const localizedPrompt = locale === 'zh' ? promptZh : promptEn;
+  const sampleFields = getCaseSampleFields(bundle.department, locale);
   const related = getCasesByDepartment(bundle.department).filter(
     (c) => c.slug !== bundle.slug
   );
@@ -180,6 +182,27 @@ export default async function CasePage({ params }: Props) {
               </li>
             ))}
           </ul>
+        </GlassPanel>
+      </section>
+
+      <section className="relative mx-auto max-w-5xl px-4 pb-6 sm:px-6 lg:px-8">
+        <GlassPanel>
+          <div className="mb-3 flex items-center gap-2">
+            <SparkleIcon size={20} />
+            <h2 className="text-[14px] font-semibold text-ink">
+              {dict.cases.sampleFieldsTitle}
+            </h2>
+          </div>
+          <p className="text-[13px] leading-relaxed text-ink-mute">
+            {dict.cases.sampleFieldsHint}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {sampleFields.map((field) => (
+              <span key={field} className="chip">
+                {field}
+              </span>
+            ))}
+          </div>
         </GlassPanel>
       </section>
 

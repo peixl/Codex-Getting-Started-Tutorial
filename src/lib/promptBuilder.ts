@@ -169,6 +169,212 @@ function packageLine(platform: Platform, lang: PromptLang) {
   }
 }
 
+function deliveryZh(complexity: Complexity): string {
+  if (complexity === 'starter') {
+    return `1. 先给 ≤6 行摘要：目标 / 主流程 / 技术栈 / M1。
+2. 只问真实阻塞问题（真实文件、账号、证书、不可逆操作）；其他合理假设并继续。
+3. M1≤15 分钟：可启动窗口 + 主工作台 + 示例数据/试用模式 + 一行假结果，先让用户看到成果。
+4. M2 接通真实主流程并跑示例数据；随后补最必要的错误提示、测试、打包脚本和说明。`;
+  }
+
+  if (complexity === 'advanced') {
+    return `1. 先给 ≤8 行摘要：目标 / 主流程 / 技术栈 / 验收 / M1 / 风险。
+2. 最多问 3 个真实阻塞问题；其他合理假设并继续实现、运行、修复、验证。
+3. M1≤15 分钟：可启动窗口 + 主工作台 + 示例数据/试用模式 + 一行假结果。
+4. M2 接通真实主流程：导入/填写 → 预览 → 生成/保存。
+5. M3 补设置、历史、批量、权限/隐私、撤销/恢复和团队使用状态；M4 跑完整验证、打包、文档。
+6. 里程碑汇报 ≤6 行：完成 / 验证 / 跳过原因 / 下一步+预计时间。`;
+  }
+
+  return `1. 先给 ≤8 行摘要：目标 / 主流程 / 技术栈 / 验收 / M1。
+2. 最多问 3 个真实阻塞问题（真实文件、账号、证书、不可逆操作）；其他合理假设并继续。
+3. M1≤15 分钟：可启动窗口 + 主工作台 + 示例数据/试用模式 + 一行假结果，先让用户看到成果。
+4. M2 接通真实主流程：导入/填写 → 预览 → 生成/保存；M3 补异常、隐私、撤销/恢复、UI；M4 测试、打包、文档。
+5. 里程碑汇报 ≤6 行，只写：完成 / 验证 / 跳过原因 / 下一步+预计时间。`;
+}
+
+function deliveryEn(complexity: Complexity): string {
+  if (complexity === 'starter') {
+    return `1. Start with a ≤6-line summary: goal / main flow / stack / M1.
+2. Ask only for true blockers (real files, accounts, certificates, irreversible actions); otherwise assume reasonably and continue.
+3. M1≤15 min: launchable window + workspace + sample/demo data + one fake result, so the user sees progress quickly.
+4. M2 wires the real main flow and runs sample data; then add essential errors, tests, package script, and guide.`;
+  }
+
+  if (complexity === 'advanced') {
+    return `1. Start with a ≤8-line summary: goal / main flow / stack / acceptance / M1 / risks.
+2. Ask at most 3 truly blocking questions; otherwise assume reasonably and continue implementing, running, fixing, and verifying.
+3. M1≤15 min: launchable window + workspace + sample/demo data + one fake result.
+4. M2 wires the real main flow: import/fill → preview → generate/save.
+5. M3 adds settings, history, batch, permissions/privacy, undo/recovery, and team-use states. M4 runs full verification, packaging, and docs.
+6. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA.`;
+  }
+
+  return `1. Start with a ≤8-line summary: goal / main flow / stack / acceptance / M1.
+2. Ask at most 3 truly blocking questions (real files, accounts, certificates, irreversible actions); otherwise assume reasonably and continue.
+3. M1≤15 min: launchable window + workspace + sample/demo data + one fake result, so the user sees progress quickly.
+4. M2 wires the real main flow: import/fill → preview → generate/save. M3 adds errors, privacy, undo/recovery, UI. M4 runs tests, packaging, docs.
+5. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA.`;
+}
+
+function dodZh(state: FormState): string {
+  const pack = packageLine(state.platform, 'zh');
+  if (state.complexity === 'starter') {
+    return `- 能双击或一条命令启动，第一屏就是主工作台。
+- 示例数据跑通真实主流程，并产生文件/图/表格等可检查产物。
+- 至少覆盖空数据、错格式、取消、重名冲突，不闪退。
+- 核心逻辑有测试；lint、类型检查、构建通过；无 TODO、空函数、假接线冒充完成。
+- 有 README、≤300 字使用说明、sample-data 和 package/dev 脚本；${pack}
+满足以上就最终汇报并停手；新想法写进已知限制。`;
+  }
+
+  if (state.complexity === 'advanced') {
+    return `- 能双击或一条命令启动，第一屏就是主工作台。
+- 示例数据和至少 2 个异常样例跑通真实主流程，并产生可检查产物。
+- 空数据、错格式、取消、无权限、重名冲突、大文件、重复数据都有友好状态，不闪退。
+- lint、类型检查、测试、构建通过；核心逻辑、导入导出、错误分支都有自动化测试；无 TODO、空函数、假接线冒充完成。
+- 有 setup/dev/package 脚本、README、≤500 字使用说明、已知限制（含 v2 想法）、sample-data、恢复/备份说明，以及 ${pack}
+满足以上就最终汇报并停手；新想法写进已知限制。同一问题连续 3 次失败就降级或禁用边缘功能，先交付主流程。`;
+  }
+
+  return `- 能双击或一条命令启动，第一屏就是主工作台。
+- 示例数据跑通真实主流程，并产生文件/图/表格等可检查产物。
+- 空数据、错格式、取消、无权限、重名冲突、大文件都有友好状态，不闪退。
+- lint、类型检查、测试、构建通过；核心逻辑至少 1 个自动化测试；无 TODO、空函数、假接线冒充完成。
+- 有 setup/dev/package 脚本、README、≤500 字使用说明、已知限制（含 v2 想法）、sample-data，以及 ${pack}
+满足以上就最终汇报并停手；新想法写进已知限制。同一问题连续 3 次失败就降级或禁用边缘功能，先交付主流程。`;
+}
+
+function dodEn(state: FormState): string {
+  const pack = packageLine(state.platform, 'en');
+  if (state.complexity === 'starter') {
+    return `- App launches by double-click or one command; first screen is the workspace.
+- Sample data completes the real flow and creates a checkable artifact.
+- Empty data, bad formats, cancel, and name conflicts are friendly, not crashes.
+- Core logic has a test; lint, typecheck, and build pass; no TODOs, empty functions, or fake wiring count as done.
+- README, ≤300-word guide, sample-data, package/dev scripts, and ${pack}
+When these hold, send the final report and stop. Put new ideas in known limitations.`;
+  }
+
+  if (state.complexity === 'advanced') {
+    return `- App launches by double-click or one command; first screen is the workspace.
+- Sample data and at least 2 bad-path samples complete the real flow and create checkable artifacts.
+- Empty data, bad formats, cancel, no permission, name conflicts, large files, and duplicates have friendly states, not crashes.
+- lint, typecheck, tests, and build pass; core logic, import/export, and error branches have automated tests; no TODOs, empty functions, or fake wiring count as done.
+- setup/dev/package scripts, README, ≤500-word guide, known limitations with v2 ideas, sample-data, recovery/backup notes, and ${pack}
+When these hold, send the final report and stop. If the same bug fails 3 times, downgrade or disable the edge feature and ship the main flow.`;
+  }
+
+  return `- App launches by double-click or one command; first screen is the workspace.
+- Sample data completes the real flow and produces a checkable file/image/sheet artifact.
+- Empty data, bad formats, cancel, no permission, name conflicts, and large files have friendly states, not crashes.
+- lint, typecheck, tests, and build pass; core logic has at least one automated test; no TODOs, empty functions, or fake wiring count as done.
+- setup/dev/package scripts, README, ≤500-word user guide, known limitations with v2 ideas, sample-data, and ${pack}
+When these hold, send the final report and stop. Put new ideas in known limitations. If the same bug fails 3 times, downgrade or disable the edge feature and ship the main flow.`;
+}
+
+function uxZh(complexity: Complexity): string {
+  if (complexity === 'starter') {
+    return `- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存；第一屏是可用工作台。
+- 用系统打开/保存对话框和剪贴板；支持拖拽；完成后给"打开输出文件夹"。
+- 路径兼容中文、空格、括号和 Windows/macOS 分隔差异；每页有空/加载/成功/失败状态。`;
+  }
+
+  const base = `- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存；第一屏是可用工作台，不做落地页。
+- 用系统打开/保存对话框、应用数据目录、剪贴板；支持拖拽；完成后给"打开输出文件夹"。
+- 路径兼容中文、空格、括号、长路径和 Windows/macOS 分隔差异；适配高 DPI、窗口尺寸和深浅模式。
+- 每页有空/加载/成功/失败/下一步状态；高级设置默认收起；首次引导短且不挡主流程。`;
+
+  if (complexity === 'advanced') {
+    return `${base}
+- 团队增强功能放在设置/历史/批量页，不挤占主流程；危险操作二次确认并可恢复。`;
+  }
+
+  return base;
+}
+
+function uxEn(complexity: Complexity): string {
+  if (complexity === 'starter') {
+    return `- Main flow ≤3 steps: import/fill → preview → generate/save; first screen is the workspace.
+- Use native open/save dialogs and clipboard APIs; support drag-and-drop; show "Open output folder" after completion.
+- Paths handle Chinese, spaces, parentheses, and Windows/macOS separators; every screen has empty/loading/success/error states.`;
+  }
+
+  const base = `- Main flow ≤3 steps: import/fill → preview → generate/save; first screen is a usable workspace, not a landing page.
+- Use native open/save dialogs, app data dirs, and clipboard APIs; support drag-and-drop; show "Open output folder" after completion.
+- Paths handle Chinese characters, spaces, parentheses, long paths, and Windows/macOS separators; support high DPI, window sizes, and light/dark.
+- Every screen has empty/loading/success/error/next-step states; advanced settings collapse by default; first-run hints are short and non-blocking.`;
+
+  if (complexity === 'advanced') {
+    return `${base}
+- Put team features in settings/history/batch pages, not in the main path; confirm and recover dangerous actions.`;
+  }
+
+  return base;
+}
+
+function implementationZh(state: FormState): string {
+  const retryLine =
+    state.storage === 'none'
+      ? '- 无持久化也缓存最近输出和失败原因到内存/临时目录，便于重试。'
+      : '- 重要数据每次保存生成本地快照，保留最近 3 个版本。';
+
+  if (state.complexity === 'starter') {
+    return `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
+- 不写死 API Key、绝对路径、个人邮箱、内网地址；改既有文件前先读，最小 diff。
+- 输出不覆盖原文件，冲突加时间后缀；只读用户选/拖入的文件。
+- 分层：desktop shell / 受控 API / UI / core / tests / sample-data / docs；真实接线按钮、导入、预览、生成/保存、错误状态。`;
+  }
+
+  const base = `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
+- README 写 Node 版本（配 \`.nvmrc\` 或 \`engines\`）；提供 \`npm run setup\` / \`npm run dev\` / \`npm run package\`。
+- 不写死 API Key、绝对路径、个人邮箱、内网地址；配置走 \`.env.example\`；改既有文件前先读，最小 diff。
+- 输出不覆盖原文件，冲突加时间后缀；改文件/数据前预览或确认；支持撤销/恢复。
+${retryLine}
+- 只读用户选/拖入的文件；敏感字段导出前脱敏或提醒，日志不记敏感内容。
+- 分层：desktop shell / preload 或受控 API / renderer UI / core / tests / sample-data / docs；IPC 类型化、白名单化，UI 不直接执行本地命令。
+- 真实接线：按钮、导入、预览、生成/保存、导出、错误状态都可用；核心逻辑小模块、类型明确、错误分层。`;
+
+  if (state.complexity === 'advanced') {
+    return `${base}
+- 批量处理要可取消、可恢复、可查看失败行；权限/隐私/日志策略写进文档。
+- 历史记录、设置和恢复记录使用本地存储；迁移或 schema 变化要有兼容处理。`;
+  }
+
+  return base;
+}
+
+function implementationEn(state: FormState): string {
+  const retryLine =
+    state.storage === 'none'
+      ? '- Even without persistence, keep the last output and failure reason in memory/temp dir for quick retry.'
+      : '- Snapshot important data on every save; keep the last 3 versions.';
+
+  if (state.complexity === 'starter') {
+    return `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
+- No hard-coded API keys, absolute paths, personal emails, or internal hosts; read existing files first; minimum diff.
+- Never overwrite inputs; timestamp conflicts; read only picked/dropped files.
+- Layers: desktop shell / controlled API / UI / core / tests / sample-data / docs; real wiring for buttons, import, preview, generate/save, and errors.`;
+  }
+
+  const base = `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
+- README documents Node version plus \`.nvmrc\` or \`engines\`; provide \`npm run setup\` / \`npm run dev\` / \`npm run package\`.
+- No hard-coded API keys, absolute paths, personal emails, or internal hosts; use \`.env.example\`; read existing files first; minimum diff.
+- Never overwrite inputs; timestamp conflicts; preview/confirm before mutations; support undo/recovery.
+${retryLine}
+- Read only picked/dropped files; warn or mask sensitive fields before export; logs exclude sensitive content.
+- Layers: desktop shell / preload or controlled API / renderer UI / core / tests / sample-data / docs; IPC typed and allowlisted, renderer never runs local commands.
+- Real wiring: buttons, import, preview, generate/save, export, and error states work; core logic uses small typed modules and layered errors.`;
+
+  if (state.complexity === 'advanced') {
+    return `${base}
+- Batch jobs must be cancellable, recoverable, and show failed rows; document permission, privacy, and logging policy.
+- History, settings, and recovery records use local storage; migrations or schema changes need compatibility handling.`;
+  }
+
+  return base;
+}
+
 export function buildPrompt(state: FormState, lang: PromptLang): string {
   const goal = state.goal.trim();
   const features = state.features.trim();
@@ -183,73 +389,36 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
     if (state.extras.accessibility) extras.push(ACCESSIBILITY_ZH[state.platform]);
     if (custom) extras.push(custom);
 
-    return `你是擅长 ${ROLE_DOMAIN_ZH[state.platform]} 的资深桌面应用工程师，兼具产品/交互设计直觉。交付本地可运行应用，不只给建议。终端用户不懂代码；安装、错误、按钮和说明都要小白友好。全程中文。
+    return `你是擅长 ${ROLE_DOMAIN_ZH[state.platform]} 的资深桌面应用工程师。交付本地可运行应用，不是建议。用户不懂代码；沟通、按钮、错误和文档都用业务语言。全程中文。
 
-【交付节奏】
-- 先给 ≤10 行摘要：目标 / 主流程 / 技术栈 / 验收。
-- 最多问 3 个真正阻塞问题；其余合理假设并继续实现、运行、修复、验证。
-- M1 ≤ 15 分钟：可双击或一条命令打开空壳（主窗口+主工作台+示例数据→一行假结果），汇报 ≤8 行：已做 / 怎么开 / 下一步。
-- M2 跑通真实主流程：导入/填写 → 预览 → 生成/保存，用示例数据产出结果。
-- M3 补异常、隐私、撤销/恢复、UI；M4 跑验证、打包、文档和示例数据。
-- 每个里程碑只报：完成 / 跳过原因 / 下一步+预计耗时，减少等待焦虑。
+【快速交付】
+${deliveryZh(state.complexity)}
 
-【完成判定（DoD）— 全部满足才算完成】
-1. 本机能双击或一条命令启动并显示主工作台。
-2. 示例数据走完真实主流程并看到预期产物（文件/图/表格）。
-3. 空数据、错格式、取消、文件冲突等异常有友好提示，不闪退。
-4. lint、类型检查、单测、构建通过；新增核心逻辑至少 1 个自动化测试；无 TODO/空函数/假接线冒充完成。
-5. 已按交付物要求生成安装包或可运行未签名包。
-6. README.md、使用说明.md（≤500 字）、已知限制.md、示例数据齐备。
-满足 1-6 就最终汇报并停手；不要继续加功能或重构。
+【DoD / 停止 Vibe Coding】
+${dodZh(state)}
 
-【停止 Vibe Coding】
-- DoD 满足就停；新想法写进已知限制.md 的"v2 想法"。
-- 同一问题连续 3 次失败：换最小可行方案、降级或注释边缘功能，先达 DoD。
-- 不整库重构、不换技术栈、不为少写几行引新依赖。
+【选择】
+- 平台：${PLATFORM_ZH[state.platform]}
+- 栈：${TECH_ZH[state.tech]} 只用成熟、活跃、文档全的库；不为炫技加服务、云或后端。
+- 界面：${UI_ZH[state.ui]}。${FONT_ZH[state.platform]}；跟随系统深浅模式；禁用网络字体/CDN；360px 窄窗不遮挡，主按钮点击区 ≥32px。
+- 数据：${STORAGE_ZH[state.storage]}；默认本地，不上传外部服务。
+- 复杂度：${COMPLEXITY_ZH[state.complexity]}
 
-【平台】${PLATFORM_ZH[state.platform]}
-【技术栈】${TECH_ZH[state.tech]} 只用成熟、活跃、文档全的库；不为炫技加服务/云/后端。
-【界面】${UI_ZH[state.ui]}。第一屏就是主工作台；跟随系统深浅模式；动效只用于状态变化。${FONT_ZH[state.platform]}，禁用网络字体/CDN；360px 窄窗不遮挡，主按钮点击区 ≥32px。
-
-【桌面平台细节】
-- 使用系统原生打开 / 保存对话框、应用数据目录、剪贴板；不让用户手输路径。
-- 文件路径必须兼容中文、空格、括号、长路径和 Windows / macOS 路径分隔差异。
-- 适配高 DPI、窗口尺寸、深浅模式；默认尺寸合理，尽量记忆上次大小。
-- 文件处理显示进度、剩余数量、取消按钮；完成后给"打开输出文件夹"。
-
-【低门槛 UX】
-- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存；拖拽 + 系统选择器/保存框。
-- 每页有空/加载/成功/失败/下一步状态；按钮用业务语，不写技术词。
-- 内置示例数据或试用模式；首次引导短且不挡主功能；高级设置默认收起。
-
-【数据存储】${STORAGE_ZH[state.storage]}。默认本地，不上传外部服务。
-【版本复杂度】${COMPLEXITY_ZH[state.complexity]}
-【目标】${goal || '（请补充：给谁用？解决什么问题？一两句话）'}
-
-【功能需求】
+【需求】
+目标：${goal || '（请补充：给谁用？解决什么问题？一两句话）'}
+功能：
 ${features || '（请补充：希望有哪些功能？一行一条，尽量具体）'}
 
-${extras.length ? `【附加要求】\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}【实现纪律 / 稳健性 / 安全】
-- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
-- README 写 Node 版本（配 \`.nvmrc\` 或 \`engines\`）；提供 \`npm run setup\` / \`npm run dev\` / \`npm run package\`。
-- 不写死 API Key、绝对路径、个人邮箱、内网地址；配置走 \`.env.example\`。改既有文件前先读，最小 diff。
-- 错误中文友好，不暴露堆栈；空/异常/1 万行+大数据能处理或友好降级。
-- 改文件/数据前预览或确认；可撤销/恢复；输出不覆盖原文件，冲突加时间后缀。
-${state.storage === 'none' ? '- 无持久化也缓存最近输出和失败原因到内存/临时目录，便于重试。' : '- 重要数据每次保存生成本地快照，保留最近 3 个版本。'}
-- 默认离线；只读用户选/拖入的文件；敏感字段导出前脱敏或提醒，日志不记敏感内容。
+${extras.length ? `附加要求：\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}【桌面与 UX 硬要求】
+${uxZh(state.complexity)}
 
-【项目代码质量与交付物】
-- 结构清晰：桌面壳 / preload 或受控 API / renderer UI / core 业务逻辑 / tests / sample-data / docs 分层。
-- Electron 等桌面壳只开必要权限；IPC 类型化、白名单化；UI 不直接读写任意本地文件或执行命令。
-- 关键流程真实接线：按钮、导入、预览、导出、错误状态都可用；不留 TODO、空函数、未使用大组件或假数据冒充完成。
-- 核心逻辑小模块、类型明确、错误分层；避免滥用 any、吞错、复制粘贴大块代码。
-- 准备 2-3 份脱敏示例数据（正常/空/错格式）；核心处理逻辑有自动化测试。
-- 运行 lint、类型检查、测试和构建并修复问题；再启动应用做完整冒烟测试。
-- 交付：代码、setup/dev/package 脚本、README.md、使用说明.md、已知限制.md（边界+v2 想法+占位）、示例数据、${packageLine(state.platform, 'zh')}
+【实现纪律 / 安全】
+${implementationZh(state)}
 
-【最终汇报】DoD 全部勾选后只报：做了什么 | 如何打开 | 安装包/产物路径 | 验证 | 剩余限制。
+【验证与最终汇报】
+运行 lint、类型检查、测试、构建，并启动应用走一遍示例数据主流程。最终只报：做了什么 | 如何打开 | 产物路径 | 验证 | 剩余限制。
 
-开始：先给 ≤10 行摘要 → 立刻做 M1 空壳。`;
+开始：先给 ≤8 行摘要，然后立刻做 M1。`;
   }
 
   const extras: string[] = [];
@@ -260,72 +429,36 @@ ${state.storage === 'none' ? '- 无持久化也缓存最近输出和失败原因
   if (state.extras.accessibility) extras.push(ACCESSIBILITY_EN[state.platform]);
   if (custom) extras.push(custom);
 
-  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer with product/interaction instincts. Deliver a runnable local desktop app, not advice. The user is non-technical; install, errors, labels, and docs must be beginner-friendly. Use plain English.
+  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver a runnable local desktop app, not advice. The user is non-technical; use business-language labels, errors, docs, and updates. Use plain English.
 
-[Cadence]
-- Start with a ≤10-line summary: goal / main flow / stack / acceptance.
-- Ask at most 3 truly blocking questions; otherwise assume reasonably and keep implementing, running, fixing, and verifying.
-- M1 (≤ 15 min): launchable shell by double-click or one command — main window, workspace, sample data → one fake result. Report ≤8 lines: built / how to open / next.
-- M2: real main flow (import/fill → preview → generate/save) with sample output. M3: errors, privacy, undo/recovery, UI. M4: verification, packaging, docs, sample data.
-- Each milestone reports only: done / skipped + reason / next + ETA, so the user is not left waiting.
+[Fast Delivery]
+${deliveryEn(state.complexity)}
 
-[Definition of Done — all must hold before "done"]
-1. App launches by double-click or one command and shows the workspace.
-2. Sample data completes the real main flow and produces the expected artifact (file/image/sheet).
-3. Empty data, bad format, cancel, and filename conflicts show friendly messages instead of crashing.
-4. lint, typecheck, unit tests, and build pass; new core logic has at least one automated test; no TODOs/empty functions/fake wiring claim completion.
-5. Installer or runnable unsigned package exists per the deliverables.
-6. README.md, USER_GUIDE.md (≤500 words), KNOWN_LIMITATIONS.md, and sample data exist.
-When 1-6 hold, stop and send the final report. Do not add features or refactor further.
+[DoD / Stop-Vibe-Coding]
+${dodEn(state)}
 
-[Stop-Vibe-Coding Rules]
-- DoD met means stop; put new ideas in KNOWN_LIMITATIONS.md under "v2 ideas".
-- Same bug fails 3 fixes in a row: use the smallest viable fallback, downgrade, or disable the edge feature; hit DoD first.
-- No whole-codebase refactors, stack swaps, or new deps just to save a few lines.
+[Choices]
+- Platform: ${PLATFORM_EN[state.platform]}
+- Stack: ${TECH_EN[state.tech]} Use mature, active, documented libraries; do not add servers/cloud/backends to show off.
+- Visual: ${UI_EN[state.ui]}. ${FONT_EN[state.platform]}; follow system light/dark; no web fonts/CDNs; no clipping at 360px; primary hit area ≥32px.
+- Data: ${STORAGE_EN[state.storage]}. Local by default; never upload.
+- Scope: ${COMPLEXITY_EN[state.complexity]}
 
-[Platform] ${PLATFORM_EN[state.platform]}
-[Stack] ${TECH_EN[state.tech]} Use mature, active, documented libraries. Do not add servers/cloud/backends to show off.
-[Visual Style] ${UI_EN[state.ui]}. First screen = usable workspace, not landing/welcome. Follow system light/dark; animations only for state changes. ${FONT_EN[state.platform]}; no web fonts/CDNs. No clipping at 360px; primary hit area ≥32px.
-
-[Desktop Platform Details]
-- Use native open / save dialogs, app data dirs, clipboard APIs; never make users type paths.
-- File paths must work with Chinese characters, spaces, parentheses, long paths, and Windows / macOS path separator differences.
-- Handle high DPI, window sizes, light/dark; sensible default size, remember last size when practical.
-- File processing shows progress, remaining count, cancel, and "Open output folder" on completion.
-
-[Beginner-Friendly UX]
-- Main flow ≤3 steps: import/fill → preview → generate/save; drag-and-drop + native pickers/save dialogs.
-- Every screen has empty/loading/success/error/next-step states; labels use business language, not jargon.
-- Sample data or demo mode works with no prep; first-run hint is short and non-blocking; advanced settings collapsed by default.
-
-[Data] ${STORAGE_EN[state.storage]}. All data stays local; never upload.
-[Scope & Complexity] ${COMPLEXITY_EN[state.complexity]}
-[Goal] ${goal || '(Please fill in: who is it for, what problem does it solve? 1-2 sentences.)'}
-
-[Features]
+[Request]
+Goal: ${goal || '(Please fill in: who is it for, what problem does it solve? 1-2 sentences.)'}
+Features:
 ${features || '(Please fill in: what should it do? one item per line, specific.)'}
 
-${extras.length ? `[Additional Requirements]\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}[Implementation / Robustness / Safety]
-- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
-- README documents Node version plus \`.nvmrc\` or \`engines\`; ship \`npm run setup\` / \`npm run dev\` / \`npm run package\`.
-- No hard-coded API keys, absolute paths, personal emails, or internal hosts; use \`.env.example\`. Read existing files first; minimum diff.
-- Friendly errors, never raw stacks; empty/edge/10k+ rows work or degrade gracefully.
-- Preview/confirm before mutations; support undo/recovery; never overwrite inputs, add timestamp suffix on conflicts.
-${state.storage === 'none' ? '- Even without persistence, keep last output and last failure reason in memory/temp dir for instant retry.' : '- Snapshot important data on every save; keep the last 3 versions.'}
-- Offline by default; read only picked/dropped files; warn or mask sensitive fields before export; logs exclude sensitive content.
+${extras.length ? `[Additional Requirements]\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}[Desktop + UX Requirements]
+${uxEn(state.complexity)}
 
-[Project Code Quality + Deliverables]
-- Clear layers: desktop shell / preload or controlled API / renderer UI / core business logic / tests / sample-data / docs.
-- Desktop shell exposes only necessary permissions; IPC is typed and allowlisted; renderer never reads arbitrary local files or runs local commands.
-- Wire the real flow end to end: buttons, import, preview, export, and error states work; no TODOs, empty functions, unused large components, or fake data counted as done.
-- Core logic uses small modules, clear types, and layered errors; avoid loose any, swallowed errors, and large copy-paste blocks.
-- Include 2-3 anonymized sample data files (normal/empty/invalid); core logic has automated tests.
-- Run lint, typecheck, tests, and build; fix issues; then smoke-test launch → main flow → output artifact.
-- Deliver code, setup/dev/package scripts, README.md, USER_GUIDE.md, KNOWN_LIMITATIONS.md (limits + v2 ideas + placeholders), sample data, ${packageLine(state.platform, 'en')}
+[Implementation / Safety]
+${implementationEn(state)}
 
-[Final Report] After all DoD checks: what you built | how to open | installer/artifact path | verifications | remaining limits.
+[Verification + Final Report]
+Run lint, typecheck, tests, build, then launch and complete the sample-data main flow. Final report only: what built | how to open | artifact path | verification | remaining limits.
 
-Start now: give the ≤10-line summary, then build M1 immediately.`;
+Start now: give the ≤8-line summary, then build M1.`;
 }
 
 export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string {
@@ -333,18 +466,18 @@ export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string 
   const features = state.features.trim() || (lang === 'zh' ? '（功能见上一轮对话）' : '(features from the previous conversation)');
 
   if (lang === 'zh') {
-    return `刚才这个桌面应用没有顺利跑通。请你继续接手修复，直到能运行或明确说明真正阻塞点；不要让我自己排查，也不要只解释原因。
+    return `刚才这个桌面应用没有顺利跑通。请继续修复到能运行，或明确指出真实阻塞点；不要让我自己排查，也不要只解释原因。
 
-【修复流程】
-1. ≤5 行说明失败现象和最可能根因（基于日志/输出，不猜）。
-2. 先读相关文件，再用最小 diff 改代码或配置；不要凭空覆盖。
-3. 重新运行必要命令（安装依赖 / lint / 类型检查 / 测试 / 构建 / 启动），看完整输出再判断。
-4. 同一问题 3 次失败：换最小可行方案、降级或注释边缘功能，先恢复主流程。
-5. 打包失败要区分代码、依赖、权限、签名公证、跨平台限制，并给出可运行替代产物或明确命令。
-6. 修完后真正启动应用走完主流程，看到预期产物再说"修好了"。
-7. 中文汇报：修了什么 | 根因 | 如何打开 | 验证 | 剩余限制。
+【修复循环】
+1. 先用 ≤5 行写清失败现象和日志指向的根因；不猜。
+2. 读相关文件后最小 diff 修改；不要覆盖、删除功能或改技术栈来绕过。
+3. 重新运行必要命令：安装依赖 / lint / 类型检查 / 测试 / 构建 / 启动；读完整输出再判断。
+4. 同一问题 3 次失败：降级或禁用边缘功能，先恢复主流程。
+5. 打包失败要区分代码、依赖、权限、签名/公证、跨平台限制，并给出可运行替代产物或准确命令。
+6. 修完后启动应用，用示例数据走完主流程并看到产物，再说修好。
+7. 中文汇报：改了什么 | 根因 | 如何打开 | 验证 | 剩余限制。
 
-【底线】不引入不存在的库；不删现有功能/配置/数据来绕过问题；不写死 API Key、绝对路径或内网地址。
+【底线】不引入不存在的库；不写死 API Key、绝对路径或内网地址；不把 TODO/假接线当完成。
 
 【原应用背景】
 平台：${PLATFORM_ZH[state.platform]} | 复杂度：${COMPLEXITY_ZH[state.complexity]}
@@ -355,18 +488,18 @@ ${features}
 现在直接排查并修复；除非需要真实业务文件、账号、证书或不可逆操作，否则不要停下等确认。`;
   }
 
-  return `The desktop app did not run successfully. Please continue fixing it until it runs or you can clearly identify a truly blocking issue. Do not ask me to debug, and do not only explain the cause.
+  return `The desktop app did not run successfully. Keep fixing until it runs or a truly blocking issue is proven. Do not ask me to debug, and do not only explain the cause.
 
 [Fix Loop]
-1. ≤5 lines: symptom and most likely root cause from logs/output, not guesses.
-2. Read related files, then change code/config with minimum diff; never overwrite blindly.
-3. Re-run the needed commands (install / lint / typecheck / tests / build / launch) and read full output.
-4. Same bug fails 3 fixes: use the smallest viable fallback, downgrade, or disable the edge feature; restore the main flow first.
-5. If packaging fails, separate code/dependency/permission/signing/notarization/cross-platform limits and provide a runnable artifact or exact command.
-6. After fixing, launch the app and walk the main flow; only say fixed after seeing the expected output.
-7. Report: what changed | root cause | how to open | verifications | remaining limits.
+1. In ≤5 lines, state the symptom and log-based root cause; do not guess.
+2. Read related files, then change code/config with minimum diff; do not overwrite, delete features, or swap stacks to bypass the issue.
+3. Re-run needed commands: install / lint / typecheck / tests / build / launch; read the full output before deciding.
+4. If the same bug fails 3 fixes, downgrade or disable the edge feature and restore the main flow first.
+5. For packaging failures, separate code, dependency, permission, signing/notarization, and cross-platform limits; provide a runnable fallback or exact command.
+6. After fixing, launch the app and complete the sample-data main flow; only say fixed after seeing the artifact.
+7. Report: what changed | root cause | how to open | verification | remaining limits.
 
-[Non-Negotiables] No fake npm/PyPI packages; do not delete existing features/config/data to bypass issues; never hard-code API keys, absolute paths, or internal hosts.
+[Non-Negotiables] No fake npm/PyPI packages; no hard-coded API keys, absolute paths, or internal hosts; no TODO/fake wiring counted as done.
 
 [Original App Context]
 Platform: ${PLATFORM_EN[state.platform]} | Scope: ${COMPLEXITY_EN[state.complexity]}

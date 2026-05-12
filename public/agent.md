@@ -49,6 +49,7 @@ Every important HTML page embeds JSON-LD structured data. The homepage includes 
 - Prompt generator form state is stored only in the user's browser under `codex-tutorial:generator:v2`.
 - Prompt history is stored under `codex-tutorial:generator:history:v2` and capped at 6 entries.
 - Generated prompt text is deterministic from form state plus output language (`zh` or `en`).
+- Generated prompts use a compact desktop delivery contract: ≤8-line start, M1 launchable shell, real-flow DoD, Stop-Vibe-Coding, native file handling, local-first safety, tests, packaging, docs, and sample data.
 - No prompt generator content is uploaded by this site.
 - Case pages include copy-ready prompt blocks in `<pre>` elements.
 
@@ -63,4 +64,4 @@ Every important HTML page embeds JSON-LD structured data. The homepage includes 
 
 AI crawlers and search engines are welcome. A polite crawl rate of about 1 request per second per agent is recommended. There is no login wall and no paywall.
 
-Last updated: 2026-05-10
+Last updated: 2026-05-12

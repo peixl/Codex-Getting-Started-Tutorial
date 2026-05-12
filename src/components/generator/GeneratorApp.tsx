@@ -43,11 +43,23 @@ function normalizeFormState(state?: Partial<FormState>): FormState {
   };
 }
 
+function estimateTokens(text: string) {
+  const cjk = text.match(/[\u3400-\u9FFF]/gu)?.length ?? 0;
+  const compactOther = text.replace(/[\s\u3400-\u9FFF]/gu, '');
+  return Math.ceil(cjk * 1.05 + compactOther.length / 4);
+}
+
+function includesAny(text: string, words: string[]) {
+  const normalized = text.toLowerCase();
+  return words.some((word) => normalized.includes(word.toLowerCase()));
+}
+
 export function GeneratorApp({ locale, dict }: Props) {
   const [state, setState] = useState<FormState>(DEFAULT_FORM);
   const [lang, setLang] = useState<PromptLang>(locale);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [copiedNotice, setCopiedNotice] = useState<CopiedNotice>(null);
+  const [recoveryNote, setRecoveryNote] = useState('');
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -92,6 +104,40 @@ export function GeneratorApp({ locale, dict }: Props) {
 
   const prompt = useMemo(() => buildPrompt(state, lang), [state, lang]);
   const recoveryPrompt = useMemo(() => buildRecoveryPrompt(state, lang), [state, lang]);
+  const recoveryCopyValue = useMemo(() => {
+    const note = recoveryNote.trim();
+    if (!note) return recoveryPrompt;
+    const title = lang === 'zh' ? '【我看到的错误/日志】' : '[Observed Error / Logs]';
+    return `${recoveryPrompt}\n\n${title}\n${note}`;
+  }, [lang, recoveryNote, recoveryPrompt]);
+  const promptHealth = useMemo(() => {
+    const goal = state.goal.trim();
+    const features = state.features.trim();
+    const featureLines = features.split('\n').filter((line) => line.trim().length > 0);
+    const requestText = `${goal}\n${features}`;
+    const checks = [
+      { id: 'goal', label: dict.generator.qualityGoal, ok: goal.length >= 12 },
+      { id: 'features', label: dict.generator.qualityFeatures, ok: featureLines.length >= 2 },
+      {
+        id: 'io',
+        label: dict.generator.qualityIo,
+        ok:
+          includesAny(requestText, ['导入', '输入', '拖入', '文件', 'Excel', 'CSV', 'import', 'input', 'file']) &&
+          includesAny(requestText, ['导出', '生成', '保存', '结果', 'output', 'export', 'save', 'result']),
+      },
+      {
+        id: 'acceptance',
+        label: dict.generator.qualityAcceptance,
+        ok: includesAny(requestText, ['验收', '成功', '完成', '打包', '测试', 'verify', 'test', 'done', 'package']),
+      },
+    ];
+    return {
+      checks,
+      chars: [...prompt].length,
+      tokens: estimateTokens(prompt),
+      ready: checks.filter((check) => check.ok).length >= 3,
+    };
+  }, [dict, prompt, state.features, state.goal]);
 
   const valid = state.goal.trim().length > 0 && state.features.trim().length > 0;
 
@@ -338,6 +384,47 @@ export function GeneratorApp({ locale, dict }: Props) {
             <p className="mb-3 text-[11px] leading-relaxed text-ink-mute">
               {dict.generator.langToggleHint}
             </p>
+            <div className="mb-3 rounded-2xl border border-[color:var(--line)] bg-white/65 p-3.5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h4 className="text-[12.5px] font-semibold text-ink">
+                  {dict.generator.qualityTitle}
+                </h4>
+                <span
+                  className={cn(
+                    'rounded-full px-2.5 py-1 text-[11px] font-semibold',
+                    promptHealth.ready
+                      ? 'bg-emerald-50 text-emerald-700'
+                      : 'bg-amber-50 text-amber-700'
+                  )}
+                >
+                  {promptHealth.ready
+                    ? dict.generator.qualityReady
+                    : dict.generator.qualityNeedsInput}
+                </span>
+              </div>
+              <p className="mt-2 text-[11.5px] text-ink-mute">
+                {dict.generator.qualityLength
+                  .replace('{tokens}', String(promptHealth.tokens))
+                  .replace('{chars}', String(promptHealth.chars))}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {promptHealth.checks.map((check) => (
+                  <span
+                    key={check.id}
+                    className={cn(
+                      'rounded-full border px-2.5 py-1 text-[11px]',
+                      check.ok
+                        ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                        : 'border-amber-200 bg-amber-50 text-amber-700'
+                    )}
+                  >
+                    {check.ok ? dict.generator.qualityPass : dict.generator.qualityImprove}
+                    {' · '}
+                    {check.label}
+                  </span>
+                ))}
+              </div>
+            </div>
             <pre className="max-h-[520px] overflow-auto rounded-2xl border border-[color:var(--line)] bg-[#0F1115] p-4 text-[12.5px] leading-[1.75] text-[#E5E7EB]">
               <code className="whitespace-pre-wrap break-words">{prompt}</code>
             </pre>
@@ -353,7 +440,7 @@ export function GeneratorApp({ locale, dict }: Props) {
                   </p>
                 </div>
                 <CopyButton
-                  value={recoveryPrompt}
+                  value={recoveryCopyValue}
                   label={dict.generator.copyRecoveryButton}
                   copiedLabel={dict.generator.copied}
                   failedLabel={dict.generator.copyFailed}
@@ -364,6 +451,23 @@ export function GeneratorApp({ locale, dict }: Props) {
                   disabledTitle={validationMessage}
                 />
               </div>
+              <label
+                htmlFor="recovery-note"
+                className="mt-3 block text-[11.5px] font-semibold text-ink-soft"
+              >
+                {dict.generator.recoveryEvidenceLabel}
+              </label>
+              <textarea
+                id="recovery-note"
+                value={recoveryNote}
+                onChange={(event) => setRecoveryNote(event.target.value)}
+                placeholder={dict.generator.recoveryEvidencePlaceholder}
+                rows={4}
+                className="mt-2 w-full rounded-xl border border-[color:var(--line)] bg-white/75 px-3 py-2 text-[12px] leading-relaxed text-ink outline-none transition placeholder:text-ink-mute/70 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[rgba(10,132,255,0.18)]"
+              />
+              <p className="mt-1.5 text-[11px] leading-relaxed text-ink-mute">
+                {dict.generator.recoveryEvidenceHint}
+              </p>
             </div>
           </GlassPanel>
 

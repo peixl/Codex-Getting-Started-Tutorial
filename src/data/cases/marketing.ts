@@ -86,11 +86,10 @@ export const marketingCampaignAnalyzer: CaseBundle = {
 - 数据异常（如 ROI 为空）不应导致白屏，显示"暂无数据"。
 
 【交付】
-1. 先给 10 行以内方案摘要（含首页、录入页、周报页安排），然后直接实现、运行和验证。
+1. 摘要需包含首页、录入页、周报页安排。
 2. 分三步：首页 + 录入 -> Excel 导入 -> 周报导出。
 3. 打包 Windows .exe，写 500 字内使用说明。
-
-全程中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
+`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a marketing team at an e-commerce company. User is a non-developer.
 
 [Goal]
@@ -128,10 +127,9 @@ Enter daily channel campaign data (spend, orders, revenue) once, auto-compute RO
 - Don't white-screen on missing fields; show "no data".
 
 [Delivery]
-1. Start with a plan summary under 10 lines, then implement, run, and verify. Include the home, entry, report screens in the plan.
+1. Summary should include the home, entry, report screens.
 2. Phase 1: home + entry. Phase 2: Excel import. Phase 3: weekly report export.
 3. Package .exe; write a 500-word user guide.
-
-Start with a brief plan summary, then implement, run, and verify.`,
+`,
   },
 };

@@ -15,21 +15,20 @@ describe('buildPrompt', () => {
   it('includes desktop quality requirements in Chinese prompts', () => {
     const prompt = buildPrompt(makeState({ platform: 'both' }), 'zh');
 
-    expect(prompt).toContain('【桌面平台细节】');
-    expect(prompt).toContain('文件路径必须兼容中文、空格、括号、长路径');
-    expect(prompt).toContain('系统原生打开 / 保存对话框');
-    expect(prompt).toContain('【项目代码质量与交付物】');
+    expect(prompt).toContain('【桌面与 UX 硬要求】');
+    expect(prompt).toContain('路径兼容中文、空格、括号、长路径');
+    expect(prompt).toContain('系统打开/保存对话框');
+    expect(prompt).toContain('【实现纪律 / 安全】');
     expect(prompt).toContain('IPC 类型化');
-    expect(prompt).toContain('关键流程真实接线');
-    expect(prompt).toContain('无 TODO/空函数/假接线冒充完成');
+    expect(prompt).toContain('真实接线');
+    expect(prompt).toContain('无 TODO、空函数、假接线冒充完成');
     expect(prompt).toContain('标准业务版');
-    expect(prompt).toContain('运行 lint、类型检查、测试和构建');
-    expect(prompt).toContain('M1 ≤ 15 分钟');
-    expect(prompt).toContain('M2 跑通真实主流程');
+    expect(prompt).toContain('运行 lint、类型检查、测试、构建');
+    expect(prompt).toContain('M1≤15 分钟');
+    expect(prompt).toContain('M2 接通真实主流程');
     expect(prompt).not.toContain('串通真实主流程');
-    expect(prompt).toContain('完成判定（DoD）');
-    expect(prompt).toContain('停止 Vibe Coding');
-    expect(prompt.length).toBeLessThan(3200);
+    expect(prompt).toContain('DoD / 停止 Vibe Coding');
+    expect(prompt.length).toBeLessThan(3300);
   });
 
   it('uses platform-specific shortcut wording in Chinese prompts', () => {
@@ -51,13 +50,80 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('macOS desktop app');
     expect(prompt).toContain('Command / Option combinations');
     expect(prompt).toContain('build a macOS .dmg installer');
-    expect(prompt).toContain('native open / save dialogs');
-    expect(prompt).toContain('M1 (≤ 15 min)');
-    expect(prompt).toContain('Definition of Done');
+    expect(prompt).toContain('native open/save dialogs');
+    expect(prompt).toContain('M1≤15 min');
+    expect(prompt).toContain('DoD / Stop-Vibe-Coding');
     expect(prompt).toContain('Stop-Vibe-Coding');
-    expect(prompt).toContain('Project Code Quality');
-    expect(prompt).toContain('no TODOs/empty functions/fake wiring');
-    expect(prompt.length).toBeLessThan(6500);
+    expect(prompt).toContain('Implementation / Safety');
+    expect(prompt).toContain('no TODOs, empty functions, or fake wiring');
+    expect(prompt.length).toBeLessThan(5200);
+  });
+
+  it('scales prompt detail by complexity', () => {
+    const starter = buildPrompt(makeState({ complexity: 'starter' }), 'en');
+    const standard = buildPrompt(makeState({ complexity: 'standard' }), 'en');
+    const advanced = buildPrompt(makeState({ complexity: 'advanced' }), 'en');
+
+    expect(starter.length).toBeLessThan(standard.length);
+    expect(standard.length).toBeLessThan(advanced.length);
+    expect(starter).not.toContain('Batch jobs must be cancellable');
+    expect(advanced).toContain('Batch jobs must be cancellable');
+    expect(advanced).toContain('settings, history, batch');
+  });
+
+  it('keeps a stable generator prompt length profile', () => {
+    const profile = (['starter', 'standard', 'advanced'] as const).flatMap((complexity) =>
+      (['zh', 'en'] as const).map((lang) => {
+        const text = buildPrompt(makeState({ complexity }), lang);
+        return {
+          complexity,
+          lang,
+          chars: [...text].length,
+          hasStopRule: text.includes(lang === 'zh' ? '停止 Vibe Coding' : 'Stop-Vibe-Coding'),
+        };
+      })
+    );
+
+    expect(profile).toMatchInlineSnapshot(`
+      [
+        {
+          "chars": 1501,
+          "complexity": "starter",
+          "hasStopRule": true,
+          "lang": "zh",
+        },
+        {
+          "chars": 3357,
+          "complexity": "starter",
+          "hasStopRule": true,
+          "lang": "en",
+        },
+        {
+          "chars": 1982,
+          "complexity": "standard",
+          "hasStopRule": true,
+          "lang": "zh",
+        },
+        {
+          "chars": 4462,
+          "complexity": "standard",
+          "hasStopRule": true,
+          "lang": "en",
+        },
+        {
+          "chars": 2133,
+          "complexity": "advanced",
+          "hasStopRule": true,
+          "lang": "zh",
+        },
+        {
+          "chars": 4866,
+          "complexity": "advanced",
+          "hasStopRule": true,
+          "lang": "en",
+        },
+      ]
+    `);
   });
 });
 
@@ -65,19 +131,19 @@ describe('buildRecoveryPrompt', () => {
   it('keeps context and asks Codex to continue fixing in Chinese', () => {
     const prompt = buildRecoveryPrompt(makeState({ complexity: 'starter' }), 'zh');
 
-    expect(prompt).toContain('请你继续接手修复');
+    expect(prompt).toContain('请继续修复到能运行');
     expect(prompt).toContain('最小可用版');
     expect(prompt).toContain('给财务同事做一个本地对账工具');
     expect(prompt).toContain('重新运行必要命令');
-    expect(prompt.length).toBeLessThan(900);
+    expect(prompt.length).toBeLessThan(850);
   });
 
   it('keeps context and asks Codex to continue fixing in English', () => {
     const prompt = buildRecoveryPrompt(makeState({ platform: 'mac' }), 'en');
 
-    expect(prompt).toContain('continue fixing it until it runs');
+    expect(prompt).toContain('Keep fixing until it runs');
     expect(prompt).toContain('macOS desktop app');
-    expect(prompt).toContain('Re-run the needed commands');
-    expect(prompt.length).toBeLessThan(1900);
+    expect(prompt).toContain('Re-run needed commands');
+    expect(prompt.length).toBeLessThan(1600);
   });
 });

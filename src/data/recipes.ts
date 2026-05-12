@@ -28,15 +28,13 @@ export const recipes: Recipe[] = [
 - 做法：Electron + React + TypeScript
 - 功能：把一张 Excel 文件（列：指标名、数值、环比）导入后，自动生成一张 1200×1800 的日报长图（和一份 A4 PDF），带标题 + 三张 KPI 卡 + 一条横条排名 + 页脚。
 - 配色以白底 + 深灰字为主，强调排版层级。
-- 同时打包成 Windows .exe 安装包和 macOS .dmg 安装包；附一份 500 字以内的中文使用说明。
-先给 10 行以内方案摘要，然后直接实现、运行和验证。全程中文沟通。`,
+- 同时打包成 Windows .exe 安装包和 macOS .dmg 安装包；附一份 500 字以内的中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript
 - Feature: import one Excel (columns: metric, value, delta) and auto-render a 1200x1800 PNG daily report plus an A4 PDF — title, 3 KPI cards, one ranking bar chart, footer.
 - Palette: white background, deep gray text; emphasize typographic hierarchy.
-- Package as Windows .exe and macOS .dmg; include a 500-word plain-language user guide.
-Start with a brief plan summary, then implement, run, and verify. English throughout.`,
+- Package as Windows .exe and macOS .dmg; include a 500-word plain-language user guide.`,
   },
   {
     id: 'pdf-to-excel',
@@ -50,15 +48,13 @@ Start with a brief plan summary, then implement, run, and verify. English throug
 - 做法：Electron + React + TypeScript + pdfjs 解析
 - 功能：拖入一个包含多份 PDF 的文件夹；软件批量读取每份发票的"发票号 / 开票日期 / 销方 / 购方 / 金额 / 税额 / 价税合计"；输出一张 Excel 台账。
 - 对识别不全的字段高亮为黄色，让用户手动补。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文沟通。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript with pdfjs parsing
 - Feature: drop a folder of PDFs; extract invoice id / date / seller / buyer / amount / tax / total; write an Excel ledger.
 - Highlight uncertain fields in yellow for manual fix.
-- Package as Windows .exe and macOS .dmg; 500-word user guide.
-Start with a brief plan summary, then implement, run, and verify. English throughout.`,
+- Package as Windows .exe and macOS .dmg; 500-word user guide.`,
   },
   {
     id: 'folder-rename',
@@ -72,15 +68,13 @@ Start with a brief plan summary, then implement, run, and verify. English throug
 - 做法：Electron + React + TypeScript
 - 功能：拖入一个文件夹；列出所有文件；允许用规则模板（如"YYYYMMDD-{序号3位}"）批量重命名，改名前预览对照，用户确认后再执行。
 - 支持撤销：每次重命名保存一份"还原对照表"到本地，最近三次操作都可回退。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript
 - Feature: drop a folder; show the file list; rename in bulk by a template (e.g. "YYYYMMDD-{idx3}"). Preview before/after, confirm, then execute.
 - Undo: save a reversal map locally so users can roll back the last three operations.
-- Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 300-word user guide.`,
   },
   {
     id: 'quick-lookup',
@@ -95,16 +89,14 @@ Start with a brief plan summary, then implement, run, and verify.`,
 - 功能：软件打开后自动读取一份 Excel（路径可配置）；主界面只有一个大搜索框 + 结果列表。模糊搜索任意列；结果卡片展示全部字段。
 - 支持"一键复制某字段"，如复制产品编码到剪贴板。
 - Excel 更新后重启软件会自动重载。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript
 - Feature: on launch, read one Excel (configurable path). Main UI: a big search box + result list. Fuzzy search any column. Cards show all fields.
 - One-click copy a specific field (e.g. copy SKU to clipboard).
 - Reload when Excel changes on disk, or on restart.
-- Package as Windows .exe and macOS .dmg; 300-word guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 300-word guide.`,
   },
   {
     id: 'timer-tracker',
@@ -122,8 +114,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 周视图：本周累计时间按事项分组饼图或横条。
   4. 一键导出到 Excel。
 - 窗口小（320x420），固定置顶可选。
-- 同时打包成 Windows .exe 和 macOS .dmg；300 字说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；300 字说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform time-tracker:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -133,8 +124,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Week view: group totals as a bar or pie.
   4. One-click Excel export.
 - Small window (320x420); always-on-top option.
-- Package as Windows .exe and macOS .dmg; 300-word guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 300-word guide.`,
   },
   {
     id: 'mini-kanban',
@@ -149,16 +139,14 @@ Start with a brief plan summary, then implement, run, and verify.`,
 - 三列：待办 / 进行中 / 完成。卡片拖拽切列。回车新增。双击改标题。
 - 软件启动默认打开最近一次工作视图。
 - 深浅模式跟随系统。
-- 同时打包成 Windows .exe 和 macOS .dmg；200 字说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；200 字说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a personal cross-platform Kanban:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
 - Three columns: Todo / Doing / Done. Drag cards. Enter to add. Double-click to rename.
 - Opens in the last-used view.
 - Follows system dark mode.
-- Package as Windows .exe and macOS .dmg; 200-word guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 200-word guide.`,
   },
   {
     id: 'pdf-merge-split',
@@ -174,8 +162,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   1. 合并模式：拖入若干 PDF，可上下拖动调顺序，输入输出文件名后一键合并。
   2. 拆分模式：拖入一份 PDF，输入页码区间（如"1-10, 11-25, 26-end"），按区间导出为多份 PDF。
 - 全程不联网，文件只在本地处理；处理完后弹一个"打开输出文件夹"的按钮。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。
-先给 10 行以内方案摘要，然后直接实现、运行和验证。中文沟通。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + pdf-lib
@@ -183,8 +170,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   1. Merge: drop several PDFs, drag to reorder, type output filename, click merge.
   2. Split: drop one PDF, type page ranges (e.g. "1-10, 11-25, 26-end"), export each range as a separate PDF.
 - Fully offline; files stay local. After completion, show an "Open output folder" button.
-- Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with a brief plan summary, then implement, run, and verify. English throughout.`,
+- Package as Windows .exe and macOS .dmg; 300-word user guide.`,
   },
   {
     id: 'screenshot-watermark',
@@ -201,8 +187,7 @@ Start with a brief plan summary, then implement, run, and verify. English throug
   2. 设置：水印图片或文字（位置可选右下/左下/居中）、最长边像素（如 1600）、输出格式（jpg/png/webp）、jpg 压缩质量。
   3. 一键批量处理，输出到"原目录_processed"。处理过程显示进度。
 - 不修改原图；保留原始 EXIF 时间。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + sharp
@@ -211,8 +196,7 @@ Start with a brief plan summary, then implement, run, and verify. English throug
   2. Settings: watermark image or text (corner choice), longest-edge pixels (e.g. 1600), output format (jpg/png/webp), jpg quality.
   3. One-click batch with progress; output to "<originalFolder>_processed".
 - Never modify originals; preserve original EXIF timestamps.
-- Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 300-word user guide.`,
   },
   {
     id: 'csv-cleaner',
@@ -228,8 +212,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   1. 拖入一份 CSV 或 Excel；自动展示前 20 行预览。
   2. 提供"清洗动作清单"，复选打勾即可：去除空行、去除完全重复行、去除前后空格、统一日期格式（YYYY-MM-DD）、全角转半角、按某列去重保留首条。
   3. 右侧实时预览清洗后的结果；满意后导出为新文件，原文件不动。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含"如何向 Codex 描述新清洗规则"的小段。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含"如何向 Codex 描述新清洗规则"的小段。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx + papaparse
@@ -237,8 +220,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   1. Drop a CSV or Excel; preview the first 20 rows.
   2. Show a checklist of cleaning actions: remove blank rows, drop exact duplicates, trim whitespace, normalize dates (YYYY-MM-DD), convert full-width to half-width, dedupe by chosen column keeping the first.
   3. Live-preview the cleaned result on the right; export to a new file when ready, leaving the original untouched.
-- Package as Windows .exe and macOS .dmg; 400-word user guide including a short section on "how to describe new cleaning rules to Codex".
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 400-word user guide including a short section on "how to describe new cleaning rules to Codex".`,
   },
   {
     id: 'audio-to-text',
@@ -256,8 +238,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 转写完成后，再点"提炼要点"按钮，按"决议 / 待办 / 风险"三段输出 Markdown 摘要（提示词内置，可在设置里改）。
   4. 一键导出为 .docx 和 .md。
 - 全程在本机跑，不联网；首次模型下载提示用户磁盘占用。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local whisper.cpp (small multilingual model, auto-downloaded on first use)
@@ -267,8 +248,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. After transcription, click "Extract key points" to produce a Markdown summary in three sections: Decisions / Action items / Risks (built-in prompt, editable in settings).
   4. Export to .docx and .md.
 - Fully offline; warn the user about disk space when downloading the model.
-- Package as Windows .exe and macOS .dmg; 500-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 500-word user guide.`,
   },
   {
     id: 'sticky-notes',
@@ -286,8 +266,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 一键复制单行便签到剪贴板。支持简单 Markdown（粗体、链接、列表）。
   4. 关闭窗口最小化到任务栏 / Dock；开机自启可在设置里打开。
   5. 全部数据存在本地 SQLite，可一键导出为 .json 备份。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -297,8 +276,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. One-click copy single line to clipboard; basic Markdown (bold, links, lists).
   4. Close minimizes to tray/dock; launch-at-login optional in settings.
   5. All data in local SQLite; one-click export to .json backup.
-- Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 300-word user guide.`,
   },
   {
     id: 'image-resizer',
@@ -316,8 +294,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 支持"按比例裁剪"或"留白填充"两种适配方式。
   4. 一键批量导出到"原目录_resized"文件夹，原图不动。
 - 全程本地处理，不联网；处理过程显示进度。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。
-先给 10 行以内方案摘要，然后直接实现、运行和验证。中文沟通。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + sharp
@@ -327,8 +304,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Two fit modes: crop by ratio, or pad with whitespace.
   4. One-click batch export to a sibling "<originalFolder>_resized"; originals untouched.
 - Fully offline; show progress.
-- Package as Windows .exe and macOS .dmg; 300-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 300-word user guide.`,
   },
   {
     id: 'contact-deduper',
@@ -346,8 +322,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 去重规则可选：手机号相同 / 邮箱相同 / 手机+姓名 都视为同一人；冲突时保留信息最完整的一条，并把其他来源的备注合并到一栏。
   4. 输出一份合并后的 Excel + 一份"被去掉的可疑重复条目"Excel 供复核，原文件不动。
 - 全程本地处理，不联网。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx
@@ -357,8 +332,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Configurable dedupe key: phone / email / phone+name. On collision, keep the most complete row and merge other sources' notes into a "merged_notes" column.
   4. Export a merged Excel plus a "removed-as-duplicate" Excel for review; originals untouched.
 - Fully offline.
-- Package as Windows .exe and macOS .dmg; 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 400-word user guide.`,
   },
   {
     id: 'markdown-to-pptx',
@@ -376,8 +350,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 提供三套主题（极简白、深色科技、暖橙商务），可在顶部一键切换；字体使用系统默认。
   4. 一键导出 .pptx 文件到指定文件夹；同时保存当前 .md 草稿到本地。
 - 全程本地处理，不联网。
-- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含 Markdown 速查表。
-先给 10 行以内方案摘要，然后直接实现、运行和验证。中文沟通。`,
+- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含 Markdown 速查表。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + pptxgenjs
@@ -387,8 +360,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Three themes (Minimal White, Dark Tech, Warm Business Orange) with one-click switch in the top bar; system fonts.
   4. One-click export to .pptx; auto-save the current .md draft locally.
 - Fully offline.
-- Package as Windows .exe and macOS .dmg; 400-word user guide including a Markdown cheatsheet.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Package as Windows .exe and macOS .dmg; 400-word user guide including a Markdown cheatsheet.`,
   },
   {
     id: 'marketplace-order-merger',
@@ -405,8 +377,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   2. 把不同列名统一成标准字段：平台、店铺、订单号、下单时间、SKU、商品名、数量、实付金额、运费、订单状态、收货省市。
   3. 订单号重复时合并明细并标红提示；字段缺失用黄色提示。
   4. 导出“订单总表.xlsx”和“异常订单.xlsx”，原文件不动。
-- 附 400 字中文使用说明，说明如何新增平台字段映射。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明，说明如何新增平台字段映射。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build an e-commerce order merge tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx + papaparse
@@ -415,8 +386,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   2. Normalize columns into: marketplace, store, order ID, order time, SKU, product name, quantity, paid amount, freight, status, province/city.
   3. Merge duplicate order IDs and flag them in red; highlight missing fields in yellow.
   4. Export "merged-orders.xlsx" and "order-exceptions.xlsx"; originals untouched.
-- Include a 400-word user guide explaining how to add a new marketplace mapping.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide explaining how to add a new marketplace mapping.`,
   },
   {
     id: 'sku-image-packager',
@@ -434,8 +404,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 批量重命名为 SKU-main-01、SKU-detail-01、SKU-size-01 等规则；改名前展示预览。
   4. 检查每个 SKU 是否缺主图、详情图、尺寸图；缺失项导出 Excel。
   5. 一键输出每个 SKU 一个文件夹的素材包，原图不动。
-- 附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a product image packaging tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + sharp
@@ -445,8 +414,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Batch rename to patterns like SKU-main-01, SKU-detail-01, SKU-size-01; preview before applying.
   4. Check whether each SKU is missing hero, detail, or size images; export missing items to Excel.
   5. Output one folder per SKU; originals untouched.
-- Include a 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide.`,
   },
   {
     id: 'shipping-exception-checker',
@@ -464,8 +432,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 支持在设置里调整小时阈值和关键词。
   4. 输出按严重程度排序的异常清单，手机号默认脱敏。
   5. 一键导出“今日物流异常.xlsx”，含建议客服跟进话术。
-- 附 300 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 300 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a shipment exception checker:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx
@@ -475,8 +442,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Let users adjust hour threshold and keywords in settings.
   4. Output a severity-ranked exception list with masked phone numbers by default.
   5. Export "shipment-exceptions-today.xlsx" with suggested support wording.
-- Include a 300-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 300-word user guide.`,
   },
   {
     id: 'product-label-printer',
@@ -494,8 +460,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 自动生成条码/二维码，支持预览单张和整页。
   4. 导出适合 A4 或热敏打印的 PDF；打印数量按 Excel 字段重复。
   5. 长商品名自动换行，不挤出标签边界。
-- 附 300 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 300 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a product label generator:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + bwip-js + pdf-lib
@@ -505,8 +470,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Generate barcode/QR code; preview single label and full page.
   4. Export PDF for A4 or thermal printer; repeat labels by quantity.
   5. Long product names wrap without overflowing the label.
-- Include a 300-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 300-word user guide.`,
   },
   {
     id: 'platform-bill-reconciliation',
@@ -524,8 +488,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 自动计算差异金额和差异原因；匹配不到的订单单独列出。
   4. 首页展示总订单额、总到账、总费用、总差异和异常数量。
   5. 导出“账单核对结果.xlsx”，含明细页、异常页、汇总页。
-- 附 500 字中文使用说明，解释常见差异原因。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 500 字中文使用说明，解释常见差异原因。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a marketplace bill reconciliation tool:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx
@@ -535,8 +498,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Calculate variance amount and likely reason; list unmatched orders separately.
   4. Home view shows total orders, settlement, fees, variance, and exception count.
   5. Export "bill-reconciliation-result.xlsx" with detail, exception, and summary sheets.
-- Include a 500-word guide explaining common variance reasons.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 500-word guide explaining common variance reasons.`,
   },
   {
     id: 'campaign-calendar-planner',
@@ -554,8 +516,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 日历视图 + 看板视图，任务可拖拽改日期和状态。
   4. 逾期任务红色提醒；今天任务可导出为 Excel。
   5. 支持从 Excel 批量导入任务。
-- 附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build an e-commerce campaign calendar:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -565,8 +526,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Calendar view + board view; drag tasks to change date and status.
   4. Overdue tasks turn red; today's tasks export to Excel.
   5. Bulk import tasks from Excel.
-- Include a 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide.`,
   },
   {
     id: 'support-macro-library',
@@ -584,8 +544,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 支持变量占位：{昵称}、{订单号}、{商品名}，复制前弹窗填写。
   4. 话术有版本号、更新时间、适用店铺和禁用状态。
   5. 支持从 Excel 导入/导出，记录每条话术复制次数。
-- 附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a customer support macro library:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -595,8 +554,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Variable placeholders: {name}, {orderId}, {productName}; prompt for values before copy.
   4. Each macro has version, updated date, applicable store, and disabled status.
   5. Excel import/export; record copy count per macro.
-- Include a 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide.`,
   },
   {
     id: 'creator-sample-desktop',
@@ -614,8 +572,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 逾期未签收和逾期未发布自动高亮。
   4. 每个达人卡片可记录内容链接、播放/互动/成交数据和备注。
   5. 导出今日跟进清单和复盘表。
-- 附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a creator sample follow-up board:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -625,8 +582,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Highlight overdue receipt and overdue publish.
   4. Creator card stores content link, views/interactions/sales, and notes.
   5. Export today's follow-up list and recap sheet.
-- Include a 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide.`,
   },
   {
     id: 'competitor-price-sheet',
@@ -644,8 +600,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 和历史价格对比，标出降价、涨价、新增、下架、赠品变化。
   4. 支持按我方 SKU 映射竞品商品，展示价差和变化幅度。
   5. 导出“竞品价格变化.xlsx”和一页摘要图片。
-- 附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a competitor price tracker cleaner:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx
@@ -655,8 +610,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Compare with history and flag price down, price up, new item, delisted item, gift change.
   4. Map competitor products to our SKUs and show price gap and movement.
   5. Export "competitor-price-changes.xlsx" and a one-page summary image.
-- Include a 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide.`,
   },
   {
     id: 'live-run-sheet-timer',
@@ -674,8 +628,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 到点自动提醒“上链接 / 发券 / 切下一个品 / 库存确认”。
   4. 直播中可一键标记跳过、延长、异常，并记录实际时间。
   5. 直播后导出复盘表。
-- 附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a live run-sheet timer:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + local SQLite
@@ -685,8 +638,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Timed reminders for link, coupon, next product, stock check.
   4. During live, mark skipped, extended, exception, and actual time.
   5. Export recap sheet after the session.
-- Include a 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide.`,
   },
   {
     id: 'sku-listing-auditor',
@@ -704,8 +656,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 标出缺失、冲突和高风险项，例如售价低于成本、库存为 0、图片不足、资质过期。
   4. 每个 SKU 生成完整度分数：可上线 / 补齐后上线 / 暂缓。
   5. 导出“商品资料补齐清单.xlsx”。
-- 附 400 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 400 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a SKU listing preflight auditor:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx
@@ -715,8 +666,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Flag missing, conflicting, and high-risk items such as price below cost, zero stock, insufficient images, expired certificate.
   4. Generate completeness score per SKU: ready / ready after fixes / pause.
   5. Export "listing-fix-list.xlsx".
-- Include a 400-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 400-word user guide.`,
   },
   {
     id: 'inventory-transfer-planner',
@@ -734,8 +684,7 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. 自动建议从库存过高仓调往库存不足仓，给出建议数量和理由。
   4. 可设置安全库存天数、最低调拨数量、活动保留量。
   5. 导出“调拨建议.xlsx”和“断货风险.xlsx”。
-- 附 500 字中文使用说明。
-先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+- 附 500 字中文使用说明。`,
     promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a multi-warehouse transfer planner:
 - Platform: Windows 10/11 and macOS
 - Stack: Electron + React + TypeScript + xlsx + ECharts
@@ -745,7 +694,6 @@ Start with a brief plan summary, then implement, run, and verify.`,
   3. Recommend transfers from overstocked warehouses to low-stock warehouses, with quantity and reason.
   4. Configurable safety stock days, minimum transfer quantity, campaign reserve.
   5. Export "transfer-suggestions.xlsx" and "stockout-risk.xlsx".
-- Include a 500-word user guide.
-Start with a brief plan summary, then implement, run, and verify.`,
+- Include a 500-word user guide.`,
   },
 ];

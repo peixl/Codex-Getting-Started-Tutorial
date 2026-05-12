@@ -80,11 +80,10 @@ export const operationsCampaign: CaseBundle = {
 - Excel 字段错时友好提示。
 
 【交付】
-1. 先给 10 行以内方案摘要（含首页 / 看板 / 导入页界面安排），然后直接实现、运行和验证。
+1. 摘要需包含首页 / 看板 / 导入页界面安排。
 2. 分三步：新建 + 拖拽 -> Excel 导入导出 -> 状态历史 + 到期染色。
 3. 打包 .exe，附 500 字中文使用说明。
-
-中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
+`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an ops team at an e-commerce company. Non-developer user.
 
 [Goal]
@@ -115,10 +114,9 @@ Tame big-sale chaos: a single board with clear status, owners, and history.
 - Friendly warnings on bad Excel columns.
 
 [Delivery]
-1. Start with a plan summary under 10 lines, then implement, run, and verify. Include home / board / import screens in the plan.
+1. Summary should include home / board / import screens.
 2. Phase 1: create + drag. Phase 2: Excel import/export. Phase 3: history + due coloring.
 3. Package .exe; 500-word user guide.
-
-Start with a brief plan summary, then implement, run, and verify.`,
+`,
   },
 };

@@ -41,5 +41,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run tests
+        run: npm test
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Check prompt lengths
+        run: npm run prompt:stats -- --limit=10
+
       - name: Build application
         run: npm run build

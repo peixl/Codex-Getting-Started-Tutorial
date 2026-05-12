@@ -381,7 +381,7 @@ export function HomeCasesTeaser({ locale, dict }: Props) {
   );
 }
 
-export function HomeTrust({ locale, dict }: Props) {
+export function HomeTrust({ dict }: Props) {
   const lines = [dict.home.trustLine1, dict.home.trustLine2, dict.home.trustLine3];
   return (
     <section className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n';
@@ -12,6 +11,7 @@ import {
   ArrowRightIcon,
   BookIcon,
   ChatBubbleIcon,
+  CheckIcon,
   LightBulbIcon,
   MacWindowIcon,
   PuzzleIcon,
@@ -52,6 +52,7 @@ export default async function GuidePage({ params }: Props) {
     { id: 'core-actions', title: dict.guide.sec4Title, icon: <ChatBubbleIcon size={22} /> },
     { id: 'good-prompts', title: dict.guide.sec5Title, icon: <LightBulbIcon size={22} /> },
     { id: 'pitfalls', title: dict.guide.sec6Title, icon: <SparkleIcon size={22} /> },
+    { id: 'stop', title: dict.guide.secStopTitle, icon: <CheckIcon size={22} /> },
     { id: 'share', title: dict.guide.sec7Title, icon: <RocketIcon size={22} /> },
   ];
 
@@ -87,7 +88,7 @@ export default async function GuidePage({ params }: Props) {
                         <span className="mr-2 text-xs font-semibold text-slate-400">
                           0{idx + 1}
                         </span>
-                        {s.title.replace(/^第[一二三四五六七]章 · /, '').replace(/^Chapter \d+ — /, '')}
+                        {s.title.replace(/^第[一二三四五六七八]章 · /, '').replace(/^Chapter \d+ — /, '')}
                       </a>
                     </li>
                   ))}
@@ -160,6 +161,15 @@ export default async function GuidePage({ params }: Props) {
                 <GuideItem title={dict.guide.sec6Pit2Title} body={dict.guide.sec6Pit2Body} />
                 <GuideItem title={dict.guide.sec6Pit3Title} body={dict.guide.sec6Pit3Body} />
                 <GuideItem title={dict.guide.sec6Pit4Title} body={dict.guide.sec6Pit4Body} />
+              </div>
+            </GuideSection>
+
+            <GuideSection id="stop" title={dict.guide.secStopTitle} icon={<CheckIcon size={22} />}>
+              <div className="grid gap-4 md:grid-cols-2">
+                <GuideItem title={dict.guide.secStopItem1Title} body={dict.guide.secStopItem1Body} />
+                <GuideItem title={dict.guide.secStopItem2Title} body={dict.guide.secStopItem2Body} />
+                <GuideItem title={dict.guide.secStopItem3Title} body={dict.guide.secStopItem3Body} />
+                <GuideItem title={dict.guide.secStopItem4Title} body={dict.guide.secStopItem4Body} />
               </div>
             </GuideSection>
 

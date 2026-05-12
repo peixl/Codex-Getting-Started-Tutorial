@@ -4,55 +4,51 @@ const QUALITY_MARKER_ZH = '【高质量交付补充】';
 const QUALITY_MARKER_EN = '[High-Quality Delivery Addendum]';
 
 const QUALITY_TAIL_ZH = `【高质量交付补充】
-若上文要求"等我确认"，改为：≤10 行摘要后直接实现、运行、修复、验证；只因真实文件/账号/证书/不可逆操作停下。
+若上文要求等待确认，改为：≤8 行摘要后直接实现、运行、修复、验证；只因真实文件、账号、证书或不可逆操作停下。
 
-硬要求：
-- 交付本地可运行桌面应用，不是方案；第一屏是主工作台。
-- M1 ≤15 分钟：可打开空壳（主窗口 + 示例数据 → 一行假结果）；后续 M2 真实主流程、M3 异常/UI/隐私、M4 测试+打包+文档。
-- 每个里程碑只报：完成 / 跳过原因 / 下一步+预计耗时，降低等待焦虑。
-- 按钮、错误、说明用业务语言；不暴露堆栈。支持拖拽 + 系统打开/保存；输出不覆盖原文件，冲突加时间后缀。
-- 路径兼容中文、空格、括号、长路径和 Windows / macOS 差异；快捷键：Windows 使用 Ctrl / Alt，macOS 使用 Command / Option。
-- 提供示例数据或试用模式；空/错格式/重复/大文件/无权限/取消友好处理。
-- 项目分层清晰：桌面壳 / 受控 API / UI / core / tests / sample-data / docs；IPC 白名单化，UI 不直接执行本地命令。
-- 真实接线：按钮、导入、预览、导出、错误状态都能用；不留 TODO、空函数、未使用大组件或假数据冒充完成。
-- 核心逻辑小模块、类型明确、错误分层；不编造包名/API；不写死密钥、绝对路径、个人邮箱或内网地址。
-- 交付前跑 lint、类型检查、测试、构建并启动冒烟；提供 setup/dev/package 脚本、README、使用说明、已知限制、示例数据；无法打包也写明限制和命令。
+【桌面交付契约】
+- 交付本地可运行应用，不是方案；第一屏就是主工作台。M1≤15 分钟先出可启动窗口+示例数据/试用模式，M2 接通真实主流程，M3 补异常/UI/隐私，M4 测试+打包+文档。
+- 每次汇报≤6行：完成、验证、跳过原因、下一步+预计时间，减少小白用户等待焦虑。
+- 用业务语言写按钮、错误和说明；支持拖拽+系统打开/保存；空/错格式/取消/无权限/大文件/重名冲突都友好处理，不暴露堆栈。
+- 路径兼容中文、空格、括号、长路径和 Windows/macOS 分隔差异；Windows 快捷键用 Ctrl/Alt，macOS 用 Command/Option。
+- 默认离线、本地处理；不覆盖原文件；不写死密钥、绝对路径、个人邮箱或内网地址。
+- 项目分层：desktop shell / controlled API / UI / core / tests / sample-data / docs；IPC 白名单化，UI 不直接执行本地命令。
+- 真实接线：导入、预览、生成/保存、导出、错误状态都可用；不把 TODO、空函数、未用大组件或假数据当完成。
 
-【完成判定（DoD）】
-1. 能启动并显示主工作台。2. 示例数据走通真实主流程并看到产物。3. 异常路径友好不崩溃。4. lint/类型/测试/构建通过且无 TODO/假接线。5. 安装包或可运行未签名包已生成。6. README/使用说明/已知限制/示例数据齐备。
-
-【停止 Vibe Coding】
-- DoD 满足就停；新想法写进已知限制.md 的"v2 想法"。
-- 同一问题 3 次未修好：降级或注释边缘功能，先达 DoD。
-- 不整库重构、不换技术栈、不为少写几行加新依赖。`;
+【DoD / 停止 Vibe Coding】
+能启动；示例数据跑通真实主流程并产生产物；异常路径友好；lint/typecheck/test/build 通过；有 setup/dev/package 脚本、README、使用说明、已知限制、示例数据。满足即停，新想法写 v2；同一 bug 3 次失败就降级或禁用边缘功能，先交付主流程。`;
 
 const QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
-If the prompt says to wait for confirmation, reinterpret it as: summarize in ≤10 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
+If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
 
-Must satisfy:
-- Deliver a runnable local desktop app, not advice; first screen is the workspace.
-- M1 ≤ 15 min: launchable shell (main window + sample data → one fake result); then M2 real main flow, M3 errors/UI/privacy, M4 tests+packaging+docs.
-- Every milestone reports only: done / skipped + reason / next + ETA, so the user is not left waiting.
-- Business-language labels/errors/help; no stack traces. Use drag-and-drop + native open/save; never overwrite inputs; timestamp conflicts.
-- Paths handle Chinese characters, spaces, parentheses, long paths, and Windows/macOS differences. Use Ctrl / Alt combinations on Windows and Command / Option combinations on macOS.
-- Include sample data or demo mode; handle empty/bad/duplicate/large/no-permission/cancel gracefully.
-- Clear layers: shell/API/UI/core/tests/samples/docs; IPC allowlisted, renderer never runs local commands.
-- Real flow wired: buttons, import, preview, export, and error states; no TODOs, empty functions, unused large components, or fake data counted as done.
-- Small typed core modules with layered errors; no fake packages/APIs; no hard-coded secrets, absolute paths, personal emails, or internal hosts.
-- Before handoff run lint, typecheck, tests, build, and launch smoke test; provide setup/dev/package scripts, README, user guide, known limitations, sample data; if packaging is unavailable, document limits and commands.
+[Desktop Delivery Contract]
+- Runnable local app, not advice; workspace first. M1≤15 min gets a launchable window + sample/demo data; M2 real flow; M3 errors/UI/privacy; M4 tests+package+docs.
+- Updates ≤6 lines: done, verification, skipped reason, next+ETA.
+- Business labels/errors/help; drag/drop + native open/save; bad/cancel/no-permission/large/conflict cases are friendly, no raw stacks.
+- Paths handle Chinese, spaces, parentheses, long paths, and Windows/macOS separators; use Ctrl/Alt on Windows and Command/Option on macOS.
+- Offline/local; never overwrite inputs; no hard-coded secrets, absolute paths, personal emails, or internal hosts.
+- Layers: shell / controlled API / UI / core / tests / sample-data / docs; IPC allowlisted; renderer never runs local commands.
+- Real wiring: import, preview, generate/save, export, and error states work; TODOs, empty functions, or fake data do not count as done.
 
-[Definition of Done]
-1. App launches and shows the workspace. 2. Sample data completes the real main flow and produces the artifact. 3. Off-path cases fail gracefully. 4. lint/typecheck/tests/build pass with no TODO/fake wiring. 5. Installer or runnable unsigned package exists. 6. README/user guide/known limitations/sample data exist.
+[DoD / Stop-Vibe-Coding]
+Launches; sample data creates the artifact; edge cases are friendly; lint/typecheck/test/build pass; setup/dev/package scripts, README, guide, limits, and samples exist. Stop; new ideas go to v2. Same bug fails 3 times: downgrade/disable the edge feature and ship the main flow.`;
 
-[Stop-Vibe-Coding]
-- DoD met means stop; put new ideas in KNOWN_LIMITATIONS.md under "v2 ideas".
-- Same bug fails 3 fixes: downgrade or disable the edge feature and hit DoD first.
-- No whole-codebase refactors, stack swaps, or new deps just to save a few lines.`;
+function compactLegacyBoilerplate(prompt: string): string {
+  return prompt
+    .replace(/\n?请先给\s*10\s*行以内方案摘要，然后直接实现、运行和验证。/g, '')
+    .replace(/\n?先给\s*(?:10\s*行以内|简短)方案摘要，然后直接实现、运行和验证。(?:全程)?中文(?:沟通)?。/g, '')
+    .replace(/\n?Start with a brief plan summary, then implement, run, and verify\.(?: English throughout\.)?/g, '')
+    .replace(/不确定的地方直接问我/g, '只有真实阻塞问题再问我')
+    .replace(/Ask me if unsure\./g, 'Ask only for true blockers.')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
 
 export function withDesktopQualityBar(prompt: string, lang: PromptQualityLang): string {
   const marker = lang === 'zh' ? QUALITY_MARKER_ZH : QUALITY_MARKER_EN;
-  if (prompt.includes(marker)) return prompt.trim();
+  const compacted = compactLegacyBoilerplate(prompt);
+  if (compacted.includes(marker)) return compacted;
 
   const tail = lang === 'zh' ? QUALITY_TAIL_ZH : QUALITY_TAIL_EN;
-  return `${prompt.trim()}\n\n${tail}`;
+  return `${compacted}\n\n${tail}`;
 }

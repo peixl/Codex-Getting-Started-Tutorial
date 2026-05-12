@@ -83,11 +83,10 @@ export const procurementPriceMonitor: CaseBundle = {
 - 数据库损坏时自动用最近一个备份恢复。
 
 【交付】
-1. 先给 10 行以内方案摘要（含首页、详情页、导入页安排），然后直接实现、运行和验证。
+1. 摘要需包含首页、详情页、导入页安排。
 2. 分阶段：第一步做"录入 + SKU 列表"；第二步加"详情页 + 曲线"；第三步加"告警 + 导出"。
 3. 最后打包 .exe，并写 500 字内的中文使用说明。
-
-全程中文沟通。先给简短方案摘要，然后直接实现、运行和验证。`,
+`,
     en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for the procurement team at an e-commerce company. User is a non-developer.
 
 [Goal]
@@ -123,10 +122,9 @@ Aggregate weekly supplier quotes, compare across suppliers, flag best prices and
 - Auto-recover DB from last backup on corruption.
 
 [Delivery]
-1. Start with a plan summary under 10 lines, then implement, run, and verify. Include the home, detail, and import screens in the plan.
+1. Summary should include the home, detail, and import screens.
 2. Phase 1: entry + SKU list. Phase 2: detail + chart. Phase 3: alerts + export.
 3. Package .exe; write a 500-word plain-language user guide.
-
-Start with a brief plan summary, then implement, run, and verify.`,
+`,
   },
 };

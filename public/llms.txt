@@ -10,7 +10,7 @@ The root URL redirects to Chinese or English based on the visitor's browser lang
 
 - [Home](https://codex.ifq.ai/en): Overview of the three-step workflow (fill form → copy prompt → run in Codex), highlights, and department case teasers.
 - [Prompt Generator](https://codex.ifq.ai/en/generator): An interactive fill-in-the-blank form that produces a fully-formed Codex prompt. Inputs: platform (Windows / macOS / both), preset, UI style, data storage approach, complexity tier (Starter MVP / Standard business / Team-ready), goal, needs, and optional extras. Output: a ready-to-paste prompt in Chinese or English with one-click copy, plus a separate recovery prompt for launch or packaging failures.
-- [Beginner Guide](https://codex.ifq.ai/en/guide): A seven-chapter plain-language walkthrough covering what Codex is, what to prepare, first launch, core actions, five rules for good prompts, common pitfalls, and how to share the resulting app with teammates.
+- [Beginner Guide](https://codex.ifq.ai/en/guide): An eight-chapter plain-language walkthrough covering what Codex is, what to prepare, first launch, core actions, five rules for good prompts, common pitfalls, when to stop iterating, and how to share the resulting app with teammates.
 - [Department Cases](https://codex.ifq.ai/en/cases): 40+ real-world scenarios from an e-commerce company with ready-to-use prompts.
 - [Scenario Cookbook](https://codex.ifq.ai/en/cookbook): 20+ copy-ready desktop-tool prompts, including order merging, product image packaging, shipment exceptions, product labels, bill reconciliation, campaign calendars, support macros, creator samples, live timers, listing audits, and inventory transfer planning.
 - [Pro Tips](https://codex.ifq.ai/en/tips): Eight productivity tips plus four common misconceptions.
@@ -18,7 +18,7 @@ The root URL redirects to Chinese or English based on the visitor's browser lang
 
 ## Department cases
 
-Each case includes the problem statement, solution approach, expected deliverable, and a complete copy-paste prompt (in both Chinese and English). Case and cookbook prompts are automatically enhanced with a desktop quality bar covering local-first behavior, native file dialogs, path compatibility, sample data, friendly errors, tests, packaging scripts, and platform-appropriate shortcuts:
+Each case includes the problem statement, solution approach, expected deliverable, and a complete copy-paste prompt (in both Chinese and English). Case and cookbook prompts are automatically compacted and enhanced with a desktop delivery contract covering local-first behavior, native file dialogs, path compatibility, sample data/demo mode, friendly errors, DoD/Stop-Vibe-Coding, tests, packaging scripts, and platform-appropriate shortcuts:
 
 - [Finance · Monthly Order Reconciliation Helper](https://codex.ifq.ai/en/cases/finance-order-reconciliation): Auto-match e-commerce orders with bank statements.
 - [Operations · E-commerce Campaign Task Board](https://codex.ifq.ai/en/cases/operations-campaign-tracker): Kanban-style tracker for major sales events.

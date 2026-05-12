@@ -10,7 +10,8 @@
     "build": "npm run build:next && opennextjs-cloudflare build --skipNextBuild",
     "start": "next start",
     "test": "vitest run",
-    "lint": "next lint",
+    "lint": "eslint .",
+    "prompt:stats": "node scripts/prompt-stats.mjs",
     "deploy": "npm run build && opennextjs-cloudflare deploy",
     "preview": "npm run build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types"
