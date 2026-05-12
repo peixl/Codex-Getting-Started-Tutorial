@@ -20,7 +20,7 @@ The site is organized into six main sections:
 
 3. **Department Cases** — 10+ complete scenarios from an e-commerce company context, each with problem statement, approach, expected deliverable, and a complete ready-to-paste prompt in both languages.
 
-4. **Agent Task Cases** — 8 copy-ready prompts for using Codex as an e-commerce business agent: daily sales brief, order exception follow-up, customer-service issue themes, product launch readiness, inventory replenishment, supplier quote comparison, ads/creator recap, and review insights. These prompts emphasize clear inputs, business conclusions, action lists, and stop rules.
+4. **Agent Task Cases** — 8 copy-ready prompts for using Codex as an e-commerce business agent: daily sales brief, order exception follow-up, customer-service issue themes, product launch readiness, inventory replenishment, supplier quote comparison, ads/creator recap, and review insights. These prompts emphasize clear inputs, business judgment, flexible assumptions, and usable action lists.
 
 5. **Pro Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
 

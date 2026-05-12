@@ -346,7 +346,7 @@ export const en = {
     stat3Value: 'copy-ready',
     stat3Label: 'prompt included for every case',
     stat4Value: 'less waiting',
-    stat4Label: 'clear milestones and stop rules',
+    stat4Label: 'clear rhythm and usable outcomes',
     copyReady: 'copy-ready',
     deliverableLabel: 'Clear deliverable',
     afterCopy: 'After copying, send it with the matching sheets, chat logs, or business goal.',
