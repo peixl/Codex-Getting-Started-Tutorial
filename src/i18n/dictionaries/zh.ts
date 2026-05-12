@@ -3,7 +3,7 @@ export const zh = {
     siteName: 'Codex 新手教程',
     siteTagline: '让每个小白，都能用 Codex 做出自己的桌面小工具',
     description:
-      '面向非技术人员的 Codex 桌面版教程：提示词生成、上手指南和部门案例。专注 Windows / macOS 本地桌面应用，不碰服务器和部署。',
+      '面向非技术人员的 Codex 桌面版教程：提示词生成、上手指南、部门案例和电商 Agent 任务案例。重点帮助你做出 Windows / macOS 本地工具，也学会让 Codex 代理完成电商业务工作。',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -27,6 +27,7 @@ export const zh = {
     lessons: '七天上手',
     cookbook: '场景食谱',
     cases: '部门案例',
+    agentCases: 'Agent 案例',
     tips: '进阶',
     faq: '常见问答',
     tryNow: '开始使用',
@@ -34,16 +35,16 @@ export const zh = {
   },
 
   home: {
-    heroEyebrow: '专为不懂代码的你',
+    heroEyebrow: '专为业务小白准备',
     heroTitleLine1: '想做一个',
     heroTitleHighlight: '属于自己的小软件',
     heroTitleLine2: '跟 Codex 说一句话就够了',
     heroSubtitle:
-      '填几个空，复制到 Codex 桌面版。几分钟后，你就能得到一个本地小工具。不写代码，不搭服务器。',
+      '填几个空，复制到 Codex 桌面版。几分钟后，你就能得到一个本地小工具。',
     heroCtaPrimary: '三分钟生成一个提示词',
     heroCtaSecondary: '先看看怎么玩',
-    heroStatsLabel1: '现成部门案例',
-    heroStatsValue1: '10+',
+    heroStatsLabel1: '现成案例',
+    heroStatsValue1: '20+',
     heroStatsLabel2: '填空就生成',
     heroStatsValue2: '提示词',
     heroStatsLabel3: '专属小工具',
@@ -61,10 +62,10 @@ export const zh = {
       '系统会拼好提示词。你只管复制。',
     flowStep3Title: '粘贴到 Codex 桌面版',
     flowStep3Body:
-      'Codex 会写代码、运行、修错、验证。窗口弹出，就是你的工具。',
+      'Codex 会处理、运行、修正、验证。窗口弹出，就是你的工具。',
 
     featuresTitle: '为什么这份教程真的适合小白',
-    featuresSubtitle: '不要求会代码、命令行或 GitHub。',
+    featuresSubtitle: '不要求会命令行或 GitHub。',
     feature1Title: '全部大白话',
     feature1Body:
       '避开术语，用日常话说明。',
@@ -74,9 +75,9 @@ export const zh = {
     feature3Title: '现成部门案例',
     feature3Body:
       '财务、运营、客服、人事、物流、采购、市场等十个部门都有完整案例，拿来就能用。',
-    feature4Title: '只做本地桌面小工具',
+    feature4Title: '先做好本地桌面工具',
     feature4Body:
-      '每个案例都聚焦在「双击就能打开的桌面小工具」，专门帮你解决眼前的小问题。',
+      '核心案例聚焦「双击就能打开」；Agent 案例教你把电商日报、订单、客服、库存、采购和投放分析交给 Codex。',
     feature5Title: '中英双语对照',
     feature5Body:
       '中文看懂，英文给 Codex。内容一致。',
@@ -88,14 +89,18 @@ export const zh = {
     caseTeaserSubtitle: '点进去，复制提示词，马上开工。',
     caseTeaserMore: '看全部十个部门案例',
 
+    agentTeaserTitle: '也能处理电商业务任务',
+    agentTeaserSubtitle: '让 Codex 帮电商团队整理日报、筛异常订单、分析客服问题、检查上新资料和复盘投放。',
+    agentTeaserMore: '看 Agent 任务案例',
+
     ctaTitle: '准备好了吗？',
     ctaBody: '三分钟后，先拿到第一段提示词。',
     ctaButton: '现在就开始',
 
-    trustTitle: '网站背后的诚意',
+    trustTitle: '这份教程背后的诚意',
     trustLine1: '案例来自真实业务场景。',
     trustLine2: '中英双语，国内访问顺畅。',
-    trustLine3: '代码开源，更新透明。',
+    trustLine3: '内容开放，更新透明。',
   },
 
   generator: {
@@ -167,9 +172,9 @@ export const zh = {
     copied: '已复制',
     copyFailed: '复制失败',
     copyNextPrompt: '已复制。下一步：打开 Codex 桌面版 → 新建任务 → 粘贴 → 发送。',
-    copyNextRecovery: '修复提示词已复制。连同报错一起发给 Codex。',
+    copyNextRecovery: '修复提示词已复制。连同错误信息一起发给 Codex。',
     recoveryTitle: '跑不起来时，再复制这一段',
-    recoveryHint: '启动、报错或打包卡住时，把这段发给 Codex。',
+    recoveryHint: '启动或打包卡住时，把这段发给 Codex。',
     copyRecoveryButton: '复制修复提示词',
     resetButton: '清空重填',
     langToggle: '切换语言',
@@ -221,23 +226,23 @@ export const zh = {
     sec2Item2Body: '用 OpenAI 账号登录。ChatGPT 账号也可以。',
     sec2Item3Title: 'Codex 桌面版安装包',
     sec2Item3Body: '从 OpenAI 官网下载，双击安装。',
-    sec2Item4Title: '真的不用懂代码',
+    sec2Item4Title: '真的不用懂底层细节',
     sec2Item4Body: '会打字、会复制粘贴、会双击图标，这些就够了。',
 
     sec3Title: '第三章 · 第一次打开 Codex',
     sec3P1: '首次打开先登录。登录后会看到一个聊天式界面。',
-    sec3P2: '左边是项目，中间是对话，右边可能是文件预览。',
-    sec3P3: '只记住三件事：新建项目、输入提示词、等结果。',
+    sec3P2: '左边是任务，中间是对话，右边可能是文件预览。',
+    sec3P3: '只记住三件事：新建任务、输入提示词、等结果。',
 
     sec4Title: '第四章 · 核心动作用大白话理解',
-    sec4Item1Title: '新建项目 = 新开一次对话',
-    sec4Item1Body: '一个软件一个项目，不要混在一起。',
+    sec4Item1Title: '新建任务 = 新开一次对话',
+    sec4Item1Body: '一个目标一次对话，不要混在一起。',
     sec4Item2Title: '提示词 = 你跟 Codex 说的话',
     sec4Item2Body:
       '说清输入、输出和界面。别只说“做个工具”。',
     sec4Item3Title: '等待 = 让它干活',
     sec4Item3Body:
-      '过程里的代码不用看。只看最后能不能跑。',
+      '过程里的内部内容不用看。只看最后能不能跑。',
     sec4Item4Title: '运行 = 看到软件本人',
     sec4Item4Body: '它写完后会自动把软件打开。一个新窗口弹出来，那就是你的程序。',
     sec4Item5Title: '不对 = 继续跟它说',
@@ -259,7 +264,7 @@ export const zh = {
     sec6Pit1Title: '坑一 · 软件跑不起来',
     sec6Pit1Body: '复制完整错误，问它“怎么修”。',
     sec6Pit2Title: '坑二 · 改来改去越改越乱',
-    sec6Pit2Body: '连改几次没效果，就新开项目，重写需求。',
+    sec6Pit2Body: '连改几次没效果，就新开任务，重写需求。',
     sec6Pit3Title: '坑三 · 一上来想做太复杂',
     sec6Pit3Body: '先做最小能用的版本：导入一张表 + 显示一列。跑通再加下一个功能。',
     sec6Pit4Title: '坑四 · 不知道它在干嘛',
@@ -306,7 +311,7 @@ export const zh = {
     sectionExpected: '成品效果',
     sectionPrompt: '现成提示词',
     sectionAfter: '拿到提示词之后',
-    after1: '打开 Codex 桌面版，新建一个项目',
+    after1: '打开 Codex 桌面版，新建一个任务',
     after2: '把提示词整段复制，粘贴到对话框里发送',
     after3: '让 Codex 实现、运行、验证，再改公司名、字段名和按钮文字',
 
@@ -314,6 +319,31 @@ export const zh = {
     tryInGenerator: '在生成器里自定义这个案例',
     relatedCases: '同部门的其他案例',
     windowsBadge: 'Windows 应用',
+  },
+
+  agentCases: {
+    eyebrow: '电商业务 Agent',
+    pageTitle: '电商 Agent 任务案例',
+    pageSubtitle:
+      '这里专注电商公司的运营、订单、客服、商品、库存、采购、投放和评价分析。',
+    agentModeTitle: '把电商业务问题变成可交付任务',
+    agentModeBody:
+      'Agent 案例的重点不是聊天，而是让 Codex 读取你给的表格、聊天记录、报价单和业务资料，分析后交付清单、摘要和行动建议。',
+    rule1: '先说业务目标、输入材料和交付物；不要只说“帮我分析一下”。',
+    rule2: '要求它先检查字段和口径，再输出结论、异常、优先级和待人工确认项。',
+    rule3: '写清停止标准：什么产物能直接给主管、客服、采购或运营同事使用。',
+    stat1Value: '8',
+    stat1Label: '类电商高频任务',
+    stat2Value: '3 步',
+    stat2Label: '读资料、做分析、给动作',
+    stat3Value: '复制即用',
+    stat3Label: '每个案例都有提示词',
+    stat4Value: '少等待',
+    stat4Label: '里程碑和停止标准更清楚',
+    copyReady: '可复制',
+    deliverableLabel: '明确交付物',
+    afterCopy: '复制后，把对应表格、聊天记录或业务目标一起发给 Codex。',
+    copyPrompt: '复制 Agent 提示词',
   },
 
   tips: {
@@ -355,15 +385,15 @@ export const zh = {
       '别说“好看”。贴截图，说“要这种感觉”。',
     tip12Title: '每隔几轮「起一个新对话」',
     tip12Body:
-      '一个任务做完就新开对话，带上最终提示词和代码。',
+      '一个任务做完就新开对话，带上最终提示词和可用版本。',
 
     pitfallsTitle: '新手常见误区',
     pitfall1Title: '误区 · 以为它能读你心',
     pitfall1Body:
       '你没写出来的需求，它都不知道。',
-    pitfall2Title: '误区 · 看到代码就退',
+    pitfall2Title: '误区 · 看到内部内容就退',
     pitfall2Body:
-      '代码不用看。只验收软件行为。',
+      '内部内容不用看。只验收软件行为。',
     pitfall3Title: '误区 · 一次提 20 个需求',
     pitfall3Body:
       '一次太多容易漏。拆成几轮做。',
@@ -385,7 +415,7 @@ export const zh = {
     q1: 'Codex 要钱吗？',
     a1: 'Codex 走 OpenAI 账号。目前需要订阅 ChatGPT Plus 或更高级别的付费计划。具体价格请看 OpenAI 官网。',
 
-    q2: '我完全不懂代码，真的能用吗？',
+    q2: '我完全是小白，真的能用吗？',
     a2: '能。会打字、复制粘贴、双击图标就够了。',
 
     q3: '做出来的软件能给同事用吗？',
@@ -403,8 +433,8 @@ export const zh = {
     q7: '能联网抓网页数据吗？',
     a7: '能，但先做离线工具更稳。联网功能最好请技术同事审一下。',
 
-    q8: '我怎么知道它写的代码对不对？',
-    a8: '你不用看代码。你只看"软件跑起来的行为"对不对。你是验收方，不是检查代码的人。',
+    q8: '我怎么知道结果对不对？',
+    a8: '你只看"软件跑起来的行为"对不对。你是验收方。',
 
     q9: '能和同事一起做吗？',
     a9: '可以。分享提示词，或直接发安装包。',
@@ -419,7 +449,7 @@ export const zh = {
     a12: '它只读取你主动提供的文件。敏感表格先脱敏，再发给它。',
 
     q13: '第一次试完全看不懂输出，怎么办？',
-    a13: '发这句：“用中文、不要代码，五句话说明下一步，然后继续做完并验证。”',
+    a13: '发这句：“用中文、少术语，五句话说明下一步，然后继续做完并验证。”',
 
     q14: '怎么控制使用费用？',
     a14: '一次只做一件事；跑通后新开对话；重复需求复用旧提示词。',
@@ -428,13 +458,13 @@ export const zh = {
     a15: '内部使用通常没问题。对外售卖前，请确认 OpenAI 条款和依赖许可证。',
 
     q16: '朋友 / 同事问「这个是你写的吗」，该怎么答？',
-    a16: '可以说：“我提需求，Codex 写代码，我负责验收和迭代。”',
+    a16: '可以说：“我提需求，Codex 生成初版，我负责验收和迭代。”',
   },
 
   footer: {
     about: '关于',
     aboutBody:
-      '面向非技术人员的 Codex 桌面版教程。由 ifq.ai 维护，非 OpenAI 官方项目。',
+      '面向业务小白的 Codex 桌面版教程。由 ifq.ai 维护，非 OpenAI 官方出品。',
     resourcesTitle: '相关资源',
     resourceOpenAI: 'Codex 官网',
     resourceCodexDocs: 'Codex 官方文档',
@@ -472,7 +502,7 @@ export const zh = {
     day3Goals: '学会"角色扮演" · 学会给例子 · 学会一次只改一件事',
     day4Title: '让 Codex 自己修 Bug',
     day4Hook: '遇到错误不要慌。让它自己看、自己改',
-    day4Goals: '回传错误 · 学会回退 · 分清报错和功能不对',
+    day4Goals: '回传错误 · 学会回退 · 分清卡住和结果不对',
     day5Title: '用真实数据让它听懂',
     day5Hook: '给它真实表头，它会更懂你',
     day5Goals: '贴 Excel 表头 · 说明字段 · 按字段做功能',

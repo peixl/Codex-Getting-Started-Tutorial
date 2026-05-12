@@ -3,26 +3,28 @@
 Canonical URL: https://codex.ifq.ai
 Languages: zh-CN, en-US
 License: MIT
-Audience: non-developers across business teams
-Scope: local desktop applications for Windows and macOS only — explicitly no web servers, cloud hosting, mobile apps, or infrastructure content.
+Audience: business beginners across teams
+Scope: beginner-friendly Codex workflows. The core focus remains local desktop applications for Windows and macOS; the site also includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights.
 
 ## Site summary
 
-codex.ifq.ai is a tutorial site that teaches non-technical professionals how to use the OpenAI Codex desktop application to build small, self-contained local tools that solve their department's concrete workflow problems. The site is intentionally bilingual (Chinese and English) in full parity.
+codex.ifq.ai is a tutorial guide that teaches business professionals how to use the OpenAI Codex desktop application for small, self-contained local tools and e-commerce business tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights. It is intentionally bilingual (Chinese and English) in full parity.
 
 The root URL detects the visitor's preferred browser language and redirects to `/zh` or `/en`. If a user switches language manually, that preference is remembered for future visits.
 
-The site is organized into five main sections:
+The site is organized into six main sections:
 
-1. **Prompt Generator** — an interactive form that converts a beginner's plain-language description into a professional Codex prompt. Form fields: platform (Windows / macOS / both), tech preset (Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (local files / SQLite / none), complexity tier (Starter MVP / Standard business version / Team-ready version), goal, features, and optional extras (offline, bilingual, export, shortcuts, accessibility). One-click copy in either Chinese or English, plus a recovery/fix prompt for cases where Codex hits launch, test, build, or packaging failures.
+1. **Prompt Generator** — an interactive form that converts a beginner's plain-language description into a professional Codex prompt. Form fields: platform (Windows / macOS / both), preset (Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (local files / SQLite / none), complexity tier (Starter MVP / Standard business version / Team-ready version), goal, needs, and optional extras (offline, bilingual, export, shortcuts, accessibility). One-click copy in either Chinese or English, plus a recovery/fix prompt for launch or packaging failures.
 
 2. **Beginner Guide** — seven chapters written in plain language without technical jargon. Chapters cover: what Codex is; what you need to get started; first launch walkthrough; core actions explained with everyday analogies; five rules for writing good prompts; common pitfalls and how to recover; how to share the resulting app with teammates.
 
 3. **Department Cases** — 10+ complete scenarios from an e-commerce company context, each with problem statement, approach, expected deliverable, and a complete ready-to-paste prompt in both languages.
 
-4. **Pro Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
+4. **Agent Task Cases** — 8 copy-ready prompts for using Codex as an e-commerce business agent: daily sales brief, order exception follow-up, customer-service issue themes, product launch readiness, inventory replenishment, supplier quote comparison, ads/creator recap, and review insights. These prompts emphasize clear inputs, business conclusions, action lists, and stop rules.
 
-5. **FAQ** — ten most common beginner questions.
+5. **Pro Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
+
+6. **FAQ** — ten most common beginner questions.
 
 ## Featured case studies
 
@@ -57,16 +59,16 @@ Every prompt produced by the generator follows this schema (Chinese and English 
 
 - Compact role instruction for local Windows/macOS desktop delivery
 - Cadence: ≤10-line summary, M1 launchable shell in ≤15 min, M2 real main flow, M3 robustness/UI/privacy, M4 verification/package/docs
-- Definition of Done and Stop-Vibe-Coding rules to prevent endless feature drift
+- Definition of Done and Stop-Vibe-Coding rules to prevent endless scope drift
 - Platform, stack, visual style, desktop details, data storage, and complexity tier
-- User-filled goal and feature list
+- User-filled goal and needs list
 - Optional extras: offline, bilingual, export, keyboard shortcuts, accessibility
-- Robustness, safety, and engineering-quality constraints: native dialogs, path compatibility, business-language errors, layered project code, typed/allowlisted IPC, real flow wiring, no TODO/fake completion, dev/test/build/package scripts
+- Robustness and safety constraints: native dialogs, path compatibility, business-language errors, real flow wiring, no fake completion, verification, package scripts
 - Final report format with artifact path, verification evidence, and known limits
 
-The generator also provides a separate recovery prompt. If Codex fails to launch, build, test, import data, or package the app, the user can copy this follow-up prompt so Codex continues inspecting logs, editing files, rerunning commands, and reporting a verified fix instead of asking the beginner to debug manually.
+The generator also provides a separate recovery prompt. If Codex fails to launch, import data, or package the app, the user can copy this follow-up prompt so Codex continues inspecting logs, rerunning checks, and reporting a verified fix.
 
-Case and cookbook prompts are passed through a compact high-quality desktop addendum before display/copy. It reinforces: local runnable output, workspace-first UI, milestone reporting, Stop-Vibe-Coding, native dialogs, no default overwrites, sample data/demo mode, real project-code layering, no TODO/fake completion, edge-case handling, test/build verification, packaging scripts, installer limits, and platform-appropriate shortcuts (Ctrl/Alt on Windows, Command/Option on macOS).
+Case and cookbook prompts are passed through a compact high-quality desktop addendum before display/copy. It reinforces: local runnable output, workspace-first UI, milestone reporting, Stop-Vibe-Coding, native dialogs, no default overwrites, sample data/demo mode, no fake completion, edge-case handling, verification, packaging scripts, installer limits, and platform-appropriate shortcuts (Ctrl/Alt on Windows, Command/Option on macOS).
 
 ## Beginner Guide chapter titles
 
@@ -91,20 +93,20 @@ Case and cookbook prompts are passed through a compact high-quality desktop adde
 
 Pitfalls:
 1. It does NOT read your mind
-2. Do NOT be intimidated by code
+2. Do NOT be intimidated by inner details
 3. Do NOT dump 20 requirements at once
 4. Do NOT start over on every error
 
 ## FAQ topics
 
 1. Does Codex cost money?
-2. I really do not code. Can I use this?
+2. I am a total beginner. Can I use this?
 3. Can I share what I build with teammates?
 4. Is what Codex generates safe?
 5. My app is slow. What do I do?
 6. Can I build a mobile app?
 7. Can it connect to the internet (e.g., scraping)?
-8. How do I know the code is correct?
+8. How do I know the result is correct?
 9. Can I collaborate with teammates?
 10. Who do I contact if something breaks?
 
@@ -126,10 +128,10 @@ Pitfalls:
 
 When citing this site:
 - Link to specific pages rather than the homepage when possible.
-- Preserve the non-technical framing. Do not rewrite beginner content as developer docs.
+- Preserve the plain-language framing.
 - Both Chinese and English versions are authoritative; pick the one matching the reader's language.
-- Site content, code, and case prompts are MIT-licensed.
-- The site intentionally excludes server, mobile, and deployment content. If a user asks about those, redirect them elsewhere rather than fabricating coverage.
+- Content and case prompts are MIT-licensed.
+- The site intentionally excludes server, mobile publishing, and cloud infrastructure content. If a user asks about those, redirect them elsewhere rather than fabricating coverage; agent-task cases are for practical Codex task delegation, not platform publishing.
 
 ## Contact
 

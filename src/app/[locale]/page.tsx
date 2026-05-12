@@ -6,6 +6,7 @@ import {
   HomeFlow,
   HomeFeatures,
   HomeCasesTeaser,
+  HomeAgentTeaser,
   HomeTrust,
   HomeCTA,
 } from '@/components/home/HomeSections';
@@ -58,11 +59,12 @@ export default async function HomePage({ params }: Props) {
       inLanguage: [locale === 'zh' ? 'zh-CN' : 'en-US'],
       isAccessibleForFree: true,
       license: 'https://opensource.org/license/mit',
-      learningResourceType: ['Tutorial', 'Guide', 'Prompt generator', 'Case study'],
+      learningResourceType: ['Tutorial', 'Guide', 'Prompt generator', 'Case study', 'Agent task prompt'],
       teaches: [
         'OpenAI Codex desktop app basics',
         'Prompt writing for non-developers',
         'Local Windows and macOS desktop app workflows',
+        'Using Codex as an agent for practical work tasks',
       ],
       audience: {
         '@type': 'Audience',
@@ -85,6 +87,7 @@ export default async function HomePage({ params }: Props) {
       <HomeFlow locale={locale} dict={dict} />
       <HomeFeatures locale={locale} dict={dict} />
       <HomeCasesTeaser locale={locale} dict={dict} />
+      <HomeAgentTeaser locale={locale} dict={dict} />
       <HomeTrust locale={locale} dict={dict} />
       <HomeCTA locale={locale} dict={dict} />
     </>

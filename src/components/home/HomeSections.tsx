@@ -18,6 +18,7 @@ import {
   LightBulbIcon,
 } from '@/components/icons';
 import { caseBundles } from '@/data/cases';
+import { agentCases } from '@/data/agentCases';
 import { deptIcons } from '@/components/cases/deptIcons';
 
 type Props = { locale: Locale; dict: Dictionary };
@@ -374,6 +375,42 @@ export function HomeCasesTeaser({ locale, dict }: Props) {
       <div className="mt-10 flex justify-center">
         <LinkButton href={localePath(locale, 'cases')} variant="glass" size="md">
           {dict.home.caseTeaserMore}
+          <ArrowRightIcon size={14} />
+        </LinkButton>
+      </div>
+    </section>
+  );
+}
+
+export function HomeAgentTeaser({ locale, dict }: Props) {
+  const items = agentCases.slice(0, 4);
+  return (
+    <section className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <header className="mx-auto max-w-2xl text-center">
+        <h2 className="section-heading">{dict.home.agentTeaserTitle}</h2>
+        <p className="section-subheading mx-auto">{dict.home.agentTeaserSubtitle}</p>
+      </header>
+      <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {items.map((item) => (
+          <GlassCard key={item.id} variant="subtle" className="p-5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[color:var(--line)] bg-white/85 text-ink">
+              <RocketIcon size={18} />
+            </div>
+            <span className="mt-4 inline-flex chip">
+              {locale === 'zh' ? item.categoryZh : item.categoryEn}
+            </span>
+            <h3 className="mt-3 text-[14px] font-semibold leading-snug text-ink">
+              {locale === 'zh' ? item.titleZh : item.titleEn}
+            </h3>
+            <p className="mt-2 text-[12.5px] leading-relaxed text-ink-soft">
+              {locale === 'zh' ? item.deliverableZh : item.deliverableEn}
+            </p>
+          </GlassCard>
+        ))}
+      </div>
+      <div className="mt-10 flex justify-center">
+        <LinkButton href={localePath(locale, 'agent-cases')} variant="glass" size="md">
+          {dict.home.agentTeaserMore}
           <ArrowRightIcon size={14} />
         </LinkButton>
       </div>

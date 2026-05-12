@@ -18,6 +18,7 @@ export const ROUTES = {
   guide: 'guide',
   lessons: 'lessons',
   cases: 'cases',
+  agentCases: 'agent-cases',
   cookbook: 'cookbook',
   tips: 'tips',
   faq: 'faq',

@@ -4,9 +4,9 @@
 
 Canonical agent guide: `/agent.md`. This `/agents.md` file remains available for tools that look for the plural filename.
 
-## What this site is
+## What this guide is
 
-A bilingual (Chinese + English) tutorial for OpenAI's Codex desktop application, aimed at non-developers in business roles. Focus is strictly local desktop apps for Windows and macOS. It does not cover server, cloud, mobile, or deployment topics.
+A bilingual (Chinese + English) tutorial for OpenAI's Codex desktop application, aimed at business roles. The core focus is local desktop apps for Windows and macOS, with an added agent-cases section showing how to use Codex for e-commerce sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights.
 
 ## Canonical paths
 
@@ -14,6 +14,7 @@ A bilingual (Chinese + English) tutorial for OpenAI's Codex desktop application,
 - Prompt Generator: `/zh/generator`, `/en/generator`
 - Beginner Guide: `/zh/guide`, `/en/guide`
 - Department Cases: `/zh/cases`, `/en/cases`
+- Agent Task Cases: `/zh/agent-cases`, `/en/agent-cases`
 - Individual cases: `/{locale}/cases/{slug}` where slug is one of:
   - `finance-order-reconciliation`
   - `operations-campaign-tracker`
@@ -52,7 +53,7 @@ All pages are server-rendered and delivered as complete HTML — no client-side 
 
 ## Data policy
 
-Content and code are MIT-licensed. Prompts in the Prompt Generator are generated client-side; nothing is uploaded. localStorage entries stay on the user's browser.
+Content and prompts are MIT-licensed. Prompts in the Prompt Generator are generated client-side; nothing is uploaded. localStorage entries stay on the user's browser.
 
 ## Rate and crawl
 

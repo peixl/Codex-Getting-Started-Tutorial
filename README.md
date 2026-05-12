@@ -2,7 +2,7 @@
 
 [简体中文](README.zh-CN.md)
 
-A beginner-first tutorial site for OpenAI Codex Desktop. It is designed for business users who do not write code but still want to build useful local tools for Windows and macOS.
+A beginner-first tutorial site for OpenAI Codex Desktop. It is designed for business users who do not write code but still want to build useful local tools for Windows and macOS, and use Codex as an agent for practical tasks.
 
 Live site: **https://codex.ifq.ai**
 
@@ -19,9 +19,9 @@ The site guides users through a simple path:
 1. Understand what Codex Desktop can do.
 2. Generate a stronger prompt with a fill-in-the-blank form.
 3. Paste that prompt into Codex and let it build step by step.
-4. Learn from real department cases, recipes, and FAQ.
+4. Learn from department cases, agent task cases, recipes, and FAQ.
 
-Typical scenarios include finance reconciliation, daily reporting, support helpers, HR onboarding, logistics follow-up, procurement quoting, marketing recap, legal tracking, admin records, and product feedback triage.
+Typical scenarios include finance reconciliation, daily reporting, support helpers, HR onboarding, logistics follow-up, procurement quoting, marketing recap, legal tracking, admin records, product feedback triage, sales briefs, order exceptions, support issue analysis, product launch checks, replenishment, supplier quote comparison, ad recap, and review insights.
 
 ## UX Goals
 
@@ -29,7 +29,7 @@ Typical scenarios include finance reconciliation, daily reporting, support helpe
 - Remember explicit user language choice instead of resetting it later.
 - Keep prompt output aligned with the current site language.
 - Support deep links without locale prefixes such as `/guide` or `/faq`.
-- Stay focused on local desktop apps only, so beginners are not dragged into cloud or server concepts.
+- Keep the core app-building path focused on local desktop apps, while showing safe agent-task patterns for broader Codex work.
 - Explain everything in business language before technical language.
 
 ## Main Sections
@@ -50,6 +50,10 @@ Typical scenarios include finance reconciliation, daily reporting, support helpe
 ### Department Cases
 
 - Covers realistic workflows across finance, operations, support, HR, logistics, procurement, marketing, legal, data, admin, and product teams.
+
+### Agent Task Cases
+
+- Shows copy-ready prompts for using Codex as an agent on e-commerce operations: sales briefs, order follow-up, support analysis, product launch checks, inventory, procurement, ads, and review insights.
 
 ### Cookbook, Pro Tips, FAQ
 

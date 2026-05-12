@@ -3,7 +3,7 @@ export const en = {
     siteName: 'Codex Beginner Tutorial',
     siteTagline: 'Build your own desktop tool with Codex',
     description:
-      'Codex Desktop tutorial for non-developers. Prompts, guide, and local app cases.',
+      'Codex Desktop tutorial for business beginners. Prompts, guide, local app cases, and e-commerce agent task cases.',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -11,11 +11,11 @@ export const en = {
       'Codex tutorial',
       'Codex prompt',
       'beginner tutorial',
-      'no-code desktop app',
+      'desktop task assistant',
       'Windows desktop app',
       'macOS desktop app',
       'business automation',
-      'AI coding for non-developers',
+      'AI business assistant',
     ],
   },
 
@@ -26,6 +26,7 @@ export const en = {
     lessons: '7-day sprint',
     cookbook: 'Cookbook',
     cases: 'Cases',
+    agentCases: 'Agent cases',
     tips: 'Pro tips',
     faq: 'FAQ',
     tryNow: 'Get started',
@@ -33,16 +34,16 @@ export const en = {
   },
 
   home: {
-    heroEyebrow: 'Made for you — even if you don’t code',
+    heroEyebrow: 'Made for business beginners',
     heroTitleLine1: 'You want',
     heroTitleHighlight: 'a small tool of your own.',
     heroTitleLine2: 'One message to Codex is enough.',
     heroSubtitle:
-      'Fill blanks, copy the prompt, paste into Codex Desktop. No code or servers.',
+      'Fill blanks, copy the prompt, paste into Codex Desktop. A few minutes later, you have a local tool.',
     heroCtaPrimary: 'Generate a prompt in 3 minutes',
     heroCtaSecondary: 'See how it works',
     heroStatsLabel1: 'Ready-made cases',
-    heroStatsValue1: '10+',
+    heroStatsValue1: '20+',
     heroStatsLabel2: 'Fill the blanks',
     heroStatsValue2: 'Prompts',
     heroStatsLabel3: 'Your own tool',
@@ -63,7 +64,7 @@ export const en = {
       'Codex writes, runs, fixes, and verifies. A new window means your tool is alive.',
 
     featuresTitle: 'Why this tutorial works for beginners',
-    featuresSubtitle: 'No coding, command line, or GitHub required.',
+    featuresSubtitle: 'No command line or GitHub required.',
     feature1Title: 'Plain-language everything',
     feature1Body:
       'No jargon. Just plain steps.',
@@ -73,9 +74,9 @@ export const en = {
     feature3Title: 'Ten ready-made cases',
     feature3Body:
       'Real department scenarios with complete prompts.',
-    feature4Title: 'Just small desktop tools',
+    feature4Title: 'Start with local desktop tools',
     feature4Body:
-      'Each case solves one real desktop workflow.',
+      'Core cases build double-clickable tools; agent cases show Codex handling e-commerce reports, orders, support, stock, procurement, and ads.',
     feature5Title: 'Bilingual (CN / EN)',
     feature5Body:
       'Chinese for learning, English for Codex. Same content.',
@@ -86,6 +87,10 @@ export const en = {
     caseTeaserTitle: 'Your department already has a case',
     caseTeaserSubtitle: 'Open a case, copy the prompt, start fast.',
     caseTeaserMore: 'See all ten department cases',
+
+    agentTeaserTitle: 'Use Codex for e-commerce business tasks',
+    agentTeaserSubtitle: 'Use it to prepare sales briefs, find order exceptions, analyze support issues, check launch materials, and recap ads.',
+    agentTeaserMore: 'See agent task cases',
 
     ctaTitle: 'Ready to try?',
     ctaBody: 'Start with your first prompt in three minutes.',
@@ -179,7 +184,7 @@ export const en = {
     quickTemplatesHint: 'One click fills the form. Tweak a few words.',
 
     validationMissingGoal: 'Add a goal first.',
-    validationMissingFeatures: 'Add at least one feature first.',
+    validationMissingFeatures: 'Add at least one request first.',
 
     historyTitle: 'Recent prompts',
     historyEmpty: 'No history yet. Saved only in your browser.',
@@ -220,28 +225,28 @@ export const en = {
     sec2Item2Body: 'Use an OpenAI account. Your ChatGPT login works.',
     sec2Item3Title: 'The Codex Desktop installer',
     sec2Item3Body: 'Download it from OpenAI and install.',
-    sec2Item4Title: 'You really do not need to code',
+    sec2Item4Title: 'You really do not need inner details',
     sec2Item4Body: 'Typing, copy-paste, double-click — that is the full skill list.',
 
     sec3Title: 'Chapter 3 — Opening Codex for the first time',
     sec3P1: 'On first launch, sign in.',
-    sec3P2: 'Left: projects. Middle: chat. Right: preview.',
+    sec3P2: 'Left: tasks. Middle: chat. Right: preview.',
     sec3P3:
-      'Remember three actions: new project, prompt, wait.',
+      'Remember three actions: new task, prompt, wait.',
 
     sec4Title: 'Chapter 4 — Core actions in plain English',
-    sec4Item1Title: 'New project = new conversation',
+    sec4Item1Title: 'New task = new conversation',
     sec4Item1Body:
-      'One app per project. Do not mix multiple apps in one project.',
+      'One goal per conversation. Do not mix multiple apps in one place.',
     sec4Item2Title: 'Prompt = what you tell Codex',
     sec4Item2Body:
       'Say the input, output, and screen. Do not just say “build a tool”.',
     sec4Item3Title: 'Wait = let it work',
     sec4Item3Body:
-      'Ignore the code while it works. Check whether the app runs.',
+      'Ignore the inner details while it works. Check whether the app runs.',
     sec4Item4Title: 'Run = see your app',
     sec4Item4Body: 'It launches a window for you. That is your program.',
-    sec4Item5Title: 'Bugs = keep chatting',
+    sec4Item5Title: 'Problems = keep chatting',
     sec4Item5Body:
       'If something is wrong, say it plainly. Codex can fix it.',
 
@@ -313,7 +318,7 @@ export const en = {
     sectionExpected: 'Result',
     sectionPrompt: 'Ready-to-use prompt',
     sectionAfter: 'After copying',
-    after1: 'Open Codex Desktop and create a new project',
+    after1: 'Open Codex Desktop and create a new task',
     after2: 'Paste the prompt and send',
     after3: 'Let Codex build and verify; then tweak names, fields, and buttons',
 
@@ -321,6 +326,31 @@ export const en = {
     tryInGenerator: 'Customize this case in the generator',
     relatedCases: 'More cases from this department',
     windowsBadge: 'Windows app',
+  },
+
+  agentCases: {
+    eyebrow: 'E-commerce business agent',
+    pageTitle: 'E-commerce Agent Task Cases',
+    pageSubtitle:
+      'These cases focus on e-commerce operations, orders, support, products, inventory, procurement, ads, and review analysis.',
+    agentModeTitle: 'Turn an e-commerce business question into a deliverable',
+    agentModeBody:
+      'Agent cases focus on action: Codex reads the sheets, chats, quotes, and business materials you provide, then returns tables, summaries, and action lists.',
+    rule1: 'State the business goal, input materials, and deliverable; do not just say “analyze this”.',
+    rule2: 'Ask it to check fields and metric definitions before conclusions, exceptions, priorities, and human-confirmation items.',
+    rule3: 'Define what output is ready for a manager, support lead, procurement teammate, or operations owner.',
+    stat1Value: '8',
+    stat1Label: 'common e-commerce tasks',
+    stat2Value: '3 steps',
+    stat2Label: 'read materials, analyze, give actions',
+    stat3Value: 'copy-ready',
+    stat3Label: 'prompt included for every case',
+    stat4Value: 'less waiting',
+    stat4Label: 'clear milestones and stop rules',
+    copyReady: 'copy-ready',
+    deliverableLabel: 'Clear deliverable',
+    afterCopy: 'After copying, send it with the matching sheets, chat logs, or business goal.',
+    copyPrompt: 'Copy agent prompt',
   },
 
   tips: {
@@ -353,7 +383,7 @@ export const en = {
       'Add: “Invalid input should show a friendly message, not crash.”',
     tip9Title: 'Ask for acceptance criteria first',
     tip9Body:
-      'Ask for 3 use cases and acceptance checks before coding.',
+      'Ask for 3 user scenarios and acceptance checks before it starts.',
     tip10Title: 'Say what NOT to change',
     tip10Body:
       'When editing A, say: “Keep B and C unchanged.”',
@@ -362,15 +392,15 @@ export const en = {
       'Do not say “make it clean”. Paste a screenshot and say “like this”.',
     tip12Title: 'Start a fresh chat after a milestone',
     tip12Body:
-      'After a milestone, start a fresh chat with the latest prompt and code.',
+      'After a milestone, start a fresh chat with the latest prompt and working version.',
 
     pitfallsTitle: 'Common misconceptions',
     pitfall1Title: 'It does NOT read your mind',
     pitfall1Body:
       'If you do not write it, Codex does not know it.',
-    pitfall2Title: 'Do NOT be intimidated by code',
+    pitfall2Title: 'Do NOT be intimidated by inner details',
     pitfall2Body:
-      'Ignore the code. Check the app behavior.',
+      'Ignore the inner details. Check the app behavior.',
     pitfall3Title: 'Do NOT dump 20 requirements at once',
     pitfall3Body:
       'Split across five rounds of four. Quality jumps noticeably.',
@@ -392,7 +422,7 @@ export const en = {
     q1: 'Does Codex cost money?',
     a1: 'Codex needs an OpenAI account and paid ChatGPT plan. Check OpenAI for pricing.',
 
-    q2: 'I really do not code. Can I use this?',
+    q2: 'I am a total beginner. Can I use this?',
     a2: 'Yes. If you can type, copy, paste, and double-click, you are ready.',
 
     q3: 'Can I share what I build with teammates?',
@@ -410,8 +440,8 @@ export const en = {
     q7: 'Can it connect to the internet?',
     a7: 'Yes, but start offline. Ask a technical teammate to review online features.',
 
-    q8: 'How do I know the code is correct?',
-    a8: 'You check behavior, not code. You are the reviewer of results.',
+    q8: 'How do I know the result is correct?',
+    a8: 'You check behavior and the final result.',
 
     q9: 'Can I collaborate with teammates?',
     a9: 'Yes. Share your prompts or workspace. Or ship the packaged installer.',
@@ -435,13 +465,13 @@ export const en = {
     a15: 'Internal use is usually fine. Before resale, check terms and licenses.',
 
     q16: 'Friends ask: "did you really build this?" — what do I say?',
-    a16: 'Say: “I wrote the requirements. Codex wrote the code. I tested and iterated.”',
+    a16: 'Say: “I wrote the requirements. Codex generated the first version. I tested and iterated.”',
   },
 
   footer: {
     about: 'About',
     aboutBody:
-      'Codex Desktop tutorial for non-developers. Maintained by ifq.ai. Not OpenAI official.',
+      'Codex Desktop tutorial for business beginners. Maintained by ifq.ai. Not OpenAI official.',
     resourcesTitle: 'Resources',
     resourceOpenAI: 'Codex site',
     resourceCodexDocs: 'Codex docs',
@@ -451,7 +481,7 @@ export const en = {
 
     languageLabel: 'Language',
     contactTitle: 'Feedback',
-    contactBody: 'Found a bug or have a case? Open an issue.',
+    contactBody: 'Found an issue or have a case? Open an issue.',
   },
 
   common: {
@@ -477,7 +507,7 @@ export const en = {
     day3Title: 'Say it clearly',
     day3Hook: 'Clearer asks, better results',
     day3Goals: 'Use role prompts · Give examples · Change one thing at a time',
-    day4Title: 'Let Codex fix its own bugs',
+    day4Title: 'Let Codex fix its own problems',
     day4Hook: 'Errors are not failures. Feed them back.',
     day4Goals: 'Paste errors · Roll back · Separate crashes from wrong behavior',
     day5Title: 'Show it real data',
@@ -491,7 +521,7 @@ export const en = {
     day7Goals: 'Collect feedback · Fix one thing at a time · Plan the next tool',
     recapTitle: 'After day seven, you are no longer a beginner',
     recapBody:
-      'You can install, ask, debug, and ship. Now use it on repetitive work.',
+      'You can install, ask, verify, and share. Now use it on repetitive work.',
   },
 
   cookbook: {

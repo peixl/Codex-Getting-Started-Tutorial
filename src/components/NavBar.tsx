@@ -37,6 +37,7 @@ export function NavBar({ locale, dict }: Props) {
     { href: localePath(locale, 'guide'), label: dict.nav.guide },
     { href: localePath(locale, 'lessons'), label: dict.nav.lessons },
     { href: localePath(locale, 'cases'), label: dict.nav.cases },
+    { href: localePath(locale, 'agent-cases'), label: dict.nav.agentCases },
     { href: localePath(locale, 'cookbook'), label: dict.nav.cookbook },
     { href: localePath(locale, 'tips'), label: dict.nav.tips },
     { href: localePath(locale, 'faq'), label: dict.nav.faq },

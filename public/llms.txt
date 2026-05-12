@@ -1,17 +1,18 @@
 # Codex Beginner Tutorial · codex.ifq.ai
 
-> A bilingual (Chinese + English) beginner tutorial for the OpenAI Codex desktop app, designed specifically for non-developers (finance, operations, customer service, HR, logistics). The site focuses exclusively on building local desktop applications for Windows and macOS — no servers, no cloud deployment, no programming knowledge required.
+> A bilingual (Chinese + English) beginner tutorial for the OpenAI Codex desktop app, designed for finance, operations, customer service, HR, and logistics teams. It focuses on local desktop applications for Windows and macOS, and now includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights.
 
-The site's purpose is to let anyone — regardless of coding background — build a useful desktop tool for themselves or their team by describing their problem in plain language and letting Codex handle the implementation.
+Its purpose is to help business teams describe a problem in plain language and get a useful desktop tool or agent-task result.
 
 The root URL redirects to Chinese or English based on the visitor's browser language. Direct locale URLs remain stable under `/zh/*` and `/en/*`.
 
 ## Primary content
 
-- [Home](https://codex.ifq.ai/en): Overview of the three-step workflow (fill form → copy prompt → run in Codex), feature highlights, and department case teasers.
-- [Prompt Generator](https://codex.ifq.ai/en/generator): An interactive fill-in-the-blank form that produces a fully-formed Codex prompt. Inputs: platform (Windows / macOS / both), technology stack preset, UI style, data storage approach, complexity tier (Starter MVP / Standard business / Team-ready), goal, features, and optional extras. Output: a ready-to-paste prompt in Chinese or English with one-click copy, plus a separate recovery prompt for debugging launch, build, or packaging failures.
+- [Home](https://codex.ifq.ai/en): Overview of the three-step workflow (fill form → copy prompt → run in Codex), highlights, and department case teasers.
+- [Prompt Generator](https://codex.ifq.ai/en/generator): An interactive fill-in-the-blank form that produces a fully-formed Codex prompt. Inputs: platform (Windows / macOS / both), preset, UI style, data storage approach, complexity tier (Starter MVP / Standard business / Team-ready), goal, needs, and optional extras. Output: a ready-to-paste prompt in Chinese or English with one-click copy, plus a separate recovery prompt for launch or packaging failures.
 - [Beginner Guide](https://codex.ifq.ai/en/guide): A seven-chapter plain-language walkthrough covering what Codex is, what to prepare, first launch, core actions, five rules for good prompts, common pitfalls, and how to share the resulting app with teammates.
 - [Department Cases](https://codex.ifq.ai/en/cases): 10+ real-world scenarios from an e-commerce company with ready-to-use prompts.
+- [Agent Task Cases](https://codex.ifq.ai/en/agent-cases): Copy-ready prompts for using Codex as an e-commerce business agent for sales briefs, order follow-up, support analysis, product launch checks, inventory, procurement, ads, and review insights.
 - [Pro Tips](https://codex.ifq.ai/en/tips): Eight productivity tips plus four common misconceptions.
 - [FAQ](https://codex.ifq.ai/en/faq): Ten questions beginners most frequently ask.
 
@@ -47,7 +48,7 @@ Every page above has a fully parallel Chinese version under `/zh/` — for examp
 
 ## Use policy
 
-Content and code are released under the MIT License. Attribution to codex.ifq.ai is appreciated. Please preserve the non-technical framing when quoting: the tutorial is intentionally written to be accessible to users with zero coding background, and should not be rewritten as a developer reference.
+Content and prompts are released under the MIT License. Attribution to codex.ifq.ai is appreciated. Please preserve the plain-language framing when quoting.
 
 ## Hosting & performance
 
