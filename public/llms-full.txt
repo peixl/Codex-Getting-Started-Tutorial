@@ -55,24 +55,18 @@ Solution: a local tool that ingests daily export files, applies four toggleable 
 
 Every prompt produced by the generator follows this schema (Chinese and English variants available):
 
-- Opening role instruction
-- Platform requirements
-- Technology stack (or "let Codex decide")
-- Visual style description (including system dark mode following and system fonts)
-- Desktop platform details (native dialogs, path compatibility, high DPI, window sizing, progress and cancellation)
-- Data storage preference
-- Complexity tier (Starter MVP, Standard business version, or Team-ready version)
-- Free-form goal (user-filled)
-- Free-form feature list (user-filled)
-- Optional extras (offline, bilingual, export, keyboard shortcuts, accessibility)
-- Robustness and error-handling guidelines
-- Engineering quality guidelines (business logic separation, safe desktop permissions, dev/test/build/package scripts)
-- Delivery mode (brief plan summary → direct implementation → run/fix/verify → installer + user guide)
-- Working-style instructions (ask only blocking questions, use placeholders for company-specific details, report verification evidence)
+- Compact role instruction for local Windows/macOS desktop delivery
+- Cadence: ≤10-line summary, M1 launchable shell in ≤15 min, M2 real main flow, M3 robustness/UI/privacy, M4 verification/package/docs
+- Definition of Done and Stop-Vibe-Coding rules to prevent endless feature drift
+- Platform, stack, visual style, desktop details, data storage, and complexity tier
+- User-filled goal and feature list
+- Optional extras: offline, bilingual, export, keyboard shortcuts, accessibility
+- Robustness, safety, and engineering-quality constraints: native dialogs, path compatibility, business-language errors, layered project code, typed/allowlisted IPC, real flow wiring, no TODO/fake completion, dev/test/build/package scripts
+- Final report format with artifact path, verification evidence, and known limits
 
 The generator also provides a separate recovery prompt. If Codex fails to launch, build, test, import data, or package the app, the user can copy this follow-up prompt so Codex continues inspecting logs, editing files, rerunning commands, and reporting a verified fix instead of asking the beginner to debug manually.
 
-Case and cookbook prompts are passed through a shared high-quality desktop addendum before display/copy. This addendum reinforces: local runnable desktop output, workspace-first UI, business-language labels, drag-and-drop plus native dialogs, no default overwrites, sample data/demo mode, edge-case handling, test/build verification, packaging scripts, installer limitations, and platform-appropriate shortcuts (Ctrl/Alt on Windows, Command/Option on macOS).
+Case and cookbook prompts are passed through a compact high-quality desktop addendum before display/copy. It reinforces: local runnable output, workspace-first UI, milestone reporting, Stop-Vibe-Coding, native dialogs, no default overwrites, sample data/demo mode, real project-code layering, no TODO/fake completion, edge-case handling, test/build verification, packaging scripts, installer limits, and platform-appropriate shortcuts (Ctrl/Alt on Windows, Command/Option on macOS).
 
 ## Beginner Guide chapter titles
 

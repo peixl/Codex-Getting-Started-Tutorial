@@ -18,7 +18,10 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('【桌面平台细节】');
     expect(prompt).toContain('文件路径必须兼容中文、空格、括号、长路径');
     expect(prompt).toContain('系统原生打开 / 保存对话框');
-    expect(prompt).toContain('核心业务逻辑放在独立模块');
+    expect(prompt).toContain('【项目代码质量与交付物】');
+    expect(prompt).toContain('IPC 类型化');
+    expect(prompt).toContain('关键流程真实接线');
+    expect(prompt).toContain('无 TODO/空函数/假接线冒充完成');
     expect(prompt).toContain('标准业务版');
     expect(prompt).toContain('运行 lint、类型检查、测试和构建');
     expect(prompt).toContain('M1 ≤ 15 分钟');
@@ -26,6 +29,7 @@ describe('buildPrompt', () => {
     expect(prompt).not.toContain('串通真实主流程');
     expect(prompt).toContain('完成判定（DoD）');
     expect(prompt).toContain('停止 Vibe Coding');
+    expect(prompt.length).toBeLessThan(3200);
   });
 
   it('uses platform-specific shortcut wording in Chinese prompts', () => {
@@ -51,6 +55,9 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('M1 (≤ 15 min)');
     expect(prompt).toContain('Definition of Done');
     expect(prompt).toContain('Stop-Vibe-Coding');
+    expect(prompt).toContain('Project Code Quality');
+    expect(prompt).toContain('no TODOs/empty functions/fake wiring');
+    expect(prompt.length).toBeLessThan(6500);
   });
 });
 
@@ -62,6 +69,7 @@ describe('buildRecoveryPrompt', () => {
     expect(prompt).toContain('最小可用版');
     expect(prompt).toContain('给财务同事做一个本地对账工具');
     expect(prompt).toContain('重新运行必要命令');
+    expect(prompt.length).toBeLessThan(900);
   });
 
   it('keeps context and asks Codex to continue fixing in English', () => {
@@ -70,5 +78,6 @@ describe('buildRecoveryPrompt', () => {
     expect(prompt).toContain('continue fixing it until it runs');
     expect(prompt).toContain('macOS desktop app');
     expect(prompt).toContain('Re-run the needed commands');
+    expect(prompt.length).toBeLessThan(1900);
   });
 });
