@@ -36,7 +36,7 @@ export const zh = {
   home: {
     heroEyebrow: '专为业务小白准备',
     heroTitleLine1: '想做一个',
-    heroTitleHighlight: '属于自己的小软件',
+    heroTitleHighlight: '属于自己的小程序',
     heroTitleLine2: '跟 Codex 说一句话就够了',
     heroSubtitle:
       '填几个空，复制到 Codex 桌面版。几分钟后，你就能得到一个本地小工具。',
@@ -419,7 +419,7 @@ export const zh = {
 
   lessons: {
     pageTitle: '七天上手',
-    pageSubtitle: '每天 15 分钟，一周做出自己的小软件。',
+    pageSubtitle: '每天 15 分钟，一周做出自己的小程序。',
     dayLabel: '第 {n} 天',
     startLabel: '开始学',
     day1Title: '认识 Codex 桌面版',

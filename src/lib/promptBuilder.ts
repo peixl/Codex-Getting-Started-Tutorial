@@ -406,7 +406,7 @@ export const quickTemplates: QuickTemplate[] = [
   },
   {
     id: 'excel-to-app',
-    titleZh: '把一张 Excel 变成一个可点的小软件',
+    titleZh: '把一张 Excel 变成一个可点的小程序',
     titleEn: 'Turn an Excel into a clickable mini-app',
     taglineZh: '不给同事看 Excel，给他们看界面；查询、筛选、导出都有',
     taglineEn: 'Give teammates a UI, not a spreadsheet',
@@ -415,7 +415,7 @@ export const quickTemplates: QuickTemplate[] = [
       ui: 'fresh',
       storage: 'localFile',
       goal:
-        '我有一份商品清单（SKU、名称、单价、库存），希望做成一个小软件，同事可以搜索、筛选、导出，而不是直接打开 Excel 改来改去。',
+        '我有一份商品清单（SKU、名称、单价、库存），希望做成一个小程序，同事可以搜索、筛选、导出，而不是直接打开 Excel 改来改去。',
       features:
         '- 软件打开后自动读取本地 products.xlsx\n- 搜索框支持按名称 / SKU 模糊搜索\n- 支持按"库存低于 N"筛选\n- 一键导出筛选结果到新 Excel\n- 不允许普通同事直接改源文件',
     },
