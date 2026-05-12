@@ -12,13 +12,14 @@ export const AI_RESOURCE_PATHS = [
   'agents.md',
 ] as const;
 
+export const AGENT_SITE_URL = 'https://agent.ifq.ai';
+
 export const ROUTES = {
   home: '',
   generator: 'generator',
   guide: 'guide',
   lessons: 'lessons',
   cases: 'cases',
-  agentCases: 'agent-cases',
   cookbook: 'cookbook',
   tips: 'tips',
   faq: 'faq',

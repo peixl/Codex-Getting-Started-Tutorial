@@ -5,7 +5,7 @@ import { AI_RESOURCE_PATHS, SITE_URL } from '@/lib/routes';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ['', 'generator', 'guide', 'lessons', 'cases', 'agent-cases', 'cookbook', 'tips', 'faq'];
+  const staticPaths = ['', 'generator', 'guide', 'lessons', 'cases', 'cookbook', 'tips', 'faq'];
   const entries: MetadataRoute.Sitemap = [];
   const now = new Date();
 

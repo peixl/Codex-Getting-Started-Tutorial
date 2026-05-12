@@ -6,7 +6,7 @@ Canonical agent guide: `/agent.md`. This `/agents.md` file remains available for
 
 ## What this guide is
 
-A bilingual (Chinese + English) tutorial for OpenAI's Codex desktop application, aimed at business roles. The core focus is local desktop apps for Windows and macOS, with an added agent-cases section showing how to use Codex for e-commerce sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights.
+A bilingual (Chinese + English) tutorial for OpenAI's Codex desktop application, aimed at business roles. The core focus is local desktop apps for Windows and macOS, with ready-made department cases, scenario cookbook recipes, a guided 7-day sprint, and pro tips.
 
 ## Canonical paths
 
@@ -14,7 +14,6 @@ A bilingual (Chinese + English) tutorial for OpenAI's Codex desktop application,
 - Prompt Generator: `/zh/generator`, `/en/generator`
 - Beginner Guide: `/zh/guide`, `/en/guide`
 - Department Cases: `/zh/cases`, `/en/cases`
-- Agent Task Cases: `/zh/agent-cases`, `/en/agent-cases`
 - Individual cases: `/{locale}/cases/{slug}` where slug is one of:
   - `finance-order-reconciliation`
   - `operations-campaign-tracker`

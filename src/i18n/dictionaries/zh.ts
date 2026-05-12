@@ -3,7 +3,7 @@ export const zh = {
     siteName: 'Codex 新手教程',
     siteTagline: '让每个小白，都能用 Codex 做出自己的桌面小工具',
     description:
-      '面向非技术人员的 Codex 桌面版教程：提示词生成、上手指南、部门案例和电商 Agent 任务案例。重点帮助你做出 Windows / macOS 本地工具，也学会让 Codex 代理完成电商业务工作。',
+      '面向非技术人员的 Codex 桌面版教程：提示词生成、上手指南、七天上手路线和常见场景食谱。重点帮你做出 Windows / macOS 本地桌面小工具。',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -27,7 +27,6 @@ export const zh = {
     lessons: '七天上手',
     cookbook: '场景食谱',
     cases: '部门案例',
-    agentCases: 'Agent 案例',
     tips: '进阶',
     faq: '常见问答',
     tryNow: '开始使用',
@@ -77,7 +76,7 @@ export const zh = {
       '财务、运营、客服、人事、物流、采购、市场、法务、数据、行政、产品等团队都有完整案例，拿来就能用。',
     feature4Title: '先做好本地桌面工具',
     feature4Body:
-      '核心案例聚焦「双击就能打开」；Agent 案例教你把电商日报、订单、客服、库存、采购、投放、会员和类目复盘交给 Codex。',
+      '核心案例聚焦「双击就能打开」的本地桌面工具：财务对账、订单清洗、Excel 自动化、本地文件批处理。',
     feature5Title: '中英双语对照',
     feature5Body:
       '中文看懂，英文给 Codex。内容一致。',
@@ -85,17 +84,13 @@ export const zh = {
     feature6Body:
       '目标很简单：今天就做出能跑的东西。',
 
-    caseTeaserTitle: '你所在的部门，已经有现成案例',
-    caseTeaserSubtitle: '点进去，复制提示词，马上开工。',
-    caseTeaserMore: '看全部部门案例',
-
-    agentTeaserTitle: '也能处理电商业务任务',
-    agentTeaserSubtitle: '让 Codex 帮电商团队整理日报、筛异常订单、分析客服问题、检查上新资料、复盘投放、会员分层和类目经营。',
-    agentTeaserMore: '看 Agent 任务案例',
-
     ctaTitle: '准备好了吗？',
     ctaBody: '三分钟后，先拿到第一段提示词。',
     ctaButton: '现在就开始',
+
+    caseTeaserTitle: '你所在的部门，已经有现成案例',
+    caseTeaserSubtitle: '点进去，复制提示词，马上开工。',
+    caseTeaserMore: '看全部部门案例',
 
     trustTitle: '这份教程背后的诚意',
     trustLine1: '案例来自真实业务场景。',
@@ -277,73 +272,9 @@ export const zh = {
 
     nextStepTitle: '看完了，下一步做什么',
     nextStepGenerator: '去生成你的第一段提示词',
-    nextStepCases: '看看部门现成案例',
     nextStepLessons: '七天上手路线',
     nextStepCookbook: '场景食谱直接抄',
-  },
-
-  cases: {
-    pageTitle: '部门案例',
-    pageSubtitle:
-      '按部门选场景。复制提示词，改几个字就能用。',
-
-    filterAll: '全部',
-    filterFinance: '财务',
-    filterOperations: '运营',
-    filterCustomerService: '客服',
-    filterHR: '人事',
-    filterLogistics: '物流',
-    filterProcurement: '采购',
-    filterMarketing: '市场',
-    filterLegal: '法务',
-    filterData: '数据',
-    filterAdmin: '行政',
-    filterProduct: '产品',
-
-    readCase: '查看案例',
-    copyPrompt: '复制提示词',
-    copyPromptZh: '复制中文提示词',
-    copyPromptEn: '复制英文提示词',
-    copied: '已复制',
-
-    sectionPain: '这是什么问题',
-    sectionSolution: '解决办法',
-    sectionExpected: '成品效果',
-    sectionPrompt: '现成提示词',
-    sectionAfter: '拿到提示词之后',
-    after1: '打开 Codex 桌面版，新建一个任务',
-    after2: '把提示词整段复制，粘贴到对话框里发送',
-    after3: '让 Codex 实现、运行、验证，再改公司名、字段名和按钮文字',
-
-    backToCases: '返回案例列表',
-    tryInGenerator: '在生成器里自定义这个案例',
-    relatedCases: '同部门的其他案例',
-    windowsBadge: 'Windows 应用',
-  },
-
-  agentCases: {
-    eyebrow: '电商业务 Agent',
-    pageTitle: '电商 Agent 任务案例',
-    pageSubtitle:
-      '专注电商公司的运营、订单、客服、商品、库存、采购、投放、会员、风控、直播和类目复盘。',
-    agentModeTitle: '把电商业务问题变成可交付任务',
-    agentModeBody:
-      'Agent 案例的重点不是聊天，而是让 Codex 读取你给的表格、聊天记录、报价单和业务资料，分析后交付清单、摘要和行动建议。',
-    rule1: '先说业务目标、输入材料和交付物；不要只说“帮我分析一下”。',
-    rule2: '要求它先检查字段和口径，再输出结论、异常、优先级和待人工确认项。',
-    rule3: '写清交付对象和使用场景：让结果能直接进入汇报、跟进或分派。',
-    stat1Value: '20',
-    stat1Label: '类电商高频任务',
-    stat2Value: '3 步',
-    stat2Label: '读资料、做分析、给动作',
-    stat3Value: '复制即用',
-    stat3Label: '每个案例都有提示词',
-    stat4Value: '少等待',
-    stat4Label: '节奏和交付目标更清楚',
-    copyReady: '可复制',
-    deliverableLabel: '明确交付物',
-    afterCopy: '复制后，把对应表格、聊天记录或业务目标一起发给 Codex。',
-    copyPrompt: '复制 Agent 提示词',
+    nextStepCases: '看看部门现成案例',
   },
 
   tips: {
@@ -515,6 +446,45 @@ export const zh = {
     recapTitle: '走到这里，你已经不是小白了',
     recapBody:
       '你已经会安装、提需求、修问题和交付。接下来，把重复工作交给小工具。',
+  },
+
+  cases: {
+    pageTitle: '部门案例',
+    pageSubtitle:
+      '按部门选场景。复制提示词，改几个字就能用。',
+
+    filterAll: '全部',
+    filterFinance: '财务',
+    filterOperations: '运营',
+    filterCustomerService: '客服',
+    filterHR: '人事',
+    filterLogistics: '物流',
+    filterProcurement: '采购',
+    filterMarketing: '市场',
+    filterLegal: '法务',
+    filterData: '数据',
+    filterAdmin: '行政',
+    filterProduct: '产品',
+
+    readCase: '查看案例',
+    copyPrompt: '复制提示词',
+    copyPromptZh: '复制中文提示词',
+    copyPromptEn: '复制英文提示词',
+    copied: '已复制',
+
+    sectionPain: '这是什么问题',
+    sectionSolution: '解决办法',
+    sectionExpected: '成品效果',
+    sectionPrompt: '现成提示词',
+    sectionAfter: '拿到提示词之后',
+    after1: '打开 Codex 桌面版，新建一个任务',
+    after2: '把提示词整段复制，粘贴到对话框里发送',
+    after3: '让 Codex 实现、运行、验证，再改公司名、字段名和按钮文字',
+
+    backToCases: '返回案例列表',
+    tryInGenerator: '在生成器里自定义这个案例',
+    relatedCases: '同部门的其他案例',
+    windowsBadge: 'Windows 应用',
   },
 
   cookbook: {

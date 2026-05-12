@@ -26,7 +26,6 @@ The guide stays focused on Codex desktop beginner workflows and agent-task promp
 - Seven-day sprint: https://codex.ifq.ai/zh/lessons or https://codex.ifq.ai/en/lessons
 - Scenario cookbook: https://codex.ifq.ai/zh/cookbook or https://codex.ifq.ai/en/cookbook
 - Department cases: https://codex.ifq.ai/zh/cases or https://codex.ifq.ai/en/cases
-- Agent task cases: https://codex.ifq.ai/zh/agent-cases or https://codex.ifq.ai/en/agent-cases
 - Pro tips: https://codex.ifq.ai/zh/tips or https://codex.ifq.ai/en/tips
 - FAQ: https://codex.ifq.ai/zh/faq or https://codex.ifq.ai/en/faq
 

@@ -3,7 +3,7 @@ export const en = {
     siteName: 'Codex Beginner Tutorial',
     siteTagline: 'Build your own desktop tool with Codex',
     description:
-      'Codex Desktop tutorial for business beginners. Prompts, guide, local app cases, and e-commerce agent task cases.',
+      'Codex Desktop tutorial for business beginners. Prompts, beginner guide, 7-day path, and a scenario cookbook for local Windows / macOS tools.',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -26,7 +26,6 @@ export const en = {
     lessons: '7-day sprint',
     cookbook: 'Cookbook',
     cases: 'Cases',
-    agentCases: 'Agent cases',
     tips: 'Pro tips',
     faq: 'FAQ',
     tryNow: 'Get started',
@@ -76,7 +75,7 @@ export const en = {
       'Real scenarios across finance, operations, support, HR, logistics, procurement, marketing, legal, data, admin, and product teams.',
     feature4Title: 'Start with local desktop tools',
     feature4Body:
-      'Core cases build double-clickable tools; agent cases show Codex handling e-commerce reports, orders, support, stock, procurement, ads, members, and category reviews.',
+      'Core cases build double-clickable tools: reconciliation, order cleanup, Excel automation, and local file batch processing.',
     feature5Title: 'Bilingual (CN / EN)',
     feature5Body:
       'Chinese for learning, English for Codex. Same content.',
@@ -84,17 +83,13 @@ export const en = {
     feature6Body:
       'The goal: get something working today.',
 
-    caseTeaserTitle: 'Your department already has a case',
-    caseTeaserSubtitle: 'Open a case, copy the prompt, start fast.',
-    caseTeaserMore: 'See all department cases',
-
-    agentTeaserTitle: 'Use Codex for e-commerce business tasks',
-    agentTeaserSubtitle: 'Use it to prepare sales briefs, find order exceptions, analyze support issues, check launch materials, recap ads, segment members, and review categories.',
-    agentTeaserMore: 'See agent task cases',
-
     ctaTitle: 'Ready to try?',
     ctaBody: 'Start with your first prompt in three minutes.',
     ctaButton: 'Start now',
+
+    caseTeaserTitle: 'Your department already has a case',
+    caseTeaserSubtitle: 'Open a case, copy the prompt, start fast.',
+    caseTeaserMore: 'See all department cases',
 
     trustTitle: 'What we care about',
     trustLine1: 'Real workflows, tested prompts.',
@@ -284,73 +279,9 @@ export const en = {
 
     nextStepTitle: 'Where to next',
     nextStepGenerator: 'Generate your first prompt',
-    nextStepCases: 'See cases for your department',
     nextStepLessons: '7-day sprint',
     nextStepCookbook: 'Scenario cookbook',
-  },
-
-  cases: {
-    pageTitle: 'Department Cases',
-    pageSubtitle:
-      'Pick a department case. Copy the prompt. Change a few words.',
-
-    filterAll: 'All',
-    filterFinance: 'Finance',
-    filterOperations: 'Operations',
-    filterCustomerService: 'Customer Service',
-    filterHR: 'HR',
-    filterLogistics: 'Logistics',
-    filterProcurement: 'Procurement',
-    filterMarketing: 'Marketing',
-    filterLegal: 'Legal',
-    filterData: 'Data',
-    filterAdmin: 'Admin',
-    filterProduct: 'Product',
-
-    readCase: 'Open case',
-    copyPrompt: 'Copy prompt',
-    copyPromptZh: 'Copy Chinese prompt',
-    copyPromptEn: 'Copy English prompt',
-    copied: 'Copied',
-
-    sectionPain: 'The problem',
-    sectionSolution: 'Solution',
-    sectionExpected: 'Result',
-    sectionPrompt: 'Ready-to-use prompt',
-    sectionAfter: 'After copying',
-    after1: 'Open Codex Desktop and create a new task',
-    after2: 'Paste the prompt and send',
-    after3: 'Let Codex build and verify; then tweak names, fields, and buttons',
-
-    backToCases: 'Back to cases',
-    tryInGenerator: 'Customize this case in the generator',
-    relatedCases: 'More cases from this department',
-    windowsBadge: 'Windows app',
-  },
-
-  agentCases: {
-    eyebrow: 'E-commerce business agent',
-    pageTitle: 'E-commerce Agent Task Cases',
-    pageSubtitle:
-      'These cases focus on e-commerce operations, orders, support, products, inventory, procurement, ads, members, risk, live commerce, and category reviews.',
-    agentModeTitle: 'Turn an e-commerce business question into a deliverable',
-    agentModeBody:
-      'Agent cases focus on action: Codex reads the sheets, chats, quotes, and business materials you provide, then returns tables, summaries, and action lists.',
-    rule1: 'State the business goal, input materials, and deliverable; do not just say “analyze this”.',
-    rule2: 'Ask it to check fields and metric definitions before conclusions, exceptions, priorities, and human-confirmation items.',
-    rule3: 'Define what output is ready for a manager, support lead, procurement teammate, or operations owner.',
-    stat1Value: '20',
-    stat1Label: 'common e-commerce tasks',
-    stat2Value: '3 steps',
-    stat2Label: 'read materials, analyze, give actions',
-    stat3Value: 'copy-ready',
-    stat3Label: 'prompt included for every case',
-    stat4Value: 'less waiting',
-    stat4Label: 'clear rhythm and usable outcomes',
-    copyReady: 'copy-ready',
-    deliverableLabel: 'Clear deliverable',
-    afterCopy: 'After copying, send it with the matching sheets, chat logs, or business goal.',
-    copyPrompt: 'Copy agent prompt',
+    nextStepCases: 'See cases for your department',
   },
 
   tips: {
@@ -522,6 +453,45 @@ export const en = {
     recapTitle: 'After day seven, you are no longer a beginner',
     recapBody:
       'You can install, ask, verify, and share. Now use it on repetitive work.',
+  },
+
+  cases: {
+    pageTitle: 'Department Cases',
+    pageSubtitle:
+      'Pick a department case. Copy the prompt. Change a few words.',
+
+    filterAll: 'All',
+    filterFinance: 'Finance',
+    filterOperations: 'Operations',
+    filterCustomerService: 'Customer Service',
+    filterHR: 'HR',
+    filterLogistics: 'Logistics',
+    filterProcurement: 'Procurement',
+    filterMarketing: 'Marketing',
+    filterLegal: 'Legal',
+    filterData: 'Data',
+    filterAdmin: 'Admin',
+    filterProduct: 'Product',
+
+    readCase: 'Open case',
+    copyPrompt: 'Copy prompt',
+    copyPromptZh: 'Copy Chinese prompt',
+    copyPromptEn: 'Copy English prompt',
+    copied: 'Copied',
+
+    sectionPain: 'The problem',
+    sectionSolution: 'Solution',
+    sectionExpected: 'Result',
+    sectionPrompt: 'Ready-to-use prompt',
+    sectionAfter: 'After copying',
+    after1: 'Open Codex Desktop and create a new task',
+    after2: 'Paste the prompt and send',
+    after3: 'Let Codex build and verify; then tweak names, fields, and buttons',
+
+    backToCases: 'Back to cases',
+    tryInGenerator: 'Customize this case in the generator',
+    relatedCases: 'More cases from this department',
+    windowsBadge: 'Windows app',
   },
 
   cookbook: {
