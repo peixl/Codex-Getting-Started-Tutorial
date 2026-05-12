@@ -43,7 +43,7 @@ export const en = {
     heroCtaPrimary: 'Generate a prompt in 3 minutes',
     heroCtaSecondary: 'See how it works',
     heroStatsLabel1: 'Ready-made cases',
-    heroStatsValue1: '20+',
+    heroStatsValue1: '90+',
     heroStatsLabel2: 'Fill the blanks',
     heroStatsValue2: 'Prompts',
     heroStatsLabel3: 'Your own tool',
@@ -71,12 +71,12 @@ export const en = {
     feature2Title: 'Fill-in-the-blank prompts',
     feature2Body:
       'Platform, UI, and storage are choices. You write only goal and features.',
-    feature3Title: 'Ten ready-made cases',
+    feature3Title: 'Ready-made department cases',
     feature3Body:
-      'Real department scenarios with complete prompts.',
+      'Real scenarios across finance, operations, support, HR, logistics, procurement, marketing, legal, data, admin, and product teams.',
     feature4Title: 'Start with local desktop tools',
     feature4Body:
-      'Core cases build double-clickable tools; agent cases show Codex handling e-commerce reports, orders, support, stock, procurement, and ads.',
+      'Core cases build double-clickable tools; agent cases show Codex handling e-commerce reports, orders, support, stock, procurement, ads, members, and category reviews.',
     feature5Title: 'Bilingual (CN / EN)',
     feature5Body:
       'Chinese for learning, English for Codex. Same content.',
@@ -86,10 +86,10 @@ export const en = {
 
     caseTeaserTitle: 'Your department already has a case',
     caseTeaserSubtitle: 'Open a case, copy the prompt, start fast.',
-    caseTeaserMore: 'See all ten department cases',
+    caseTeaserMore: 'See all department cases',
 
     agentTeaserTitle: 'Use Codex for e-commerce business tasks',
-    agentTeaserSubtitle: 'Use it to prepare sales briefs, find order exceptions, analyze support issues, check launch materials, and recap ads.',
+    agentTeaserSubtitle: 'Use it to prepare sales briefs, find order exceptions, analyze support issues, check launch materials, recap ads, segment members, and review categories.',
     agentTeaserMore: 'See agent task cases',
 
     ctaTitle: 'Ready to try?',
@@ -332,14 +332,14 @@ export const en = {
     eyebrow: 'E-commerce business agent',
     pageTitle: 'E-commerce Agent Task Cases',
     pageSubtitle:
-      'These cases focus on e-commerce operations, orders, support, products, inventory, procurement, ads, and review analysis.',
+      'These cases focus on e-commerce operations, orders, support, products, inventory, procurement, ads, members, risk, live commerce, and category reviews.',
     agentModeTitle: 'Turn an e-commerce business question into a deliverable',
     agentModeBody:
       'Agent cases focus on action: Codex reads the sheets, chats, quotes, and business materials you provide, then returns tables, summaries, and action lists.',
     rule1: 'State the business goal, input materials, and deliverable; do not just say “analyze this”.',
     rule2: 'Ask it to check fields and metric definitions before conclusions, exceptions, priorities, and human-confirmation items.',
     rule3: 'Define what output is ready for a manager, support lead, procurement teammate, or operations owner.',
-    stat1Value: '8',
+    stat1Value: '20',
     stat1Label: 'common e-commerce tasks',
     stat2Value: '3 steps',
     stat2Label: 'read materials, analyze, give actions',
@@ -527,7 +527,7 @@ export const en = {
   cookbook: {
     pageTitle: 'Scenario Cookbook',
     pageSubtitle:
-      'Common small tasks, each with a copy-ready prompt.',
+      'Common small tasks, each with a copy-ready prompt across office work, data cleanup, and daily e-commerce tools.',
     copyRecipe: 'Copy this prompt',
     recipeAfter: 'Paste into Codex, follow along',
   },

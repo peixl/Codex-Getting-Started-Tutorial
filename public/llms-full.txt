@@ -4,27 +4,29 @@ Canonical URL: https://codex.ifq.ai
 Languages: zh-CN, en-US
 License: MIT
 Audience: business beginners across teams
-Scope: beginner-friendly Codex workflows. The core focus remains local desktop applications for Windows and macOS; the site also includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights.
+Scope: beginner-friendly Codex workflows. The core focus remains local desktop applications for Windows and macOS; the site also includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
 ## Site summary
 
-codex.ifq.ai is a tutorial guide that teaches business professionals how to use the OpenAI Codex desktop application for small, self-contained local tools and e-commerce business tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights. It is intentionally bilingual (Chinese and English) in full parity.
+codex.ifq.ai is a tutorial guide that teaches business professionals how to use the OpenAI Codex desktop application for small, self-contained local tools and e-commerce business tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights. It is intentionally bilingual (Chinese and English) in full parity.
 
 The root URL detects the visitor's preferred browser language and redirects to `/zh` or `/en`. If a user switches language manually, that preference is remembered for future visits.
 
-The site is organized into six main sections:
+The site is organized into seven main sections:
 
 1. **Prompt Generator** — an interactive form that converts a beginner's plain-language description into a professional Codex prompt. Form fields: platform (Windows / macOS / both), preset (Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (local files / SQLite / none), complexity tier (Starter MVP / Standard business version / Team-ready version), goal, needs, and optional extras (offline, bilingual, export, shortcuts, accessibility). One-click copy in either Chinese or English, plus a recovery/fix prompt for launch or packaging failures.
 
 2. **Beginner Guide** — seven chapters written in plain language without technical jargon. Chapters cover: what Codex is; what you need to get started; first launch walkthrough; core actions explained with everyday analogies; five rules for writing good prompts; common pitfalls and how to recover; how to share the resulting app with teammates.
 
-3. **Department Cases** — 10+ complete scenarios from an e-commerce company context, each with problem statement, approach, expected deliverable, and a complete ready-to-paste prompt in both languages.
+3. **Department Cases** — 40+ complete scenarios from an e-commerce company context, each with problem statement, approach, expected deliverable, and a complete ready-to-paste prompt in both languages.
 
-4. **Agent Task Cases** — 8 copy-ready prompts for using Codex as an e-commerce business agent: daily sales brief, order exception follow-up, customer-service issue themes, product launch readiness, inventory replenishment, supplier quote comparison, ads/creator recap, and review insights. These prompts emphasize clear inputs, business judgment, flexible assumptions, and usable action lists.
+4. **Agent Task Cases** — 20 copy-ready prompts for using Codex as an e-commerce business agent: daily sales brief, order exception follow-up, customer-service issue themes, product launch readiness, inventory replenishment, supplier quote comparison, ads/creator recap, review insights, campaign precheck, competitor pricing, member segmentation, coupon-risk audit, return triage, store rating diagnosis, platform-rule digest, cross-warehouse allocation, category monthly review, live recap, creator sample follow-up, and bundle design. These prompts emphasize clear inputs, business judgment, flexible assumptions, and usable action lists.
 
-5. **Pro Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
+5. **Scenario Cookbook** — 20+ copy-ready local desktop-tool prompts. It includes general office utilities plus e-commerce tools for order merging, SKU image packaging, shipment exception checks, product label printing, marketplace bill reconciliation, campaign calendars, support macro libraries, creator sample tracking, competitor price cleaning, live run-sheet timing, listing audits, and inventory transfer planning.
 
-6. **FAQ** — ten most common beginner questions.
+6. **Pro Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
+
+7. **FAQ** — ten most common beginner questions.
 
 ## Featured case studies
 

@@ -2,7 +2,7 @@
 
 [简体中文](README.zh-CN.md)
 
-A beginner-first tutorial site for OpenAI Codex Desktop. It is designed for business users who do not write code but still want to build useful local tools for Windows and macOS, and use Codex as an agent for practical tasks.
+A beginner-first tutorial site for OpenAI Codex Desktop. It is designed for business users who want useful local tools for Windows and macOS, and want to use Codex as an agent for practical tasks.
 
 Live site: **https://codex.ifq.ai**
 
@@ -21,7 +21,7 @@ The site guides users through a simple path:
 3. Paste that prompt into Codex and let it build step by step.
 4. Learn from department cases, agent task cases, recipes, and FAQ.
 
-Typical scenarios include finance reconciliation, daily reporting, support helpers, HR onboarding, logistics follow-up, procurement quoting, marketing recap, legal tracking, admin records, product feedback triage, sales briefs, order exceptions, support issue analysis, product launch checks, replenishment, supplier quote comparison, ad recap, and review insights.
+Typical scenarios include finance reconciliation, platform bills, daily reporting, support helpers, HR onboarding, logistics follow-up, carrier scorecards, procurement quoting, packaging demand, marketing recap, live run sheets, legal tracking, admin records, product feedback triage, sales briefs, order exceptions, support issue analysis, product launch checks, replenishment, supplier quote comparison, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
 ## UX Goals
 
@@ -53,11 +53,11 @@ Typical scenarios include finance reconciliation, daily reporting, support helpe
 
 ### Agent Task Cases
 
-- Shows copy-ready prompts for using Codex as an agent on e-commerce operations: sales briefs, order follow-up, support analysis, product launch checks, inventory, procurement, ads, and review insights.
+- Shows copy-ready prompts for using Codex as an agent on e-commerce operations: sales briefs, order follow-up, support analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
 ### Cookbook, Pro Tips, FAQ
 
-- Helps users move from “first successful prompt” to repeatable prompt-writing habits.
+- Adds copy-ready scenarios for order merging, product image packaging, shipment exceptions, product labels, marketplace bill checks, campaign calendars, support macros, creator samples, competitor pricing, live timers, listing audits, and inventory transfer planning.
 
 ## Local Development
 

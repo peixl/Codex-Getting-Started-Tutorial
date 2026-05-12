@@ -2016,6 +2016,624 @@ Surface every teammate's birthday and work anniversary in time so the workplace 
   },
 };
 
+// ---------- E-commerce full-chain scenarios ----------
+
+export const financePlatformFeeReconciliation: CaseBundle = {
+  slug: 'finance-platform-fee-reconciliation',
+  department: 'finance',
+  i18n: {
+    zh: {
+      title: '平台佣金与手续费核对助手',
+      departmentLabel: '财务',
+      summary:
+        '把订单、退款、平台账单放在一起，核对佣金、支付手续费、技术服务费是否合理。',
+      painTitle: '这是什么问题',
+      painBody:
+        '平台账单科目多、扣费规则复杂，财务很难快速判断哪些费用异常、哪些订单需要复核。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '做一个本地核对工具：导入订单、退款、平台结算单，按可配置费率重算应扣费用，并把差异订单列出来。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '导入订单表、退款表、平台结算表，自动匹配订单号。',
+        '费率规则可配置：佣金率、支付手续费、服务费、活动扣点。',
+        '差异表按金额从大到小排序，标出可能原因。',
+        '一键导出“平台费用差异明细”和“本月费用汇总”。',
+      ],
+      keywords: ['平台账单', '佣金', '手续费', '财务', '对账'],
+    },
+    en: {
+      title: 'Marketplace Fee Reconciliation Helper',
+      departmentLabel: 'Finance',
+      summary:
+        'Check whether marketplace commission, payment fees, and service fees match orders and refunds.',
+      painTitle: 'The problem',
+      painBody:
+        'Marketplace settlement files contain many fee items and complex rules. Finance needs a fast way to find suspicious charges.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'A local reconciliation tool: import orders, refunds, and marketplace settlement files, recalculate expected fees from configurable rates, and list differences.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Import order, refund, and settlement sheets; match by order id.',
+        'Configurable fee rules: commission, payment fee, service fee, campaign rate.',
+        'Difference table sorted by amount with likely reasons.',
+        'One-click exports for fee differences and monthly fee summary.',
+      ],
+      keywords: ['marketplace', 'commission', 'fee', 'finance', 'reconciliation'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商财务同事，完全不懂代码。
+
+【目标】
+核对平台结算单中的佣金、支付手续费、技术服务费和活动扣点，找出和订单/退款数据不一致的费用。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 保存费率规则
+
+【核心功能】
+1. 导入订单表、退款表、平台结算表，自动识别订单号、成交金额、退款金额、费用科目、扣费金额。
+2. 费率规则设置页：按平台/店铺/类目配置佣金率、支付手续费、技术服务费、活动扣点；支持有效期。
+3. 自动重算应扣费用，并和平台账单对比，输出差异金额、差异率、可能原因。
+4. 差异列表可按金额、平台、店铺、费用科目筛选；高差异标红。
+5. 导出两份 Excel：费用差异明细、本月费用汇总。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is on an e-commerce finance team with no coding background.
+
+[Goal]
+Reconcile marketplace commission, payment fees, service fees, and campaign rates against order and refund data.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON for fee rules
+
+[Core Features]
+1. Import orders, refunds, and settlement sheets; detect order id, order amount, refund amount, fee item, fee amount.
+2. Fee rule settings: by marketplace/store/category for commission, payment fee, service fee, campaign rate; support effective dates.
+3. Recalculate expected fees and compare with settlement; output difference amount, difference rate, likely reason.
+4. Difference list filterable by amount, marketplace, store, and fee item; high differences highlighted.
+5. Export two Excel files: fee difference details and monthly fee summary.${SHARED_TAIL_EN}`,
+  },
+};
+
+export const operationsPromotionPriceInspector: CaseBundle = {
+  slug: 'operations-promotion-price-inspector',
+  department: 'operations',
+  i18n: {
+    zh: {
+      title: '大促价格巡检工具',
+      departmentLabel: '运营',
+      summary:
+        '活动前批量检查到手价、券后价、限时折扣，避免低于底价或活动价填错。',
+      painTitle: '这是什么问题',
+      painBody:
+        '大促前价格、优惠券、满减、会员折扣叠加复杂，一个 SKU 价格填错就可能亏钱或被客诉。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '本地工具导入 SKU 价格表和活动规则，自动算到手价，与底价/毛利线对比，列出风险 SKU。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '导入 SKU 成本价、日常价、活动价、券、满减、会员折扣。',
+        '自动计算预计到手价和毛利率。',
+        '低于底价、毛利过低、价格倒挂自动标红。',
+        '导出活动价格风险清单，给运营和财务复核。',
+      ],
+      keywords: ['大促', '价格', '优惠券', '运营', '毛利'],
+    },
+    en: {
+      title: 'Promotion Price Inspector',
+      departmentLabel: 'Operations',
+      summary:
+        'Check final promo prices before campaigns so SKUs do not fall below floor price or margin guardrails.',
+      painTitle: 'The problem',
+      painBody:
+        'Campaign price, coupons, bundles, and member discounts stack together. One wrong SKU price can create loss or complaints.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'A local tool imports SKU price and campaign rules, calculates final customer price, compares against floor price and margin guardrails, and lists risk SKUs.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Import SKU cost, normal price, promo price, coupons, bundles, member discount.',
+        'Auto-calculate final price and gross margin rate.',
+        'Highlight below-floor, low-margin, and price-inversion risks.',
+        'Export campaign price risk list for operations and finance review.',
+      ],
+      keywords: ['promotion', 'price', 'coupon', 'operations', 'margin'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商运营同事，完全不懂代码。
+
+【目标】
+活动上线前批量检查 SKU 到手价和毛利风险，避免活动价、券、满减叠加后低于底价。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite
+
+【核心功能】
+1. 导入 SKU 价格表：SKU、成本价、日常价、活动价、底价、类目、库存。
+2. 导入活动规则表：优惠券、满减、会员折扣、平台补贴、活动时间。
+3. 自动计算预计到手价、毛利额、毛利率，并说明计算口径。
+4. 风险规则：低于底价、毛利率低于阈值、活动价高于日常价、价格倒挂、库存不足；阈值可在设置里改。
+5. 主界面按红/黄/绿分组；导出“活动价格风险清单.xlsx”。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is an e-commerce operations teammate with no coding background.
+
+[Goal]
+Before a campaign goes live, batch-check final SKU prices and margin risk so stacked discounts do not fall below floor price.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite
+
+[Core Features]
+1. Import SKU price sheet: SKU, cost, normal price, campaign price, floor price, category, stock.
+2. Import campaign rules: coupon, bundle discount, member discount, platform subsidy, campaign time.
+3. Auto-calculate final customer price, gross margin amount, gross margin rate, and show calculation assumptions.
+4. Risk rules: below floor price, margin below threshold, campaign price above normal price, price inversion, insufficient stock; editable thresholds.
+5. Main UI groups red/yellow/green risks; export "campaign-price-risk.xlsx".${SHARED_TAIL_EN}`,
+  },
+};
+
+export const customerServiceCompensationDesk: CaseBundle = {
+  slug: 'customer-service-compensation-desk',
+  department: 'customer-service',
+  i18n: {
+    zh: {
+      title: '售后补偿记录台',
+      departmentLabel: '客服',
+      summary:
+        '把退款、补券、补发、补差价统一记录，避免重复补偿和漏跟进。',
+      painTitle: '这是什么问题',
+      painBody:
+        '客服补偿分散在聊天记录和表格里，同一个订单可能重复补，或者答应了补偿却忘记执行。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '做一个本地补偿台：按订单号查历史补偿，新增补偿时自动提示重复风险，并生成待跟进清单。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '按订单号、手机号、旺旺/昵称快速搜索。',
+        '补偿类型：退款、补券、补发、补差价、赠品。',
+        '新增补偿时自动检查同订单历史记录。',
+        '导出每日补偿汇总和未完成跟进清单。',
+      ],
+      keywords: ['售后', '客服', '补偿', '退款', '跟进'],
+    },
+    en: {
+      title: 'After-Sales Compensation Desk',
+      departmentLabel: 'Customer Service',
+      summary:
+        'Record refunds, coupons, reships, and price differences in one place to avoid duplicate compensation and missed follow-up.',
+      painTitle: 'The problem',
+      painBody:
+        'Compensation decisions live in chats and sheets. The same order may be compensated twice, or promised compensation may be forgotten.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'A local compensation desk: search order history, warn on duplicate risk, and produce a follow-up list.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Search by order id, phone, or customer nickname.',
+        'Compensation types: refund, coupon, reship, price difference, gift.',
+        'Warn when the same order already has compensation history.',
+        'Export daily compensation summary and pending follow-up list.',
+      ],
+      keywords: ['after-sales', 'support', 'compensation', 'refund'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是客服主管，完全不懂代码。
+
+【目标】
+统一记录售后补偿，避免重复补偿、漏执行和月底无法统计。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；本地 SQLite；支持 Excel 导入导出
+
+【核心功能】
+1. 新增补偿记录：订单号、客户昵称/手机号、问题类型、补偿方式、金额/券额、承诺时间、负责人、状态。
+2. 搜索：订单号、手机号、昵称都能查；打开订单时展示历史补偿时间线。
+3. 重复提醒：同订单 30 天内已有补偿时弹提醒，显示历史记录。
+4. 看板：待执行、已执行、待确认、已关闭四栏；支持拖拽改状态。
+5. 导出：每日补偿明细、未完成跟进清单、按客服统计的补偿金额。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is a customer-service lead with no coding background.
+
+[Goal]
+Keep after-sales compensation in one place to prevent duplicate compensation, missed execution, and messy month-end stats.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export
+
+[Core Features]
+1. New compensation record: order id, customer nickname/phone, issue type, compensation method, amount/coupon value, promised date, owner, status.
+2. Search by order id, phone, nickname; order detail shows compensation timeline.
+3. Duplicate warning: if the same order has compensation in the last 30 days, show the history before saving.
+4. Board columns: to execute, executed, confirm, closed; drag to change status.
+5. Exports: daily compensation detail, pending follow-up, compensation amount by support agent.${SHARED_TAIL_EN}`,
+  },
+};
+
+export const logisticsCarrierSlaScorecard: CaseBundle = {
+  slug: 'logistics-carrier-sla-scorecard',
+  department: 'logistics',
+  i18n: {
+    zh: {
+      title: '快递承运商 SLA 评分表',
+      departmentLabel: '物流',
+      summary:
+        '按快递公司统计揽收、签收、停滞、破损、退回，月度选择承运商更有依据。',
+      painTitle: '这是什么问题',
+      painBody:
+        '不同承运商表现差异大，但数据散在物流导出和售后记录里，很难客观比较。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '导入物流轨迹和售后异常表，按承运商自动算时效、异常率和综合评分。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '按承运商展示揽收时效、签收时效、停滞率、退回率、破损率。',
+        '支持按省份、仓库、商品类型筛选。',
+        '自动生成综合评分和本月建议。',
+        '导出承运商月度评分 PDF。',
+      ],
+      keywords: ['物流', '快递', '承运商', 'SLA', '评分'],
+    },
+    en: {
+      title: 'Carrier SLA Scorecard',
+      departmentLabel: 'Logistics',
+      summary:
+        'Score carriers by pickup, delivery, stalled shipments, damage, and returns so monthly carrier choices are evidence-based.',
+      painTitle: 'The problem',
+      painBody:
+        'Carrier performance differs, but evidence is scattered across logistics exports and after-sales records.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'Import shipment tracking and after-sales exception sheets, then calculate carrier speed, exception rates, and a composite score.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Carrier metrics: pickup speed, delivery speed, stalled rate, return rate, damage rate.',
+        'Filter by province, warehouse, product type.',
+        'Composite score and monthly recommendation.',
+        'Export monthly carrier scorecard PDF.',
+      ],
+      keywords: ['logistics', 'carrier', 'SLA', 'scorecard'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是物流主管，完全不懂代码。
+
+【目标】
+按快递承运商统计履约表现，帮助选择更稳定的承运商并发现地区问题。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite
+
+【核心功能】
+1. 导入物流轨迹表（订单号、承运商、仓库、省份、揽收时间、签收时间、当前状态）和售后异常表（破损、丢件、退回、投诉）。
+2. 计算每个承运商的揽收时效、签收时效、48 小时停滞率、退回率、破损率、投诉率。
+3. 支持按仓库、省份、商品类型、时间范围筛选。
+4. 综合评分公式可配置，默认时效 40%、异常率 40%、投诉 20%。
+5. 导出月度 PDF：承运商排名、红榜/黑榜、省份异常热力表、建议动作。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is a logistics lead with no coding background.
+
+[Goal]
+Score carrier fulfillment performance so the team can choose stable carriers and spot regional issues.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite
+
+[Core Features]
+1. Import shipment tracking sheet (order id, carrier, warehouse, province, pickup time, delivery time, status) and after-sales exceptions (damage, lost, return, complaint).
+2. Calculate pickup speed, delivery speed, 48-hour stalled rate, return rate, damage rate, complaint rate by carrier.
+3. Filters by warehouse, province, product type, time range.
+4. Configurable score formula; default speed 40%, exception rate 40%, complaint 20%.
+5. Export monthly PDF: carrier ranking, best/worst list, province exception heatmap, recommended actions.${SHARED_TAIL_EN}`,
+  },
+};
+
+export const procurementPackagingDemandPlanner: CaseBundle = {
+  slug: 'procurement-packaging-demand-planner',
+  department: 'procurement',
+  i18n: {
+    zh: {
+      title: '包材需求预测与采购提醒',
+      departmentLabel: '采购',
+      summary:
+        '根据销量、包材规格和库存，提前知道纸箱、胶带、填充物什么时候该补。',
+      painTitle: '这是什么问题',
+      painBody:
+        '包材不起眼但一缺就影响发货；买多又占仓库。采购需要提前看到消耗速度。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '本地工具把 SKU 与包材规格关联，结合销量和包材库存，自动预测可用天数和补货量。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        'SKU 与包材规格映射：每单用几个纸箱、胶带、填充物。',
+        '根据销量自动预测包材消耗。',
+        '低于安全库存自动预警。',
+        '生成采购建议单，含供应商和建议下单量。',
+      ],
+      keywords: ['包材', '采购', '库存', '预测', '仓库'],
+    },
+    en: {
+      title: 'Packaging Demand Planner',
+      departmentLabel: 'Procurement',
+      summary:
+        'Forecast when cartons, tape, and filler need replenishment based on sales, packaging specs, and inventory.',
+      painTitle: 'The problem',
+      painBody:
+        'Packaging is easy to ignore until it blocks shipping. Buying too much wastes warehouse space.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'Map SKUs to packaging specs, combine sales and packaging stock, forecast days of supply and reorder quantity.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'SKU-to-packaging mapping: cartons, tape, filler per order.',
+        'Sales-driven packaging consumption forecast.',
+        'Safety-stock warnings.',
+        'Purchase recommendation sheet with supplier and suggested quantity.',
+      ],
+      keywords: ['packaging', 'procurement', 'inventory', 'forecast'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商采购和仓库同事，完全不懂代码。
+
+【目标】
+根据近 30 天销量、SKU 包材规则和当前包材库存，预测包材什么时候会缺，并生成采购建议。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS
+
+【核心功能】
+1. 导入 SKU 销量表、包材库存表、SKU-包材映射表、供应商报价表。
+2. 映射规则：每个 SKU 对应纸箱规格、胶带用量、填充物用量、贴纸/赠品等，可在界面编辑。
+3. 计算每种包材日均消耗、可用天数、安全库存缺口。
+4. 生成采购建议：建议下单量、首选供应商、预计到货前风险。
+5. 导出“包材补货建议.xlsx”和“未来 14 天包材风险表.xlsx”。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The users are e-commerce procurement and warehouse teammates with no coding background.
+
+[Goal]
+Use last-30-day sales, SKU packaging rules, and packaging stock to forecast shortages and generate purchase recommendations.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS
+
+[Core Features]
+1. Import SKU sales, packaging inventory, SKU-packaging mapping, and supplier quote sheets.
+2. Mapping rules: carton size, tape usage, filler usage, sticker/gift per SKU; editable in UI.
+3. Calculate daily average consumption, days of supply, safety-stock gap per packaging item.
+4. Generate purchase suggestions: recommended quantity, preferred supplier, risk before arrival.
+5. Export "packaging-replenishment.xlsx" and "14-day-packaging-risk.xlsx".${SHARED_TAIL_EN}`,
+  },
+};
+
+export const marketingLiveRoomRunOfShow: CaseBundle = {
+  slug: 'marketing-live-room-run-of-show',
+  department: 'marketing',
+  i18n: {
+    zh: {
+      title: '直播间排品与话术节奏表',
+      departmentLabel: '市场',
+      summary:
+        '把直播商品、价格、库存、卖点、主播话术和时间节奏放进一张可执行排班表。',
+      painTitle: '这是什么问题',
+      painBody:
+        '直播前商品多、价格多、库存和话术反复改，最后主播、场控、运营拿的版本不一致。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '做一个本地直播排品表：导入商品清单，按时间段排品，自动生成主播卡片和场控提醒。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '直播排期时间轴：每 5/10/15 分钟一个坑位。',
+        '每个商品卡含价格、库存、利益点、禁说词、赠品。',
+        '一键导出主播版、场控版、运营复盘版。',
+        '直播中可标记实际上架时间和异常。',
+      ],
+      keywords: ['直播', '排品', '话术', '投放', '市场'],
+    },
+    en: {
+      title: 'Live Room Run-of-Show Planner',
+      departmentLabel: 'Marketing',
+      summary:
+        'Put live products, prices, stock, selling points, host wording, and timing into one executable run sheet.',
+      painTitle: 'The problem',
+      painBody:
+        'Before a livestream, product order, prices, stock, and scripts change constantly. Host, control desk, and ops often hold different versions.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'A local live run-of-show planner: import product list, arrange slots by time, auto-generate host cards and control-desk reminders.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Timeline with 5/10/15-minute product slots.',
+        'Product card includes price, stock, benefits, forbidden words, gifts.',
+        'Export host version, control-desk version, and ops recap version.',
+        'During live, mark actual on-air time and exceptions.',
+      ],
+      keywords: ['live commerce', 'run of show', 'script', 'marketing'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是直播运营同事，完全不懂代码。
+
+【目标】
+把直播排品、主播话术、场控提醒和复盘记录集中管理，避免多人拿错版本。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；本地 SQLite；Excel 导入导出
+
+【核心功能】
+1. 导入商品清单：SKU、商品名、价格、库存、卖点、赠品、佣金、禁说词、链接。
+2. 时间轴排品：选择直播开始/结束时间，按 5/10/15 分钟坑位拖拽商品。
+3. 商品卡片：主播话术、场控提醒、价格口播、库存预警、禁说词提醒。
+4. 导出三版：主播版（话术为主）、场控版（时间和链接为主）、运营版（价格库存和备注完整）。
+5. 直播中记录实际开始时间、是否跳过、异常原因；直播后导出复盘表。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is a livestream operations teammate with no coding background.
+
+[Goal]
+Manage livestream product order, host scripts, control-desk reminders, and recap records in one place so no one uses the wrong version.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export
+
+[Core Features]
+1. Import product list: SKU, name, price, stock, selling points, gifts, commission, forbidden words, link.
+2. Timeline: choose live start/end time; drag products into 5/10/15-minute slots.
+3. Product card: host wording, control-desk reminder, price wording, stock alert, forbidden-word alert.
+4. Export three versions: host view, control-desk view, operations view.
+5. During live, record actual start time, skipped status, exception reason; after live, export recap sheet.${SHARED_TAIL_EN}`,
+  },
+};
+
+export const dataSkuProfitRadar: CaseBundle = {
+  slug: 'data-sku-profit-radar',
+  department: 'data',
+  i18n: {
+    zh: {
+      title: 'SKU 利润雷达图',
+      departmentLabel: '数据',
+      summary:
+        '把销售额、毛利、广告、退款、库存周转放在一起，找出真正赚钱和虚胖的 SKU。',
+      painTitle: '这是什么问题',
+      painBody:
+        '只看销售额会误判爆品，有些 SKU 卖得多但广告贵、退款高、毛利低。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '导入销售、成本、广告、退款和库存表，按 SKU 算真实贡献，并生成红黄绿分层。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        'SKU 排名：销售额、毛利、退款率、广告占比、库存周转。',
+        '四象限：高利高量、低利高量、高利低量、低利低量。',
+        '识别“虚胖 SKU”：销量高但利润弱。',
+        '导出经营动作建议表。',
+      ],
+      keywords: ['SKU', '利润', '数据', '广告', '库存'],
+    },
+    en: {
+      title: 'SKU Profit Radar',
+      departmentLabel: 'Data',
+      summary:
+        'Combine sales, margin, ads, refunds, and inventory turnover to find truly profitable SKUs versus vanity volume.',
+      painTitle: 'The problem',
+      painBody:
+        'Revenue alone can mislead. Some SKUs sell a lot but have expensive ads, high refunds, and weak margin.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'Import sales, cost, ad, refund, and stock sheets; calculate real contribution by SKU and produce red/yellow/green tiers.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'SKU ranking: revenue, gross profit, refund rate, ad share, inventory turnover.',
+        'Quadrants: high profit/high volume, low profit/high volume, high profit/low volume, low profit/low volume.',
+        'Spot vanity SKUs: high volume but weak profit.',
+        'Export action recommendation table.',
+      ],
+      keywords: ['SKU', 'profit', 'data', 'ads', 'inventory'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商数据分析同事，不懂代码也能用。
+
+【目标】
+把销售额、毛利、广告、退款和库存周转合在一起，找出真正值得加资源的 SKU。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS；ECharts
+
+【核心功能】
+1. 导入销售表、成本表、广告消耗表、退款表、库存表，按 SKU 自动合并。
+2. 计算：销售额、毛利额、毛利率、广告占比、退款率、库存周转天数、综合利润分。
+3. 主视图：SKU 排名表 + 四象限图；点击 SKU 展开趋势小图。
+4. 自动标记：高利高量、低利高量、高利低量、低利低量、虚胖 SKU。
+5. 导出“SKU 利润雷达.xlsx”，含推荐动作：加投、控费、清库存、观察。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The user is an e-commerce data analyst; the tool must be usable by business users.
+
+[Goal]
+Combine revenue, margin, ads, refunds, and stock turnover to find SKUs worth more resources.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS; ECharts
+
+[Core Features]
+1. Import sales, cost, ad spend, refund, and stock sheets; merge by SKU.
+2. Calculate revenue, gross profit, margin rate, ad share, refund rate, days of supply, composite profit score.
+3. Main view: SKU ranking table + quadrant chart; click SKU for mini trend.
+4. Auto-label: high-profit/high-volume, low-profit/high-volume, high-profit/low-volume, low-profit/low-volume, vanity SKU.
+5. Export "sku-profit-radar.xlsx" with recommended actions: scale, control spend, clear stock, observe.${SHARED_TAIL_EN}`,
+  },
+};
+
+export const productListingQualityChecker: CaseBundle = {
+  slug: 'product-listing-quality-checker',
+  department: 'product',
+  i18n: {
+    zh: {
+      title: '商品信息质量巡检台',
+      departmentLabel: '产品',
+      summary:
+        '批量检查标题、卖点、规格、图片、价格和资质是否缺失或冲突，上架前少返工。',
+      painTitle: '这是什么问题',
+      painBody:
+        '商品资料常常标题不统一、规格冲突、图片缺失、资质没传，等上线前才发现很赶。',
+      solutionTitle: '怎么解决',
+      solutionBody:
+        '导入商品资料表和图片清单，按规则检查字段缺失、冲突和风险，并给出补齐清单。',
+      expectedTitle: '做出来是什么样',
+      expectedBullets: [
+        '按 SKU 展示资料完整度分数。',
+        '检查标题、类目、规格、价格、库存、图片、卖点、资质。',
+        '缺失/冲突/建议优化分层提示。',
+        '导出给商品同事的补齐清单。',
+      ],
+      keywords: ['商品', '上新', '资料', 'SKU', '质检'],
+    },
+    en: {
+      title: 'Listing Quality Checker',
+      departmentLabel: 'Product',
+      summary:
+        'Batch-check titles, selling points, specs, images, prices, and certificates before launch.',
+      painTitle: 'The problem',
+      painBody:
+        'Listing materials often have inconsistent titles, spec conflicts, missing images, or missing certificates, found too late before launch.',
+      solutionTitle: 'The solution approach',
+      solutionBody:
+        'Import product data and image list, run rules for missing fields, conflicts, and risks, then output a fix list.',
+      expectedTitle: 'What you will end up with',
+      expectedBullets: [
+        'Completeness score by SKU.',
+        'Checks title, category, specs, price, stock, images, selling points, certificates.',
+        'Layered hints: missing / conflict / should improve.',
+        'Export fix list for merchandising.',
+      ],
+      keywords: ['listing', 'launch', 'SKU', 'quality'],
+    },
+  },
+  prompt: {
+    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是商品/产品同事，不懂代码也能用。
+
+【目标】
+批量检查商品上架资料是否完整、前后一致，减少上线前反复返工。
+
+【平台与技术】
+- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 规则
+
+【核心功能】
+1. 导入商品资料表、图片清单、资质文件清单。
+2. 检查规则：商品名、类目、规格、价格、库存、主图/详情图、卖点、售后说明、资质是否齐全。
+3. 冲突检查：规格前后不一致、价格低于成本、库存为 0 仍标记上架、图片数量不足、资质过期。
+4. 每个 SKU 生成完整度分数和状态：可上线 / 补齐后上线 / 退回补资料。
+5. 导出“商品资料补齐清单.xlsx”，备注列可直接发给商品同事。${SHARED_TAIL_ZH}`,
+    en: `You are a senior engineer building local desktop tools. The users are merchandising/product teammates; it must be usable by business users.
+
+[Goal]
+Batch-check listing materials for completeness and consistency to reduce last-minute rework before launch.
+
+[Platform & Stack]
+- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON rules
+
+[Core Features]
+1. Import product sheet, image list, certificate file list.
+2. Check product name, category, specs, price, stock, hero/detail images, selling points, after-sales notes, certificates.
+3. Conflict checks: inconsistent specs, price below cost, stock 0 but marked live, insufficient images, expired certificates.
+4. Per-SKU completeness score and status: ready / ready after fixes / return for materials.
+5. Export "listing-fix-list.xlsx" with notes ready to send to merchandising.${SHARED_TAIL_EN}`,
+  },
+};
+
 // Aggregated for the index
 export const extraCases: CaseBundle[] = [
   financeExpenseClassifier,
@@ -2040,4 +2658,15 @@ export const extraCases: CaseBundle[] = [
   adminAssetInventory,
   productPriorityBoard,
   productBetaTesterTracker,
+  financeMonthlyBudgetTracker,
+  marketingEventChecklist,
+  hrBirthdayReminder,
+  financePlatformFeeReconciliation,
+  operationsPromotionPriceInspector,
+  customerServiceCompensationDesk,
+  logisticsCarrierSlaScorecard,
+  procurementPackagingDemandPlanner,
+  marketingLiveRoomRunOfShow,
+  dataSkuProfitRadar,
+  productListingQualityChecker,
 ];

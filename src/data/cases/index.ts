@@ -37,6 +37,14 @@ import {
   financeMonthlyBudgetTracker,
   marketingEventChecklist,
   hrBirthdayReminder,
+  financePlatformFeeReconciliation,
+  operationsPromotionPriceInspector,
+  customerServiceCompensationDesk,
+  logisticsCarrierSlaScorecard,
+  procurementPackagingDemandPlanner,
+  marketingLiveRoomRunOfShow,
+  dataSkuProfitRadar,
+  productListingQualityChecker,
 } from './_more';
 
 export type { CaseBundle, CaseCopy, Department } from './types';
@@ -80,6 +88,14 @@ export const caseBundles: CaseBundle[] = [
   financeMonthlyBudgetTracker,
   marketingEventChecklist,
   hrBirthdayReminder,
+  financePlatformFeeReconciliation,
+  operationsPromotionPriceInspector,
+  customerServiceCompensationDesk,
+  logisticsCarrierSlaScorecard,
+  procurementPackagingDemandPlanner,
+  marketingLiveRoomRunOfShow,
+  dataSkuProfitRadar,
+  productListingQualityChecker,
 ];
 
 export function getCaseBySlug(slug: string): CaseBundle | undefined {

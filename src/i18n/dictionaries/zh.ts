@@ -44,7 +44,7 @@ export const zh = {
     heroCtaPrimary: '三分钟生成一个提示词',
     heroCtaSecondary: '先看看怎么玩',
     heroStatsLabel1: '现成案例',
-    heroStatsValue1: '20+',
+    heroStatsValue1: '90+',
     heroStatsLabel2: '填空就生成',
     heroStatsValue2: '提示词',
     heroStatsLabel3: '专属小工具',
@@ -74,10 +74,10 @@ export const zh = {
       '平台、界面、数据存法都是选择题。你只写目标和功能。',
     feature3Title: '现成部门案例',
     feature3Body:
-      '财务、运营、客服、人事、物流、采购、市场等十个部门都有完整案例，拿来就能用。',
+      '财务、运营、客服、人事、物流、采购、市场、法务、数据、行政、产品等团队都有完整案例，拿来就能用。',
     feature4Title: '先做好本地桌面工具',
     feature4Body:
-      '核心案例聚焦「双击就能打开」；Agent 案例教你把电商日报、订单、客服、库存、采购和投放分析交给 Codex。',
+      '核心案例聚焦「双击就能打开」；Agent 案例教你把电商日报、订单、客服、库存、采购、投放、会员和类目复盘交给 Codex。',
     feature5Title: '中英双语对照',
     feature5Body:
       '中文看懂，英文给 Codex。内容一致。',
@@ -87,10 +87,10 @@ export const zh = {
 
     caseTeaserTitle: '你所在的部门，已经有现成案例',
     caseTeaserSubtitle: '点进去，复制提示词，马上开工。',
-    caseTeaserMore: '看全部十个部门案例',
+    caseTeaserMore: '看全部部门案例',
 
     agentTeaserTitle: '也能处理电商业务任务',
-    agentTeaserSubtitle: '让 Codex 帮电商团队整理日报、筛异常订单、分析客服问题、检查上新资料和复盘投放。',
+    agentTeaserSubtitle: '让 Codex 帮电商团队整理日报、筛异常订单、分析客服问题、检查上新资料、复盘投放、会员分层和类目经营。',
     agentTeaserMore: '看 Agent 任务案例',
 
     ctaTitle: '准备好了吗？',
@@ -325,14 +325,14 @@ export const zh = {
     eyebrow: '电商业务 Agent',
     pageTitle: '电商 Agent 任务案例',
     pageSubtitle:
-      '这里专注电商公司的运营、订单、客服、商品、库存、采购、投放和评价分析。',
+      '专注电商公司的运营、订单、客服、商品、库存、采购、投放、会员、风控、直播和类目复盘。',
     agentModeTitle: '把电商业务问题变成可交付任务',
     agentModeBody:
       'Agent 案例的重点不是聊天，而是让 Codex 读取你给的表格、聊天记录、报价单和业务资料，分析后交付清单、摘要和行动建议。',
     rule1: '先说业务目标、输入材料和交付物；不要只说“帮我分析一下”。',
     rule2: '要求它先检查字段和口径，再输出结论、异常、优先级和待人工确认项。',
     rule3: '写清交付对象和使用场景：让结果能直接进入汇报、跟进或分派。',
-    stat1Value: '8',
+    stat1Value: '20',
     stat1Label: '类电商高频任务',
     stat2Value: '3 步',
     stat2Label: '读资料、做分析、给动作',
@@ -520,7 +520,7 @@ export const zh = {
   cookbook: {
     pageTitle: '场景食谱',
     pageSubtitle:
-      '常见小需求，一题一段可复制提示词。',
+      '常见小需求，一题一段可复制提示词；覆盖办公、数据清洗和电商日常工具。',
     copyRecipe: '复制这段提示词',
     recipeAfter: '粘贴进 Codex，按步骤走就行',
   },

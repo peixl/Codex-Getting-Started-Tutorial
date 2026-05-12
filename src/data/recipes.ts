@@ -390,4 +390,362 @@ Start with a brief plan summary, then implement, run, and verify.`,
 - Package as Windows .exe and macOS .dmg; 400-word user guide including a Markdown cheatsheet.
 Start with a brief plan summary, then implement, run, and verify.`,
   },
+  {
+    id: 'marketplace-order-merger',
+    icon: 'excel',
+    titleZh: '合并多平台订单导出表',
+    titleEn: 'Merge order exports from multiple marketplaces',
+    painZh: '不同平台导出的订单列名不一样，每天合并总表很费时间。',
+    painEn: 'Order exports from each marketplace use different columns, making daily consolidation slow.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个电商订单合并小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + xlsx + papaparse
+- 功能：
+  1. 拖入多个 Excel/CSV 订单表，自动识别平台来源，也允许手动选择平台模板。
+  2. 把不同列名统一成标准字段：平台、店铺、订单号、下单时间、SKU、商品名、数量、实付金额、运费、订单状态、收货省市。
+  3. 订单号重复时合并明细并标红提示；字段缺失用黄色提示。
+  4. 导出“订单总表.xlsx”和“异常订单.xlsx”，原文件不动。
+- 附 400 字中文使用说明，说明如何新增平台字段映射。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build an e-commerce order merge tool:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + xlsx + papaparse
+- Features:
+  1. Drop multiple Excel/CSV order exports; auto-detect marketplace source, with manual template override.
+  2. Normalize columns into: marketplace, store, order ID, order time, SKU, product name, quantity, paid amount, freight, status, province/city.
+  3. Merge duplicate order IDs and flag them in red; highlight missing fields in yellow.
+  4. Export "merged-orders.xlsx" and "order-exceptions.xlsx"; originals untouched.
+- Include a 400-word user guide explaining how to add a new marketplace mapping.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'sku-image-packager',
+    icon: 'image',
+    titleZh: '按 SKU 整理商品图片素材包',
+    titleEn: 'Package product images by SKU',
+    painZh: '商品图、详情图、短图散在文件夹里，上传前总要人工改名和分包。',
+    painEn: 'Product images are scattered across folders and need manual renaming before upload.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个商品图片整理小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + sharp
+- 功能：
+  1. 拖入图片文件夹和 SKU 对照 Excel。
+  2. 按文件名、子文件夹名或 Excel 映射，把图片归到对应 SKU。
+  3. 批量重命名为 SKU-main-01、SKU-detail-01、SKU-size-01 等规则；改名前展示预览。
+  4. 检查每个 SKU 是否缺主图、详情图、尺寸图；缺失项导出 Excel。
+  5. 一键输出每个 SKU 一个文件夹的素材包，原图不动。
+- 附 400 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a product image packaging tool:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + sharp
+- Features:
+  1. Drop an image folder and a SKU mapping Excel.
+  2. Match images to SKUs by filename, subfolder name, or Excel mapping.
+  3. Batch rename to patterns like SKU-main-01, SKU-detail-01, SKU-size-01; preview before applying.
+  4. Check whether each SKU is missing hero, detail, or size images; export missing items to Excel.
+  5. Output one folder per SKU; originals untouched.
+- Include a 400-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'shipping-exception-checker',
+    icon: 'folder',
+    titleZh: '每天筛出物流异常件',
+    titleEn: 'Find daily shipment exceptions',
+    painZh: '物流表里有停滞、退回、派送失败、地址异常，客服容易漏跟。',
+    painEn: 'Shipment exports hide stalled, returned, failed-delivery, and bad-address orders.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个物流异常筛查小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + xlsx
+- 功能：
+  1. 拖入快递状态 Excel/CSV，自动识别订单号、运单号、状态、更新时间、收件省市、手机号。
+  2. 内置规则：48 小时未更新、派送失败、已退回、地址异常、破损、拒收、关键词命中。
+  3. 支持在设置里调整小时阈值和关键词。
+  4. 输出按严重程度排序的异常清单，手机号默认脱敏。
+  5. 一键导出“今日物流异常.xlsx”，含建议客服跟进话术。
+- 附 300 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a shipment exception checker:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + xlsx
+- Features:
+  1. Drop shipment Excel/CSV; auto-detect order ID, tracking ID, status, update time, province/city, phone.
+  2. Built-in rules: no update for 48 hours, failed delivery, returned, bad address, damaged, refused, keyword hit.
+  3. Let users adjust hour threshold and keywords in settings.
+  4. Output a severity-ranked exception list with masked phone numbers by default.
+  5. Export "shipment-exceptions-today.xlsx" with suggested support wording.
+- Include a 300-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'product-label-printer',
+    icon: 'excel',
+    titleZh: '批量生成商品标签和条码贴纸',
+    titleEn: 'Generate product labels and barcode stickers',
+    painZh: '仓库要打印 SKU 标签、价格签、库位贴纸，手动排版容易错。',
+    painEn: 'Warehouse label printing for SKUs, price tags, and bin labels is error-prone by hand.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个商品标签生成小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + bwip-js + pdf-lib
+- 功能：
+  1. 导入 SKU Excel，字段包括 SKU、商品名、条码、规格、售价、库位、打印数量。
+  2. 选择标签尺寸：40×30、60×40、80×50，也可自定义毫米尺寸。
+  3. 自动生成条码/二维码，支持预览单张和整页。
+  4. 导出适合 A4 或热敏打印的 PDF；打印数量按 Excel 字段重复。
+  5. 长商品名自动换行，不挤出标签边界。
+- 附 300 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a product label generator:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + bwip-js + pdf-lib
+- Features:
+  1. Import SKU Excel with SKU, product name, barcode, spec, price, bin location, print quantity.
+  2. Choose label size: 40x30, 60x40, 80x50 mm, or custom.
+  3. Generate barcode/QR code; preview single label and full page.
+  4. Export PDF for A4 or thermal printer; repeat labels by quantity.
+  5. Long product names wrap without overflowing the label.
+- Include a 300-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'platform-bill-reconciliation',
+    icon: 'pdf',
+    titleZh: '平台账单和订单一键核对',
+    titleEn: 'Reconcile marketplace bills with orders',
+    painZh: '平台账单里佣金、退款、运费、服务费太多，和订单总额经常对不上。',
+    painEn: 'Marketplace bills include commission, refunds, freight, and service fees, often not matching order totals.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个平台账单核对小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + xlsx
+- 功能：
+  1. 导入订单表和平台账单表。
+  2. 按订单号匹配成交、退款、佣金、服务费、运费、补贴、实际到账。
+  3. 自动计算差异金额和差异原因；匹配不到的订单单独列出。
+  4. 首页展示总订单额、总到账、总费用、总差异和异常数量。
+  5. 导出“账单核对结果.xlsx”，含明细页、异常页、汇总页。
+- 附 500 字中文使用说明，解释常见差异原因。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a marketplace bill reconciliation tool:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + xlsx
+- Features:
+  1. Import order sheet and marketplace bill sheet.
+  2. Match by order ID across sales, refunds, commission, service fee, freight, subsidy, actual settlement.
+  3. Calculate variance amount and likely reason; list unmatched orders separately.
+  4. Home view shows total orders, settlement, fees, variance, and exception count.
+  5. Export "bill-reconciliation-result.xlsx" with detail, exception, and summary sheets.
+- Include a 500-word guide explaining common variance reasons.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'campaign-calendar-planner',
+    icon: 'kanban',
+    titleZh: '大促节点日历和任务提醒',
+    titleEn: 'Campaign calendar and task reminders',
+    painZh: '报名、备货、素材、价格、直播、复盘节点太多，经常靠人记。',
+    painEn: 'Campaign enrollment, stock, materials, price, live sessions, and recap milestones are hard to track manually.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个电商大促日历小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + 本地 SQLite
+- 功能：
+  1. 新建活动：名称、开始/结束日期、平台、负责人。
+  2. 内置任务模板：报名、选品、备货、价格确认、素材提交、客服话术、直播排期、上线检查、复盘。
+  3. 日历视图 + 看板视图，任务可拖拽改日期和状态。
+  4. 逾期任务红色提醒；今天任务可导出为 Excel。
+  5. 支持从 Excel 批量导入任务。
+- 附 400 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build an e-commerce campaign calendar:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + local SQLite
+- Features:
+  1. Create campaign: name, start/end date, marketplace, owner.
+  2. Built-in task templates: enrollment, product selection, stock, price confirmation, materials, support wording, live schedule, launch check, recap.
+  3. Calendar view + board view; drag tasks to change date and status.
+  4. Overdue tasks turn red; today's tasks export to Excel.
+  5. Bulk import tasks from Excel.
+- Include a 400-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'support-macro-library',
+    icon: 'search',
+    titleZh: '客服快捷话术库',
+    titleEn: 'Customer support macro library',
+    painZh: '客服话术散在文档和聊天里，新人找不到，老人也复制错版本。',
+    painEn: 'Support macros are scattered across docs and chats, so agents find or copy the wrong version.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个客服话术库小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + 本地 SQLite
+- 功能：
+  1. 话术按场景分类：物流、退款、换货、质量、活动规则、发票、投诉。
+  2. 大搜索框支持关键词和标签搜索；结果可一键复制。
+  3. 支持变量占位：{昵称}、{订单号}、{商品名}，复制前弹窗填写。
+  4. 话术有版本号、更新时间、适用店铺和禁用状态。
+  5. 支持从 Excel 导入/导出，记录每条话术复制次数。
+- 附 400 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a customer support macro library:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + local SQLite
+- Features:
+  1. Categorize macros by logistics, refund, exchange, quality, campaign rules, invoice, complaint.
+  2. Large search box supports keyword and tag search; one-click copy.
+  3. Variable placeholders: {name}, {orderId}, {productName}; prompt for values before copy.
+  4. Each macro has version, updated date, applicable store, and disabled status.
+  5. Excel import/export; record copy count per macro.
+- Include a 400-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'creator-sample-desktop',
+    icon: 'folder',
+    titleZh: '达人样品寄送跟进表',
+    titleEn: 'Creator sample follow-up board',
+    painZh: '寄样、签收、发布、复盘状态分散，市场同事每天要翻很多记录。',
+    painEn: 'Sample shipment, receipt, publish status, and recap are scattered across records.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个达人样品跟进小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + 本地 SQLite
+- 功能：
+  1. 导入达人名单和寄样表，字段包括达人名、平台、粉丝量、SKU、快递单号、约定发布时间、负责人。
+  2. 看板列：待寄出、运输中、已签收、待发布、已发布、待复盘、暂停。
+  3. 逾期未签收和逾期未发布自动高亮。
+  4. 每个达人卡片可记录内容链接、播放/互动/成交数据和备注。
+  5. 导出今日跟进清单和复盘表。
+- 附 400 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a creator sample follow-up board:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + local SQLite
+- Features:
+  1. Import creator list and sample sheet: creator, platform, followers, SKU, tracking ID, promised publish date, owner.
+  2. Board columns: to send, in transit, received, waiting publish, published, waiting recap, paused.
+  3. Highlight overdue receipt and overdue publish.
+  4. Creator card stores content link, views/interactions/sales, and notes.
+  5. Export today's follow-up list and recap sheet.
+- Include a 400-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'competitor-price-sheet',
+    icon: 'excel',
+    titleZh: '竞品价格采集表整理器',
+    titleEn: 'Competitor price tracker cleaner',
+    painZh: '竞品价格表每天复制回来格式很乱，很难看出谁降价了。',
+    painEn: 'Daily competitor price sheets come back messy, making price drops hard to spot.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个竞品价格整理小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + xlsx
+- 功能：
+  1. 导入今日竞品价格表和历史价格表。
+  2. 自动清洗价格字段，识别券后价、赠品、店铺名、商品链接、采集时间。
+  3. 和历史价格对比，标出降价、涨价、新增、下架、赠品变化。
+  4. 支持按我方 SKU 映射竞品商品，展示价差和变化幅度。
+  5. 导出“竞品价格变化.xlsx”和一页摘要图片。
+- 附 400 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a competitor price tracker cleaner:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + xlsx
+- Features:
+  1. Import today's competitor price sheet and historical price sheet.
+  2. Clean price fields and detect final price after coupon, gifts, store name, product link, capture time.
+  3. Compare with history and flag price down, price up, new item, delisted item, gift change.
+  4. Map competitor products to our SKUs and show price gap and movement.
+  5. Export "competitor-price-changes.xlsx" and a one-page summary image.
+- Include a 400-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'live-run-sheet-timer',
+    icon: 'timer',
+    titleZh: '直播排品计时器',
+    titleEn: 'Live run-sheet timer',
+    painZh: '直播时商品顺序、讲解时长、上链接提醒都靠人工盯，容易错过节奏。',
+    painEn: 'During live sessions, product order, speaking time, and link reminders are hard to manage manually.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个直播排品计时小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + 本地 SQLite
+- 功能：
+  1. 导入直播排品 Excel：时间、SKU、商品名、价格、卖点、链接、主播话术、场控提醒。
+  2. 大屏计时视图显示当前商品、下一商品、剩余时间、提醒事项。
+  3. 到点自动提醒“上链接 / 发券 / 切下一个品 / 库存确认”。
+  4. 直播中可一键标记跳过、延长、异常，并记录实际时间。
+  5. 直播后导出复盘表。
+- 附 400 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a live run-sheet timer:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + local SQLite
+- Features:
+  1. Import live run-sheet Excel: time, SKU, product, price, selling points, link, host wording, control reminder.
+  2. Big timer view shows current product, next product, remaining time, reminders.
+  3. Timed reminders for link, coupon, next product, stock check.
+  4. During live, mark skipped, extended, exception, and actual time.
+  5. Export recap sheet after the session.
+- Include a 400-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'sku-listing-auditor',
+    icon: 'search',
+    titleZh: '商品资料上架前巡检',
+    titleEn: 'SKU listing preflight auditor',
+    painZh: '商品标题、价格、库存、图片、资质经常有缺漏，等上线前才返工。',
+    painEn: 'Titles, prices, stock, images, and certificates often miss pieces until the last minute.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个商品资料巡检小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + xlsx
+- 功能：
+  1. 导入商品资料表、图片清单、资质清单。
+  2. 检查标题、类目、规格、售价、成本、库存、主图、详情图、卖点、售后说明、资质有效期。
+  3. 标出缺失、冲突和高风险项，例如售价低于成本、库存为 0、图片不足、资质过期。
+  4. 每个 SKU 生成完整度分数：可上线 / 补齐后上线 / 暂缓。
+  5. 导出“商品资料补齐清单.xlsx”。
+- 附 400 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a SKU listing preflight auditor:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + xlsx
+- Features:
+  1. Import product sheet, image list, certificate list.
+  2. Check title, category, spec, price, cost, stock, hero image, detail image, selling points, after-sales note, certificate expiry.
+  3. Flag missing, conflicting, and high-risk items such as price below cost, zero stock, insufficient images, expired certificate.
+  4. Generate completeness score per SKU: ready / ready after fixes / pause.
+  5. Export "listing-fix-list.xlsx".
+- Include a 400-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
+  {
+    id: 'inventory-transfer-planner',
+    icon: 'excel',
+    titleZh: '多仓库存调拨建议器',
+    titleEn: 'Multi-warehouse transfer planner',
+    painZh: '多仓库存一边断货一边积压，手工算调拨数量太慢。',
+    painEn: 'One warehouse stocks out while another overstock; manual transfer planning is slow.',
+    promptZh: `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个多仓库存调拨小工具：
+- 平台：Windows 10/11 和 macOS
+- 做法：Electron + React + TypeScript + xlsx + ECharts
+- 功能：
+  1. 导入各仓库存表、近 30 天销量表、在途库存表。
+  2. 计算每个 SKU 在每个仓的日均销量、可售天数、断货风险和积压风险。
+  3. 自动建议从库存过高仓调往库存不足仓，给出建议数量和理由。
+  4. 可设置安全库存天数、最低调拨数量、活动保留量。
+  5. 导出“调拨建议.xlsx”和“断货风险.xlsx”。
+- 附 500 字中文使用说明。
+先给简短方案摘要，然后直接实现、运行和验证。中文。`,
+    promptEn: `You are a senior engineer for Windows and macOS desktop apps. Build a multi-warehouse transfer planner:
+- Platform: Windows 10/11 and macOS
+- Stack: Electron + React + TypeScript + xlsx + ECharts
+- Features:
+  1. Import warehouse stock, last-30-day sales, and incoming stock sheets.
+  2. Calculate daily average sales, days of supply, stockout risk, and overstock risk per SKU per warehouse.
+  3. Recommend transfers from overstocked warehouses to low-stock warehouses, with quantity and reason.
+  4. Configurable safety stock days, minimum transfer quantity, campaign reserve.
+  5. Export "transfer-suggestions.xlsx" and "stockout-risk.xlsx".
+- Include a 500-word user guide.
+Start with a brief plan summary, then implement, run, and verify.`,
+  },
 ];
