@@ -144,6 +144,21 @@ html {
   .focus-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--surface)];
   }
+  .aurora-text {
+    background: linear-gradient(135deg, #FF9EC4 0%, #B8A4FF 45%, #9CCEFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .shadow-glass {
+    box-shadow: 0 1px 2px rgba(15, 17, 22, 0.04), 0 8px 24px rgba(15, 17, 22, 0.06);
+  }
+  .shadow-glass-sm {
+    box-shadow: 0 1px 2px rgba(15, 17, 22, 0.03), 0 4px 12px rgba(15, 17, 22, 0.05);
+  }
+  .text-aurora-violet {
+    color: #B8A4FF;
+  }
   .prose-body p {
     @apply text-[15px] leading-[1.85] text-[color:var(--fg-secondary)];
   }

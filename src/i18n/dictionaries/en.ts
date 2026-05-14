@@ -181,7 +181,7 @@ export const en = {
     qualityTitle: 'Pre-copy check',
     qualityReady: 'Clear enough',
     qualityNeedsInput: 'Add detail',
-    qualityLength: 'Approx. {tokens} tokens / {chars} chars',
+    qualityCoverage: 'Quality coverage: {passed}/{total} key inputs',
     qualityGoal: 'Goal',
     qualityFeatures: 'Features',
     qualityIo: 'Input/output',

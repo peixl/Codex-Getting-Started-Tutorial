@@ -43,12 +43,6 @@ function normalizeFormState(state?: Partial<FormState>): FormState {
   };
 }
 
-function estimateTokens(text: string) {
-  const cjk = text.match(/[\u3400-\u9FFF]/gu)?.length ?? 0;
-  const compactOther = text.replace(/[\s\u3400-\u9FFF]/gu, '');
-  return Math.ceil(cjk * 1.05 + compactOther.length / 4);
-}
-
 function includesAny(text: string, words: string[]) {
   const normalized = text.toLowerCase();
   return words.some((word) => normalized.includes(word.toLowerCase()));
@@ -68,7 +62,7 @@ export function GeneratorApp({ locale, dict }: Props) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as { state?: FormState };
-        if (parsed.state) setState(normalizeFormState(parsed.state));
+        if (parsed.state) setState(normalizeFormState(parsed.state)); // eslint-disable-line react-hooks/set-state-in-effect -- hydration-safe localStorage restore
       }
       const historyRaw = window.localStorage.getItem(HISTORY_KEY);
       if (historyRaw) {
@@ -81,7 +75,7 @@ export function GeneratorApp({ locale, dict }: Props) {
   }, []);
 
   useEffect(() => {
-    setLang(locale);
+    setLang(locale); // eslint-disable-line react-hooks/set-state-in-effect -- sync prompt lang with locale
   }, [locale]);
 
   useEffect(() => {
@@ -131,13 +125,14 @@ export function GeneratorApp({ locale, dict }: Props) {
         ok: includesAny(requestText, ['验收', '成功', '完成', '打包', '测试', 'verify', 'test', 'done', 'package']),
       },
     ];
+    const passed = checks.filter((check) => check.ok).length;
     return {
       checks,
-      chars: [...prompt].length,
-      tokens: estimateTokens(prompt),
-      ready: checks.filter((check) => check.ok).length >= 3,
+      passed,
+      total: checks.length,
+      ready: passed >= 3,
     };
-  }, [dict, prompt, state.features, state.goal]);
+  }, [dict, state.features, state.goal]);
 
   const valid = state.goal.trim().length > 0 && state.features.trim().length > 0;
 
@@ -403,9 +398,9 @@ export function GeneratorApp({ locale, dict }: Props) {
                 </span>
               </div>
               <p className="mt-2 text-[11.5px] text-ink-mute">
-                {dict.generator.qualityLength
-                  .replace('{tokens}', String(promptHealth.tokens))
-                  .replace('{chars}', String(promptHealth.chars))}
+                {dict.generator.qualityCoverage
+                  .replace('{passed}', String(promptHealth.passed))
+                  .replace('{total}', String(promptHealth.total))}
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {promptHealth.checks.map((check) => (

@@ -8,6 +8,50 @@ const json = args.has('--json');
 const limitArg = process.argv.find((arg) => arg.startsWith('--limit='));
 const limit = Number(limitArg?.split('=')[1] ?? 10);
 
+const CONTENT_SIGNALS = {
+  zh: [
+    ['AI 小白', '不懂代码', '小白'],
+    ['sample-data', '示例数据'],
+    ['烟测'],
+    ['不覆盖原文件'],
+    ['不写死', '不写死密钥'],
+    ['真实接线'],
+    ['友好', '不闪退'],
+    ['降级', '3 次失败'],
+  ],
+  en: [
+    ['AI beginner', 'non-technical', 'non-developer'],
+    ['sample-data', 'sample data'],
+    ['Smoke test', 'smoke-tested'],
+    ['Never overwrite', 'never overwrite'],
+    ['No hard-coded', 'no hard-coded'],
+    ['Real wiring'],
+    ['friendly', 'no crash'],
+    ['downgrade', '3 times'],
+  ],
+};
+
+const STRUCTURE_SIGNALS = {
+  zh: [
+    ['目标：', '【目标】'],
+    ['功能：', '【核心功能】'],
+    ['平台：', '【平台与技术】', '【环境】'],
+    ['【快速交付】', '【交付】'],
+    ['完成标准', '验收清单', '自检清单'],
+    ['【约束】', '【实现纪律 / 安全】'],
+    ['最终只报', '最终汇报', '使用说明'],
+  ],
+  en: [
+    ['Goal:', '[Goal]'],
+    ['Features:', '[Core Features]'],
+    ['Platform:', '[Platform & Stack]'],
+    ['[Fast Delivery]', '[Delivery]', '[Desktop Delivery Contract]'],
+    ['Done criteria', 'Acceptance checklist', 'Self-check'],
+    ['[Constraints]', '[Implementation / Safety]'],
+    ['Final report', 'user guide', 'guide'],
+  ],
+};
+
 const entry = `
 import { caseBundles, getCasePrompt } from './src/data/cases/index.ts';
 import { recipes, getRecipePrompt } from './src/data/recipes.ts';
@@ -38,17 +82,11 @@ export function collectPrompts() {
 }
 `;
 
-function estimateTokens(text) {
-  const cjk = text.match(/[\u3400-\u9FFF]/gu)?.length ?? 0;
-  const compactOther = text.replace(/[\s\u3400-\u9FFF]/gu, '');
-  return Math.ceil(cjk * 1.05 + compactOther.length / 4);
-}
-
-function percentile(values, p) {
-  if (!values.length) return 0;
-  const sorted = [...values].sort((a, b) => a - b);
-  const index = Math.min(sorted.length - 1, Math.ceil((p / 100) * sorted.length) - 1);
-  return sorted[index];
+function signalCount(text, lang, signals) {
+  const normalized = text.toLowerCase();
+  return signals[lang].filter((alternatives) =>
+    alternatives.some((phrase) => normalized.includes(phrase.toLowerCase()))
+  ).length;
 }
 
 function summarize(rows) {
@@ -61,16 +99,18 @@ function summarize(rows) {
   }
 
   return [...groups.entries()].map(([bucket, list]) => {
-    const chars = list.map((item) => item.chars);
-    const tokens = list.map((item) => item.tokens);
+    const contentSignals = list.map((item) => item.contentSignals);
+    const structureSignals = list.map((item) => item.structureSignals);
+    const qualityScore = list.map((item) => item.qualityScore);
     return {
       bucket,
       count: list.length,
-      avgChars: Math.round(chars.reduce((sum, value) => sum + value, 0) / list.length),
-      p95Chars: percentile(chars, 95),
-      maxChars: Math.max(...chars),
-      avgTokens: Math.round(tokens.reduce((sum, value) => sum + value, 0) / list.length),
-      maxTokens: Math.max(...tokens),
+      avgContentSignals: Number((contentSignals.reduce((sum, value) => sum + value, 0) / list.length).toFixed(1)),
+      minContentSignals: Math.min(...contentSignals),
+      avgStructureSignals: Number((structureSignals.reduce((sum, value) => sum + value, 0) / list.length).toFixed(1)),
+      minStructureSignals: Math.min(...structureSignals),
+      avgQualityScore: Number((qualityScore.reduce((sum, value) => sum + value, 0) / list.length).toFixed(1)),
+      minQualityScore: Math.min(...qualityScore),
     };
   });
 }
@@ -101,32 +141,37 @@ const { collectPrompts } = await import(moduleUrl);
 const rows = collectPrompts()
   .map((item) => ({
     ...item,
-    chars: [...item.text].length,
-    bytes: Buffer.byteLength(item.text, 'utf8'),
-    tokens: estimateTokens(item.text),
+    contentSignals: signalCount(item.text, item.lang, CONTENT_SIGNALS),
+    structureSignals: signalCount(item.text, item.lang, STRUCTURE_SIGNALS),
   }))
-  .sort((a, b) => b.tokens - a.tokens);
+  .map((item) => ({
+    ...item,
+    qualityScore: item.contentSignals + item.structureSignals,
+  }))
+  .sort((a, b) => a.qualityScore - b.qualityScore || a.contentSignals - b.contentSignals);
 
 const result = {
   generatedAt: new Date().toISOString(),
   total: rows.length,
   summary: summarize(rows),
-  longest: rows.slice(0, Number.isFinite(limit) ? limit : 10),
+  reviewQueue: rows.slice(0, Number.isFinite(limit) ? limit : 10),
 };
 
 if (json) {
   console.log(JSON.stringify(result, null, 2));
 } else {
-  console.log(`Prompt stats (${result.total} final copy prompts)`);
+  console.log(`Prompt quality report (${result.total} final copy prompts)`);
+  console.log('Focus: content, structure, safety, verification, and beginner usability coverage.');
   console.table(result.summary);
-  console.log(`\nTop ${limit} longest prompts:`);
+  console.log(`\nReview queue (${limit} lowest quality-coverage prompts):`);
   console.table(
-    result.longest.map(({ group, id, lang, chars, tokens }) => ({
+    result.reviewQueue.map(({ group, id, lang, contentSignals, structureSignals, qualityScore }) => ({
       group,
       id,
       lang,
-      chars,
-      approxTokens: tokens,
+      contentSignals,
+      structureSignals,
+      qualityScore,
     }))
   );
   console.log('\nTip: run npm run prompt:stats -- --json for machine-readable output.');

@@ -173,54 +173,55 @@ function deliveryZh(complexity: Complexity): string {
   if (complexity === 'starter') {
     return `1. 先给 ≤6 行摘要：目标 / 主流程 / 技术栈 / M1。
 2. 只问真实阻塞问题（真实文件、账号、证书、不可逆操作）；其他合理假设并继续。
-3. M1≤15 分钟：可启动窗口 + 主工作台 + 示例数据/试用模式 + 一行假结果，先让用户看到成果。
-4. M2 接通真实主流程并跑示例数据；随后补最必要的错误提示、测试、打包脚本和说明。`;
+3. M1≤15 分钟：可启动窗口 + 主工作台 + 脱敏 sample-data/试用模式 + 一行假结果，先让用户看到成果。M1 卡住 → 换更简单的实现方式，不要死磕。
+4. M2 接通真实主流程并跑示例数据；随后补最必要的错误提示、测试、打包脚本和说明。同一问题 3 次失败 → 降级边缘功能，先交付主流程。`;
   }
 
   if (complexity === 'advanced') {
     return `1. 先给 ≤8 行摘要：目标 / 主流程 / 技术栈 / 验收 / M1 / 风险。
 2. 最多问 3 个真实阻塞问题；其他合理假设并继续实现、运行、修复、验证。
-3. M1≤15 分钟：可启动窗口 + 主工作台 + 示例数据/试用模式 + 一行假结果。
-4. M2 接通真实主流程：导入/填写 → 预览 → 生成/保存。
+3. M1≤15 分钟：可启动窗口 + 主工作台 + 脱敏 sample-data/试用模式 + 一行假结果。M1 卡住 → 换更简单方案先出窗口。
+4. M2 接通真实主流程：导入/填写 → 预览 → 生成/保存。M2 卡住 → 先跑通核心 3 步，边缘路径后面补。
 5. M3 补设置、历史、批量、权限/隐私、撤销/恢复和团队使用状态；M4 跑完整验证、打包、文档。
-6. 里程碑汇报 ≤6 行：完成 / 验证 / 跳过原因 / 下一步+预计时间。`;
+6. 里程碑汇报 ≤6 行：完成 / 验证 / 跳过原因 / 下一步+预计时间。同一问题 3 次失败 → 降级或禁用，先交付主流程。`;
   }
 
   return `1. 先给 ≤8 行摘要：目标 / 主流程 / 技术栈 / 验收 / M1。
 2. 最多问 3 个真实阻塞问题（真实文件、账号、证书、不可逆操作）；其他合理假设并继续。
-3. M1≤15 分钟：可启动窗口 + 主工作台 + 示例数据/试用模式 + 一行假结果，先让用户看到成果。
+3. M1≤15 分钟：可启动窗口 + 主工作台 + 脱敏 sample-data/试用模式 + 一行假结果，先让用户看到成果。M1 卡住 → 换方案先出窗口。
 4. M2 接通真实主流程：导入/填写 → 预览 → 生成/保存；M3 补异常、隐私、撤销/恢复、UI；M4 测试、打包、文档。
-5. 里程碑汇报 ≤6 行，只写：完成 / 验证 / 跳过原因 / 下一步+预计时间。`;
+5. 里程碑汇报 ≤6 行，只写：完成 / 验证 / 跳过原因 / 下一步+预计时间。同一问题 3 次失败 → 降级边缘功能，先交付主流程。`;
 }
 
 function deliveryEn(complexity: Complexity): string {
   if (complexity === 'starter') {
     return `1. Start with a ≤6-line summary: goal / main flow / stack / M1.
 2. Ask only for true blockers (real files, accounts, certificates, irreversible actions); otherwise assume reasonably and continue.
-3. M1≤15 min: launchable window + workspace + sample/demo data + one fake result, so the user sees progress quickly.
-4. M2 wires the real main flow and runs sample data; then add essential errors, tests, package script, and guide.`;
+3. M1≤15 min: launchable window + workspace + anonymized sample/demo data + one fake result. If M1 stalls, simplify the approach — get a window up first.
+4. M2 wires the real main flow and runs sample data; then add essential errors, tests, package script, and guide. Same bug fails 3 times → downgrade edge features, ship the main flow.`;
   }
 
   if (complexity === 'advanced') {
     return `1. Start with a ≤8-line summary: goal / main flow / stack / acceptance / M1 / risks.
 2. Ask at most 3 truly blocking questions; otherwise assume reasonably and continue implementing, running, fixing, and verifying.
-3. M1≤15 min: launchable window + workspace + sample/demo data + one fake result.
-4. M2 wires the real main flow: import/fill → preview → generate/save.
+3. M1≤15 min: launchable window + workspace + anonymized sample/demo data + one fake result. If M1 stalls, simplify — get a window first.
+4. M2 wires the real main flow: import/fill → preview → generate/save. If M2 stalls, wire the core 3 steps first, fill edges later.
 5. M3 adds settings, history, batch, permissions/privacy, undo/recovery, and team-use states. M4 runs full verification, packaging, and docs.
-6. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA.`;
+6. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA. Same bug fails 3 times → downgrade or disable, ship the main flow.`;
   }
 
   return `1. Start with a ≤8-line summary: goal / main flow / stack / acceptance / M1.
 2. Ask at most 3 truly blocking questions (real files, accounts, certificates, irreversible actions); otherwise assume reasonably and continue.
-3. M1≤15 min: launchable window + workspace + sample/demo data + one fake result, so the user sees progress quickly.
+3. M1≤15 min: launchable window + workspace + anonymized sample/demo data + one fake result. If M1 stalls, simplify — get a window up first.
 4. M2 wires the real main flow: import/fill → preview → generate/save. M3 adds errors, privacy, undo/recovery, UI. M4 runs tests, packaging, docs.
-5. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA.`;
+5. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA. Same bug fails 3 times → downgrade edge features, ship the main flow.`;
 }
 
 function dodZh(state: FormState): string {
   const pack = packageLine(state.platform, 'zh');
   if (state.complexity === 'starter') {
-    return `- 能双击或一条命令启动，第一屏就是主工作台。
+    return `完成标准（逐条检查，全部通过才停手）：
+- 能双击或一条命令启动，第一屏就是主工作台。
 - 示例数据跑通真实主流程，并产生文件/图/表格等可检查产物。
 - 至少覆盖空数据、错格式、取消、重名冲突，不闪退。
 - 核心逻辑有测试；lint、类型检查、构建通过；无 TODO、空函数、假接线冒充完成。
@@ -229,7 +230,8 @@ function dodZh(state: FormState): string {
   }
 
   if (state.complexity === 'advanced') {
-    return `- 能双击或一条命令启动，第一屏就是主工作台。
+    return `完成标准（逐条检查，全部通过才停手）：
+- 能双击或一条命令启动，第一屏就是主工作台。
 - 示例数据和至少 2 个异常样例跑通真实主流程，并产生可检查产物。
 - 空数据、错格式、取消、无权限、重名冲突、大文件、重复数据都有友好状态，不闪退。
 - lint、类型检查、测试、构建通过；核心逻辑、导入导出、错误分支都有自动化测试；无 TODO、空函数、假接线冒充完成。
@@ -237,7 +239,8 @@ function dodZh(state: FormState): string {
 满足以上就最终汇报并停手；新想法写进已知限制。同一问题连续 3 次失败就降级或禁用边缘功能，先交付主流程。`;
   }
 
-  return `- 能双击或一条命令启动，第一屏就是主工作台。
+  return `完成标准（逐条检查，全部通过才停手）：
+- 能双击或一条命令启动，第一屏就是主工作台。
 - 示例数据跑通真实主流程，并产生文件/图/表格等可检查产物。
 - 空数据、错格式、取消、无权限、重名冲突、大文件都有友好状态，不闪退。
 - lint、类型检查、测试、构建通过；核心逻辑至少 1 个自动化测试；无 TODO、空函数、假接线冒充完成。
@@ -248,7 +251,8 @@ function dodZh(state: FormState): string {
 function dodEn(state: FormState): string {
   const pack = packageLine(state.platform, 'en');
   if (state.complexity === 'starter') {
-    return `- App launches by double-click or one command; first screen is the workspace.
+    return `Done criteria (check each — all must pass before reporting):
+- App launches by double-click or one command; first screen is the workspace.
 - Sample data completes the real flow and creates a checkable artifact.
 - Empty data, bad formats, cancel, and name conflicts are friendly, not crashes.
 - Core logic has a test; lint, typecheck, and build pass; no TODOs, empty functions, or fake wiring count as done.
@@ -257,7 +261,8 @@ When these hold, send the final report and stop. Put new ideas in known limitati
   }
 
   if (state.complexity === 'advanced') {
-    return `- App launches by double-click or one command; first screen is the workspace.
+    return `Done criteria (check each — all must pass before reporting):
+- App launches by double-click or one command; first screen is the workspace.
 - Sample data and at least 2 bad-path samples complete the real flow and create checkable artifacts.
 - Empty data, bad formats, cancel, no permission, name conflicts, large files, and duplicates have friendly states, not crashes.
 - lint, typecheck, tests, and build pass; core logic, import/export, and error branches have automated tests; no TODOs, empty functions, or fake wiring count as done.
@@ -265,7 +270,8 @@ When these hold, send the final report and stop. Put new ideas in known limitati
 When these hold, send the final report and stop. If the same bug fails 3 times, downgrade or disable the edge feature and ship the main flow.`;
   }
 
-  return `- App launches by double-click or one command; first screen is the workspace.
+  return `Done criteria (check each — all must pass before reporting):
+- App launches by double-click or one command; first screen is the workspace.
 - Sample data completes the real flow and produces a checkable file/image/sheet artifact.
 - Empty data, bad formats, cancel, no permission, name conflicts, and large files have friendly states, not crashes.
 - lint, typecheck, tests, and build pass; core logic has at least one automated test; no TODOs, empty functions, or fake wiring count as done.
@@ -323,6 +329,7 @@ function implementationZh(state: FormState): string {
     return `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
 - 不写死 API Key、绝对路径、个人邮箱、内网地址；改既有文件前先读，最小 diff。
 - 输出不覆盖原文件，冲突加时间后缀；只读用户选/拖入的文件。
+- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让小白用户先准备数据才开工。
 - 分层：desktop shell / 受控 API / UI / core / tests / sample-data / docs；真实接线按钮、导入、预览、生成/保存、错误状态。`;
   }
 
@@ -331,6 +338,7 @@ function implementationZh(state: FormState): string {
 - 不写死 API Key、绝对路径、个人邮箱、内网地址；配置走 \`.env.example\`；改既有文件前先读，最小 diff。
 - 输出不覆盖原文件，冲突加时间后缀；改文件/数据前预览或确认；支持撤销/恢复。
 ${retryLine}
+- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让小白用户先准备数据才开工。
 - 只读用户选/拖入的文件；敏感字段导出前脱敏或提醒，日志不记敏感内容。
 - 分层：desktop shell / preload 或受控 API / renderer UI / core / tests / sample-data / docs；IPC 类型化、白名单化，UI 不直接执行本地命令。
 - 真实接线：按钮、导入、预览、生成/保存、导出、错误状态都可用；核心逻辑小模块、类型明确、错误分层。`;
@@ -354,6 +362,7 @@ function implementationEn(state: FormState): string {
     return `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
 - No hard-coded API keys, absolute paths, personal emails, or internal hosts; read existing files first; minimum diff.
 - Never overwrite inputs; timestamp conflicts; read only picked/dropped files.
+- No real files? create anonymized \`sample-data/\` first; do not block beginner users.
 - Layers: desktop shell / controlled API / UI / core / tests / sample-data / docs; real wiring for buttons, import, preview, generate/save, and errors.`;
   }
 
@@ -362,6 +371,7 @@ function implementationEn(state: FormState): string {
 - No hard-coded API keys, absolute paths, personal emails, or internal hosts; use \`.env.example\`; read existing files first; minimum diff.
 - Never overwrite inputs; timestamp conflicts; preview/confirm before mutations; support undo/recovery.
 ${retryLine}
+- No real files? create anonymized \`sample-data/\` first; do not block beginner users.
 - Read only picked/dropped files; warn or mask sensitive fields before export; logs exclude sensitive content.
 - Layers: desktop shell / preload or controlled API / renderer UI / core / tests / sample-data / docs; IPC typed and allowlisted, renderer never runs local commands.
 - Real wiring: buttons, import, preview, generate/save, export, and error states work; core logic uses small typed modules and layered errors.`;
@@ -389,7 +399,7 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
     if (state.extras.accessibility) extras.push(ACCESSIBILITY_ZH[state.platform]);
     if (custom) extras.push(custom);
 
-    return `你是擅长 ${ROLE_DOMAIN_ZH[state.platform]} 的资深桌面应用工程师。交付本地可运行应用，不是建议。用户不懂代码；沟通、按钮、错误和文档都用业务语言。全程中文。
+    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。交付本地可运行应用，不是建议。用户是 AI 小白/不懂代码；沟通、按钮、错误和文档都用业务语言。全程中文。
 
 【快速交付】
 ${deliveryZh(state.complexity)}
@@ -405,9 +415,9 @@ ${dodZh(state)}
 - 复杂度：${COMPLEXITY_ZH[state.complexity]}
 
 【需求】
-目标：${goal || '（请补充：给谁用？解决什么问题？一两句话）'}
+目标：${goal || '（请补充：给谁用？解决什么业务痛点？例："帮财务同事把每月对账从 2 天压到 1 小时"）'}
 功能：
-${features || '（请补充：希望有哪些功能？一行一条，尽量具体）'}
+${features || '（请补充：一行一条，写清"做什么 → 用户看到什么"。例：\n- 拖入两张 Excel → 自动按订单号比对 → 差异标红\n- 点"导出" → 生成差异明细 Excel\n- 超过 10 万行 → 分批处理并显示进度条）'}
 
 ${extras.length ? `附加要求：\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}【桌面与 UX 硬要求】
 ${uxZh(state.complexity)}
@@ -416,7 +426,15 @@ ${uxZh(state.complexity)}
 ${implementationZh(state)}
 
 【验证与最终汇报】
-运行 lint、类型检查、测试、构建，并启动应用走一遍示例数据主流程。最终只报：做了什么 | 如何打开 | 产物路径 | 验证 | 剩余限制。
+自检清单（全部通过才算完成）：
+□ lint、类型检查、测试、构建全部通过
+□ 双击/一条命令启动，第一屏是主工作台
+□ 示例数据跑通主流程，产出可检查的文件/表格
+□ 已用 sample-data 做启动 → 主流程 → 导出/保存烟测
+□ 空数据、错格式、取消、重名冲突 → 友好提示，不闪退
+□ 路径含中文/空格/括号 → 正常工作
+
+最终只报：做了什么 | 如何打开 | 产物路径 | 验证结果 | 剩余限制。
 
 开始：先给 ≤8 行摘要，然后立刻做 M1。`;
   }
@@ -429,7 +447,7 @@ ${implementationZh(state)}
   if (state.extras.accessibility) extras.push(ACCESSIBILITY_EN[state.platform]);
   if (custom) extras.push(custom);
 
-  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver a runnable local desktop app, not advice. The user is non-technical; use business-language labels, errors, docs, and updates. Use plain English.
+  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver a runnable local desktop app, not advice. The user is a non-technical AI beginner; use business-language labels, errors, docs, and updates. Use plain English.
 
 [Fast Delivery]
 ${deliveryEn(state.complexity)}
@@ -445,9 +463,9 @@ ${dodEn(state)}
 - Scope: ${COMPLEXITY_EN[state.complexity]}
 
 [Request]
-Goal: ${goal || '(Please fill in: who is it for, what problem does it solve? 1-2 sentences.)'}
+Goal: ${goal || '(Please fill in: who is it for, what business pain? Example: "Help finance cut monthly reconciliation from 2 days to 1 hour."'}
 Features:
-${features || '(Please fill in: what should it do? one item per line, specific.)'}
+${features || '(Please fill in: one per line, write "action → user sees what". Example:\n- Drop two Excel files → auto-match by order ID → mismatches highlighted red\n- Click "Export" → generates a diff-detail Excel\n- Over 100k rows → batch with progress bar)'}
 
 ${extras.length ? `[Additional Requirements]\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}[Desktop + UX Requirements]
 ${uxEn(state.complexity)}
@@ -456,7 +474,15 @@ ${uxEn(state.complexity)}
 ${implementationEn(state)}
 
 [Verification + Final Report]
-Run lint, typecheck, tests, build, then launch and complete the sample-data main flow. Final report only: what built | how to open | artifact path | verification | remaining limits.
+Self-check (all must pass before reporting done):
+☐ lint, typecheck, tests, build all pass
+☐ Launches by double-click or one command; first screen is the workspace
+☐ Sample data completes the main flow, producing a checkable file/sheet
+☐ Smoke-tested sample-data: launch → main flow → export/save
+☐ Empty data, bad format, cancel, name conflict → friendly message, no crash
+☐ Paths with Chinese/spaces/parentheses → work correctly
+
+Final report only: what built | how to open | artifact path | verification results | remaining limits.
 
 Start now: give the ≤8-line summary, then build M1.`;
 }

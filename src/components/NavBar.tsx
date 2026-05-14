@@ -28,10 +28,6 @@ export function NavBar({ locale, dict }: Props) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   const links = [
     { href: localePath(locale, 'generator'), label: dict.nav.generator },
     { href: localePath(locale, 'guide'), label: dict.nav.guide },
@@ -126,6 +122,7 @@ export function NavBar({ locale, dict }: Props) {
                 <li key={l.href}>
                   <Link
                     href={l.href}
+                    onClick={() => setOpen(false)}
                     className={cn(
                       'block rounded-2xl px-4 py-3 text-sm font-medium transition',
                       isActive(l.href)
@@ -140,6 +137,7 @@ export function NavBar({ locale, dict }: Props) {
               <li>
                 <Link
                   href={localePath(locale, 'generator')}
+                  onClick={() => setOpen(false)}
                   className="mt-2 block rounded-2xl bg-ink px-4 py-3 text-center text-sm font-semibold text-white"
                 >
                   {dict.nav.tryNow}

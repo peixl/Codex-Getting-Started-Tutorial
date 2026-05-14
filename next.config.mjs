@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
   output: 'standalone',
   outputFileTracingRoot: __dirname,
+  bundlePagesRouterDependencies: true,
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,

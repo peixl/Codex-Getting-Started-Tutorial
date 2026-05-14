@@ -1,4 +1,5 @@
 import type { CaseBundle } from './types';
+import { composeCasePrompt } from '@/lib/promptModules';
 
 export const hrOnboardingTracker: CaseBundle = {
   slug: 'hr-onboarding-tracker',
@@ -50,13 +51,10 @@ export const hrOnboardingTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司 HR，不懂代码。
-
-【目标】
-让 HR 一眼看清每个新员工当前入职进度；领导提问 5 秒内回答；漏项降低到零。
-
-【平台与技术】
-- Windows 10/11 桌面应用
+    zh: composeCasePrompt({
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司 HR，不懂代码。',
+      goal: '让 HR 一眼看清每个新员工当前入职进度；领导提问 5 秒内回答；漏项降低到零。',
+      platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite
 - 完全离线，打包 Windows .exe 安装包
@@ -64,70 +62,69 @@ export const hrOnboardingTracker: CaseBundle = {
 【数据模型】
 员工：姓名、工号（可选）、岗位、部门、入职日、师父、状态（在办 / 完成 / 离职）。
 入职任务十项：合同签署、社保公积金、公司邮箱、内部账号、电脑配发、工牌、入职培训、师父分配、一周复盘、试用期评估。每项含完成状态、完成日、经办人、备注。
-支持自定义增删任务。
-
-【核心功能】
-1. 首页员工卡片，按入职日倒序。卡片显示姓名、岗位、入职日、进度（X/10）、整体颜色（红 / 黄 / 绿）。
+支持自定义增删任务。`,
+      features: `1. 首页员工卡片，按入职日倒序。卡片显示姓名、岗位、入职日、进度（X/10）、整体颜色（红 / 黄 / 绿）。
 2. 新建员工：单个或从 Excel 批量导入。
 3. 详情页十项任务，勾选弹出经办人 + 备注。
 4. 超期自动变红（默认：合同 / 电脑 / 工牌在入职日前完成；其他在入职日后 7 天内。可在设置中调整）。
 5. "本周待办"视图，汇总所有红色任务，一键导出 Excel。
 6. 隐私：不录入身份证、薪资等敏感信息。
-7. 搜索 + 筛选。
-
-【界面风格】
-- 清新：浅蓝背景，白色卡片，柔和配色。
+7. 搜索 + 筛选。`,
+      style: `- 清新：浅蓝背景，白色卡片，柔和配色。
 - 红 / 黄 / 绿三色状态同时用图标区分（✓ / ⏳ / ⚠），色盲友好。
-- 深浅模式跟随系统；中英切换。
-
-【稳健性】
-- 数据修改自动快照；支持"恢复到最近备份"。
+- 深浅模式跟随系统；中英切换。`,
+      robustness: `- 数据修改自动快照；支持"恢复到最近备份"。
 - Excel 字段错高亮提示。
-- 数据库损坏自动修复。
-
-【交付】
-1. 摘要需包含列表页 / 详情页 / 待办视图界面安排。
-2. 分三步：新建 + 勾选 -> 批量导入 + 超期染色 -> 待办视图 + 导出。
-3. 打包 .exe，500 字中文使用说明。
-`,
-    en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for HR at an e-commerce company. Non-developer user.
-
-[Goal]
-Instant visibility into every new hire's onboarding status. Zero missed items. Managers get answers in 5 seconds.
-
-[Platform & Stack]
-- Windows 10/11 desktop app
+- 数据库损坏自动修复。`,
+      deliveryPhases: [
+        '摘要需包含列表页 / 详情页 / 待办视图界面安排。',
+        '分三步：新建 + 勾选 -> 批量导入 + 超期染色 -> 待办视图 + 导出。',
+        '打包 .exe，500 字中文使用说明。',
+      ],
+      acceptanceItems: [
+        '□ 双击 .exe 启动，首页是员工卡片列表',
+        '□ 新建员工 → 详情页十项任务 → 勾选完成 → 弹窗填经办人',
+        '□ Excel 批量导入 → 卡片列表显示 → 超期自动变红',
+        '□ "本周待办"视图汇总红色任务 → 导出 Excel',
+        '□ 空数据、字段错误 → 友好提示，不闪退',
+      ],
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for HR at an e-commerce company. Non-developer user.',
+      goal: 'Instant visibility into every new hire\'s onboarding status. Zero missed items. Managers get answers in 5 seconds.',
+      platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
 - Local SQLite; offline; Windows .exe installer
 
 [Data Model]
 Employee: name, employee id (optional), role, department, start date, buddy, status (In progress / Done / Left).
 Ten onboarding tasks: contract, benefits, work email, internal accounts, laptop, badge, orientation, buddy, week-one retro, probation review. Each has status, completed date, completed-by, notes.
-Support custom add/remove.
-
-[Core Features]
-1. Home cards sorted by start date. Card shows name, role, start, progress (X/10), overall color.
+Support custom add/remove.`,
+      features: `1. Home cards sorted by start date. Card shows name, role, start, progress (X/10), overall color.
 2. New hire: single or bulk from Excel.
 3. Detail view with ten tasks; ticking opens a small popup for completed-by + notes.
 4. Overdue auto-red (default: contract/laptop/badge due by start date; others within 7 days; configurable).
 5. "Weekly follow-up" aggregates red tasks; one-click Excel export.
 6. Privacy: do not collect IDs or salary.
-7. Search + filter.
-
-[Visual Style]
-- Fresh: soft blue background, white cards.
+7. Search + filter.`,
+      style: `- Fresh: soft blue background, white cards.
 - Red/yellow/green with icons (check/hourglass/warning) for color-blind support.
-- Follows system dark mode; bilingual toggle.
-
-[Robustness]
-- Auto-snapshot on change; "restore from backup" available.
+- Follows system dark mode; bilingual toggle.`,
+      robustness: `- Auto-snapshot on change; "restore from backup" available.
 - Highlight bad Excel columns.
-- Auto-repair DB.
-
-[Delivery]
-1. Summary should include list / detail / follow-up screens.
-2. Phase 1: create + tick. Phase 2: bulk import + overdue coloring. Phase 3: follow-up + export.
-3. Package .exe; 500-word user guide.
-`,
+- Auto-repair DB.`,
+      deliveryPhases: [
+        'Summary should include list / detail / follow-up screens.',
+        'Phase 1: create + tick. Phase 2: bulk import + overdue coloring. Phase 3: follow-up + export.',
+        'Package .exe; 500-word user guide.',
+      ],
+      acceptanceItems: [
+        '☐ Double-click .exe launches; home shows employee card list',
+        '☐ New hire → detail view ten tasks → tick complete → popup for completed-by',
+        '☐ Excel bulk import → card list displays → overdue auto-red',
+        '☐ "Weekly follow-up" view aggregates red tasks → export Excel',
+        '☐ Empty data, bad columns → friendly message, no crash',
+      ],
+    }, 'en'),
   },
 };

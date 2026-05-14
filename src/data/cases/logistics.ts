@@ -1,4 +1,5 @@
 import type { CaseBundle } from './types';
+import { composeCasePrompt } from '@/lib/promptModules';
 
 export const logisticsTracker: CaseBundle = {
   slug: 'logistics-shipment-inspector',
@@ -50,23 +51,18 @@ export const logisticsTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司物流 / 客服同事，不懂代码。
-
-【目标】
-把每天几千条订单中的异常件挑出来，交给客服跟进，减少投诉和赔付。
-
-【平台与技术】
-- Windows 10/11 桌面应用
+    zh: composeCasePrompt({
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司物流 / 客服同事，不懂代码。',
+      goal: '把每天几千条订单中的异常件挑出来，交给客服跟进，减少投诉和赔付。',
+      platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - SheetJS 处理 Excel / CSV
 - 本地 SQLite 保留最近 30 天导入历史
 - 完全离线，打包 Windows .exe 安装包
 
 【字段映射】
-导入时支持列名映射（中英兼容）：订单号、快递公司、快递单号、收件人姓名、收件人电话、当前状态、最近更新时间、派送次数、异常标签。首次映射后记住。
-
-【核心功能】
-1. 首页三入口：导入 / 异常列表 / 规则设置。
+导入时支持列名映射（中英兼容）：订单号、快递公司、快递单号、收件人姓名、收件人电话、当前状态、最近更新时间、派送次数、异常标签。首次映射后记住。`,
+      features: `1. 首页三入口：导入 / 异常列表 / 规则设置。
 2. 导入：支持多文件，一次性导入，自动识别编码（UTF-8 / GBK）。显示基础统计。
 3. 异常规则（可开关 + 调参）：
    - A：最近更新 >= N 小时（默认 48）且状态不是已签收 / 已退回。
@@ -75,45 +71,41 @@ export const logisticsTracker: CaseBundle = {
    - D：用户自定义关键词。
 4. 异常列表：按严重度排序。字段：订单号、快递公司、电话（脱敏）、原因、卡住小时数、推荐动作。
 5. 时间粒度：今日 / 近 3 日 / 近 7 日，支持历史对比。
-6. 导出异常清单到 Excel，文件名 "异常件-YYYY-MM-DD.xlsx"。
-
-【隐私】
-- 全离线。
-- 电话默认脱敏；"查看完整号码"需点击按钮，动作计入轻量日志。
-- 关闭软件前询问是否清理当日数据。
-
-【界面风格】
-- 业务型：表格清晰、柔和分隔线。
+6. 导出异常清单到 Excel，文件名 "异常件-YYYY-MM-DD.xlsx"。`,
+      style: `- 业务型：表格清晰、柔和分隔线。
 - 严重度红 / 黄 / 蓝三级。
-- 深浅模式跟随系统；中英切换。
-
-【稳健性】
-- 字段映射失败时手动引导。
+- 深浅模式跟随系统；中英切换。`,
+      robustness: `- 字段映射失败时手动引导。
 - 大文件（> 5 万行）分批处理显示进度。
 - 导入出错保留已解析部分。
-
-【交付】
-1. 摘要需包含列表、异常、规则页安排。
-2. 分三步：导入 + 识别 + 列表 -> 规则自定义 + 时间粒度 -> 导出 + 历史对比。
-3. 打包 .exe，500 字中文使用说明。
-`,
-    en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an e-commerce logistics / customer service team. Non-developer user.
-
-[Goal]
-Surface exception shipments in minutes, not hours. Hand them to customer service before customers complain.
-
-[Platform & Stack]
-- Windows 10/11 desktop app
+- 电话默认脱敏；"查看完整号码"需点击按钮，动作计入轻量日志。
+- 关闭软件前询问是否清理当日数据。`,
+      deliveryPhases: [
+        '摘要需包含列表、异常、规则页安排。',
+        '分三步：导入 + 识别 + 列表 -> 规则自定义 + 时间粒度 -> 导出 + 历史对比。',
+        '打包 .exe，500 字中文使用说明。',
+      ],
+      acceptanceItems: [
+        '□ 双击 .exe 启动，首页三入口：导入 / 异常列表 / 规则设置',
+        '□ 拖入快递 Excel → 自动识别字段 → 显示统计 → 异常列表标红',
+        '□ 四条规则可开关可调参 → 筛选结果实时更新',
+        '□ 电话脱敏显示（138****1234）',
+        '□ 导出异常清单 Excel，文件名带日期',
+        '□ 空文件、格式错误 → 友好提示，不闪退',
+      ],
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an e-commerce logistics / customer service team. Non-developer user.',
+      goal: 'Surface exception shipments in minutes, not hours. Hand them to customer service before customers complain.',
+      platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
 - SheetJS for Excel/CSV
 - Local SQLite rolling 30-day history
 - Offline; ship Windows .exe installer
 
 [Column Mapping]
-Handle common headers (Chinese + English): order id, carrier, tracking id, recipient name, recipient phone, current status, last update time, delivery attempts, exception tag. Remember mappings.
-
-[Core Features]
-1. Home: Import / Exception list / Rule settings.
+Handle common headers (Chinese + English): order id, carrier, tracking id, recipient name, recipient phone, current status, last update time, delivery attempts, exception tag. Remember mappings.`,
+      features: `1. Home: Import / Exception list / Rule settings.
 2. Import: multi-file drop; auto-detect encoding (UTF-8/GBK). Show totals.
 3. Rules (toggleable + tunable):
    - A: last update >= N hours (default 48) AND status not delivered/returned.
@@ -122,27 +114,28 @@ Handle common headers (Chinese + English): order id, carrier, tracking id, recip
    - D: user-defined keywords.
 4. Exception list sorted by severity; fields: order id, carrier, masked phone, reason, hours stuck, recommended action.
 5. Time windows: today / 3 days / 7 days with historical compare.
-6. Export to Excel as "exceptions-YYYY-MM-DD.xlsx".
-
-[Privacy]
-- Fully offline.
-- Phone masked by default; "reveal" behind a button, lightly logged.
-- On quit, ask whether to clear today.
-
-[Visual Style]
-- Dashboard clarity with soft dividers.
+6. Export to Excel as "exceptions-YYYY-MM-DD.xlsx".`,
+      style: `- Dashboard clarity with soft dividers.
 - Severity red/yellow/blue.
-- Follows system dark mode; bilingual.
-
-[Robustness]
-- Manual guidance on mapping failures.
+- Follows system dark mode; bilingual.`,
+      robustness: `- Manual guidance on mapping failures.
 - Batch processing for > 50k rows with progress.
 - Preserve parsed data on error.
-
-[Delivery]
-1. Summary should include the list / exceptions / rules screens.
-2. Phase 1: import + detection + list. Phase 2: rule customization + time windows. Phase 3: export + history compare.
-3. Package .exe; 500-word user guide.
-`,
+- Phone masked by default; "reveal" behind a button, lightly logged.
+- On quit, ask whether to clear today.`,
+      deliveryPhases: [
+        'Summary should include the list / exceptions / rules screens.',
+        'Phase 1: import + detection + list. Phase 2: rule customization + time windows. Phase 3: export + history compare.',
+        'Package .exe; 500-word user guide.',
+      ],
+      acceptanceItems: [
+        '☐ Double-click .exe launches; home has three entries: Import / Exception list / Rules',
+        '☐ Drop shipment Excel → auto-detect fields → show stats → exception list highlighted',
+        '☐ Four rules toggleable + tunable → filter results update in real-time',
+        '☐ Phone masked (138****1234)',
+        '☐ Export exception list Excel with date in filename',
+        '☐ Empty file, bad format → friendly message, no crash',
+      ],
+    }, 'en'),
   },
 };

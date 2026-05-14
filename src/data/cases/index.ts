@@ -123,5 +123,3 @@ export const departments: Department[] = [
   'admin',
   'product',
 ];
-
-export const departmentOrder: Department[] = departments;

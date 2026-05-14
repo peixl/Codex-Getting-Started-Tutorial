@@ -182,7 +182,7 @@ export const zh = {
     qualityTitle: '复制前自检',
     qualityReady: '足够清楚',
     qualityNeedsInput: '还可补充',
-    qualityLength: '约 {tokens} tokens / {chars} 字符',
+    qualityCoverage: '质量覆盖：{passed}/{total} 个关键信息项',
     qualityGoal: '目标',
     qualityFeatures: '功能',
     qualityIo: '输入/输出',

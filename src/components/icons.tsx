@@ -97,15 +97,6 @@ export function ArrowRightIcon({ size = 24, ...props }: IconProps) {
   );
 }
 
-export function GlobeIcon({ size = 24, ...props }: IconProps) {
-  return (
-    <svg {...baseProps(size)} {...props}>
-      <circle cx="24" cy="24" r="18" className="hand-stroke" />
-      <path d="M6 24h36M24 6c5 5 8 11 8 18s-3 13-8 18c-5-5-8-11-8-18s3-13 8-18z" className="hand-stroke" />
-    </svg>
-  );
-}
-
 export function FinanceIcon({ size = 48, ...props }: IconProps) {
   return (
     <svg {...baseProps(size)} {...props}>

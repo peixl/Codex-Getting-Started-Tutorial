@@ -1,4 +1,5 @@
 import type { CaseBundle } from './types';
+import { composeCasePrompt } from '@/lib/promptModules';
 
 export const dataDailyReport: CaseBundle = {
   slug: 'data-daily-report-builder',
@@ -48,21 +49,16 @@ export const dataDailyReport: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是数据 / 运营分析同事，不懂代码也能用。
-
-【目标】
-每天把多张业务 Excel（GMV、订单、流量）合并生成"今日业务快报"的图片或 PDF，省掉重复手工活。
-
-【平台与技术】
-- Windows 10/11 桌面应用
+    zh: composeCasePrompt({
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是数据 / 运营分析同事，不懂代码也能用。',
+      goal: '每天把多张业务 Excel（GMV、订单、流量）合并生成"今日业务快报"的图片或 PDF，省掉重复手工活。',
+      platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - SheetJS 处理 Excel
 - html-to-image 或 puppeteer-core（离线渲染）生成图片 / PDF
 - 本地 SQLite 保存模板和映射
-- 完全离线，打包成 Windows .exe 安装包
-
-【核心功能】
-1. 首页三块：
+- 完全离线，打包成 Windows .exe 安装包`,
+      features: `1. 首页三块：
    - 数据导入：拖拽区 + 已识别数据预览。
    - 模板设置：日报标题、品牌色、核心指标顺序、图表类型。
    - 生成日报：一键按钮，预览当前日报效果。
@@ -77,40 +73,39 @@ export const dataDailyReport: CaseBundle = {
 4. 输出：
    - 一键导出 PNG（1200x1800，方便发群 / 朋友圈）。
    - 一键导出 PDF（A4 竖版）。
-5. 历史记录：保存最近 30 天日报于本地，随时回看。
-
-【界面风格】
-- 简洁商务：白底、大卡片、轻分隔。
+5. 历史记录：保存最近 30 天日报于本地，随时回看。`,
+      style: `- 简洁商务：白底、大卡片、轻分隔。
 - 品牌色用户自选，避免写死。
 - 图表细线、低饱和。
-- 字体系统默认，深浅模式跟随系统。
-
-【稳健性】
-- 拖入非 Excel 文件给友好提示。
+- 字体系统默认，深浅模式跟随系统。`,
+      robustness: `- 拖入非 Excel 文件给友好提示。
 - 字段映射冲突时弹窗让用户确认。
 - 生成失败时给出定位（哪一块出错）。
-- 中英数字混排时避免乱码。
-
-【交付】
-1. 摘要需包含导入区、模板区、生成区安排。
-2. 分三步：数据导入 + 预览 -> 模板编辑 + 预览 -> 图片 / PDF 导出。
-3. 打包 Windows .exe，附 500 字中文使用说明。
-`,
-    en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a data / ops-analytics colleague. User is a non-developer.
-
-[Goal]
-Merge multiple daily Excel files (GMV, orders, traffic) into a "today at a glance" image or PDF — no more manual daily stitching.
-
-[Platform & Stack]
-- Windows 10/11 desktop app
+- 中英数字混排时避免乱码。`,
+      deliveryPhases: [
+        '摘要需包含导入区、模板区、生成区安排。',
+        '分三步：数据导入 + 预览 -> 模板编辑 + 预览 -> 图片 / PDF 导出。',
+        '打包 Windows .exe，附 500 字中文使用说明。',
+      ],
+      acceptanceItems: [
+        '□ 双击 .exe 启动，首页三块：导入 / 模板 / 生成',
+        '□ 拖入多张 Excel → 自动识别类型 → 预览数据',
+        '□ 编辑模板（标题、指标、图表类型）→ 预览日报效果',
+        '□ 一键导出 PNG (1200x1800) 和 PDF (A4)',
+        '□ 保存模板 → 下次拖文件直接生成',
+        '□ 非 Excel 文件、映射冲突 → 友好提示，不闪退',
+      ],
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a data / ops-analytics colleague. User is a non-developer.',
+      goal: 'Merge multiple daily Excel files (GMV, orders, traffic) into a "today at a glance" image or PDF — no more manual daily stitching.',
+      platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
 - SheetJS for Excel
 - html-to-image or offline puppeteer-core for PNG/PDF rendering
 - Local SQLite for templates + mappings
-- Fully offline; ship a Windows .exe installer
-
-[Core Features]
-1. Home has three panes: Import, Template, Generate.
+- Fully offline; ship a Windows .exe installer`,
+      features: `1. Home has three panes: Import, Template, Generate.
 2. Smart detection: infer data kind (GMV / Orders / Traffic) from header keywords; allow manual override. Remember field mapping for future.
 3. Report contents:
    - Top: date + logo placeholder (user uploads local PNG).
@@ -120,24 +115,28 @@ Merge multiple daily Excel files (GMV, orders, traffic) into a "today at a glanc
 4. Export:
    - PNG (1200x1800, easy to share).
    - PDF (A4 portrait).
-5. Keep last 30 daily reports locally.
-
-[Visual Style]
-- Clean business: white background, large cards, soft dividers.
+5. Keep last 30 daily reports locally.`,
+      style: `- Clean business: white background, large cards, soft dividers.
 - User-picked brand color; no hard-coded palette.
 - Minimal charts.
-- System fonts; follows dark mode.
-
-[Robustness]
-- Friendly message on non-Excel drops.
+- System fonts; follows dark mode.`,
+      robustness: `- Friendly message on non-Excel drops.
 - Resolve mapping conflicts via a confirmation dialog.
 - On render failure, report which block failed.
-- Handle mixed CJK + Latin without glyph issues.
-
-[Delivery]
-1. Summary should include the three-pane layout.
-2. Phase 1: import + preview. Phase 2: template edit. Phase 3: PNG/PDF export.
-3. Package .exe; 500-word user guide.
-`,
+- Handle mixed CJK + Latin without glyph issues.`,
+      deliveryPhases: [
+        'Summary should include the three-pane layout.',
+        'Phase 1: import + preview. Phase 2: template edit. Phase 3: PNG/PDF export.',
+        'Package .exe; 500-word user guide.',
+      ],
+      acceptanceItems: [
+        '☐ Double-click .exe launches; home has three panes: Import / Template / Generate',
+        '☐ Drop multiple Excel files → auto-detect types → preview data',
+        '☐ Edit template (title, KPIs, chart type) → preview report',
+        '☐ One-click export PNG (1200x1800) and PDF (A4)',
+        '☐ Save template → next time drag files and generate directly',
+        '☐ Non-Excel files, mapping conflicts → friendly message, no crash',
+      ],
+    }, 'en'),
   },
 };

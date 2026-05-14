@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useMemo, useTransition } from 'react';
-import { localeCookieName, locales, type Locale, localeNames } from '@/i18n/config';
+import { localeCookieName, type Locale, localeNames } from '@/i18n/config';
 import { cn } from '@/lib/cn';
 
 type Props = {
@@ -77,47 +77,5 @@ export function LanguageSwitcher({ currentLocale, compact = false, className }: 
           : `, current language is ${localeNames[currentLocale]}`}
       </span>
     </button>
-  );
-}
-
-export function LocaleList({
-  currentLocale,
-  className,
-}: {
-  currentLocale: Locale;
-  className?: string;
-}) {
-  const router = useRouter();
-  const pathname = usePathname() ?? '/';
-
-  const targetPath = (locale: Locale) => {
-    const segments = pathname.split('/').filter(Boolean);
-    if (segments.length === 0) return `/${locale}`;
-    segments[0] = locale;
-    return '/' + segments.join('/');
-  };
-
-  return (
-    <div className={cn('flex flex-wrap gap-2', className)}>
-      {locales.map((locale) => (
-        <button
-          key={locale}
-          type="button"
-          onClick={() => {
-            persistLocalePreference(locale);
-            router.push(targetPath(locale));
-          }}
-          aria-current={locale === currentLocale ? 'true' : undefined}
-          className={cn(
-            'focus-ring rounded-full border px-3.5 py-1.5 text-xs font-medium transition',
-            locale === currentLocale
-              ? 'border-ink/20 bg-white text-ink'
-              : 'border-[color:var(--line)] bg-white/50 text-ink-soft hover:bg-white/80'
-          )}
-        >
-          {localeNames[locale]}
-        </button>
-      ))}
-    </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { CaseBundle } from './types';
+import { composeCasePrompt } from '@/lib/promptModules';
 
 export const adminConferenceRoom: CaseBundle = {
   slug: 'admin-conference-room-booking',
@@ -50,19 +51,14 @@ export const adminConferenceRoom: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是公司行政 / 前台同事，不懂代码。
-
-【目标】
-把"会议室预订 / 访客登记 / 快递签收"三件高频小事集中到一个台账，减少行政被打断的次数。
-
-【平台与技术】
-- Windows 10/11 桌面应用
+    zh: composeCasePrompt({
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是公司行政 / 前台同事，不懂代码。',
+      goal: '把"会议室预订 / 访客登记 / 快递签收"三件高频小事集中到一个台账，减少行政被打断的次数。',
+      platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite
-- 完全离线，打包成 Windows .exe 安装包
-
-【结构】
-左侧三个标签页：会议室 / 访客 / 快递。右侧主内容区按标签切换。
+- 完全离线，打包成 Windows .exe 安装包`,
+      features: `左侧三个标签页：会议室 / 访客 / 快递。右侧主内容区按标签切换。
 
 【会议室页】
 1. 顶部日期选择（默认今天）+ 会议室筛选器。
@@ -84,35 +80,34 @@ export const adminConferenceRoom: CaseBundle = {
 【通用功能】
 - "打印今日日程"按钮：一键生成 A4 PDF（含三块今日汇总），方便前台贴墙。
 - "导出今日到 Excel"按钮，存档用。
-- 所有数据本地保存。
-
-【界面风格】
-- 简洁商务，柔和色块；色不刺眼。
+- 所有数据本地保存。`,
+      style: `- 简洁商务，柔和色块；色不刺眼。
 - 时间轴密度适中，点击区域足够大。
-- 深浅模式跟随系统。
-
-【稳健性】
-- 时间冲突友好提示而不是冷冰冰报错。
+- 深浅模式跟随系统。`,
+      robustness: `- 时间冲突友好提示而不是冷冰冰报错。
 - 空状态引导："今日暂无 XX"。
-- 数据库损坏自动恢复。
-
-【交付】
-1. 摘要需包含三个标签页安排。
-2. 分三步：会议室 -> 访客 -> 快递（每一步都能独立跑）。
-3. 打包 Windows .exe，附 500 字中文使用说明。
-`,
-    en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for office admins / reception staff. Non-developer user.
-
-[Goal]
-Consolidate the three biggest daily interruptions — room booking, visitor sign-in, parcel handoff — into one lightweight ledger.
-
-[Platform & Stack]
-- Windows 10/11 desktop app
+- 数据库损坏自动恢复。`,
+      deliveryPhases: [
+        '摘要需包含三个标签页安排。',
+        '分三步：会议室 -> 访客 -> 快递（每一步都能独立跑）。',
+        '打包 Windows .exe，附 500 字中文使用说明。',
+      ],
+      acceptanceItems: [
+        '□ 双击 .exe 启动，左侧三个标签：会议室 / 访客 / 快递',
+        '□ 会议室页：时间轴显示今日预订 → 点空闲格新建 → 拖拽改时段',
+        '□ 访客页：新增访客 → 一键标记已到/已离 → 搜索',
+        '□ 快递页：新增 → 勾选已领取 → 超3天未领高亮',
+        '□ "打印今日日程" → 生成 A4 PDF',
+        '□ 时间冲突、空数据 → 友好提示，不闪退',
+      ],
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for office admins / reception staff. Non-developer user.',
+      goal: 'Consolidate the three biggest daily interruptions — room booking, visitor sign-in, parcel handoff — into one lightweight ledger.',
+      platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; ship a Windows .exe installer
-
-[Structure]
-Left sidebar tabs: Rooms / Visitors / Parcels.
+- Local SQLite; offline; ship a Windows .exe installer`,
+      features: `Left sidebar tabs: Rooms / Visitors / Parcels.
 
 [Rooms tab]
 1. Top: date picker (default today) + room filter.
@@ -134,22 +129,26 @@ Left sidebar tabs: Rooms / Visitors / Parcels.
 [Shared features]
 - "Print today" creates a one-page A4 PDF summarizing all three.
 - "Export today to Excel" for archive.
-- Everything saved locally.
-
-[Visual Style]
-- Clean business; soft color blocks.
+- Everything saved locally.`,
+      style: `- Clean business; soft color blocks.
 - Reasonable timeline density; large click targets.
-- Follows system dark mode.
-
-[Robustness]
-- Friendly conflict warnings.
+- Follows system dark mode.`,
+      robustness: `- Friendly conflict warnings.
 - Empty states.
-- Auto-recover the DB.
-
-[Delivery]
-1. Summary should include all three tabs.
-2. Phase 1: rooms. Phase 2: visitors. Phase 3: parcels.
-3. Package .exe; 500-word user guide.
-`,
+- Auto-recover the DB.`,
+      deliveryPhases: [
+        'Summary should include all three tabs.',
+        'Phase 1: rooms. Phase 2: visitors. Phase 3: parcels.',
+        'Package .exe; 500-word user guide.',
+      ],
+      acceptanceItems: [
+        '☐ Double-click .exe launches; left sidebar has three tabs: Rooms / Visitors / Parcels',
+        '☐ Rooms: timeline shows today\'s bookings → click free slot to create → drag to reschedule',
+        '☐ Visitors: add → one-click mark Arrived/Left → search',
+        '☐ Parcels: add → mark picked-up → uncollected 3+ days highlighted',
+        '☐ "Print today" → generates A4 PDF',
+        '☐ Time conflicts, empty data → friendly message, no crash',
+      ],
+    }, 'en'),
   },
 };

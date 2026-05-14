@@ -1,4 +1,5 @@
 import type { CaseBundle } from './types';
+import { composeCasePrompt } from '@/lib/promptModules';
 
 export const operationsCampaign: CaseBundle = {
   slug: 'operations-campaign-tracker',
@@ -48,75 +49,71 @@ export const operationsCampaign: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司运营部的同事，不懂代码。
-
-【目标】
-解决大促期间几十件任务同时推进导致状态混乱、责任不清、复盘困难的问题。
-
-【平台与技术】
-- Windows 10/11 桌面应用
+    zh: composeCasePrompt({
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司运营部的同事，不懂代码。',
+      goal: '解决大促期间几十件任务同时推进导致状态混乱、责任不清、复盘困难的问题。',
+      platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite
-- 离线运行，打包 Windows .exe 安装包
-
-【核心功能】
-1. 首页：大促卡片列表（双 11、618、年货节…），每张卡显示起止日、总进度条（已完成 / 总任务），"新建大促"按钮。
+- 离线运行，打包 Windows .exe 安装包`,
+      features: `1. 首页：大促卡片列表（双 11、618、年货节…），每张卡显示起止日、总进度条（已完成 / 总任务），"新建大促"按钮。
 2. 大促详情页：四列看板——预热、爆发、返场、复盘。每列可装多张任务卡。
 3. 任务卡片：任务名、负责人（文本）、截止日、状态（待办 / 进行中 / 已完成 / 延期）、备注。
 4. 拖拽切换列或点卡片从下拉框切状态。每次状态变化记录时间戳，点开卡片可查看历史。
 5. Excel 批量导入，表头：阶段 / 任务名 / 负责人 / 截止日 / 状态。
 6. Excel 导出：当前大促所有任务 + 状态历史。
-7. 临近截止（3 天内）卡片角标黄色；已延期红色。
-
-【界面风格】
-- 清新桌面工具风：浅色背景，清晰分区，圆角 8，信息密度适中。
+7. 临近截止（3 天内）卡片角标黄色；已延期红色。`,
+      style: `- 清新桌面工具风：浅色背景，清晰分区，圆角 8，信息密度适中。
 - 四列列头用柔和不同色（蓝 / 橙红 / 绿 / 紫），饱和度低。
 - 拖拽时卡片轻微放大、阴影加深。
-- 深浅模式跟随系统。
-
-【稳健性】
-- 所有操作自动本地保存。
+- 深浅模式跟随系统。`,
+      robustness: `- 所有操作自动本地保存。
 - 每天自动备份到 backup 文件夹，保留 7 天。
-- Excel 字段错时友好提示。
-
-【交付】
-1. 摘要需包含首页 / 看板 / 导入页界面安排。
-2. 分三步：新建 + 拖拽 -> Excel 导入导出 -> 状态历史 + 到期染色。
-3. 打包 .exe，附 500 字中文使用说明。
-`,
-    en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an ops team at an e-commerce company. Non-developer user.
-
-[Goal]
-Tame big-sale chaos: a single board with clear status, owners, and history.
-
-[Platform & Stack]
-- Windows 10/11 desktop app
+- Excel 字段错时友好提示。`,
+      deliveryPhases: [
+        '摘要需包含首页 / 看板 / 导入页界面安排。',
+        '分三步：新建 + 拖拽 -> Excel 导入导出 -> 状态历史 + 到期染色。',
+        '打包 .exe，附 500 字中文使用说明。',
+      ],
+      acceptanceItems: [
+        '□ 双击 .exe 启动，首页是大促卡片列表',
+        '□ 新建大促 → 四列看板 → 拖拽卡片切换列 → 状态自动记录时间戳',
+        '□ Excel 导入任务 → 看板显示 → Excel 导出含状态历史',
+        '□ 临近截止黄色提示，延期红色提示',
+        '□ 空数据、字段错误 → 友好提示，不闪退',
+      ],
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an ops team at an e-commerce company. Non-developer user.',
+      goal: 'Tame big-sale chaos: a single board with clear status, owners, and history.',
+      platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; ship Windows .exe
-
-[Core Features]
-1. Home: campaign cards with start/end + overall progress bar. "New campaign" button.
+- Local SQLite; offline; ship Windows .exe`,
+      features: `1. Home: campaign cards with start/end + overall progress bar. "New campaign" button.
 2. Detail: Kanban with four columns — Warm-up, Peak, Post-sale, Retro.
 3. Task card: title, owner (free text), due date, status (Todo / In progress / Done / Delayed), notes.
 4. Drag to change column or use dropdown; status changes auto-timestamp; open card to see history.
 5. Excel import: Stage / Task / Owner / Due / Status.
 6. Excel export: current campaign with history.
-7. Due-within-3-days: yellow corner dot; overdue: red.
-
-[Visual Style]
-- Fresh + minimal: light background, white cards, radius 16.
+7. Due-within-3-days: yellow corner dot; overdue: red.`,
+      style: `- Fresh + minimal: light background, white cards, radius 16.
 - Column headers in muted distinct colors (blue / coral / green / violet).
 - Subtle drag animation.
-- Follows system dark mode.
-
-[Robustness]
-- Autosave; backup folder with 7-day rolling copies.
-- Friendly warnings on bad Excel columns.
-
-[Delivery]
-1. Summary should include home / board / import screens.
-2. Phase 1: create + drag. Phase 2: Excel import/export. Phase 3: history + due coloring.
-3. Package .exe; 500-word user guide.
-`,
+- Follows system dark mode.`,
+      robustness: `- Autosave; backup folder with 7-day rolling copies.
+- Friendly warnings on bad Excel columns.`,
+      deliveryPhases: [
+        'Summary should include home / board / import screens.',
+        'Phase 1: create + drag. Phase 2: Excel import/export. Phase 3: history + due coloring.',
+        'Package .exe; 500-word user guide.',
+      ],
+      acceptanceItems: [
+        '☐ Double-click .exe launches; home shows campaign card list',
+        '☐ New campaign → four-column board → drag cards → status changes auto-timestamped',
+        '☐ Excel import tasks → board displays → Excel export includes status history',
+        '☐ Due-within-3-days yellow; overdue red',
+        '☐ Empty data, bad columns → friendly message, no crash',
+      ],
+    }, 'en'),
   },
 };

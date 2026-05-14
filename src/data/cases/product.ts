@@ -1,4 +1,5 @@
 import type { CaseBundle } from './types';
+import { composeCasePrompt } from '@/lib/promptModules';
 
 export const productFeedbackInbox: CaseBundle = {
   slug: 'product-feedback-inbox',
@@ -50,23 +51,15 @@ export const productFeedbackInbox: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是产品经理，不懂代码也能用。
-
-【目标】
-把分散在各处的用户反馈集中起来、自动分类打标、按优先级排序，让每周规划会前不用熬夜整理。
-
-【平台与技术】
-- Windows 10/11 桌面应用
+    zh: composeCasePrompt({
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是产品经理，不懂代码也能用。',
+      goal: '把分散在各处的用户反馈集中起来、自动分类打标、按优先级排序，让每周规划会前不用熬夜整理。',
+      platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite
 - 打包成 Windows .exe 安装包
-- 完全离线
-
-【数据模型】
-反馈卡片：ID、原文、来源（微信 / 邮件 / 工单 / 销售 / 自研测试 / 其他）、用户类型（付费 / 免费 / 内部）、创建时间、标签（多选）、优先级（高 / 中 / 低）、影响面评分（1-5）、紧急度评分（1-5）、状态（待处理 / 已排期 / 已解决 / 不做）、合并来源（数组）。
-
-【核心功能】
-1. 首页反馈瀑布流：卡片展示前 150 字 + 标签色块 + 优先级角标 + 来源图标。
+- 完全离线`,
+      features: `1. 首页反馈瀑布流：卡片展示前 150 字 + 标签色块 + 优先级角标 + 来源图标。
 2. 筛选：标签多选、来源、用户类型、状态。排序：时间 / 热度（命中次数，多个相似反馈合并后的总数）。
 3. 新增：
    - 单条输入：输入框 + 来源 + 用户类型。
@@ -76,60 +69,66 @@ export const productFeedbackInbox: CaseBundle = {
 6. 优先级矩阵视图：横轴影响面 (1-5)、纵轴紧急度 (1-5)。可直接拖拽卡片改分数。
 7. 导出：
    - Excel：本周待讨论清单 / 本月汇总。
-   - Markdown：规划会可以直接贴入 Notion / 飞书的分组列表。
-
-【界面风格】
-- 简洁清新：白底 / 浅灰 / 卡片阴影柔和。
+   - Markdown：规划会可以直接贴入 Notion / 飞书的分组列表。`,
+      style: `- 简洁清新：白底 / 浅灰 / 卡片阴影柔和。
 - 标签色块饱和度低，统一体系。
 - 深浅模式跟随系统。
-- 中英切换。
-
-【稳健性】
-- 批量粘贴时对可能的重复项提示。
+- 中英切换。`,
+      robustness: `- 批量粘贴时对可能的重复项提示。
 - 关键词字典可导入 / 导出 JSON，方便跨电脑迁移。
-- 数据库损坏自动恢复。
-
-【交付】
-1. 摘要需包含首页 / 新增页 / 矩阵页界面安排。
-2. 分三步：反馈录入 + 自动打标 -> 矩阵视图 + 合并 -> 导出（Excel / Markdown）。
-3. 打包 .exe，附 500 字中文使用说明。
-`,
-    en: `You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a product manager. Non-developer user.
-
-[Goal]
-Centralize scattered user feedback, auto-tag and prioritize, so weekly planning starts with a clean list.
-
-[Platform & Stack]
-- Windows 10/11 desktop app
+- 数据库损坏自动恢复。`,
+      extra: `【数据模型】
+反馈卡片：ID、原文、来源（微信 / 邮件 / 工单 / 销售 / 自研测试 / 其他）、用户类型（付费 / 免费 / 内部）、创建时间、标签（多选）、优先级（高 / 中 / 低）、影响面评分（1-5）、紧急度评分（1-5）、状态（待处理 / 已排期 / 已解决 / 不做）、合并来源（数组）。`,
+      deliveryPhases: [
+        '摘要需包含首页 / 新增页 / 矩阵页界面安排。',
+        '分三步：反馈录入 + 自动打标 -> 矩阵视图 + 合并 -> 导出（Excel / Markdown）。',
+        '打包 .exe，附 500 字中文使用说明。',
+      ],
+      acceptanceItems: [
+        '□ 双击 .exe 启动，首页是反馈卡片瀑布流',
+        '□ 新增反馈 → 自动打标签 → 可手动修改',
+        '□ 批量粘贴多条 → 自动识别并打标',
+        '□ 优先级矩阵视图 → 拖拽卡片调整分数',
+        '□ 合并相似反馈 → 保留来源记录',
+        '□ 导出 Excel / Markdown → 规划会可用',
+        '□ 空数据、重复项 → 友好提示，不闪退',
+      ],
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a product manager. Non-developer user.',
+      goal: 'Centralize scattered user feedback, auto-tag and prioritize, so weekly planning starts with a clean list.',
+      platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; ship a Windows .exe installer
-
-[Data Model]
-Feedback card: id, body, source (chat / email / ticket / sales / internal / other), user type (paid / free / internal), created, tags (multi), priority (high/med/low), impact (1-5), urgency (1-5), status (open / planned / resolved / wontfix), mergedFrom (array).
-
-[Core Features]
-1. Home feed: cards with 150-char snippet, tag chips, priority corner, source icon.
+- Local SQLite; offline; ship a Windows .exe installer`,
+      features: `1. Home feed: cards with 150-char snippet, tag chips, priority corner, source icon.
 2. Filter by tag (multi) / source / user type / status. Sort by date or heat (merged count).
 3. Add: single-entry form with source + user type; bulk paste (one line per item) with keyword-based auto-tagging.
 4. Auto-tagging via an editable keyword dictionary — tags like perf / UX / bug / feature / copy / compliance. Show confidence; user confirms or corrects.
 5. Merge: select cards -> merge into one; preserve source history; increment heat.
 6. Priority matrix: x = impact (1-5), y = urgency (1-5); drag cards to adjust.
-7. Export: Excel for weekly list; Markdown groups for pasting into Notion / Feishu.
-
-[Visual Style]
-- Minimal fresh: white / light-gray / soft card shadows.
+7. Export: Excel for weekly list; Markdown groups for pasting into Notion / Feishu.`,
+      style: `- Minimal fresh: white / light-gray / soft card shadows.
 - Desaturated tag colors, a consistent palette.
-- Follows system dark mode; bilingual toggle.
-
-[Robustness]
-- Flag likely duplicates during bulk paste.
+- Follows system dark mode; bilingual toggle.`,
+      robustness: `- Flag likely duplicates during bulk paste.
 - Keyword dictionary import/export as JSON for cross-machine portability.
-- Auto-recover DB from last backup.
-
-[Delivery]
-1. Summary should include the feed, add, matrix screens.
-2. Phase 1: entry + auto-tag. Phase 2: matrix + merge. Phase 3: export.
-3. Package .exe; 500-word user guide.
-`,
+- Auto-recover DB from last backup.`,
+      extra: `[Data Model]
+Feedback card: id, body, source (chat / email / ticket / sales / internal / other), user type (paid / free / internal), created, tags (multi), priority (high/med/low), impact (1-5), urgency (1-5), status (open / planned / resolved / wontfix), mergedFrom (array).`,
+      deliveryPhases: [
+        'Summary should include the feed, add, matrix screens.',
+        'Phase 1: entry + auto-tag. Phase 2: matrix + merge. Phase 3: export.',
+        'Package .exe; 500-word user guide.',
+      ],
+      acceptanceItems: [
+        '☐ Double-click .exe launches; home shows feedback card feed',
+        '☐ Add feedback → auto-tags → user can modify',
+        '☐ Bulk paste multiple items → auto-detects and tags',
+        '☐ Priority matrix view → drag cards to adjust scores',
+        '☐ Merge similar feedback → source history preserved',
+        '☐ Export Excel / Markdown → ready for planning meeting',
+        '☐ Empty data, duplicates → friendly message, no crash',
+      ],
+    }, 'en'),
   },
 };

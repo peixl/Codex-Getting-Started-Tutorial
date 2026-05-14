@@ -18,19 +18,9 @@ import {
   PuzzleIcon,
   RocketIcon,
   SparkleIcon,
-  FinanceIcon,
-  OpsIcon,
-  SupportIcon,
-  HRIcon,
-  LogisticsIcon,
-  ProcurementIcon,
-  MarketingIcon,
-  LegalIcon,
-  DataIcon,
-  AdminIcon,
-  ProductIcon,
   WindowsIcon,
 } from '@/components/icons';
+import { deptIcons } from '@/components/cases/deptIcons';
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -68,20 +58,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
-
-const deptIcons = {
-  finance: <FinanceIcon size={28} />,
-  operations: <OpsIcon size={28} />,
-  'customer-service': <SupportIcon size={28} />,
-  hr: <HRIcon size={28} />,
-  logistics: <LogisticsIcon size={28} />,
-  procurement: <ProcurementIcon size={28} />,
-  marketing: <MarketingIcon size={28} />,
-  legal: <LegalIcon size={28} />,
-  data: <DataIcon size={28} />,
-  admin: <AdminIcon size={28} />,
-  product: <ProductIcon size={28} />,
-} as const;
 
 export default async function CasePage({ params }: Props) {
   const { locale: rawLocale, slug } = await params;

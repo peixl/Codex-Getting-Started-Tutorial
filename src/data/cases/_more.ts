@@ -1,17 +1,11 @@
 import type { CaseBundle } from './types';
+import { composeCasePrompt } from '@/lib/promptModules';
 
 // Helper to keep extra cases compact. Each bundle still ships a full bilingual
 // prompt and copy block so /cases/[slug] pages and AI ingestion stay rich.
 
-const SHARED_TAIL_ZH = `
-
-【场景补充】
-本地处理；桌面工具风格；中文沟通；代码注释只在复杂处使用。`;
-
-const SHARED_TAIL_EN = `
-
-[Scenario Notes]
-Process locally; keep a desktop-tool feel; use plain English; comment only where complexity needs it.`;
+const COMMUNICATION_ZH = '本地处理；桌面工具风格；中文沟通。';
+const COMMUNICATION_EN = 'Process locally; keep a desktop-tool feel; use plain English.';
 
 // ---------- Finance ----------
 
@@ -63,40 +57,24 @@ export const financeExpenseClassifier: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。请帮我做一个本地运行的桌面小工具，用户是公司财务，完全不懂代码。
-
-【目标】
-把每月几百行报销明细按类目自动分类、汇总金额，未识别的让用户点几下补齐。
-
-【平台与技术】
-- Windows 10/11 + macOS 桌面应用
-- Electron + React + TypeScript
-- 表格用 SheetJS；规则存本地 JSON
-
-【核心功能】
-1. 主界面：左侧"导入报销 Excel"，支持拖拽；右侧表格实时显示分类结果。
-2. 默认 12 个类目（差旅交通、住宿、餐饮、办公用品、培训、招待、通讯、快递、福利、设备、软件、其他），每个类目有关键字规则和金额范围规则，可在"规则设置"页里改。
-3. 自动匹配：备注/摘要含关键字即归类；多条命中按优先级；都不命中归"待确认"。
-4. "待确认"列表里每行下拉选择类目，并可勾选"记住为新规则"。
-5. 底部汇总卡片：每类合计金额、占比、笔数。
-6. "导出已分类 Excel"按钮，文件名 "报销分类-YYYY-MM.xlsx"。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is finance staff with no coding background.
-
-[Goal]
-Auto-categorize hundreds of reimbursement lines per month, total per category, and let the user resolve unmatched rows with a couple of clicks.
-
-[Platform & Stack]
-- Windows 10/11 and macOS desktop app
-- Electron + React + TypeScript
-- SheetJS for Excel; local JSON for rules
-
-[Core Features]
-1. Drop-target on the left; live classification table on the right.
-2. 12 default categories (travel, lodging, meals, office, training, entertainment, telecom, shipping, perks, devices, software, other), each with editable keyword + amount-range rules.
-3. Auto-match by keyword priority; misses go to "Needs review".
-4. In "Needs review", dropdown per row to assign; optional "remember as new rule".
-5. Footer summary cards: total amount, share, count per category.
-6. "Export classified Excel" button; default filename "expenses-YYYY-MM.xlsx".${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。请帮我做一个本地运行的桌面小工具，用户是公司财务，完全不懂代码。',
+      goal: '把每月几百行报销明细按类目自动分类、汇总金额，未识别的让用户点几下补齐。',
+      platform: '- Windows 10/11 + macOS 桌面应用\n- Electron + React + TypeScript\n- 表格用 SheetJS；规则存本地 JSON',
+      features: '1. 主界面：左侧"导入报销 Excel"，支持拖拽；右侧表格实时显示分类结果。\n2. 默认 12 个类目（差旅交通、住宿、餐饮、办公用品、培训、招待、通讯、快递、福利、设备、软件、其他），每个类目有关键字规则和金额范围规则，可在"规则设置"页里改。\n3. 自动匹配：备注/摘要含关键字即归类；多条命中按优先级；都不命中归"待确认"。\n4. "待确认"列表里每行下拉选择类目，并可勾选"记住为新规则"。\n5. 底部汇总卡片：每类合计金额、占比、笔数。\n6. "导出已分类 Excel"按钮，文件名 "报销分类-YYYY-MM.xlsx"。',
+      deliveryPhases: ['搭建 Electron 框架，实现 Excel 导入和 12 类目规则引擎。', '完成自动分类、待确认列表和规则学习功能。', '实现汇总卡片、导出功能，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 导入示例 Excel 后自动分类结果正确', '□ 待确认项可手动分类并记住规则', '□ 导出文件名含日期，数据完整', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is finance staff with no coding background.',
+      goal: 'Auto-categorize hundreds of reimbursement lines per month, total per category, and let the user resolve unmatched rows with a couple of clicks.',
+      platform: '- Windows 10/11 and macOS desktop app\n- Electron + React + TypeScript\n- SheetJS for Excel; local JSON for rules',
+      features: '1. Drop-target on the left; live classification table on the right.\n2. 12 default categories (travel, lodging, meals, office, training, entertainment, telecom, shipping, perks, devices, software, other), each with editable keyword + amount-range rules.\n3. Auto-match by keyword priority; misses go to "Needs review".\n4. In "Needs review", dropdown per row to assign; optional "remember as new rule".\n5. Footer summary cards: total amount, share, count per category.\n6. "Export classified Excel" button; default filename "expenses-YYYY-MM.xlsx".',
+      deliveryPhases: ['Scaffold Electron shell, implement Excel import and 12-category rule engine.', 'Complete auto-classification, review list, and rule-learning features.', 'Add summary cards, export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Sample Excel import produces correct classification', '☐ Unmatched items can be manually classified and rules remembered', '☐ Export filename includes date; data is complete', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -146,34 +124,24 @@ export const financeInvoiceTaxChecker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是公司财务，不懂代码。
-
-【目标】
-批量比对发票抬头/税号与公司标准表，挑出错误与重复。
-
-【平台与技术】
-- Windows + macOS 桌面应用；Electron + React + TypeScript；SheetJS
-
-【核心功能】
-1. 两个导入位：发票明细 Excel、标准抬头表 Excel。表头自动识别，关键字段从下拉框选。
-2. 核对规则：抬头完全匹配 + 税号完全匹配 = 通过；任何一项不匹配 = 标红；同一发票号出现多次 = 标橙。
-3. 结果表格按颜色分组；点行展开"差异详情"，逐字符高亮不同。
-4. 顶部统计：通过 / 不匹配 / 重复 / 总数。
-5. "导出问题清单"按钮，附"建议动作"列（换票 / 联系开票方 / 已重复，请退回）。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is finance staff, non-developer.
-
-[Goal]
-Batch-compare invoice titles and tax IDs to a master sheet; surface mismatches and duplicates.
-
-[Platform & Stack]
-- Windows + macOS desktop; Electron + React + TypeScript; SheetJS
-
-[Core Features]
-1. Two import slots: invoice details and master title sheet. Auto-detect headers; user confirms via dropdown.
-2. Rules: exact-match title + exact-match tax ID = pass; any mismatch = red; duplicate invoice number = orange.
-3. Group results by status; click a row to see a per-character diff.
-4. Top summary: passed / mismatched / duplicated / total.
-5. "Export issues" button with a "suggested action" column.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是公司财务，不懂代码。',
+      goal: '批量比对发票抬头/税号与公司标准表，挑出错误与重复。',
+      platform: '- Windows + macOS 桌面应用；Electron + React + TypeScript；SheetJS',
+      features: '1. 两个导入位：发票明细 Excel、标准抬头表 Excel。表头自动识别，关键字段从下拉框选。\n2. 核对规则：抬头完全匹配 + 税号完全匹配 = 通过；任何一项不匹配 = 标红；同一发票号出现多次 = 标橙。\n3. 结果表格按颜色分组；点行展开"差异详情"，逐字符高亮不同。\n4. 顶部统计：通过 / 不匹配 / 重复 / 总数。\n5. "导出问题清单"按钮，附"建议动作"列（换票 / 联系开票方 / 已重复，请退回）。',
+      deliveryPhases: ['搭建 Electron 框架，实现两个 Excel 导入和表头识别。', '完成比对规则引擎、颜色分组和差异高亮。', '实现统计卡片和问题清单导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 导入两张 Excel 后比对结果正确', '□ 不匹配项逐字符高亮差异', '□ 导出问题清单含建议动作列', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is finance staff, non-developer.',
+      goal: 'Batch-compare invoice titles and tax IDs to a master sheet; surface mismatches and duplicates.',
+      platform: '- Windows + macOS desktop; Electron + React + TypeScript; SheetJS',
+      features: '1. Two import slots: invoice details and master title sheet. Auto-detect headers; user confirms via dropdown.\n2. Rules: exact-match title + exact-match tax ID = pass; any mismatch = red; duplicate invoice number = orange.\n3. Group results by status; click a row to see a per-character diff.\n4. Top summary: passed / mismatched / duplicated / total.\n5. "Export issues" button with a "suggested action" column.',
+      deliveryPhases: ['Scaffold Electron shell, implement dual Excel import and header detection.', 'Complete comparison engine, color grouping, and diff highlighting.', 'Add summary cards and issue export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Importing two Excel files produces correct comparison', '☐ Mismatches show per-character diff highlighting', '☐ Exported issue list includes suggested action column', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -225,34 +193,24 @@ export const operationsDailyStandupBoard: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是运营负责人，不懂代码。
-
-【目标】
-把日常日报从群里沉淀到本地看板，按周自然汇总，挑出阻塞。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 主界面"今日"：列出团队成员，每人一张卡，三个文本框（昨日 / 今日 / 阻塞）。
-2. 切换到"本周"视图：表格行=成员，列=周一到周日，单元格里是该日要点摘要，鼠标悬停看全文。
-3. 顶部"本周阻塞"汇总卡片，自动按人聚合所有标红的阻塞。
-4. "导出本周 Markdown" -> 一份按人组织的周报，附阻塞列表。
-5. 成员列表本地维护；离职/调岗可禁用而不删除历史。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is an ops lead, non-developer.
-
-[Goal]
-Move daily standups out of chat into a local board that naturally rolls up by week and surfaces blockers.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. "Today" view: a card per team member with three text fields (Yesterday / Today / Blocker).
-2. "This week" view: rows = members, columns = Mon–Sun; hover for full text.
-3. Top "Blockers this week" rollup card per person.
-4. Export weekly Markdown, organized per person, with blockers list.
-5. Member list local; disable on leave without losing history.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是运营负责人，不懂代码。',
+      goal: '把日常日报从群里沉淀到本地看板，按周自然汇总，挑出阻塞。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 主界面"今日"：列出团队成员，每人一张卡，三个文本框（昨日 / 今日 / 阻塞）。\n2. 切换到"本周"视图：表格行=成员，列=周一到周日，单元格里是该日要点摘要，鼠标悬停看全文。\n3. 顶部"本周阻塞"汇总卡片，自动按人聚合所有标红的阻塞。\n4. "导出本周 Markdown" -> 一份按人组织的周报，附阻塞列表。\n5. 成员列表本地维护；离职/调岗可禁用而不删除历史。',
+      deliveryPhases: ['搭建 Electron 框架，实现"今日"视图和成员卡片。', '完成"本周"视图、阻塞汇总和周报导出功能。', '实现成员管理和历史保留，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 今日视图可填写并保存日报', '□ 本周视图按人按日汇总正确', '□ 阻塞项自动标红并汇总到顶部', '□ 导出 Markdown 格式正确'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is an ops lead, non-developer.',
+      goal: 'Move daily standups out of chat into a local board that naturally rolls up by week and surfaces blockers.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. "Today" view: a card per team member with three text fields (Yesterday / Today / Blocker).\n2. "This week" view: rows = members, columns = Mon–Sun; hover for full text.\n3. Top "Blockers this week" rollup card per person.\n4. Export weekly Markdown, organized per person, with blockers list.\n5. Member list local; disable on leave without losing history.',
+      deliveryPhases: ['Scaffold Electron shell, implement "Today" view and member cards.', 'Complete "This week" view, blocker rollup, and weekly export.', 'Add member management and history retention, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Today view allows filling and saving daily standups', '☐ Week view summarizes by person and day correctly', '☐ Blockers auto-highlighted red and rolled up to top card', '☐ Markdown export format is correct'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -304,34 +262,24 @@ export const operationsCustomerLifecycleTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是社群/客户运营，不懂代码。
-
-【目标】
-把客户跟进从感觉变成节奏：本地表格 + 每日"该联系名单"。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 客户列表：姓名、来源、阶段、最近联系日、负责人、备注。
-2. 阶段规则（可改）：7 天内互动 = 活跃；30 天 = 沉睡；60 天 = 流失；首次接触 14 天内 = 新客。
-3. 顶部"今日跟进"卡片：按规则计算应该联系的人，最多 20 个，可一键移到"已联系"。
-4. 客户详情抽屉：记一句备注、改阶段、改负责人；自动更新最近联系日。
-5. Excel 批量导入；导出当前名单 + 本月跟进日志。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a community/customer ops person, non-developer.
-
-[Goal]
-Turn customer follow-ups from gut feel into a daily rhythm with a local list and an auto "who to reach today".
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Customer list: name, source, stage, last contact, owner, notes.
-2. Stage rules (editable): contact within 7d = active; 30d = dormant; 60d = lost; first-contact within 14d = new.
-3. Top "Today\'s follow-ups" card up to 20 names; one-click "contacted".
-4. Detail drawer: log a note, change stage/owner; last-contact auto-updates.
-5. Excel bulk import; export current list + monthly logs.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是社群/客户运营，不懂代码。',
+      goal: '把客户跟进从感觉变成节奏：本地表格 + 每日"该联系名单"。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 客户列表：姓名、来源、阶段、最近联系日、负责人、备注。\n2. 阶段规则（可改）：7 天内互动 = 活跃；30 天 = 沉睡；60 天 = 流失；首次接触 14 天内 = 新客。\n3. 顶部"今日跟进"卡片：按规则计算应该联系的人，最多 20 个，可一键移到"已联系"。\n4. 客户详情抽屉：记一句备注、改阶段、改负责人；自动更新最近联系日。\n5. Excel 批量导入；导出当前名单 + 本月跟进日志。',
+      deliveryPhases: ['搭建 Electron 框架，实现客户列表和阶段规则引擎。', '完成今日跟进卡片、详情抽屉和状态更新功能。', '实现 Excel 导入导出和月度日志，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 客户列表可增删改查，阶段自动计算', '□ 今日跟进卡片按规则推荐联系人', '□ 导出当前名单和月度跟进日志正确', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a community/customer ops person, non-developer.',
+      goal: 'Turn customer follow-ups from gut feel into a daily rhythm with a local list and an auto "who to reach today".',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Customer list: name, source, stage, last contact, owner, notes.\n2. Stage rules (editable): contact within 7d = active; 30d = dormant; 60d = lost; first-contact within 14d = new.\n3. Top "Today\'s follow-ups" card up to 20 names; one-click "contacted".\n4. Detail drawer: log a note, change stage/owner; last-contact auto-updates.\n5. Excel bulk import; export current list + monthly logs.',
+      deliveryPhases: ['Scaffold Electron shell, implement customer list and stage rule engine.', 'Complete follow-up card, detail drawer, and status update features.', 'Add Excel import/export and monthly logs, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Customer list supports CRUD; stages auto-calculated', '☐ Follow-up card recommends contacts by rules', '☐ Export of current list and monthly logs is correct', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -383,36 +331,24 @@ export const customerServiceComplaintClassifier: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是客服主管，不懂代码。
-
-【目标】
-把每天的投诉文本快速归类，并对升级词第一时间提醒，避免漏处理引发更大问题。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 顶部大文本框，粘贴一段或多段投诉，每段一行，回车确认。
-2. 类目预置 8 类（物流 / 质量 / 服务 / 价格 / 退款 / 安装 / 售后 / 其他），关键字规则可改。
-3. 升级词列表（曝光、投诉、工商、消协、315、法务、媒体…）命中后整行染红，并弹出系统通知。
-4. 中间表格列出每条投诉 + 类目 + 风险等级（普通 / 关注 / 升级）。
-5. 顶部统计：今日总数、各类占比、升级 N 条。
-6. "导出今日摘要 Markdown / Excel" 一键给主管。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a CS supervisor, non-developer.
-
-[Goal]
-Quickly bucket daily complaints and shout when escalation phrases appear.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Big text box at top; paste one or many complaints; one per line.
-2. 8 default buckets (logistics / quality / service / price / refund / install / aftersales / other) with editable keyword rules.
-3. Escalation keywords trigger row-red + OS notification.
-4. Middle table: complaint + category + risk level (normal / watch / escalate).
-5. Top summary: total today, share per type, N escalations.
-6. One-click export of today\'s summary (Markdown / Excel).${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是客服主管，不懂代码。',
+      goal: '把每天的投诉文本快速归类，并对升级词第一时间提醒，避免漏处理引发更大问题。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 顶部大文本框，粘贴一段或多段投诉，每段一行，回车确认。\n2. 类目预置 8 类（物流 / 质量 / 服务 / 价格 / 退款 / 安装 / 售后 / 其他），关键字规则可改。\n3. 升级词列表（曝光、投诉、工商、消协、315、法务、媒体…）命中后整行染红，并弹出系统通知。\n4. 中间表格列出每条投诉 + 类目 + 风险等级（普通 / 关注 / 升级）。\n5. 顶部统计：今日总数、各类占比、升级 N 条。\n6. "导出今日摘要 Markdown / Excel" 一键给主管。',
+      deliveryPhases: ['搭建 Electron 框架，实现投诉输入和 8 类关键字规则引擎。', '完成升级词检测、系统通知和风险等级分类。', '实现统计卡片和摘要导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 粘贴投诉后自动分类结果正确', '□ 升级词命中后整行变红并弹通知', '□ 导出今日摘要格式正确', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a CS supervisor, non-developer.',
+      goal: 'Quickly bucket daily complaints and shout when escalation phrases appear.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Big text box at top; paste one or many complaints; one per line.\n2. 8 default buckets (logistics / quality / service / price / refund / install / aftersales / other) with editable keyword rules.\n3. Escalation keywords trigger row-red + OS notification.\n4. Middle table: complaint + category + risk level (normal / watch / escalate).\n5. Top summary: total today, share per type, N escalations.\n6. One-click export of today\'s summary (Markdown / Excel).',
+      deliveryPhases: ['Scaffold Electron shell, implement complaint input and 8-category keyword engine.', 'Complete escalation keyword detection, OS notification, and risk-level classification.', 'Add summary cards and daily summary export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Pasting complaints produces correct auto-classification', '☐ Escalation keywords turn row red and trigger notification', '☐ Today\'s summary export format is correct', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -464,34 +400,24 @@ export const customerServiceFAQBuilder: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是客服培训负责人，不懂代码。
-
-【目标】
-把分散的问答沉淀成可搜索的知识卡片，给新人当上手手册。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 左侧分组树，可自定义增删（售前、售后、物流、退款、安装…）。
-2. 右侧卡片网格，每张卡：问题（一句）、答案（多段）、关键词标签、最近更新人、被搜次数。
-3. 顶部搜索框：分词 + 关键词匹配，输入即过滤；按命中相关度排序。
-4. 卡片操作：编辑、复制答案、收藏、归档；改动留版本历史，可回滚。
-5. 导入：Word / Excel / Markdown；导出：单分组或全部 Markdown。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a CS training lead, non-developer.
-
-[Goal]
-Turn scattered Q&A into a searchable card deck for new-hire onboarding.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Left group tree (pre-sale, after-sale, logistics, refund…), fully editable.
-2. Right card grid; each card: question, answer (multi-line), keyword tags, last editor, search count.
-3. Top search with tokenized keyword matching; filters as you type; results sorted by relevance.
-4. Card actions: edit, copy answer, favorite, archive; version history with rollback.
-5. Import Word / Excel / Markdown; export one group or all as Markdown.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是客服培训负责人，不懂代码。',
+      goal: '把分散的问答沉淀成可搜索的知识卡片，给新人当上手手册。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 左侧分组树，可自定义增删（售前、售后、物流、退款、安装…）。\n2. 右侧卡片网格，每张卡：问题（一句）、答案（多段）、关键词标签、最近更新人、被搜次数。\n3. 顶部搜索框：分词 + 关键词匹配，输入即过滤；按命中相关度排序。\n4. 卡片操作：编辑、复制答案、收藏、归档；改动留版本历史，可回滚。\n5. 导入：Word / Excel / Markdown；导出：单分组或全部 Markdown。',
+      deliveryPhases: ['搭建 Electron 框架，实现分组树和知识卡片数据模型。', '完成搜索、卡片操作和版本历史功能。', '实现 Word/Excel/Markdown 导入导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 分组树可增删改，卡片可编辑保存', '□ 搜索输入即过滤，结果按相关度排序', '□ 导入 Word/Excel/Markdown 正确解析', '□ 导出 Markdown 格式正确'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a CS training lead, non-developer.',
+      goal: 'Turn scattered Q&A into a searchable card deck for new-hire onboarding.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Left group tree (pre-sale, after-sale, logistics, refund…), fully editable.\n2. Right card grid; each card: question, answer (multi-line), keyword tags, last editor, search count.\n3. Top search with tokenized keyword matching; filters as you type; results sorted by relevance.\n4. Card actions: edit, copy answer, favorite, archive; version history with rollback.\n5. Import Word / Excel / Markdown; export one group or all as Markdown.',
+      deliveryPhases: ['Scaffold Electron shell, implement group tree and knowledge card data model.', 'Complete search, card actions, and version history features.', 'Add Word/Excel/Markdown import/export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Group tree supports CRUD; cards can be edited and saved', '☐ Search filters as you type; results sorted by relevance', '☐ Word/Excel/Markdown import parses correctly', '☐ Markdown export format is correct'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -543,34 +469,24 @@ export const hrLeaveTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是 HR，不懂代码。
-
-【目标】
-让请假和调休的余额一直清楚，不靠脑子记。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 员工列表：姓名、部门、入职日、四种余额（年假 / 调休 / 病假 / 事假）。
-2. "新增请假单"：选员工、类型、起止日、备注；保存后自动算工作日并扣减。
-3. "新增加班"：选员工、加班时长，自动按 1:1.5 折算调休加到余额上（系数可改）。
-4. 月度结算页：每人四种余额、本月新增、本月使用、期末余额；一键导出 Excel。
-5. 员工档案抽屉：年度年假按入职年限按规则发放（可改），自动按月或按年初一次性发放。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is an HR, non-developer.
-
-[Goal]
-Keep leave and TOIL balances always clear without memorizing.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Employee list: name, dept, hire date, four balances (annual / TOIL / sick / personal).
-2. "New leave": pick employee, type, dates, notes; auto-computes working days and deducts.
-3. "Log overtime": pick employee, hours; converted by 1:1.5 (editable) and added to TOIL.
-4. Monthly settlement: per-employee four balances, this-month added/used/ending; export Excel.
-5. Employee drawer: annual leave granted by tenure rule (editable), monthly accrual or year-start lump.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是 HR，不懂代码。',
+      goal: '让请假和调休的余额一直清楚，不靠脑子记。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 员工列表：姓名、部门、入职日、四种余额（年假 / 调休 / 病假 / 事假）。\n2. "新增请假单"：选员工、类型、起止日、备注；保存后自动算工作日并扣减。\n3. "新增加班"：选员工、加班时长，自动按 1:1.5 折算调休加到余额上（系数可改）。\n4. 月度结算页：每人四种余额、本月新增、本月使用、期末余额；一键导出 Excel。\n5. 员工档案抽屉：年度年假按入职年限按规则发放（可改），自动按月或按年初一次性发放。',
+      deliveryPhases: ['搭建 Electron 框架，实现员工列表和四种余额数据模型。', '完成请假单、加班录入和自动计算功能。', '实现月度结算和 Excel 导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 员工列表可增删改，余额自动计算', '□ 新增请假单自动扣减正确余额', '□ 加班录入按系数折算调休正确', '□ 月度结算导出 Excel 数据完整'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is an HR, non-developer.',
+      goal: 'Keep leave and TOIL balances always clear without memorizing.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Employee list: name, dept, hire date, four balances (annual / TOIL / sick / personal).\n2. "New leave": pick employee, type, dates, notes; auto-computes working days and deducts.\n3. "Log overtime": pick employee, hours; converted by 1:1.5 (editable) and added to TOIL.\n4. Monthly settlement: per-employee four balances, this-month added/used/ending; export Excel.\n5. Employee drawer: annual leave granted by tenure rule (editable), monthly accrual or year-start lump.',
+      deliveryPhases: ['Scaffold Electron shell, implement employee list and four-balance data model.', 'Complete leave request, overtime logging, and auto-calculation features.', 'Add monthly settlement and Excel export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Employee list supports CRUD; balances auto-calculated', '☐ New leave request deducts correct balance', '☐ Overtime logging converts to TOIL correctly', '☐ Monthly settlement Excel export is complete'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -620,36 +536,24 @@ export const hrInterviewSchedule: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是 HR 招聘负责人，不懂代码。
-
-【目标】
-让一周的面试排期一目了然，避免面试官撞车。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 候选人池：左侧抽屉可增删候选人（姓名、岗位、HR、备注）。
-2. 主面板：本周时间表（周一到周日，9:00-21:00，30 分钟一格）。
-3. 把候选人卡片拖到对应格子里 -> 弹窗填面试官、轮次、地点、备注。
-4. 冲突检测：同一面试官出现在重叠时段 -> 整行红色提示；同一候选人同一时段被排两次 -> 红色。
-5. 切换"周视图"/"日视图"。
-6. "导出本周安排" -> 一份 Markdown，分日列出候选人、时间、岗位、面试官、地点。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is an HR recruiter lead, non-developer.
-
-[Goal]
-See the whole week of interviews at a glance and stop double-booking interviewers.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Candidate pool drawer (name, role, HR, notes).
-2. Main view: this week, Mon–Sun, 9:00–21:00, 30-min cells.
-3. Drag a candidate to a cell -> popup for interviewer / round / location / notes.
-4. Conflicts: same interviewer overlapping slots = red; same candidate twice = red.
-5. Toggle week / day view.
-6. Export this week as Markdown by day with all fields.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是 HR 招聘负责人，不懂代码。',
+      goal: '让一周的面试排期一目了然，避免面试官撞车。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 候选人池：左侧抽屉可增删候选人（姓名、岗位、HR、备注）。\n2. 主面板：本周时间表（周一到周日，9:00-21:00，30 分钟一格）。\n3. 把候选人卡片拖到对应格子里 -> 弹窗填面试官、轮次、地点、备注。\n4. 冲突检测：同一面试官出现在重叠时段 -> 整行红色提示；同一候选人同一时段被排两次 -> 红色。\n5. 切换"周视图"/"日视图"。\n6. "导出本周安排" -> 一份 Markdown，分日列出候选人、时间、岗位、面试官、地点。',
+      deliveryPhases: ['搭建 Electron 框架，实现候选人池和周时间表布局。', '完成拖拽排期、弹窗填写和冲突检测功能。', '实现周/日视图切换和安排导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 候选人可增删，拖拽到时间格排期', '□ 冲突检测：同面试官重叠时段标红', '□ 导出本周安排 Markdown 格式正确', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is an HR recruiter lead, non-developer.',
+      goal: 'See the whole week of interviews at a glance and stop double-booking interviewers.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Candidate pool drawer (name, role, HR, notes).\n2. Main view: this week, Mon–Sun, 9:00–21:00, 30-min cells.\n3. Drag a candidate to a cell -> popup for interviewer / round / location / notes.\n4. Conflicts: same interviewer overlapping slots = red; same candidate twice = red.\n5. Toggle week / day view.\n6. Export this week as Markdown by day with all fields.',
+      deliveryPhases: ['Scaffold Electron shell, implement candidate pool and weekly time grid layout.', 'Complete drag-to-schedule, popup form, and conflict detection features.', 'Add week/day view toggle and schedule export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Candidates can be added and dragged to time slots', '☐ Conflict detection: overlapping slots for same interviewer turn red', '☐ Weekly schedule Markdown export is correct', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -701,34 +605,24 @@ export const logisticsWarehouseStock: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是仓管/物流主管，不懂代码。
-
-【目标】
-月度盘点把账面表和实盘表的差异一次性算清楚，连金额一起。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；SheetJS
-
-【核心功能】
-1. 两个导入位：账面库存 Excel、盘点结果 Excel。字段（SKU、品名、数量、单价）从下拉框确认。
-2. 比对规则：按 SKU 匹配，盘盈（实>账） / 盘亏（实<账） / 未盘到（账有实无） / 多出（实有账无），四类分开展示。
-3. 每行计算差值数量、差额金额；底部总计金额（盘盈金额、盘亏金额、净差）。
-4. 顶部统计：SKU 总数、差异数、差异率、净差金额。
-5. "导出差异明细" Excel，按四类分 sheet。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a warehouse/logistics lead, non-developer.
-
-[Goal]
-Compute monthly stocktake diffs (with values) in one go.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; SheetJS
-
-[Core Features]
-1. Two imports: on-paper Excel and counted Excel. Field mapping (SKU, name, qty, price) confirmed via dropdown.
-2. Compare by SKU; classify into surplus / shortage / unaccounted / extra; show each group.
-3. Per-row diff qty and value; bottom totals (surplus, shortage, net).
-4. Top stats: total SKUs, diff count, diff rate, net value.
-5. Export diff Excel with four sheets.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是仓管/物流主管，不懂代码。',
+      goal: '月度盘点把账面表和实盘表的差异一次性算清楚，连金额一起。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS',
+      features: '1. 两个导入位：账面库存 Excel、盘点结果 Excel。字段（SKU、品名、数量、单价）从下拉框确认。\n2. 比对规则：按 SKU 匹配，盘盈（实>账） / 盘亏（实<账） / 未盘到（账有实无） / 多出（实有账无），四类分开展示。\n3. 每行计算差值数量、差额金额；底部总计金额（盘盈金额、盘亏金额、净差）。\n4. 顶部统计：SKU 总数、差异数、差异率、净差金额。\n5. "导出差异明细" Excel，按四类分 sheet。',
+      deliveryPhases: ['搭建 Electron 框架，实现两个 Excel 导入和字段映射。', '完成 SKU 比对引擎和四类差异分组展示。', '实现统计卡片和差异明细导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 导入两张 Excel 后比对结果正确', '□ 四类差异分组展示，金额计算准确', '□ 导出差异明细按四类分 sheet', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a warehouse/logistics lead, non-developer.',
+      goal: 'Compute monthly stocktake diffs (with values) in one go.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS',
+      features: '1. Two imports: on-paper Excel and counted Excel. Field mapping (SKU, name, qty, price) confirmed via dropdown.\n2. Compare by SKU; classify into surplus / shortage / unaccounted / extra; show each group.\n3. Per-row diff qty and value; bottom totals (surplus, shortage, net).\n4. Top stats: total SKUs, diff count, diff rate, net value.\n5. Export diff Excel with four sheets.',
+      deliveryPhases: ['Scaffold Electron shell, implement dual Excel import and field mapping.', 'Complete SKU comparison engine and four-group diff display.', 'Add summary cards and diff detail export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Importing two Excel files produces correct comparison', '☐ Four diff groups displayed; value calculations accurate', '☐ Export diff detail has four sheets', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -780,34 +674,24 @@ export const logisticsReturnTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商物流主管，不懂代码。
-
-【目标】
-把分散在客服-仓库-财务之间的退货件集中到一张本地台账，每条都看得见状态。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 列表字段：订单号、快递单号、寄回地址、应退金额、寄出日、最新跟进、状态、备注。
-2. 四个状态标签（待寄回 / 在途 / 已签收 / 异常），左侧切换。
-3. 自动规则：寄出日 > 7 天且未签收 -> 整行染红，并加入"逾期"卡片。
-4. 单条记录抽屉：增加一条跟进笔记，自动时间戳；可改状态。
-5. Excel 批量导入：按表头映射 SKU、快递单号等字段；导出"本月退货台账"含跟进历史。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is an e-commerce logistics lead, non-developer.
-
-[Goal]
-Consolidate scattered return-shipment info into one local ledger, with status always visible.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Columns: order, tracking, return address, refund amount, sent date, last note, status, free notes.
-2. Four status tabs (pending / in-transit / received / exception).
-3. Auto rule: > 7 days since sent without signature -> row red and shown in "overdue" card.
-4. Detail drawer: add a timestamped follow-up note; change status.
-5. Excel import with header mapping; export "monthly return ledger" with history.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商物流主管，不懂代码。',
+      goal: '把分散在客服-仓库-财务之间的退货件集中到一张本地台账，每条都看得见状态。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 列表字段：订单号、快递单号、寄回地址、应退金额、寄出日、最新跟进、状态、备注。\n2. 四个状态标签（待寄回 / 在途 / 已签收 / 异常），左侧切换。\n3. 自动规则：寄出日 > 7 天且未签收 -> 整行染红，并加入"逾期"卡片。\n4. 单条记录抽屉：增加一条跟进笔记，自动时间戳；可改状态。\n5. Excel 批量导入：按表头映射 SKU、快递单号等字段；导出"本月退货台账"含跟进历史。',
+      deliveryPhases: ['搭建 Electron 框架，实现退货列表和四状态标签。', '完成逾期规则、跟进笔记和状态更新功能。', '实现 Excel 导入导出和月度台账，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 退货列表可增删改，状态标签切换正确', '□ 逾期 7 天自动标红并加入逾期卡片', '□ 导出本月退货台账含跟进历史', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is an e-commerce logistics lead, non-developer.',
+      goal: 'Consolidate scattered return-shipment info into one local ledger, with status always visible.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Columns: order, tracking, return address, refund amount, sent date, last note, status, free notes.\n2. Four status tabs (pending / in-transit / received / exception).\n3. Auto rule: > 7 days since sent without signature -> row red and shown in "overdue" card.\n4. Detail drawer: add a timestamped follow-up note; change status.\n5. Excel import with header mapping; export "monthly return ledger" with history.',
+      deliveryPhases: ['Scaffold Electron shell, implement return list and four-status tabs.', 'Complete overdue rule, follow-up notes, and status update features.', 'Add Excel import/export and monthly ledger, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Return list supports CRUD; status tabs switch correctly', '☐ Overdue 7-day auto-red and added to overdue card', '☐ Monthly return ledger export includes follow-up history', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -859,34 +743,24 @@ export const procurementPOTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是采购主管，不懂代码。
-
-【目标】
-把每张 PO 的五步进度都摆在台面上，避免反复追问。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. PO 列表字段：单号、供应商、品类、金额、负责人、当前节点、最近更新日、备注。
-2. 行内 5 个圆点：下单 / 供应商确认 / 到货 / 验收 / 付款；点亮表示完成，自动写入完成时间。
-3. "待催办"顶部卡片：节点完成日 > 5 天未推进的全部列出。
-4. 搜索 + 过滤（按供应商、节点、负责人）。
-5. Excel 导入新 PO；导出本周进度 Markdown / Excel。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a procurement lead, non-developer.
-
-[Goal]
-Put every PO\'s five-step progress on the table; stop chasing for updates.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. PO list: number, supplier, category, amount, owner, current step, last update, notes.
-2. Five dots inline: placed / confirmed / received / accepted / paid; click to mark, auto-timestamp.
-3. Top "Needs nudge" card: > 5 days since last step.
-4. Search + filter by supplier / step / owner.
-5. Excel import; weekly export as Markdown / Excel.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是采购主管，不懂代码。',
+      goal: '把每张 PO 的五步进度都摆在台面上，避免反复追问。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. PO 列表字段：单号、供应商、品类、金额、负责人、当前节点、最近更新日、备注。\n2. 行内 5 个圆点：下单 / 供应商确认 / 到货 / 验收 / 付款；点亮表示完成，自动写入完成时间。\n3. "待催办"顶部卡片：节点完成日 > 5 天未推进的全部列出。\n4. 搜索 + 过滤（按供应商、节点、负责人）。\n5. Excel 导入新 PO；导出本周进度 Markdown / Excel。',
+      deliveryPhases: ['搭建 Electron 框架，实现 PO 列表和五节点圆点条。', '完成待催办规则、搜索过滤和状态切换功能。', '实现 Excel 导入和进度导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ PO 列表可增删改，五节点圆点可切换', '□ 待催办卡片自动列出超期 PO', '□ 导出本周进度 Markdown / Excel 格式正确', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a procurement lead, non-developer.',
+      goal: 'Put every PO\'s five-step progress on the table; stop chasing for updates.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. PO list: number, supplier, category, amount, owner, current step, last update, notes.\n2. Five dots inline: placed / confirmed / received / accepted / paid; click to mark, auto-timestamp.\n3. Top "Needs nudge" card: > 5 days since last step.\n4. Search + filter by supplier / step / owner.\n5. Excel import; weekly export as Markdown / Excel.',
+      deliveryPhases: ['Scaffold Electron shell, implement PO list and five-dot status bar.', 'Complete nudge rule, search/filter, and status toggle features.', 'Add Excel import and progress export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ PO list supports CRUD; five dots can be toggled', '☐ Nudge card auto-lists overdue POs', '☐ Weekly progress export Markdown/Excel is correct', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -936,34 +810,24 @@ export const procurementSupplierQualification: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是采购助理，不懂代码。
-
-【目标】
-让供应商资质到期不再靠记忆。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 供应商档案卡：名称、联系人、电话、采购品类、合作起始日、备注。
-2. 资质子表：每行包括类型（营业执照 / 生产许可 / ISO / 食品 / 合同 / 其他）、证书编号、有效期、附件本地路径。
-3. 首页"到期提醒"卡片：分 30 天 / 15 天 / 7 天 三个色块，行内一键"已续期"-> 弹出更新到期日的小框。
-4. 搜索 + 过滤（按品类 / 即将到期 / 已过期）。
-5. 导出本月即将到期资质清单 Excel；导出某供应商档案 PDF（HTML 打印即可）。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a procurement assistant, non-developer.
-
-[Goal]
-Stop relying on memory for supplier document expirations.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Supplier card: name, contact, phone, category, start date, notes.
-2. Documents sub-table: type, number, expiry, local-file path.
-3. Home "Expiry" card grouped into 30 / 15 / 7-day bands; row-level "renewed" with a small popup to update expiry.
-4. Search + filter (category / expiring / expired).
-5. Export expiring list Excel; export a supplier dossier PDF (HTML print is fine).${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是采购助理，不懂代码。',
+      goal: '让供应商资质到期不再靠记忆。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 供应商档案卡：名称、联系人、电话、采购品类、合作起始日、备注。\n2. 资质子表：每行包括类型（营业执照 / 生产许可 / ISO / 食品 / 合同 / 其他）、证书编号、有效期、附件本地路径。\n3. 首页"到期提醒"卡片：分 30 天 / 15 天 / 7 天 三个色块，行内一键"已续期"-> 弹出更新到期日的小框。\n4. 搜索 + 过滤（按品类 / 即将到期 / 已过期）。\n5. 导出本月即将到期资质清单 Excel；导出某供应商档案 PDF（HTML 打印即可）。',
+      deliveryPhases: ['搭建 Electron 框架，实现供应商档案卡和资质子表。', '完成到期提醒卡片、续期操作和搜索过滤功能。', '实现 Excel 和 PDF 导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 供应商档案卡可增删改，资质子表正常', '□ 到期提醒按 30/15/7 天分级显示', '□ 导出资质清单 Excel 和供应商 PDF 正确', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a procurement assistant, non-developer.',
+      goal: 'Stop relying on memory for supplier document expirations.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Supplier card: name, contact, phone, category, start date, notes.\n2. Documents sub-table: type, number, expiry, local-file path.\n3. Home "Expiry" card grouped into 30 / 15 / 7-day bands; row-level "renewed" with a small popup to update expiry.\n4. Search + filter (category / expiring / expired).\n5. Export expiring list Excel; export a supplier dossier PDF (HTML print is fine).',
+      deliveryPhases: ['Scaffold Electron shell, implement supplier card and documents sub-table.', 'Complete expiry alerts, renewal action, and search/filter features.', 'Add Excel and PDF export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Supplier card supports CRUD; documents sub-table works', '☐ Expiry alerts display by 30/15/7-day bands', '☐ Export of expiring list Excel and supplier PDF is correct', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1015,34 +879,24 @@ export const marketingContentCalendar: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是市场内容负责人，不懂代码。
-
-【目标】
-把多渠道内容计划集中到一张本地日历，团队节奏对齐。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 月历主视图：横向 31 列日期，纵向 N 行渠道（公众号 / 视频号 / 小红书 / 抖音 / 微博 / 知乎 + 自定义）。
-2. 每格点击新建内容卡：选题、负责人、状态、链接、备注；状态颜色化。
-3. 跨渠道选题撞车检测：同周相似选题（关键字匹配）-> 顶部"撞车提醒"卡片。
-4. 切换日历视图 / 列表视图 / 看板视图。
-5. "本周计划"导出 Markdown，按渠道列出卡片。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a content marketing lead, non-developer.
-
-[Goal]
-Centralize multi-channel content plans on one local calendar; align team rhythm.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Month grid: 31 date columns × N channel rows (WeChat / Video / Xiaohongshu / Douyin / Weibo / Zhihu + custom).
-2. Click a cell to create a card (topic, owner, status, link, notes); statuses colored.
-3. Conflict detection: similar topics same week (keyword match) -> top "Conflict" card.
-4. Switch between calendar / list / kanban view.
-5. Export weekly plan as Markdown by channel.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是市场内容负责人，不懂代码。',
+      goal: '把多渠道内容计划集中到一张本地日历，团队节奏对齐。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 月历主视图：横向 31 列日期，纵向 N 行渠道（公众号 / 视频号 / 小红书 / 抖音 / 微博 / 知乎 + 自定义）。\n2. 每格点击新建内容卡：选题、负责人、状态、链接、备注；状态颜色化。\n3. 跨渠道选题撞车检测：同周相似选题（关键字匹配）-> 顶部"撞车提醒"卡片。\n4. 切换日历视图 / 列表视图 / 看板视图。\n5. "本周计划"导出 Markdown，按渠道列出卡片。',
+      deliveryPhases: ['搭建 Electron 框架，实现月历网格和渠道行布局。', '完成内容卡片、撞车检测和多视图切换功能。', '实现本周计划导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 月历视图按日期×渠道显示内容卡', '□ 同周相似选题撞车时高亮提醒', '□ 导出本周计划 Markdown 按渠道分组', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a content marketing lead, non-developer.',
+      goal: 'Centralize multi-channel content plans on one local calendar; align team rhythm.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Month grid: 31 date columns × N channel rows (WeChat / Video / Xiaohongshu / Douyin / Weibo / Zhihu + custom).\n2. Click a cell to create a card (topic, owner, status, link, notes); statuses colored.\n3. Conflict detection: similar topics same week (keyword match) -> top "Conflict" card.\n4. Switch between calendar / list / kanban view.\n5. Export weekly plan as Markdown by channel.',
+      deliveryPhases: ['Scaffold Electron shell, implement month grid and channel row layout.', 'Complete content cards, conflict detection, and multi-view toggle features.', 'Add weekly plan export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Month view displays content cards by date×channel', '☐ Similar topics in same week flag as conflict', '☐ Weekly plan Markdown export grouped by channel', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1092,36 +946,24 @@ export const marketingKOLTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是市场达人合作负责人，不懂代码。
-
-【目标】
-让每位达人的合作进度都有据可查，不再卡在"我以为已经发了"。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 达人列表字段：昵称、平台、粉丝量、合作金额、对接人、当前节点、最近更新日、备注。
-2. 五节点圆点：对接 / 寄样 / 收样 / 发布 / 复盘；点击切换并自动写入日期。
-3. 节点超期规则可设（默认：对接 3 天 / 寄样 5 天 / 收样 7 天 / 发布 7 天 / 复盘 7 天）。
-4. 顶部"待催"卡片：所有红点条目分组。
-5. 详情抽屉：写笔记、贴成片链接、记录数据快照（点赞 / 评论 / 销量），方便复盘。
-6. Excel 导入新一批达人；导出本月明细。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a KOL collab lead, non-developer.
-
-[Goal]
-Make every creator collab\'s progress auditable; stop the "I thought it was posted" trap.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Creator list: handle, platform, followers, fee, owner, current step, last update, notes.
-2. Five-dot bar: outreach / sample sent / sample received / published / retro; clicks set date.
-3. Overdue rules editable per step (default 3 / 5 / 7 / 7 / 7 days).
-4. Top "Nudge" card groups all red items.
-5. Detail drawer: notes, links to published content, metric snapshots (likes / comments / sales) for retros.
-6. Excel import; monthly export.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是市场达人合作负责人，不懂代码。',
+      goal: '让每位达人的合作进度都有据可查，不再卡在"我以为已经发了"。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 达人列表字段：昵称、平台、粉丝量、合作金额、对接人、当前节点、最近更新日、备注。\n2. 五节点圆点：对接 / 寄样 / 收样 / 发布 / 复盘；点击切换并自动写入日期。\n3. 节点超期规则可设（默认：对接 3 天 / 寄样 5 天 / 收样 7 天 / 发布 7 天 / 复盘 7 天）。\n4. 顶部"待催"卡片：所有红点条目分组。\n5. 详情抽屉：写笔记、贴成片链接、记录数据快照（点赞 / 评论 / 销量），方便复盘。\n6. Excel 导入新一批达人；导出本月明细。',
+      deliveryPhases: ['搭建 Electron 框架，实现达人列表和五节点圆点条。', '完成超期规则、待催卡片和详情抽屉功能。', '实现 Excel 导入和明细导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 达人列表可增删改，五节点圆点可切换', '□ 超期规则自动标红并加入待催卡片', '□ 导出本月明细数据完整', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a KOL collab lead, non-developer.',
+      goal: 'Make every creator collab\'s progress auditable; stop the "I thought it was posted" trap.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Creator list: handle, platform, followers, fee, owner, current step, last update, notes.\n2. Five-dot bar: outreach / sample sent / sample received / published / retro; clicks set date.\n3. Overdue rules editable per step (default 3 / 5 / 7 / 7 / 7 days).\n4. Top "Nudge" card groups all red items.\n5. Detail drawer: notes, links to published content, metric snapshots (likes / comments / sales) for retros.\n6. Excel import; monthly export.',
+      deliveryPhases: ['Scaffold Electron shell, implement creator list and five-dot status bar.', 'Complete overdue rules, nudge card, and detail drawer features.', 'Add Excel import and monthly export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Creator list supports CRUD; five dots can be toggled', '☐ Overdue rules auto-highlight red and add to nudge card', '☐ Monthly export data is complete', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1175,36 +1017,24 @@ export const legalNDAVault: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是法务/行政，不懂代码。
-
-【目标】
-让所有 NDA 都进同一张表，查、提醒、归档都顺手。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. NDA 列表：编号（自动）、对方、签订日、有效期、范围（多选标签）、状态（生效 / 即将到期 / 已到期 / 已终止）、扫描件本地路径、备注。
-2. 顶部"到期提醒"卡片：分三档颜色（60/30/7 天）。
-3. 搜索：对方名、范围关键词；过滤：状态、签订年份。
-4. 单条详情抽屉：可双击附件路径直接打开本地 PDF / 图片。
-5. 导入：从一个文件夹批量导入扫描件，按文件名前缀建立基础记录，再手工补充。
-6. 导出：全部 NDA 索引 Excel；单个 NDA 信息卡 PDF（HTML 打印）。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is legal/admin, non-developer.
-
-[Goal]
-Bring every NDA into one searchable ledger with expiry alerts.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. NDA list: auto-id, counterparty, signed date, validity, scope tags, status, scan path, notes.
-2. Top "Expiry" card with 60/30/7-day bands.
-3. Search by counterparty / scope keyword; filter by status / year.
-4. Detail drawer: double-click attachment path to open local PDF / image.
-5. Bulk import from a folder, generating base records by filename prefix.
-6. Export full index Excel; single NDA info-card PDF.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是法务/行政，不懂代码。',
+      goal: '让所有 NDA 都进同一张表，查、提醒、归档都顺手。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. NDA 列表：编号（自动）、对方、签订日、有效期、范围（多选标签）、状态（生效 / 即将到期 / 已到期 / 已终止）、扫描件本地路径、备注。\n2. 顶部"到期提醒"卡片：分三档颜色（60/30/7 天）。\n3. 搜索：对方名、范围关键词；过滤：状态、签订年份。\n4. 单条详情抽屉：可双击附件路径直接打开本地 PDF / 图片。\n5. 导入：从一个文件夹批量导入扫描件，按文件名前缀建立基础记录，再手工补充。\n6. 导出：全部 NDA 索引 Excel；单个 NDA 信息卡 PDF（HTML 打印）。',
+      deliveryPhases: ['搭建 Electron 框架，实现 NDA 列表和三档到期提醒。', '完成搜索过滤、详情抽屉和本地文件打开功能。', '实现批量导入和 Excel/PDF 导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ NDA 列表可增删改，三档到期提醒正常', '□ 搜索过滤功能正确', '□ 双击附件路径可打开本地 PDF / 图片', '□ 导出索引 Excel 和信息卡 PDF 正确'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is legal/admin, non-developer.',
+      goal: 'Bring every NDA into one searchable ledger with expiry alerts.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. NDA list: auto-id, counterparty, signed date, validity, scope tags, status, scan path, notes.\n2. Top "Expiry" card with 60/30/7-day bands.\n3. Search by counterparty / scope keyword; filter by status / year.\n4. Detail drawer: double-click attachment path to open local PDF / image.\n5. Bulk import from a folder, generating base records by filename prefix.\n6. Export full index Excel; single NDA info-card PDF.',
+      deliveryPhases: ['Scaffold Electron shell, implement NDA list and three-band expiry alerts.', 'Complete search/filter, detail drawer, and local file open features.', 'Add bulk import and Excel/PDF export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ NDA list supports CRUD; three-band expiry alerts work', '☐ Search and filter functions work correctly', '☐ Double-click attachment path opens local PDF/image', '☐ Index Excel and info-card PDF export correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1254,34 +1084,24 @@ export const legalTrademarkMonitor: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是法务/品牌，不懂代码。
-
-【目标】
-不再因为忘了续展而失去商标。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 商标列表：注册号、名称、类别（多选标签）、注册日、有效期、申请人、状态、证书本地路径。
-2. 自动算到期日并按 12 / 6 / 3 个月三档颜色提醒。
-3. 首页"今年需续展"卡片：本年内到期且未提交续展申请的全部列出。
-4. 单条详情：提交续展后填写提交日和受理号，状态转为"续展中"，到期日延后 10 年。
-5. 导出本年度续展清单 Excel 给代理机构。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is legal/brand, non-developer.
-
-[Goal]
-Never lose a trademark to a missed renewal.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Trademark list: number, name, class tags, registered, expiry, applicant, status, cert path.
-2. Auto-derive expiry; alerts at 12 / 6 / 3 months with three colors.
-3. Home "This year\'s renewals" card.
-4. Detail: enter renewal submission date and receipt ID; status moves to "in renewal"; expiry +10 years.
-5. Export this-year renewal list Excel for the agent.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是法务/品牌，不懂代码。',
+      goal: '不再因为忘了续展而失去商标。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 商标列表：注册号、名称、类别（多选标签）、注册日、有效期、申请人、状态、证书本地路径。\n2. 自动算到期日并按 12 / 6 / 3 个月三档颜色提醒。\n3. 首页"今年需续展"卡片：本年内到期且未提交续展申请的全部列出。\n4. 单条详情：提交续展后填写提交日和受理号，状态转为"续展中"，到期日延后 10 年。\n5. 导出本年度续展清单 Excel 给代理机构。',
+      deliveryPhases: ['搭建 Electron 框架，实现商标列表和三档到期提醒。', '完成续展提交、状态更新和今年需续展卡片功能。', '实现续展清单 Excel 导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 商标列表可增删改，三档到期提醒正常', '□ 提交续展后状态和到期日正确更新', '□ 导出本年度续展清单 Excel 正确', '□ 路径含中文/空格时正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is legal/brand, non-developer.',
+      goal: 'Never lose a trademark to a missed renewal.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Trademark list: number, name, class tags, registered, expiry, applicant, status, cert path.\n2. Auto-derive expiry; alerts at 12 / 6 / 3 months with three colors.\n3. Home "This year\'s renewals" card.\n4. Detail: enter renewal submission date and receipt ID; status moves to "in renewal"; expiry +10 years.\n5. Export this-year renewal list Excel for the agent.',
+      deliveryPhases: ['Scaffold Electron shell, implement trademark list and three-band expiry alerts.', 'Complete renewal submission, status update, and this-year renewals card features.', 'Add renewal list Excel export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Trademark list supports CRUD; three-band expiry alerts work', '☐ Renewal submission correctly updates status and expiry', '☐ This-year renewal list Excel export is correct', '☐ Paths with Chinese/spaces/parentheses work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1333,34 +1153,24 @@ export const dataWeeklyTrendSnapshot: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是数据分析师，不懂太多代码。
-
-【目标】
-把每周拉指标、写周报的重复活儿压成 5 分钟。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；SheetJS；图表用纯 SVG 自绘小折线
-
-【核心功能】
-1. 导入 Excel，自动识别"指标名"列和过去 N 周（W-N..W-1）列；最右一列视为本周。
-2. 每个指标渲染一张卡：本周值、环比、4-8 周迷你折线。
-3. 阈值规则（可改）：环比 > +5% 绿色 + "增长"； < -5% 红色 + "下滑"；接近 0 灰色 + "持平"。
-4. 解读模板（可编辑）：根据涨跌方向自动填充一句中文，例如"本周 GMV 较上周增长 7.2%，主要受 618 预热影响"——预热文案占位允许人工编辑。
-5. "导出周报 Markdown"按钮，按指标分组输出。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a data analyst, light coding.
-
-[Goal]
-Compress weekly KPI-report grind into five minutes.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; SheetJS; tiny inline SVG sparkline
-
-[Core Features]
-1. Import Excel; detect metric column + past-N-week columns; rightmost = this week.
-2. Per-metric card: current value, WoW, 4–8-week sparkline.
-3. Editable thresholds: +5% green "up"; -5% red "down"; near zero gray "flat".
-4. Editable commentary template auto-filled per direction; the user can tweak per metric.
-5. One-click export of the report as Markdown.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是数据分析师，不懂太多代码。',
+      goal: '把每周拉指标、写周报的重复活儿压成 5 分钟。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；图表用纯 SVG 自绘小折线',
+      features: '1. 导入 Excel，自动识别"指标名"列和过去 N 周（W-N..W-1）列；最右一列视为本周。\n2. 每个指标渲染一张卡：本周值、环比、4-8 周迷你折线。\n3. 阈值规则（可改）：环比 > +5% 绿色 + "增长"； < -5% 红色 + "下滑"；接近 0 灰色 + "持平"。\n4. 解读模板（可编辑）：根据涨跌方向自动填充一句中文，例如"本周 GMV 较上周增长 7.2%，主要受 618 预热影响"——预热文案占位允许人工编辑。\n5. "导出周报 Markdown"按钮，按指标分组输出。',
+      deliveryPhases: ['搭建 Electron 框架，实现 Excel 导入和指标列识别。', '完成指标卡片、迷你折线和阈值规则功能。', '实现解读模板和周报 Markdown 导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 导入 Excel 后指标列自动识别正确', '□ 指标卡片显示本周值、环比和迷你折线', '□ 阈值规则标色和解读模板填充正确', '□ 导出周报 Markdown 按指标分组'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a data analyst, light coding.',
+      goal: 'Compress weekly KPI-report grind into five minutes.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; tiny inline SVG sparkline',
+      features: '1. Import Excel; detect metric column + past-N-week columns; rightmost = this week.\n2. Per-metric card: current value, WoW, 4–8-week sparkline.\n3. Editable thresholds: +5% green "up"; -5% red "down"; near zero gray "flat".\n4. Editable commentary template auto-filled per direction; the user can tweak per metric.\n5. One-click export of the report as Markdown.',
+      deliveryPhases: ['Scaffold Electron shell, implement Excel import and metric column detection.', 'Complete metric cards, sparklines, and threshold rule features.', 'Add commentary template and weekly Markdown export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Importing Excel auto-detects metric columns correctly', '☐ Metric cards show current value, WoW, and sparkline', '☐ Threshold coloring and commentary template fill correctly', '☐ Weekly report Markdown export grouped by metric'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1410,34 +1220,24 @@ export const dataKPIDashboard: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是业务数据负责人，不懂代码。
-
-【目标】
-让自己每天关心的几个数 3 秒看完。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 指标卡定义：名称、单位、计算方式（直接录入）、目标值、阈值。
-2. 主界面：网格布局，4-12 张卡，可拖拽换位。
-3. 每张卡显示：今日值、昨日值、变化箭头、7 天迷你折线、是否达标。
-4. 数据导入：每天导入一行 Excel/CSV，按日期归档；可手工补录某天数据。
-5. "极简窗口"按钮：把窗口缩成一行水平条，常驻桌面右上角。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a business data owner, non-developer.
-
-[Goal]
-See the few numbers you care about in 3 seconds.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Metric definition: name, unit, manual-entry calc, target, threshold.
-2. Main grid: 4–12 cards, drag to reorder.
-3. Per card: today, yesterday, change arrow, 7-day sparkline, target hit flag.
-4. Daily import from Excel/CSV one row per day; manual backfill allowed.
-5. "Minimal mode" button: shrink to a horizontal bar pinned top-right.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是业务数据负责人，不懂代码。',
+      goal: '让自己每天关心的几个数 3 秒看完。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 指标卡定义：名称、单位、计算方式（直接录入）、目标值、阈值。\n2. 主界面：网格布局，4-12 张卡，可拖拽换位。\n3. 每张卡显示：今日值、昨日值、变化箭头、7 天迷你折线、是否达标。\n4. 数据导入：每天导入一行 Excel/CSV，按日期归档；可手工补录某天数据。\n5. "极简窗口"按钮：把窗口缩成一行水平条，常驻桌面右上角。',
+      deliveryPhases: ['搭建 Electron 框架，实现核心数据模型和主界面。', '完成主要业务逻辑和交互功能。', '实现导入导出功能，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 示例数据跑通主流程，产出可检查的文件/表格', '□ 空数据、格式错误、取消操作 → 友好中文提示，不闪退', '□ 导出功能正常，文件名带日期/月份', '□ 路径含中文/空格/括号 → 正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a business data owner, non-developer.',
+      goal: 'See the few numbers you care about in 3 seconds.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Metric definition: name, unit, manual-entry calc, target, threshold.\n2. Main grid: 4–12 cards, drag to reorder.\n3. Per card: today, yesterday, change arrow, 7-day sparkline, target hit flag.\n4. Daily import from Excel/CSV one row per day; manual backfill allowed.\n5. "Minimal mode" button: shrink to a horizontal bar pinned top-right.',
+      deliveryPhases: ['Scaffold Electron shell, implement core data model and main interface.', 'Complete main business logic and interaction features.', 'Add import/export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Sample data completes the main flow, producing a checkable file/sheet', '☐ Empty data, bad format, cancel → friendly message, no crash', '☐ Export works; filename includes date/month', '☐ Paths with Chinese/spaces/parentheses → work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1489,36 +1289,24 @@ export const adminVisitorLog: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是公司前台/行政，不懂代码。
-
-【目标】
-让访客登记又快又准，月度统计一键搞定。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 主界面左侧"新增访客"表单：姓名、单位、电话、被访人（下拉，员工列表）、事由（下拉，可改）、备注；提交后右侧"在场"列表新增条目并记进入时间。
-2. "在场"列表每行有"签出"按钮，点击记离开时间，移到"今日记录"。
-3. 顶部统计卡片：今日访客数 / 在场数 / 本周 / 本月。
-4. 历史搜索：按时间段、姓名、单位、被访人。
-5. 员工列表（被访人候选）：本地维护，支持 Excel 导入。
-6. 导出本月访客 Excel。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is the company receptionist/admin, non-developer.
-
-[Goal]
-Make visitor logging fast and reliable; monthly stats in one click.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. "New visitor" form on the left: name, company, phone, host (dropdown), purpose, notes -> submit creates an "in-house" record with in-time.
-2. "In-house" right list: each row has check-out button -> records out-time and moves to "today".
-3. Top stats: today / in-house / week / month.
-4. History search by date range, name, company, host.
-5. Employee list (host candidates) locally managed; Excel import supported.
-6. Monthly export Excel.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是公司前台/行政，不懂代码。',
+      goal: '让访客登记又快又准，月度统计一键搞定。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 主界面左侧"新增访客"表单：姓名、单位、电话、被访人（下拉，员工列表）、事由（下拉，可改）、备注；提交后右侧"在场"列表新增条目并记进入时间。\n2. "在场"列表每行有"签出"按钮，点击记离开时间，移到"今日记录"。\n3. 顶部统计卡片：今日访客数 / 在场数 / 本周 / 本月。\n4. 历史搜索：按时间段、姓名、单位、被访人。\n5. 员工列表（被访人候选）：本地维护，支持 Excel 导入。\n6. 导出本月访客 Excel。',
+      deliveryPhases: ['搭建 Electron 框架，实现核心数据模型和主界面。', '完成主要业务逻辑和交互功能。', '实现导入导出功能，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 示例数据跑通主流程，产出可检查的文件/表格', '□ 空数据、格式错误、取消操作 → 友好中文提示，不闪退', '□ 导出功能正常，文件名带日期/月份', '□ 路径含中文/空格/括号 → 正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is the company receptionist/admin, non-developer.',
+      goal: 'Make visitor logging fast and reliable; monthly stats in one click.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. "New visitor" form on the left: name, company, phone, host (dropdown), purpose, notes -> submit creates an "in-house" record with in-time.\n2. "In-house" right list: each row has check-out button -> records out-time and moves to "today".\n3. Top stats: today / in-house / week / month.\n4. History search by date range, name, company, host.\n5. Employee list (host candidates) locally managed; Excel import supported.\n6. Monthly export Excel.',
+      deliveryPhases: ['Scaffold Electron shell, implement core data model and main interface.', 'Complete main business logic and interaction features.', 'Add import/export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Sample data completes the main flow, producing a checkable file/sheet', '☐ Empty data, bad format, cancel → friendly message, no crash', '☐ Export works; filename includes date/month', '☐ Paths with Chinese/spaces/parentheses → work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1568,34 +1356,24 @@ export const adminAssetInventory: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是行政/IT 资产管理员，不懂代码。
-
-【目标】
-让每件资产都有据可查，离职交接和年度盘点不再手忙脚乱。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 资产列表：编号（自动）、类型（笔记本 / 显示器 / 椅子 / 投影仪 / 其他）、品牌型号、采购日、单价、领用人、位置、状态（在用 / 闲置 / 维修 / 报废）。
-2. "员工离职"操作：选择员工 -> 自动生成"待回收"清单，逐项打勾确认回收/转交。
-3. "盘点"模式：导入物理盘点 Excel，按编号比对，列出差异（找不到 / 多出 / 状态对不上）。
-4. 资产详情：变更历史时间线，每次更换领用人、位置都自动记录。
-5. 导出资产明细 Excel；打印资产标签（含编号 + 二维码占位）。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is an admin/IT asset manager, non-developer.
-
-[Goal]
-Every asset traceable; offboarding and audits clean.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Asset list: auto-id, type (laptop / monitor / chair / projector / other), model, purchased, price, holder, location, status (in-use / idle / repair / disposed).
-2. "Offboard": pick employee -> generate to-recover list; check off each.
-3. "Audit" mode: import a count Excel; diff by id; flag missing / extra / status mismatch.
-4. Detail: change history timeline (holder, location).
-5. Export Excel; print labels (id + QR placeholder).${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是行政/IT 资产管理员，不懂代码。',
+      goal: '让每件资产都有据可查，离职交接和年度盘点不再手忙脚乱。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 资产列表：编号（自动）、类型（笔记本 / 显示器 / 椅子 / 投影仪 / 其他）、品牌型号、采购日、单价、领用人、位置、状态（在用 / 闲置 / 维修 / 报废）。\n2. "员工离职"操作：选择员工 -> 自动生成"待回收"清单，逐项打勾确认回收/转交。\n3. "盘点"模式：导入物理盘点 Excel，按编号比对，列出差异（找不到 / 多出 / 状态对不上）。\n4. 资产详情：变更历史时间线，每次更换领用人、位置都自动记录。\n5. 导出资产明细 Excel；打印资产标签（含编号 + 二维码占位）。',
+      deliveryPhases: ['搭建 Electron 框架，实现核心数据模型和主界面。', '完成主要业务逻辑和交互功能。', '实现导入导出功能，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 示例数据跑通主流程，产出可检查的文件/表格', '□ 空数据、格式错误、取消操作 → 友好中文提示，不闪退', '□ 导出功能正常，文件名带日期/月份', '□ 路径含中文/空格/括号 → 正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is an admin/IT asset manager, non-developer.',
+      goal: 'Every asset traceable; offboarding and audits clean.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Asset list: auto-id, type (laptop / monitor / chair / projector / other), model, purchased, price, holder, location, status (in-use / idle / repair / disposed).\n2. "Offboard": pick employee -> generate to-recover list; check off each.\n3. "Audit" mode: import a count Excel; diff by id; flag missing / extra / status mismatch.\n4. Detail: change history timeline (holder, location).\n5. Export Excel; print labels (id + QR placeholder).',
+      deliveryPhases: ['Scaffold Electron shell, implement core data model and main interface.', 'Complete main business logic and interaction features.', 'Add import/export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Sample data completes the main flow, producing a checkable file/sheet', '☐ Empty data, bad format, cancel → friendly message, no crash', '☐ Export works; filename includes date/month', '☐ Paths with Chinese/spaces/parentheses → work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1647,34 +1425,24 @@ export const productPriorityBoard: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是产品经理，不懂代码。
-
-【目标】
-让"哪个需求先做"有依据，而不是会议室里谁声音大。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 需求卡片：标题、来源（业务 / 客户 / 内部 / Bug）、价值（1-5 滑块）、工作量（1-5 滑块）、负责人、备注。
-2. 主视图：2×2 矩阵，X 轴工作量、Y 轴价值；卡片按打分自动定位，可拖动调整。
-3. 顶部"本周先做"卡片：自动列出右上象限（价值高 / 工作量低）。
-4. 列表视图作备选，可按价值、工作量、来源排序、搜索。
-5. 一键导出"本周需求优先级" Markdown，按象限分组。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a PM, non-developer.
-
-[Goal]
-Make "what to do next" defensible — not the loudest voice in the room.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Feature card: title, source (biz / customer / internal / bug), value slider (1–5), effort slider (1–5), owner, notes.
-2. Main view: 2×2 matrix (X = effort, Y = value); cards auto-place, draggable.
-3. Top "This week\'s do-first" card auto-lists the high-value/low-effort quadrant.
-4. List view as a fallback with sort/filter/search.
-5. One-click "weekly priorities" Markdown export by quadrant.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是产品经理，不懂代码。',
+      goal: '让"哪个需求先做"有依据，而不是会议室里谁声音大。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 需求卡片：标题、来源（业务 / 客户 / 内部 / Bug）、价值（1-5 滑块）、工作量（1-5 滑块）、负责人、备注。\n2. 主视图：2×2 矩阵，X 轴工作量、Y 轴价值；卡片按打分自动定位，可拖动调整。\n3. 顶部"本周先做"卡片：自动列出右上象限（价值高 / 工作量低）。\n4. 列表视图作备选，可按价值、工作量、来源排序、搜索。\n5. 一键导出"本周需求优先级" Markdown，按象限分组。',
+      deliveryPhases: ['搭建 Electron 框架，实现核心数据模型和主界面。', '完成主要业务逻辑和交互功能。', '实现导入导出功能，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 示例数据跑通主流程，产出可检查的文件/表格', '□ 空数据、格式错误、取消操作 → 友好中文提示，不闪退', '□ 导出功能正常，文件名带日期/月份', '□ 路径含中文/空格/括号 → 正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a PM, non-developer.',
+      goal: 'Make "what to do next" defensible — not the loudest voice in the room.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Feature card: title, source (biz / customer / internal / bug), value slider (1–5), effort slider (1–5), owner, notes.\n2. Main view: 2×2 matrix (X = effort, Y = value); cards auto-place, draggable.\n3. Top "This week\\\'s do-first" card auto-lists the high-value/low-effort quadrant.\n4. List view as a fallback with sort/filter/search.\n5. One-click "weekly priorities" Markdown export by quadrant.',
+      deliveryPhases: ['Scaffold Electron shell, implement core data model and main interface.', 'Complete main business logic and interaction features.', 'Add import/export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Sample data completes the main flow, producing a checkable file/sheet', '☐ Empty data, bad format, cancel → friendly message, no crash', '☐ Export works; filename includes date/month', '☐ Paths with Chinese/spaces/parentheses → work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1724,34 +1492,24 @@ export const productBetaTesterTracker: CaseBundle = {
     },
   },
   prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是产品经理，不懂代码。
-
-【目标】
-让每一位内测用户都被持续跟进，反馈被认真分类处理。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 用户列表：昵称、联系方式、来源（朋友 / 招募 / 客户）、入组日、活跃状态、上次反馈日、下次回访日、备注。
-2. 活跃规则（可改）：14 天有反馈 = 活跃；14-30 天 = 沉默；> 30 天 = 流失。
-3. 反馈记录抽屉：按时间线添加反馈，每条带标签（功能建议 / Bug / 体验 / 商务），状态（待评估 / 已采纳 / 已修复 / 不采纳）。
-4. 顶部"今日待回访"卡片：下次回访日 = 今天的全部列出。
-5. 导出"本周反馈汇总" Markdown，按类型分组、按用户加注。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a PM, non-developer.
-
-[Goal]
-Every beta tester gets ongoing follow-up; feedback gets categorized and answered.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Tester list: handle, contact, source (friend / recruited / customer), joined, status, last feedback, next check-in, notes.
-2. Editable activity rules: feedback in 14d = active; 14–30d = quiet; > 30d = lost.
-3. Feedback timeline drawer: each item tagged (feature / bug / UX / commercial) with status (to-evaluate / adopted / fixed / declined).
-4. Top "Today\'s check-ins" card.
-5. Weekly feedback Markdown export, grouped by type with user notes.${SHARED_TAIL_EN}`,
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是产品经理，不懂代码。',
+      goal: '让每一位内测用户都被持续跟进，反馈被认真分类处理。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: '1. 用户列表：昵称、联系方式、来源（朋友 / 招募 / 客户）、入组日、活跃状态、上次反馈日、下次回访日、备注。\n2. 活跃规则（可改）：14 天有反馈 = 活跃；14-30 天 = 沉默；> 30 天 = 流失。\n3. 反馈记录抽屉：按时间线添加反馈，每条带标签（功能建议 / Bug / 体验 / 商务），状态（待评估 / 已采纳 / 已修复 / 不采纳）。\n4. 顶部"今日待回访"卡片：下次回访日 = 今天的全部列出。\n5. 导出"本周反馈汇总" Markdown，按类型分组、按用户加注。',
+      deliveryPhases: ['搭建 Electron 框架，实现核心数据模型和主界面。', '完成主要业务逻辑和交互功能。', '实现导入导出功能，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 示例数据跑通主流程，产出可检查的文件/表格', '□ 空数据、格式错误、取消操作 → 友好中文提示，不闪退', '□ 导出功能正常，文件名带日期/月份', '□ 路径含中文/空格/括号 → 正常工作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a PM, non-developer.',
+      goal: 'Every beta tester gets ongoing follow-up; feedback gets categorized and answered.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: '1. Tester list: handle, contact, source (friend / recruited / customer), joined, status, last feedback, next check-in, notes.\n2. Editable activity rules: feedback in 14d = active; 14–30d = quiet; > 30d = lost.\n3. Feedback timeline drawer: each item tagged (feature / bug / UX / commercial) with status (to-evaluate / adopted / fixed / declined).\n4. Top "Today\\\'s check-ins" card.\n5. Weekly feedback Markdown export, grouped by type with user notes.',
+      deliveryPhases: ['Scaffold Electron shell, implement core data model and main interface.', 'Complete main business logic and interaction features.', 'Add import/export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Sample data completes the main flow, producing a checkable file/sheet', '☐ Empty data, bad format, cancel → friendly message, no crash', '☐ Export works; filename includes date/month', '☐ Paths with Chinese/spaces/parentheses → work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1802,35 +1560,33 @@ export const financeMonthlyBudgetTracker: CaseBundle = {
       keywords: ['budget', 'finance', 'tracking', 'department'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是公司财务，不懂代码。
-
-【目标】
-让每个部门的当月预算执行情况可视化，提前发现超支风险。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 导入年度预算表（部门 + 类目 + 月度预算）；每周导入一次实际支出 Excel。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是公司财务，不懂代码。',
+      goal: '让每个部门的当月预算执行情况可视化，提前发现超支风险。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: `1. 导入年度预算表（部门 + 类目 + 月度预算）；每周导入一次实际支出 Excel。
 2. 主视图：部门卡片网格，每张卡片显示当月预算、已用、剩余、消耗百分比 vs 时间过半线。
 3. 信号灯规则可改：消耗百分比 - 时间百分比 > 15% 红，5–15% 黄，其它绿。
 4. 点进部门：按类目柱状图，超支项标红。
-5. 一键导出 PDF 月度预警报告，第一页是总览，后续每个部门一页。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is finance staff, no coding background.
-
-[Goal]
-Visualize each department's mid-month budget execution; catch overruns early.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Import annual budget (dept + category + monthly amount); weekly import of actual spend Excel.
+5. 一键导出 PDF 月度预警报告，第一页是总览，后续每个部门一页。`,
+      deliveryPhases: ['搭建 Electron 框架，实现预算导入和部门卡片主视图。', '完成信号灯规则、类目下钻和柱状图。', '实现 PDF 导出、异常处理，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 年度预算表和实际支出 Excel 导入正常', '□ 部门卡片展示预算、已用、剩余、信号灯颜色正确', '□ 点进部门可看类目柱状图，超支项标红', '□ PDF 月度预警报告导出正常'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is finance staff, no coding background.',
+      goal: 'Visualize each department\'s mid-month budget execution; catch overruns early.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: `1. Import annual budget (dept + category + monthly amount); weekly import of actual spend Excel.
 2. Main view: department card grid showing month budget, used, remaining, % consumed vs % of month elapsed.
 3. Editable traffic-light rule: consumed% - elapsed% > 15 → red; 5–15 → yellow; else green.
 4. Drill-in: per-category bars; overruns highlighted.
-5. One-click PDF monthly alert report — overview page first, then one page per department.${SHARED_TAIL_EN}`,
+5. One-click PDF monthly alert report — overview page first, then one page per department.`,
+      deliveryPhases: ['Scaffold Electron shell, implement budget import and department card main view.', 'Complete traffic-light rules, category drill-down, and bar charts.', 'Add PDF export, error handling, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Annual budget and actual spend Excel import correctly', '☐ Department cards show budget, used, remaining, traffic-light colors correct', '☐ Drill-in shows per-category bar chart with overruns highlighted', '☐ PDF monthly alert report exports correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1879,35 +1635,33 @@ export const marketingEventChecklist: CaseBundle = {
       keywords: ['event', 'offline', 'checklist', 'marketing'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是市场同事，不懂代码。
-
-【目标】
-让一场线下活动的所有筹备事项都按时间线井井有条，活动当天不慌。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 新建活动：名称、日期、规模（小型 < 50 / 中型 50–200 / 大型 > 200）；自动生成默认任务清单（40+ 项，按 D-30 / D-14 / D-7 / D-3 / D-1 / D 当日 / D+3 复盘 分桶）。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是市场同事，不懂代码。',
+      goal: '让一场线下活动的所有筹备事项都按时间线井井有条，活动当天不慌。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: `1. 新建活动：名称、日期、规模（小型 < 50 / 中型 50–200 / 大型 > 200）；自动生成默认任务清单（40+ 项，按 D-30 / D-14 / D-7 / D-3 / D-1 / D 当日 / D+3 复盘 分桶）。
 2. 任务字段：截止日（D-X 自动计算）、负责人、状态（未开始 / 进行中 / 完成 / 跳过）、备注、附件链接。
 3. 主视图：按"今天 / 三天内 / 一周内 / 已完成"分组；可按负责人筛选。
 4. 默认任务模板可在"模板"页里改；下次新活动自动用最新模板。
-5. 活动结束后一键生成"复盘 Markdown"：哪些任务超时、跳过原因、值得沉淀进模板的新经验。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is on the marketing team, not a developer.
-
-[Goal]
-Make every prep task for a live event ordered by timeline so the day-of is calm.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. New event: name, date, scale (small < 50 / medium 50–200 / large > 200) → auto-generates a 40+ task default checklist bucketed D-30 / D-14 / D-7 / D-3 / D-1 / Day-of / D+3 retro.
+5. 活动结束后一键生成"复盘 Markdown"：哪些任务超时、跳过原因、值得沉淀进模板的新经验。`,
+      deliveryPhases: ['搭建 Electron 框架，实现活动创建和默认任务清单生成。', '完成任务管理、分组视图和模板编辑功能。', '实现复盘生成、导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 新建活动自动生成 40+ 项任务清单', '□ 任务按"今天 / 三天内 / 一周内 / 已完成"分组显示正确', '□ 模板可编辑，下次活动自动使用', '□ 复盘 Markdown 导出含超时任务和跳过原因'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is on the marketing team, not a developer.',
+      goal: 'Make every prep task for a live event ordered by timeline so the day-of is calm.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: `1. New event: name, date, scale (small < 50 / medium 50–200 / large > 200) → auto-generates a 40+ task default checklist bucketed D-30 / D-14 / D-7 / D-3 / D-1 / Day-of / D+3 retro.
 2. Task fields: due date (D-X auto), owner, status (not started / doing / done / skipped), notes, attachment link.
 3. Main view: groups Today / Within 3 days / Within a week / Done; filter by owner.
 4. Editable task template page; next event uses the latest template.
-5. Post-event one-click retro Markdown: which tasks slipped, why skipped, what to bake into the template.${SHARED_TAIL_EN}`,
+5. Post-event one-click retro Markdown: which tasks slipped, why skipped, what to bake into the template.`,
+      deliveryPhases: ['Scaffold Electron shell, implement event creation and default checklist generation.', 'Complete task management, grouped views, and template editing.', 'Add retro generation, export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ New event auto-generates 40+ task checklist', '☐ Tasks grouped correctly: Today / 3 days / 1 week / Done', '☐ Template is editable; next event uses latest', '☐ Retro Markdown export includes slipped tasks and skip reasons'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -1956,35 +1710,33 @@ export const hrBirthdayReminder: CaseBundle = {
       keywords: ['birthday', 'anniversary', 'employee', 'hr'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是 HR 同事，不懂代码。
-
-【目标】
-让每位同事的生日和入职周年都被提前注意到，公司氛围更暖。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite
-
-【核心功能】
-1. 导入花名册 Excel（姓名 / 部门 / 生日 / 入职日 / 联系方式 / 备注）。生日字段允许"只填月日"（隐去年份）。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是 HR 同事，不懂代码。',
+      goal: '让每位同事的生日和入职周年都被提前注意到，公司氛围更暖。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
+      features: `1. 导入花名册 Excel（姓名 / 部门 / 生日 / 入职日 / 联系方式 / 备注）。生日字段允许"只填月日"（隐去年份）。
 2. 主视图三栏：今日庆祝、未来 7 天、本月剩余；按部门筛选。
 3. 每位同事卡片显示：今年是第 X 岁生日 / 入职第 N 年；可在"祝福语模板"里编辑两套模板（生日 / 周年），点卡片一键复制对应模板。
 4. "本月汇总"一键导出 PDF：按日期排序，含姓名 / 部门 / 庆祝事项；行政可直接打印贴公告板。
-5. 设置里可勾选"系统通知开启"：每天上午 9 点提醒今日和未来 3 天的庆祝事项。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is on the HR team, not a developer.
-
-[Goal]
-Surface every teammate's birthday and work anniversary in time so the workplace feels warmer.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite
-
-[Core Features]
-1. Import roster Excel (name / dept / birthday / hire date / contact / notes). Birthday may be month-day only (year hidden).
+5. 设置里可勾选"系统通知开启"：每天上午 9 点提醒今日和未来 3 天的庆祝事项。`,
+      deliveryPhases: ['搭建 Electron 框架，实现花名册导入和生日/周年计算。', '完成三栏视图、祝福语模板和一键复制功能。', '实现 PDF 导出和系统通知设置，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 花名册 Excel 导入正常，生日"只填月日"可识别', '□ 三栏视图按"今日 / 7 天内 / 本月"分组正确', '□ 祝福语模板可编辑，一键复制正常', '□ PDF 本月汇总导出正常'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is on the HR team, not a developer.',
+      goal: 'Surface every teammate\'s birthday and work anniversary in time so the workplace feels warmer.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
+      features: `1. Import roster Excel (name / dept / birthday / hire date / contact / notes). Birthday may be month-day only (year hidden).
 2. Three-column view: Today, Next 7 days, Rest of this month; filter by department.
 3. Per-person card: "turning X this year" / "Year N at the company"; editable greeting templates (birthday / anniversary), one-click copy.
 4. "This month" one-click PDF export sorted by date with name / dept / event — admin can print and post.
-5. Settings toggle for OS notifications: 9am daily heads-up of today + next 3 days.${SHARED_TAIL_EN}`,
+5. Settings toggle for OS notifications: 9am daily heads-up of today + next 3 days.`,
+      deliveryPhases: ['Scaffold Electron shell, implement roster import and birthday/anniversary computation.', 'Complete three-column view, greeting templates, and one-click copy.', 'Add PDF export and notification settings, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Roster Excel imports correctly; month-day birthday recognized', '☐ Three-column view groups correctly: Today / 7 days / this month', '☐ Greeting templates editable; one-click copy works', '☐ "This month" PDF export works correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2035,35 +1787,33 @@ export const financePlatformFeeReconciliation: CaseBundle = {
       keywords: ['marketplace', 'commission', 'fee', 'finance', 'reconciliation'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商财务同事，完全不懂代码。
-
-【目标】
-核对平台结算单中的佣金、支付手续费、技术服务费和活动扣点，找出和订单/退款数据不一致的费用。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 保存费率规则
-
-【核心功能】
-1. 导入订单表、退款表、平台结算表，自动识别订单号、成交金额、退款金额、费用科目、扣费金额。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商财务同事，完全不懂代码。',
+      goal: '核对平台结算单中的佣金、支付手续费、技术服务费和活动扣点，找出和订单/退款数据不一致的费用。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 保存费率规则',
+      features: `1. 导入订单表、退款表、平台结算表，自动识别订单号、成交金额、退款金额、费用科目、扣费金额。
 2. 费率规则设置页：按平台/店铺/类目配置佣金率、支付手续费、技术服务费、活动扣点；支持有效期。
 3. 自动重算应扣费用，并和平台账单对比，输出差异金额、差异率、可能原因。
 4. 差异列表可按金额、平台、店铺、费用科目筛选；高差异标红。
-5. 导出两份 Excel：费用差异明细、本月费用汇总。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is on an e-commerce finance team with no coding background.
-
-[Goal]
-Reconcile marketplace commission, payment fees, service fees, and campaign rates against order and refund data.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON for fee rules
-
-[Core Features]
-1. Import orders, refunds, and settlement sheets; detect order id, order amount, refund amount, fee item, fee amount.
+5. 导出两份 Excel：费用差异明细、本月费用汇总。`,
+      deliveryPhases: ['搭建 Electron 框架，实现三表导入和订单号自动匹配。', '完成费率规则配置和自动重算对比逻辑。', '实现差异列表筛选、标红和 Excel 导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 订单表、退款表、平台结算表导入正常', '□ 费率规则可按平台/店铺/类目配置', '□ 差异金额和差异率计算正确', '□ 两份 Excel 导出正常（差异明细 + 月度汇总）'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is on an e-commerce finance team with no coding background.',
+      goal: 'Reconcile marketplace commission, payment fees, service fees, and campaign rates against order and refund data.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON for fee rules',
+      features: `1. Import orders, refunds, and settlement sheets; detect order id, order amount, refund amount, fee item, fee amount.
 2. Fee rule settings: by marketplace/store/category for commission, payment fee, service fee, campaign rate; support effective dates.
 3. Recalculate expected fees and compare with settlement; output difference amount, difference rate, likely reason.
 4. Difference list filterable by amount, marketplace, store, and fee item; high differences highlighted.
-5. Export two Excel files: fee difference details and monthly fee summary.${SHARED_TAIL_EN}`,
+5. Export two Excel files: fee difference details and monthly fee summary.`,
+      deliveryPhases: ['Scaffold Electron shell, implement three-sheet import and order-id matching.', 'Complete fee rule configuration and recalculation comparison logic.', 'Add difference list filtering, highlighting, and Excel export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Orders, refunds, and settlement sheets import correctly', '☐ Fee rules configurable by marketplace/store/category', '☐ Difference amount and rate calculate correctly', '☐ Two Excel files export correctly (differences + monthly summary)'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2112,35 +1862,33 @@ export const operationsPromotionPriceInspector: CaseBundle = {
       keywords: ['promotion', 'price', 'coupon', 'operations', 'margin'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商运营同事，完全不懂代码。
-
-【目标】
-活动上线前批量检查 SKU 到手价和毛利风险，避免活动价、券、满减叠加后低于底价。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite
-
-【核心功能】
-1. 导入 SKU 价格表：SKU、成本价、日常价、活动价、底价、类目、库存。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商运营同事，完全不懂代码。',
+      goal: '活动上线前批量检查 SKU 到手价和毛利风险，避免活动价、券、满减叠加后低于底价。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite',
+      features: `1. 导入 SKU 价格表：SKU、成本价、日常价、活动价、底价、类目、库存。
 2. 导入活动规则表：优惠券、满减、会员折扣、平台补贴、活动时间。
 3. 自动计算预计到手价、毛利额、毛利率，并说明计算口径。
 4. 风险规则：低于底价、毛利率低于阈值、活动价高于日常价、价格倒挂、库存不足；阈值可在设置里改。
-5. 主界面按红/黄/绿分组；导出“活动价格风险清单.xlsx”。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is an e-commerce operations teammate with no coding background.
-
-[Goal]
-Before a campaign goes live, batch-check final SKU prices and margin risk so stacked discounts do not fall below floor price.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite
-
-[Core Features]
-1. Import SKU price sheet: SKU, cost, normal price, campaign price, floor price, category, stock.
+5. 主界面按红/黄/绿分组；导出"活动价格风险清单.xlsx"。`,
+      deliveryPhases: ['搭建 Electron 框架，实现 SKU 价格表和活动规则表导入。', '完成到手价计算、毛利分析和风险规则引擎。', '实现红黄绿分组视图和风险清单导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ SKU 价格表和活动规则表导入正常', '□ 到手价、毛利额、毛利率计算正确', '□ 风险规则（低于底价、毛利过低等）触发准确', '□ 导出"活动价格风险清单.xlsx"正常'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is an e-commerce operations teammate with no coding background.',
+      goal: 'Before a campaign goes live, batch-check final SKU prices and margin risk so stacked discounts do not fall below floor price.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite',
+      features: `1. Import SKU price sheet: SKU, cost, normal price, campaign price, floor price, category, stock.
 2. Import campaign rules: coupon, bundle discount, member discount, platform subsidy, campaign time.
 3. Auto-calculate final customer price, gross margin amount, gross margin rate, and show calculation assumptions.
 4. Risk rules: below floor price, margin below threshold, campaign price above normal price, price inversion, insufficient stock; editable thresholds.
-5. Main UI groups red/yellow/green risks; export "campaign-price-risk.xlsx".${SHARED_TAIL_EN}`,
+5. Main UI groups red/yellow/green risks; export "campaign-price-risk.xlsx".`,
+      deliveryPhases: ['Scaffold Electron shell, implement SKU price sheet and campaign rules import.', 'Complete final price calculation, margin analysis, and risk rule engine.', 'Add red/yellow/green grouped view and risk list export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ SKU price sheet and campaign rules import correctly', '☐ Final price, margin amount, margin rate calculate correctly', '☐ Risk rules (below floor, low margin, etc.) trigger accurately', '☐ "campaign-price-risk.xlsx" exports correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2189,35 +1937,33 @@ export const customerServiceCompensationDesk: CaseBundle = {
       keywords: ['after-sales', 'support', 'compensation', 'refund'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是客服主管，完全不懂代码。
-
-【目标】
-统一记录售后补偿，避免重复补偿、漏执行和月底无法统计。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite；支持 Excel 导入导出
-
-【核心功能】
-1. 新增补偿记录：订单号、客户昵称/手机号、问题类型、补偿方式、金额/券额、承诺时间、负责人、状态。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是客服主管，完全不懂代码。',
+      goal: '统一记录售后补偿，避免重复补偿、漏执行和月底无法统计。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；支持 Excel 导入导出',
+      features: `1. 新增补偿记录：订单号、客户昵称/手机号、问题类型、补偿方式、金额/券额、承诺时间、负责人、状态。
 2. 搜索：订单号、手机号、昵称都能查；打开订单时展示历史补偿时间线。
 3. 重复提醒：同订单 30 天内已有补偿时弹提醒，显示历史记录。
 4. 看板：待执行、已执行、待确认、已关闭四栏；支持拖拽改状态。
-5. 导出：每日补偿明细、未完成跟进清单、按客服统计的补偿金额。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a customer-service lead with no coding background.
-
-[Goal]
-Keep after-sales compensation in one place to prevent duplicate compensation, missed execution, and messy month-end stats.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export
-
-[Core Features]
-1. New compensation record: order id, customer nickname/phone, issue type, compensation method, amount/coupon value, promised date, owner, status.
+5. 导出：每日补偿明细、未完成跟进清单、按客服统计的补偿金额。`,
+      deliveryPhases: ['搭建 Electron 框架，实现补偿记录新增和搜索功能。', '完成重复提醒、看板拖拽和时间线展示。', '实现各类导出功能，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 补偿记录新增正常，字段齐全', '□ 搜索支持订单号、手机号、昵称', '□ 同订单 30 天内重复补偿弹提醒', '□ 看板四栏拖拽正常，导出功能正常'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a customer-service lead with no coding background.',
+      goal: 'Keep after-sales compensation in one place to prevent duplicate compensation, missed execution, and messy month-end stats.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export',
+      features: `1. New compensation record: order id, customer nickname/phone, issue type, compensation method, amount/coupon value, promised date, owner, status.
 2. Search by order id, phone, nickname; order detail shows compensation timeline.
 3. Duplicate warning: if the same order has compensation in the last 30 days, show the history before saving.
 4. Board columns: to execute, executed, confirm, closed; drag to change status.
-5. Exports: daily compensation detail, pending follow-up, compensation amount by support agent.${SHARED_TAIL_EN}`,
+5. Exports: daily compensation detail, pending follow-up, compensation amount by support agent.`,
+      deliveryPhases: ['Scaffold Electron shell, implement compensation record creation and search.', 'Complete duplicate warnings, board drag-and-drop, and timeline display.', 'Add export features, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Compensation record creation works with all fields', '☐ Search supports order id, phone, nickname', '☐ Duplicate compensation within 30 days triggers warning', '☐ Board four-column drag works; exports work correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2266,35 +2012,33 @@ export const logisticsCarrierSlaScorecard: CaseBundle = {
       keywords: ['logistics', 'carrier', 'SLA', 'scorecard'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是物流主管，完全不懂代码。
-
-【目标】
-按快递承运商统计履约表现，帮助选择更稳定的承运商并发现地区问题。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite
-
-【核心功能】
-1. 导入物流轨迹表（订单号、承运商、仓库、省份、揽收时间、签收时间、当前状态）和售后异常表（破损、丢件、退回、投诉）。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是物流主管，完全不懂代码。',
+      goal: '按快递承运商统计履约表现，帮助选择更稳定的承运商并发现地区问题。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite',
+      features: `1. 导入物流轨迹表（订单号、承运商、仓库、省份、揽收时间、签收时间、当前状态）和售后异常表（破损、丢件、退回、投诉）。
 2. 计算每个承运商的揽收时效、签收时效、48 小时停滞率、退回率、破损率、投诉率。
 3. 支持按仓库、省份、商品类型、时间范围筛选。
 4. 综合评分公式可配置，默认时效 40%、异常率 40%、投诉 20%。
-5. 导出月度 PDF：承运商排名、红榜/黑榜、省份异常热力表、建议动作。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a logistics lead with no coding background.
-
-[Goal]
-Score carrier fulfillment performance so the team can choose stable carriers and spot regional issues.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite
-
-[Core Features]
-1. Import shipment tracking sheet (order id, carrier, warehouse, province, pickup time, delivery time, status) and after-sales exceptions (damage, lost, return, complaint).
+5. 导出月度 PDF：承运商排名、红榜/黑榜、省份异常热力表、建议动作。`,
+      deliveryPhases: ['搭建 Electron 框架，实现物流轨迹表和售后异常表导入。', '完成承运商指标计算和综合评分引擎。', '实现筛选、PDF 导出和热力表，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 物流轨迹表和售后异常表导入正常', '□ 承运商各项指标计算正确', '□ 综合评分公式可配置', '□ 月度 PDF 导出含排名和热力表'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a logistics lead with no coding background.',
+      goal: 'Score carrier fulfillment performance so the team can choose stable carriers and spot regional issues.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite',
+      features: `1. Import shipment tracking sheet (order id, carrier, warehouse, province, pickup time, delivery time, status) and after-sales exceptions (damage, lost, return, complaint).
 2. Calculate pickup speed, delivery speed, 48-hour stalled rate, return rate, damage rate, complaint rate by carrier.
 3. Filters by warehouse, province, product type, time range.
 4. Configurable score formula; default speed 40%, exception rate 40%, complaint 20%.
-5. Export monthly PDF: carrier ranking, best/worst list, province exception heatmap, recommended actions.${SHARED_TAIL_EN}`,
+5. Export monthly PDF: carrier ranking, best/worst list, province exception heatmap, recommended actions.`,
+      deliveryPhases: ['Scaffold Electron shell, implement shipment tracking and exception sheet import.', 'Complete carrier metric calculation and composite scoring engine.', 'Add filters, PDF export, and heatmap, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Shipment tracking and exception sheets import correctly', '☐ Carrier metrics calculate correctly', '☐ Composite score formula is configurable', '☐ Monthly PDF export includes ranking and heatmap'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2343,35 +2087,33 @@ export const procurementPackagingDemandPlanner: CaseBundle = {
       keywords: ['packaging', 'procurement', 'inventory', 'forecast'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商采购和仓库同事，完全不懂代码。
-
-【目标】
-根据近 30 天销量、SKU 包材规则和当前包材库存，预测包材什么时候会缺，并生成采购建议。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS
-
-【核心功能】
-1. 导入 SKU 销量表、包材库存表、SKU-包材映射表、供应商报价表。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商采购和仓库同事，完全不懂代码。',
+      goal: '根据近 30 天销量、SKU 包材规则和当前包材库存，预测包材什么时候会缺，并生成采购建议。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS',
+      features: `1. 导入 SKU 销量表、包材库存表、SKU-包材映射表、供应商报价表。
 2. 映射规则：每个 SKU 对应纸箱规格、胶带用量、填充物用量、贴纸/赠品等，可在界面编辑。
 3. 计算每种包材日均消耗、可用天数、安全库存缺口。
 4. 生成采购建议：建议下单量、首选供应商、预计到货前风险。
-5. 导出“包材补货建议.xlsx”和“未来 14 天包材风险表.xlsx”。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The users are e-commerce procurement and warehouse teammates with no coding background.
-
-[Goal]
-Use last-30-day sales, SKU packaging rules, and packaging stock to forecast shortages and generate purchase recommendations.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS
-
-[Core Features]
-1. Import SKU sales, packaging inventory, SKU-packaging mapping, and supplier quote sheets.
+5. 导出"包材补货建议.xlsx"和"未来 14 天包材风险表.xlsx"。`,
+      deliveryPhases: ['搭建 Electron 框架，实现多表导入和 SKU-包材映射编辑。', '完成消耗预测、库存缺口计算和采购建议生成。', '实现 Excel 导出和风险预警，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 四张表导入正常，映射关系可编辑', '□ 日均消耗、可用天数、安全库存缺口计算正确', '□ 采购建议含建议下单量和首选供应商', '□ 两份 Excel 导出正常'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The users are e-commerce procurement and warehouse teammates with no coding background.',
+      goal: 'Use last-30-day sales, SKU packaging rules, and packaging stock to forecast shortages and generate purchase recommendations.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS',
+      features: `1. Import SKU sales, packaging inventory, SKU-packaging mapping, and supplier quote sheets.
 2. Mapping rules: carton size, tape usage, filler usage, sticker/gift per SKU; editable in UI.
 3. Calculate daily average consumption, days of supply, safety-stock gap per packaging item.
 4. Generate purchase suggestions: recommended quantity, preferred supplier, risk before arrival.
-5. Export "packaging-replenishment.xlsx" and "14-day-packaging-risk.xlsx".${SHARED_TAIL_EN}`,
+5. Export "packaging-replenishment.xlsx" and "14-day-packaging-risk.xlsx".`,
+      deliveryPhases: ['Scaffold Electron shell, implement multi-sheet import and SKU-packaging mapping editing.', 'Complete consumption forecast, stock gap calculation, and purchase suggestion generation.', 'Add Excel export and risk alerts, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Four sheets import correctly; mapping is editable', '☐ Daily consumption, days of supply, safety-stock gap calculate correctly', '☐ Purchase suggestions include recommended quantity and preferred supplier', '☐ Two Excel files export correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2420,35 +2162,33 @@ export const marketingLiveRoomRunOfShow: CaseBundle = {
       keywords: ['live commerce', 'run of show', 'script', 'marketing'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是直播运营同事，完全不懂代码。
-
-【目标】
-把直播排品、主播话术、场控提醒和复盘记录集中管理，避免多人拿错版本。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite；Excel 导入导出
-
-【核心功能】
-1. 导入商品清单：SKU、商品名、价格、库存、卖点、赠品、佣金、禁说词、链接。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是直播运营同事，完全不懂代码。',
+      goal: '把直播排品、主播话术、场控提醒和复盘记录集中管理，避免多人拿错版本。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；Excel 导入导出',
+      features: `1. 导入商品清单：SKU、商品名、价格、库存、卖点、赠品、佣金、禁说词、链接。
 2. 时间轴排品：选择直播开始/结束时间，按 5/10/15 分钟坑位拖拽商品。
 3. 商品卡片：主播话术、场控提醒、价格口播、库存预警、禁说词提醒。
 4. 导出三版：主播版（话术为主）、场控版（时间和链接为主）、运营版（价格库存和备注完整）。
-5. 直播中记录实际开始时间、是否跳过、异常原因；直播后导出复盘表。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is a livestream operations teammate with no coding background.
-
-[Goal]
-Manage livestream product order, host scripts, control-desk reminders, and recap records in one place so no one uses the wrong version.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export
-
-[Core Features]
-1. Import product list: SKU, name, price, stock, selling points, gifts, commission, forbidden words, link.
+5. 直播中记录实际开始时间、是否跳过、异常原因；直播后导出复盘表。`,
+      deliveryPhases: ['搭建 Electron 框架，实现商品清单导入和时间轴排品。', '完成商品卡片、主播话术和场控提醒功能。', '实现三版导出和复盘记录，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 商品清单导入正常，时间轴拖拽排品流畅', '□ 商品卡片显示话术、禁说词、库存预警', '□ 三版导出内容差异化正确', '□ 复盘表导出含实际时间和异常记录'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is a livestream operations teammate with no coding background.',
+      goal: 'Manage livestream product order, host scripts, control-desk reminders, and recap records in one place so no one uses the wrong version.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export',
+      features: `1. Import product list: SKU, name, price, stock, selling points, gifts, commission, forbidden words, link.
 2. Timeline: choose live start/end time; drag products into 5/10/15-minute slots.
 3. Product card: host wording, control-desk reminder, price wording, stock alert, forbidden-word alert.
 4. Export three versions: host view, control-desk view, operations view.
-5. During live, record actual start time, skipped status, exception reason; after live, export recap sheet.${SHARED_TAIL_EN}`,
+5. During live, record actual start time, skipped status, exception reason; after live, export recap sheet.`,
+      deliveryPhases: ['Scaffold Electron shell, implement product list import and timeline scheduling.', 'Complete product card, host wording, and control-desk reminder features.', 'Add three-version export and recap recording, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Product list imports; timeline drag-to-place is smooth', '☐ Product card shows wording, forbidden words, stock alerts', '☐ Three export versions differ correctly', '☐ Recap sheet export includes actual times and exceptions'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2497,35 +2237,33 @@ export const dataSkuProfitRadar: CaseBundle = {
       keywords: ['SKU', 'profit', 'data', 'ads', 'inventory'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是电商数据分析同事，不懂代码也能用。
-
-【目标】
-把销售额、毛利、广告、退款和库存周转合在一起，找出真正值得加资源的 SKU。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS；ECharts
-
-【核心功能】
-1. 导入销售表、成本表、广告消耗表、退款表、库存表，按 SKU 自动合并。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商数据分析同事，不懂代码也能用。',
+      goal: '把销售额、毛利、广告、退款和库存周转合在一起，找出真正值得加资源的 SKU。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS；ECharts',
+      features: `1. 导入销售表、成本表、广告消耗表、退款表、库存表，按 SKU 自动合并。
 2. 计算：销售额、毛利额、毛利率、广告占比、退款率、库存周转天数、综合利润分。
 3. 主视图：SKU 排名表 + 四象限图；点击 SKU 展开趋势小图。
 4. 自动标记：高利高量、低利高量、高利低量、低利低量、虚胖 SKU。
-5. 导出“SKU 利润雷达.xlsx”，含推荐动作：加投、控费、清库存、观察。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The user is an e-commerce data analyst; the tool must be usable by business users.
-
-[Goal]
-Combine revenue, margin, ads, refunds, and stock turnover to find SKUs worth more resources.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS; ECharts
-
-[Core Features]
-1. Import sales, cost, ad spend, refund, and stock sheets; merge by SKU.
+5. 导出"SKU 利润雷达.xlsx"，含推荐动作：加投、控费、清库存、观察。`,
+      deliveryPhases: ['搭建 Electron 框架，实现多表导入和 SKU 自动合并。', '完成指标计算、四象限图和趋势小图。', '实现虚胖 SKU 标记和推荐动作导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 五张表导入并按 SKU 合并正常', '□ 毛利率、广告占比、退款率等指标计算正确', '□ 四象限图展示正确，点击可展开趋势', '□ 导出"SKU 利润雷达.xlsx"含推荐动作'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The user is an e-commerce data analyst; the tool must be usable by business users.',
+      goal: 'Combine revenue, margin, ads, refunds, and stock turnover to find SKUs worth more resources.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS; ECharts',
+      features: `1. Import sales, cost, ad spend, refund, and stock sheets; merge by SKU.
 2. Calculate revenue, gross profit, margin rate, ad share, refund rate, days of supply, composite profit score.
 3. Main view: SKU ranking table + quadrant chart; click SKU for mini trend.
 4. Auto-label: high-profit/high-volume, low-profit/high-volume, high-profit/low-volume, low-profit/low-volume, vanity SKU.
-5. Export "sku-profit-radar.xlsx" with recommended actions: scale, control spend, clear stock, observe.${SHARED_TAIL_EN}`,
+5. Export "sku-profit-radar.xlsx" with recommended actions: scale, control spend, clear stock, observe.`,
+      deliveryPhases: ['Scaffold Electron shell, implement multi-sheet import and SKU merge.', 'Complete metric calculation, quadrant chart, and mini trends.', 'Add vanity SKU labeling and action recommendation export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Five sheets import and merge by SKU correctly', '☐ Margin rate, ad share, refund rate, etc. calculate correctly', '☐ Quadrant chart displays correctly; click opens trend', '☐ "sku-profit-radar.xlsx" export includes recommended actions'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
 
@@ -2574,71 +2312,32 @@ export const productListingQualityChecker: CaseBundle = {
       keywords: ['listing', 'launch', 'SKU', 'quality'],
     },
   },
-  prompt: {
-    zh: `你是一名擅长本地桌面小工具的资深工程师。用户是商品/产品同事，不懂代码也能用。
-
-【目标】
-批量检查商品上架资料是否完整、前后一致，减少上线前反复返工。
-
-【平台与技术】
-- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 规则
-
-【核心功能】
-1. 导入商品资料表、图片清单、资质文件清单。
+    prompt: {
+    zh: composeCasePrompt({
+      role: '你是一名擅长本地桌面小工具的资深工程师。用户是商品/产品同事，不懂代码也能用。',
+      goal: '批量检查商品上架资料是否完整、前后一致，减少上线前反复返工。',
+      platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 规则',
+      features: `1. 导入商品资料表、图片清单、资质文件清单。
 2. 检查规则：商品名、类目、规格、价格、库存、主图/详情图、卖点、售后说明、资质是否齐全。
 3. 冲突检查：规格前后不一致、价格低于成本、库存为 0 仍标记上架、图片数量不足、资质过期。
 4. 每个 SKU 生成完整度分数和状态：可上线 / 补齐后上线 / 退回补资料。
-5. 导出“商品资料补齐清单.xlsx”，备注列可直接发给商品同事。${SHARED_TAIL_ZH}`,
-    en: `You are a senior engineer building local desktop tools. The users are merchandising/product teammates; it must be usable by business users.
-
-[Goal]
-Batch-check listing materials for completeness and consistency to reduce last-minute rework before launch.
-
-[Platform & Stack]
-- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON rules
-
-[Core Features]
-1. Import product sheet, image list, certificate file list.
+5. 导出"商品资料补齐清单.xlsx"，备注列可直接发给商品同事。`,
+      deliveryPhases: ['搭建 Electron 框架，实现商品资料和图片清单导入。', '完成检查规则引擎和冲突检测逻辑。', '实现完整度评分和补齐清单导出，打包 .exe，附使用说明。'],
+      acceptanceItems: ['□ 双击启动，第一屏是主工作台', '□ 商品资料表、图片清单、资质文件清单导入正常', '□ 检查规则覆盖名、类目、规格、价格、库存、图片、资质', '□ 冲突检查正确标红', '□ 导出"商品资料补齐清单.xlsx"正常'],
+      communication: COMMUNICATION_ZH,
+    }, 'zh'),
+    en: composeCasePrompt({
+      role: 'You are a senior engineer building local desktop tools. The users are merchandising/product teammates; it must be usable by business users.',
+      goal: 'Batch-check listing materials for completeness and consistency to reduce last-minute rework before launch.',
+      platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON rules',
+      features: `1. Import product sheet, image list, certificate file list.
 2. Check product name, category, specs, price, stock, hero/detail images, selling points, after-sales notes, certificates.
 3. Conflict checks: inconsistent specs, price below cost, stock 0 but marked live, insufficient images, expired certificates.
 4. Per-SKU completeness score and status: ready / ready after fixes / return for materials.
-5. Export "listing-fix-list.xlsx" with notes ready to send to merchandising.${SHARED_TAIL_EN}`,
+5. Export "listing-fix-list.xlsx" with notes ready to send to merchandising.`,
+      deliveryPhases: ['Scaffold Electron shell, implement product data and image list import.', 'Complete check rule engine and conflict detection logic.', 'Add completeness scoring and fix list export, package .exe with usage guide.'],
+      acceptanceItems: ['☐ Launches by double-click; first screen is the workspace', '☐ Product sheet, image list, and certificate list import correctly', '☐ Checks cover name, category, specs, price, stock, images, certificates', '☐ Conflict checks flag correctly', '☐ "listing-fix-list.xlsx" exports correctly'],
+      communication: COMMUNICATION_EN,
+    }, 'en'),
   },
 };
-
-// Aggregated for the index
-export const extraCases: CaseBundle[] = [
-  financeExpenseClassifier,
-  financeInvoiceTaxChecker,
-  operationsDailyStandupBoard,
-  operationsCustomerLifecycleTracker,
-  customerServiceComplaintClassifier,
-  customerServiceFAQBuilder,
-  hrLeaveTracker,
-  hrInterviewSchedule,
-  logisticsWarehouseStock,
-  logisticsReturnTracker,
-  procurementPOTracker,
-  procurementSupplierQualification,
-  marketingContentCalendar,
-  marketingKOLTracker,
-  legalNDAVault,
-  legalTrademarkMonitor,
-  dataWeeklyTrendSnapshot,
-  dataKPIDashboard,
-  adminVisitorLog,
-  adminAssetInventory,
-  productPriorityBoard,
-  productBetaTesterTracker,
-  financeMonthlyBudgetTracker,
-  marketingEventChecklist,
-  hrBirthdayReminder,
-  financePlatformFeeReconciliation,
-  operationsPromotionPriceInspector,
-  customerServiceCompensationDesk,
-  logisticsCarrierSlaScorecard,
-  procurementPackagingDemandPlanner,
-  marketingLiveRoomRunOfShow,
-  dataSkuProfitRadar,
-  productListingQualityChecker,
-];
