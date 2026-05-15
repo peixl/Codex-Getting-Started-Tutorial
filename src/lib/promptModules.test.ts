@@ -21,14 +21,14 @@ import {
 
 describe('prompt module constants', () => {
   it('CONSTRAINTS_ZH contains key rules', () => {
-    expect(CONSTRAINTS_ZH).toContain('本地处理');
+    expect(CONSTRAINTS_ZH).toContain('本地离线');
     expect(CONSTRAINTS_ZH).toContain('脱敏 sample-data');
     expect(CONSTRAINTS_ZH).toContain('npm view');
     expect(CONSTRAINTS_ZH).toContain('3 次失败');
   });
 
   it('CONSTRAINTS_EN contains key rules', () => {
-    expect(CONSTRAINTS_EN).toContain('local');
+    expect(CONSTRAINTS_EN).toContain('offline');
     expect(CONSTRAINTS_EN).toContain('anonymized sample-data');
     expect(CONSTRAINTS_EN).toContain('npm view');
     expect(CONSTRAINTS_EN).toContain('3 times');
@@ -131,14 +131,14 @@ describe('withSharedConstraints', () => {
     const result = withSharedConstraints('做一些功能', 'zh');
     expect(result).toContain('做一些功能');
     expect(result).toContain('【约束】');
-    expect(result).toContain('本地处理');
+    expect(result).toContain('本地离线');
   });
 
   it('appends constraints to a plain prompt (en)', () => {
     const result = withSharedConstraints('Build something', 'en');
     expect(result).toContain('Build something');
     expect(result).toContain('[Constraints]');
-    expect(result).toContain('local');
+    expect(result).toContain('offline');
   });
 
   it('is idempotent — does not double-append (zh)', () => {
@@ -204,7 +204,7 @@ describe('composeCasePrompt', () => {
 
   it('auto-includes constraints without manual addition', () => {
     const result = composeCasePrompt(sections, 'zh');
-    expect(result).toContain('本地处理');
+    expect(result).toContain('本地离线');
     expect(result).toContain('npm view');
   });
 
@@ -277,7 +277,7 @@ describe('composeRecipePrompt', () => {
 
   it('auto-includes recipe constraints', () => {
     const result = composeRecipePrompt(parts, 'zh');
-    expect(result).toContain('不联网');
+    expect(result).toContain('本地离线');
     expect(result).toContain('不覆盖原文件');
     expect(result).toContain('sample-data');
   });

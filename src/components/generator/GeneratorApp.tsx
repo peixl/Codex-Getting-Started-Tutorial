@@ -109,6 +109,23 @@ export function GeneratorApp({ locale, dict }: Props) {
     const features = state.features.trim();
     const featureLines = features.split('\n').filter((line) => line.trim().length > 0);
     const requestText = `${goal}\n${features}`;
+
+    // Per-language keywords — natural phrases for each locale, not literal translations.
+    const goalSpecificWords =
+      lang === 'zh'
+        ? ['帮', '给', '同事', '财务', '运营', '客服', '人事', '销售', '行政', '产品', '市场', '法务', '物流', '采购', '每天', '每月', '每次', '太慢', '太麻烦', '手动', '加班', '重复']
+        : ['help', 'for', 'team', 'colleague', 'finance', 'operations', 'hr', 'sales', 'admin', 'product', 'marketing', 'legal', 'logistics', 'procurement', 'slow', 'manual', 'every day', 'every month', 'every time', 'overtime', 'too slow', 'tedious', 'repetitive'];
+
+    const featureClarityWords =
+      lang === 'zh'
+        ? ['导入', '拖入', '点击', '搜索', '筛选', '导出', '生成', '显示', '自动', '一键', '填写', '选择', '按钮']
+        : ['import', 'drag', 'drop', 'click', 'search', 'filter', 'export', 'generate', 'display', 'auto', 'one-click', 'one click', 'fill', 'enter', 'type', 'button', 'select'];
+
+    const scopeInflationWords =
+      lang === 'zh'
+        ? ['平台', '系统', '管理后台', '完整', '全部功能', '所有功能', '像淘宝', '像钉钉', '像飞书']
+        : ['platform', 'system', 'admin panel', 'complete system', 'all features', 'entire', 'crm', 'erp', 'like salesforce', 'like jira', 'like notion', 'like slack', 'like asana', 'like trello', 'like ebay', 'like amazon', 'like shopify', 'like whatsapp', 'like zoom', 'like google docs'];
+
     const checks = [
       { id: 'goal', label: dict.generator.qualityGoal, ok: goal.length >= 12 },
       { id: 'features', label: dict.generator.qualityFeatures, ok: featureLines.length >= 2 },
@@ -124,15 +141,30 @@ export function GeneratorApp({ locale, dict }: Props) {
         label: dict.generator.qualityAcceptance,
         ok: includesAny(requestText, ['验收', '成功', '完成', '打包', '测试', 'verify', 'test', 'done', 'package']),
       },
+      {
+        id: 'goalSpecific',
+        label: dict.generator.qualityGoalSpecific,
+        ok: includesAny(goal, goalSpecificWords) || goal.length >= 30,
+      },
+      {
+        id: 'featureClarity',
+        label: dict.generator.qualityFeatureClarity,
+        ok: includesAny(features, featureClarityWords),
+      },
+      {
+        id: 'scopeReasonable',
+        label: dict.generator.qualityScopeReasonable,
+        ok: !includesAny(requestText, scopeInflationWords),
+      },
     ];
     const passed = checks.filter((check) => check.ok).length;
     return {
       checks,
       passed,
       total: checks.length,
-      ready: passed >= 3,
+      ready: passed >= 5,
     };
-  }, [dict, state.features, state.goal]);
+  }, [dict, state.features, state.goal, lang]);
 
   const valid = state.goal.trim().length > 0 && state.features.trim().length > 0;
 

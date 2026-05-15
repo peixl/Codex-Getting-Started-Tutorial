@@ -3,26 +3,26 @@ import { buildPrompt, buildRecoveryPrompt, DEFAULT_FORM, type FormState } from '
 
 const GENERATOR_QUALITY_MARKERS = {
   zh: [
-    '用户负责业务判断',
+    '用户管业务',
     '脱敏 sample-data',
-    '自检清单',
-    'sample-data 做启动',
+    '自检',
+    '烟测',
     '路径含中文/空格/括号',
     '真实接线',
-    '无 TODO、空函数、假接线冒充完成',
-    '停止 Vibe Coding',
-    '同一问题 3 次失败',
+    '无 TODO',
+    'DoD',
+    '3 次失败',
   ],
   en: [
-    'user owns business judgment',
+    'User owns business',
     'anonymized sample',
     'Self-check',
-    'Smoke-tested sample-data',
-    'Paths with Chinese/spaces/parentheses',
+    'Smoke test',
+    'Paths with Chinese',
     'Real wiring',
-    'no TODOs, empty functions, or fake wiring',
-    'Stop-Vibe-Coding',
-    'Same bug fails 3 times',
+    'no TODOs',
+    'DoD',
+    'bug fails 3',
   ],
 } as const;
 
@@ -40,23 +40,23 @@ describe('buildPrompt', () => {
   it('includes desktop quality requirements in Chinese prompts', () => {
     const prompt = buildPrompt(makeState({ platform: 'both' }), 'zh');
 
-    expect(prompt).toContain('【桌面与 UX 硬要求】');
-    expect(prompt).toContain('用户负责业务判断');
+    expect(prompt).toContain('【桌面 UX】');
+    expect(prompt).toContain('用户管业务');
     expect(prompt).toContain('脱敏 sample-data');
-    expect(prompt).toContain('sample-data 做启动');
-    expect(prompt).toContain('路径兼容中文、空格、括号、长路径');
-    expect(prompt).toContain('系统打开/保存对话框');
-    expect(prompt).toContain('【实现纪律 / 安全】');
-    expect(prompt).toContain('IPC 类型化');
+    expect(prompt).toContain('烟测');
+    expect(prompt).toContain('路径兼容中文/空格/括号');
+    expect(prompt).toContain('系统打开/保存');
+    expect(prompt).toContain('【实现纪律】');
+    expect(prompt).toContain('IPC');
     expect(prompt).toContain('真实接线');
-    expect(prompt).toContain('无 TODO、空函数、假接线冒充完成');
+    expect(prompt).toContain('无 TODO');
     expect(prompt).toContain('标准业务版');
-    expect(prompt).toContain('自检清单');
-    expect(prompt).toContain('lint、类型检查、测试、构建全部通过');
-    expect(prompt).toContain('M1≤15 分钟');
-    expect(prompt).toContain('M2 接通真实主流程');
+    expect(prompt).toContain('自检');
+    expect(prompt).toContain('lint/typecheck/test/build');
+    expect(prompt).toContain('M1≤15');
+    expect(prompt).toContain('M2');
     expect(prompt).not.toContain('串通真实主流程');
-    expect(prompt).toContain('DoD / 停止 Vibe Coding');
+    expect(prompt).toContain('DoD');
   });
 
   it('uses platform-specific shortcut wording in Chinese prompts', () => {
@@ -76,16 +76,15 @@ describe('buildPrompt', () => {
     );
 
     expect(prompt).toContain('macOS desktop app');
-    expect(prompt).toContain('user owns business judgment');
+    expect(prompt).toContain('User owns business');
     expect(prompt).toContain('No real files? create anonymized');
-    expect(prompt).toContain('Command / Option combinations');
-    expect(prompt).toContain('build a macOS .dmg installer');
-    expect(prompt).toContain('native open/save dialogs');
-    expect(prompt).toContain('M1≤15 min');
-    expect(prompt).toContain('DoD / Stop-Vibe-Coding');
-    expect(prompt).toContain('Stop-Vibe-Coding');
-    expect(prompt).toContain('Implementation / Safety');
-    expect(prompt).toContain('no TODOs, empty functions, or fake wiring');
+    expect(prompt).toContain('Command / Option');
+    expect(prompt).toContain('.dmg installer');
+    expect(prompt).toContain('Native open/save');
+    expect(prompt).toContain('M1≤15');
+    expect(prompt).toContain('DoD');
+    expect(prompt).toContain('Implementation');
+    expect(prompt).toContain('no TODOs');
   });
 
   it('scales prompt detail by complexity', () => {
@@ -96,9 +95,9 @@ describe('buildPrompt', () => {
     expect(starter).toContain('Starter MVP');
     expect(standard).toContain('Standard business version');
     expect(standard).toContain('main flow, sample data, friendly errors');
-    expect(starter).not.toContain('Batch jobs must be cancellable');
-    expect(advanced).toContain('Batch jobs must be cancellable');
-    expect(advanced).toContain('settings, history, batch');
+    expect(starter).not.toContain('Batch: cancellable');
+    expect(advanced).toContain('Batch: cancellable');
+    expect(advanced).toContain('History/settings/recovery');
   });
 
   it('keeps quality signals stable across generator prompts by content and structure', () => {

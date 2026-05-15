@@ -5,6 +5,8 @@ import {
   DOD_EN,
   DELIVERY_CONTRACT_ZH,
   DELIVERY_CONTRACT_EN,
+  AGENT_BEHAVIOR_ZH,
+  AGENT_BEHAVIOR_EN,
   type ModuleLang,
 } from './promptModules';
 
@@ -18,14 +20,18 @@ const QUALITY_TAIL_ZH = `【高质量交付补充】
 
 ${DELIVERY_CONTRACT_ZH}
 
-${DOD_ZH}`;
+${DOD_ZH}
+
+${AGENT_BEHAVIOR_ZH}`;
 
 const QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
 If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
 
 ${DELIVERY_CONTRACT_EN}
 
-${DOD_EN}`;
+${DOD_EN}
+
+${AGENT_BEHAVIOR_EN}`;
 
 function compactLegacyBoilerplate(prompt: string): string {
   return prompt
@@ -45,4 +51,14 @@ export function withDesktopQualityBar(prompt: string, lang: PromptQualityLang): 
 
   const tail = lang === 'zh' ? QUALITY_TAIL_ZH : QUALITY_TAIL_EN;
   return `${compacted}\n\n${tail}`;
+}
+
+const AGENT_BEHAVIOR_MARKER_ZH = '【与用户沟通】';
+const AGENT_BEHAVIOR_MARKER_EN = '[How to communicate with the user]';
+
+export function withAgentBehavior(prompt: string, lang: PromptQualityLang): string {
+  const marker = lang === 'zh' ? AGENT_BEHAVIOR_MARKER_ZH : AGENT_BEHAVIOR_MARKER_EN;
+  if (prompt.includes(marker)) return prompt;
+  const behavior = lang === 'zh' ? AGENT_BEHAVIOR_ZH : AGENT_BEHAVIOR_EN;
+  return `${prompt}\n\n${behavior}`;
 }

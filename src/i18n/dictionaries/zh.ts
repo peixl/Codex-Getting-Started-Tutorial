@@ -187,6 +187,9 @@ export const zh = {
     qualityFeatures: '功能',
     qualityIo: '输入/输出',
     qualityAcceptance: '验收',
+    qualityGoalSpecific: '目标具体',
+    qualityFeatureClarity: '功能可落地',
+    qualityScopeReasonable: '范围合理',
     qualityPass: '已写',
     qualityImprove: '补充',
 

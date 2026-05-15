@@ -11,7 +11,7 @@ describe('withDesktopQualityBar', () => {
     expect(first).toContain('示例数据/试用模式');
     expect(first).toContain('脱敏 sample-data');
     expect(first).toContain('烟测');
-    expect(first).toContain('M1≤15 分钟');
+    expect(first).toContain('M1≤15分钟');
     expect(first).toContain('真实接线');
     expect(first).toContain('TODO、空函数');
     expect(first).toContain('DoD / 停止 Vibe Coding');

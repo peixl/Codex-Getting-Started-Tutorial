@@ -1,3 +1,5 @@
+import { withAgentBehavior } from './promptQuality';
+
 export type Platform = 'windows' | 'mac' | 'both';
 export type TechStack = 'electron' | 'tauri' | 'pyqt' | 'auto';
 export type UiStyle = 'minimal' | 'dark' | 'fresh' | 'business';
@@ -281,19 +283,19 @@ When these hold, send the final report and stop. Put new ideas in known limitati
 
 function uxZh(complexity: Complexity): string {
   if (complexity === 'starter') {
-    return `- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存；第一屏是可用工作台。
-- 用系统打开/保存对话框和剪贴板；支持拖拽；完成后给"打开输出文件夹"。
-- 路径兼容中文、空格、括号和 Windows/macOS 分隔差异；每页有空/加载/成功/失败状态。`;
+    return `- 主流程≤3步：导入/填写→预览→生成/保存；首屏即工作台
+- 系统打开/保存+剪贴板；支持拖拽；完成后"打开输出文件夹"
+- 路径兼容中文/空格/括号；每页空/加载/成功/失败状态`;
   }
 
-  const base = `- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存；第一屏是可用工作台，不做落地页。
-- 用系统打开/保存对话框、应用数据目录、剪贴板；支持拖拽；完成后给"打开输出文件夹"。
-- 路径兼容中文、空格、括号、长路径和 Windows/macOS 分隔差异；适配高 DPI、窗口尺寸和深浅模式。
-- 每页有空/加载/成功/失败/下一步状态；高级设置默认收起；首次引导短且不挡主流程。`;
+  const base = `- 主流程≤3步：导入/填写→预览→生成/保存；首屏即工作台不做落地页
+- 系统打开/保存+应用数据目录+剪贴板；拖拽；完成后"打开输出文件夹"
+- 路径兼容中文/空格/括号/长路径；高DPI/窗口尺寸/深浅模式
+- 每页空/加载/成功/失败/下步状态；高级设置收起；首次引导短不挡主流程`;
 
   if (complexity === 'advanced') {
     return `${base}
-- 团队增强功能放在设置/历史/批量页，不挤占主流程；危险操作二次确认并可恢复。`;
+- 团队功能放设置/历史/批量页，不挤占主流程；危险操作二次确认+可恢复`;
   }
 
   return base;
@@ -301,19 +303,19 @@ function uxZh(complexity: Complexity): string {
 
 function uxEn(complexity: Complexity): string {
   if (complexity === 'starter') {
-    return `- Main flow ≤3 steps: import/fill → preview → generate/save; first screen is the workspace.
-- Use native open/save dialogs and clipboard APIs; support drag-and-drop; show "Open output folder" after completion.
-- Paths handle Chinese, spaces, parentheses, and Windows/macOS separators; every screen has empty/loading/success/error states.`;
+    return `- Main flow ≤3 steps: import/fill→preview→generate/save; first screen is workspace
+- Native open/save+clipboard; drag-and-drop; "Open output folder" on completion
+- Paths handle Chinese/spaces/parentheses; every screen: empty/loading/success/error`;
   }
 
-  const base = `- Main flow ≤3 steps: import/fill → preview → generate/save; first screen is a usable workspace, not a landing page.
-- Use native open/save dialogs, app data dirs, and clipboard APIs; support drag-and-drop; show "Open output folder" after completion.
-- Paths handle Chinese characters, spaces, parentheses, long paths, and Windows/macOS separators; support high DPI, window sizes, and light/dark.
-- Every screen has empty/loading/success/error/next-step states; advanced settings collapse by default; first-run hints are short and non-blocking.`;
+  const base = `- Main flow ≤3 steps: import/fill→preview→generate/save; workspace not landing page
+- Native open/save+app data dirs+clipboard; drag-and-drop; "Open output folder" on completion
+- Paths handle Chinese/spaces/parentheses/long paths; high DPI/window sizes/light-dark
+- Every screen: empty/loading/success/error/next-step; advanced settings collapsed; short non-blocking first-run hints`;
 
   if (complexity === 'advanced') {
     return `${base}
-- Put team features in settings/history/batch pages, not in the main path; confirm and recover dangerous actions.`;
+- Team features in settings/history/batch, not main path; confirm+recover dangerous actions`;
   }
 
   return base;
@@ -322,31 +324,31 @@ function uxEn(complexity: Complexity): string {
 function implementationZh(state: FormState): string {
   const retryLine =
     state.storage === 'none'
-      ? '- 无持久化也缓存最近输出和失败原因到内存/临时目录，便于重试。'
-      : '- 重要数据每次保存生成本地快照，保留最近 3 个版本。';
+      ? '- 无持久化也缓存最近输出和失败原因到内存/临时目录便于重试'
+      : '- 重要数据每次保存本地快照，保留最近3个版本';
 
   if (state.complexity === 'starter') {
-    return `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
-- 不写死 API Key、绝对路径、个人邮箱、内网地址；改既有文件前先读，最小 diff。
-- 输出不覆盖原文件，冲突加时间后缀；只读用户选/拖入的文件。
-- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让用户先准备数据才开工。
-- 分层：desktop shell / 受控 API / UI / core / tests / sample-data / docs；真实接线按钮、导入、预览、生成/保存、错误状态。`;
+    return `- 不确定库/API先\`npm view <pkg>\`或读文档；不编造包名
+- 不硬编码密钥/路径/邮箱/内网地址；改既有文件前先读，最小diff
+- 不覆盖原文件，冲突加时间戳；只读用户选/拖入的文件
+- 缺真实文件先造\`sample-data/\`脱敏样例
+- 分层：shell/受控API/UI/core/tests/sample-data/docs；真实接线按钮/导入/预览/生成保存/错误`;
   }
 
-  const base = `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
-- README 写 Node 版本（配 \`.nvmrc\` 或 \`engines\`）；提供 \`npm run setup\` / \`npm run dev\` / \`npm run package\`。
-- 不写死 API Key、绝对路径、个人邮箱、内网地址；配置走 \`.env.example\`；改既有文件前先读，最小 diff。
-- 输出不覆盖原文件，冲突加时间后缀；改文件/数据前预览或确认；支持撤销/恢复。
+  const base = `- 不确定库/API先\`npm view <pkg>\`或读文档；不编造包名
+- README写Node版本+ \`.nvmrc\`/\`engines\`；提供\`npm run setup\`/\`dev\`/\`package\`
+- 不硬编码密钥/路径/邮箱/内网地址；配置走\`.env.example\`；改前先读最小diff
+- 不覆盖原文件，冲突加时间戳；改文件/数据前预览确认；支持撤销/恢复
 ${retryLine}
-- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让用户先准备数据才开工。
-- 只读用户选/拖入的文件；敏感字段导出前脱敏或提醒，日志不记敏感内容。
-- 分层：desktop shell / preload 或受控 API / renderer UI / core / tests / sample-data / docs；IPC 类型化、白名单化，UI 不直接执行本地命令。
-- 真实接线：按钮、导入、预览、生成/保存、导出、错误状态都可用；核心逻辑小模块、类型明确、错误分层。`;
+- 缺真实文件先造\`sample-data/\`脱敏样例
+- 只读用户选/拖入文件；敏感字段导出前脱敏/提醒；日志不记敏感内容
+- 分层：shell/preload或受控API/renderer UI/core/tests/sample-data/docs；IPC类型化白名单，UI不直接执行本地命令
+- 真实接线：按钮/导入/预览/生成保存/导出/错误全可用；核心逻辑小模块类型明确错误分层`;
 
   if (state.complexity === 'advanced') {
     return `${base}
-- 批量处理要可取消、可恢复、可查看失败行；权限/隐私/日志策略写进文档。
-- 历史记录、设置和恢复记录使用本地存储；迁移或 schema 变化要有兼容处理。`;
+- 批量处理可取消/可恢复/可查看失败行；权限/隐私/日志策略写文档
+- 历史/设置/恢复记录用本地存储；迁移或schema变化兼容处理`;
   }
 
   return base;
@@ -355,31 +357,31 @@ ${retryLine}
 function implementationEn(state: FormState): string {
   const retryLine =
     state.storage === 'none'
-      ? '- Even without persistence, keep the last output and failure reason in memory/temp dir for quick retry.'
-      : '- Snapshot important data on every save; keep the last 3 versions.';
+      ? '- No persistence? cache last output+failure in memory/temp for quick retry'
+      : '- Snapshot on save; keep last 3 versions';
 
   if (state.complexity === 'starter') {
-    return `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
-- No hard-coded API keys, absolute paths, personal emails, or internal hosts; read existing files first; minimum diff.
-- Never overwrite inputs; timestamp conflicts; read only picked/dropped files.
-- No real files? create anonymized \`sample-data/\` first; do not block the user.
-- Layers: desktop shell / controlled API / UI / core / tests / sample-data / docs; real wiring for buttons, import, preview, generate/save, and errors.`;
+    return `- Unsure about lib/API? run \`npm view <pkg>\` or read docs; no fake packages
+- No hardcoded keys/paths/emails/internal hosts; read existing first, min diff
+- Never overwrite inputs; timestamp conflicts; read only picked/dropped files
+- No real files? create anonymized \`sample-data/\` first
+- Layers: shell/controlled API/UI/core/tests/sample-data/docs; real wiring buttons/import/preview/generate save/errors`;
   }
 
-  const base = `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
-- README documents Node version plus \`.nvmrc\` or \`engines\`; provide \`npm run setup\` / \`npm run dev\` / \`npm run package\`.
-- No hard-coded API keys, absolute paths, personal emails, or internal hosts; use \`.env.example\`; read existing files first; minimum diff.
-- Never overwrite inputs; timestamp conflicts; preview/confirm before mutations; support undo/recovery.
+  const base = `- Unsure about lib/API? run \`npm view <pkg>\` or read docs; no fake packages
+- README with Node version+ \`.nvmrc\`/\`engines\`; provide \`npm run setup\`/\`dev\`/\`package\`
+- No hardcoded keys/paths/emails/internal hosts; use \`.env.example\`; read first, min diff
+- Never overwrite inputs; timestamp conflicts; preview/confirm before mutate; undo/recovery
 ${retryLine}
-- No real files? create anonymized \`sample-data/\` first; do not block the user.
-- Read only picked/dropped files; warn or mask sensitive fields before export; logs exclude sensitive content.
-- Layers: desktop shell / preload or controlled API / renderer UI / core / tests / sample-data / docs; IPC typed and allowlisted, renderer never runs local commands.
-- Real wiring: buttons, import, preview, generate/save, export, and error states work; core logic uses small typed modules and layered errors.`;
+- No real files? create anonymized \`sample-data/\` first
+- Read only picked/dropped files; mask sensitive fields before export; logs exclude sensitive
+- Layers: shell/preload or controlled API/renderer UI/core/tests/sample-data/docs; IPC typed+allowlisted
+- Real wiring: buttons/import/preview/generate save/export/errors work; small typed modules, layered errors`;
 
   if (state.complexity === 'advanced') {
     return `${base}
-- Batch jobs must be cancellable, recoverable, and show failed rows; document permission, privacy, and logging policy.
-- History, settings, and recovery records use local storage; migrations or schema changes need compatibility handling.`;
+- Batch: cancellable/recoverable/show failed rows; document permission/privacy/logging
+- History/settings/recovery: local storage; migration/schema changes: compatibility handling`;
   }
 
   return base;
@@ -399,44 +401,45 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
     if (state.extras.accessibility) extras.push(ACCESSIBILITY_ZH[state.platform]);
     if (custom) extras.push(custom);
 
-    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。交付本地可运行应用，不是建议。用户负责业务判断，不负责技术实现；沟通、按钮、错误和文档都用业务语言。全程中文。
+    const base = `你是资深${ROLE_DOMAIN_ZH[state.platform]}工程师。交付可运行应用非建议。用户管业务不负责技术；按钮/错误/文档用业务语言。全程中文。
 
 【快速交付】
 ${deliveryZh(state.complexity)}
 
-【DoD / 停止 Vibe Coding】
+【DoD】
 ${dodZh(state)}
 
 【选择】
 - 平台：${PLATFORM_ZH[state.platform]}
-- 栈：${TECH_ZH[state.tech]} 只用成熟、活跃、文档全的库；不为炫技加服务、云或后端。
-- 界面：${UI_ZH[state.ui]}。${FONT_ZH[state.platform]}；跟随系统深浅模式；禁用网络字体/CDN；360px 窄窗不遮挡，主按钮点击区 ≥32px。
-- 数据：${STORAGE_ZH[state.storage]}；默认本地，不上传外部服务。
+- 栈：${TECH_ZH[state.tech]} 只用成熟活跃文档全的库；不加服务/云/后端
+- 界面：${UI_ZH[state.ui]}。${FONT_ZH[state.platform]}；跟随系统深浅；禁用网络字体；360px不遮挡；主按钮≥32px
+- 数据：${STORAGE_ZH[state.storage]}；默认本地不上传
 - 复杂度：${COMPLEXITY_ZH[state.complexity]}
 
 【需求】
-目标：${goal || '（请补充：给谁用？解决什么业务痛点？例："帮财务同事把每月对账从 2 天压到 1 小时"）'}
+目标：${goal || '（请补充：给谁用？解决什么痛点？例："帮财务把每月对账从2天压到1小时"）'}
 功能：
-${features || '（请补充：一行一条，写清"做什么 → 用户看到什么"。例：\n- 拖入两张 Excel → 自动按订单号比对 → 差异标红\n- 点"导出" → 生成差异明细 Excel\n- 超过 10 万行 → 分批处理并显示进度条）'}
+${features || '（请补充：一行一条，写"做什么→看到什么"。例：\n- 拖入两张Excel→自动按订单号比对→差异标红\n- 点"导出"→生成差异明细Excel\n- 超10万行→分批处理显示进度）'}
 
-${extras.length ? `附加要求：\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}【桌面与 UX 硬要求】
+${extras.length ? `附加要求：\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}【桌面 UX】
 ${uxZh(state.complexity)}
 
-【实现纪律 / 安全】
+【实现纪律】
 ${implementationZh(state)}
 
 【验证与最终汇报】
-自检清单（全部通过才算完成）：
-□ lint、类型检查、测试、构建全部通过
-□ 双击/一条命令启动，第一屏是主工作台
-□ 示例数据跑通主流程，产出可检查的文件/表格
-□ 已用 sample-data 做启动 → 主流程 → 导出/保存烟测
-□ 空数据、错格式、取消、重名冲突 → 友好提示，不闪退
-□ 路径含中文/空格/括号 → 正常工作
+自检（全过才算完成）：
+□ lint/typecheck/test/build全过
+□ 双击启动首屏即工作台
+□ 示例数据跑通主流程产出可检查产物
+□ sample-data烟测：启动→主流程→导出/保存
+□ 空/错格式/取消/重名→友好提示不闪退
+□ 路径含中文/空格/括号→正常
 
-最终只报：做了什么 | 如何打开 | 产物路径 | 验证结果 | 剩余限制。
+最终只报：做了什么/如何打开/产物路径/验证/剩余限制。
 
-开始：先给 ≤8 行摘要，然后立刻做 M1。`;
+开始：≤8行摘要→立刻M1。`;
+    return withAgentBehavior(base, 'zh');
   }
 
   const extras: string[] = [];
@@ -447,44 +450,45 @@ ${implementationZh(state)}
   if (state.extras.accessibility) extras.push(ACCESSIBILITY_EN[state.platform]);
   if (custom) extras.push(custom);
 
-  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver a runnable local desktop app, not advice. The user owns business judgment, not technical implementation; use business-language labels, errors, docs, and updates. Use plain English.
+  const base = `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver runnable app, not advice. User owns business; labels/errors/docs in business language. Plain English.
 
 [Fast Delivery]
 ${deliveryEn(state.complexity)}
 
-[DoD / Stop-Vibe-Coding]
+[DoD]
 ${dodEn(state)}
 
 [Choices]
 - Platform: ${PLATFORM_EN[state.platform]}
-- Stack: ${TECH_EN[state.tech]} Use mature, active, documented libraries; do not add servers/cloud/backends to show off.
-- Visual: ${UI_EN[state.ui]}. ${FONT_EN[state.platform]}; follow system light/dark; no web fonts/CDNs; no clipping at 360px; primary hit area ≥32px.
-- Data: ${STORAGE_EN[state.storage]}. Local by default; never upload.
+- Stack: ${TECH_EN[state.tech]} Use mature documented libraries; no servers/cloud/backends
+- Visual: ${UI_EN[state.ui]}. ${FONT_EN[state.platform]}; follow system light/dark; no web fonts; no clip at 360px; hit area≥32px
+- Data: ${STORAGE_EN[state.storage]}. Local; never upload
 - Scope: ${COMPLEXITY_EN[state.complexity]}
 
 [Request]
-Goal: ${goal || '(Please fill in: who is it for, what business pain? Example: "Help finance cut monthly reconciliation from 2 days to 1 hour."'}
+Goal: ${goal || '(Fill in: who + what pain? e.g. "Help finance cut reconciliation from 2 days to 1 hour"'}
 Features:
-${features || '(Please fill in: one per line, write "action → user sees what". Example:\n- Drop two Excel files → auto-match by order ID → mismatches highlighted red\n- Click "Export" → generates a diff-detail Excel\n- Over 100k rows → batch with progress bar)'}
+${features || '(Fill in: one per line, "action→result". e.g.\n- Drop two Excel→auto-match by order ID→mismatches red\n- Click Export→generates diff Excel\n- 100k+ rows→batch with progress)'}
 
-${extras.length ? `[Additional Requirements]\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}[Desktop + UX Requirements]
+${extras.length ? `[Additional]\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}[Desktop UX]
 ${uxEn(state.complexity)}
 
-[Implementation / Safety]
+[Implementation]
 ${implementationEn(state)}
 
 [Verification + Final Report]
-Self-check (all must pass before reporting done):
-☐ lint, typecheck, tests, build all pass
-☐ Launches by double-click or one command; first screen is the workspace
-☐ Sample data completes the main flow, producing a checkable file/sheet
-☐ Smoke-tested sample-data: launch → main flow → export/save
-☐ Empty data, bad format, cancel, name conflict → friendly message, no crash
-☐ Paths with Chinese/spaces/parentheses → work correctly
+Self-check (all must pass):
+☐ lint/typecheck/test/build pass
+☐ Double-click launch; first screen is workspace
+☐ Sample data completes main flow, checkable artifact produced
+☐ Smoke test: launch→main flow→export/save with sample-data
+☐ Empty/bad/cancel/conflict→friendly, no crash
+☐ Paths with Chinese/spaces/parentheses→work
 
-Final report only: what built | how to open | artifact path | verification results | remaining limits.
+Final report: what/how to open/artifact path/verification/remaining limits.
 
-Start now: give the ≤8-line summary, then build M1.`;
+Start: ≤8-line summary→build M1.`;
+  return withAgentBehavior(base, 'en');
 }
 
 export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string {
@@ -616,6 +620,40 @@ export const quickTemplates: QuickTemplate[] = [
         '帮我做一个本地台账软件：每条事项一张卡片，记录对方、金额、关键日期、当前状态，到期前自动提醒。',
       features:
         '- 卡片字段：对方 / 类型 / 金额 / 关键日期 / 当前状态 / 备注\n- 卡片左侧色块显示状态\n- 设置阈值（如到期前 N 天）自动变红\n- 一键导出本周待办到 Excel',
+    },
+  },
+  {
+    id: 'beginner-first-app',
+    titleZh: '新手入门：先做一个最简单的试试',
+    titleEn: 'Beginner: build the simplest tool first',
+    taglineZh: '不确定 Codex 能做什么？先做一个能跑的，感受一下流程',
+    taglineEn: 'Not sure what Codex can do? Build something runnable and feel the flow.',
+    state: {
+      platform: 'both',
+      ui: 'minimal',
+      storage: 'none',
+      complexity: 'starter',
+      goal:
+        '帮我做一个最简单的桌面小工具，让我先看看 Codex 能做啥、整个过程是怎样的。',
+      features:
+        '- 打开软件显示一个输入框和按钮\n- 在输入框里写点东西，点按钮后弹出一个提示框显示"你写的是：XXX"\n- 界面清爽，就这几个元素',
+    },
+  },
+  {
+    id: 'iterate-add-feature',
+    titleZh: '已有工具加新功能（不动现有逻辑）',
+    titleEn: 'Add a feature without breaking existing logic',
+    taglineZh: '上个版本跑通了？这样提需求，Codex 不会改坏现有的',
+    taglineEn: 'Previous version works? Ask like this so Codex won\'t break it.',
+    state: {
+      platform: 'both',
+      ui: 'minimal',
+      storage: 'localFile',
+      complexity: 'standard',
+      goal:
+        '我有个能跑的桌面工具了，想加新功能但不希望改坏现有的。',
+      features:
+        '- 不要改动现有功能，只新增\n- 如果新功能会影响现有逻辑，先告诉我再动手\n- 新增功能：（请替换成你要加的具体功能，例如）在结果页加一个导出 PDF 按钮\n- 加完后用示例数据跑一遍完整流程验证',
     },
   },
 ];

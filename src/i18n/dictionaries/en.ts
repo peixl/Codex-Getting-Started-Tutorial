@@ -186,6 +186,9 @@ export const en = {
     qualityFeatures: 'Features',
     qualityIo: 'Input/output',
     qualityAcceptance: 'Acceptance',
+    qualityGoalSpecific: 'Specific goal',
+    qualityFeatureClarity: 'Actionable features',
+    qualityScopeReasonable: 'Reasonable scope',
     qualityPass: 'OK',
     qualityImprove: 'Add',
 
