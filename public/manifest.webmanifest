@@ -1,7 +1,7 @@
 {
-  "name": "Codex Beginner Tutorial",
-  "short_name": "Codex Tutorial",
-  "description": "Beginner-friendly OpenAI Codex desktop tutorial for non-developers. Windows and macOS only.",
+  "name": "Codex Business Guide",
+  "short_name": "Codex Guide",
+  "description": "Concise OpenAI Codex Desktop guide for business teams. Windows and macOS only.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

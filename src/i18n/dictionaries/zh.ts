@@ -1,29 +1,29 @@
 export const zh = {
   meta: {
-    siteName: 'Codex 新手教程',
-    siteTagline: '让每个小白，都能用 Codex 做出自己的桌面小工具',
+    siteName: 'Codex 上手指南',
+    siteTagline: '让懂业务的人，用 Codex 做出自己的桌面工具',
     description:
-      '面向非技术人员的 Codex 桌面版教程：提示词生成、上手指南、七天上手路线和常见场景食谱。重点帮你做出 Windows / macOS 本地桌面小工具。',
+      '面向业务专家的 Codex 桌面版上手指南：提示词生成、工作流练习、部门案例和场景食谱，重点做出 Windows / macOS 本地工具。',
     keywords: [
       'Codex',
       'OpenAI Codex',
       'Codex 桌面版',
       'Codex 教程',
       'Codex 提示词',
-      '新手教程',
-      '非技术人员',
+      '上手指南',
+      '业务专家',
       'Windows 桌面应用',
       'macOS 桌面应用',
       '电商运营',
       '财务自动化',
-      '小白',
+      'AI 工作流',
     ],
   },
 
   nav: {
     home: '首页',
     generator: '提示词',
-    guide: '新手上手',
+    guide: '快速上手',
     lessons: '七天上手',
     cookbook: '场景食谱',
     cases: '部门案例',
@@ -34,13 +34,13 @@ export const zh = {
   },
 
   home: {
-    heroEyebrow: '专为业务小白准备',
-    heroTitleLine1: '想做一个',
-    heroTitleHighlight: '属于自己的小程序',
-    heroTitleLine2: '跟 Codex 说一句话就够了',
+    heroEyebrow: '给懂业务的人',
+    heroTitleLine1: '把业务经验',
+    heroTitleHighlight: '变成可运行的小工具',
+    heroTitleLine2: '和 Codex 说清楚就够了',
     heroSubtitle:
-      '填几个空，复制到 Codex 桌面版。几分钟后，你就能得到一个本地小工具。',
-    heroCtaPrimary: '三分钟生成一个提示词',
+      '填好目标和流程，复制到 Codex 桌面版。几分钟后，先看到一个能跑的本地工具。',
+    heroCtaPrimary: '生成第一段提示词',
     heroCtaSecondary: '先看看怎么玩',
     heroStatsLabel1: '现成案例',
     heroStatsValue1: '90+',
@@ -51,11 +51,11 @@ export const zh = {
     heroBadgeWindows: 'Windows 11 · 10',
     heroBadgeMac: 'macOS 可用',
 
-    flowTitle: '三步，把一句话变成一个软件',
-    flowSubtitle: '像填表一样，一步步来。',
-    flowStep1Title: '告诉 Codex 你想做什么',
+    flowTitle: '三步，把业务流程变成工具',
+    flowSubtitle: '填表、复制、运行。',
+    flowStep1Title: '说明目标和流程',
     flowStep1Body:
-      '写目标和功能。界面、数据存法等默认项已选好。',
+      '写给谁用、输入什么、输出什么。默认项已选好。',
     flowStep2Title: '点一下"复制提示词"',
     flowStep2Body:
       '系统会拼好提示词。你只管复制。',
@@ -63,11 +63,11 @@ export const zh = {
     flowStep3Body:
       'Codex 会处理、运行、修正、验证。窗口弹出，就是你的工具。',
 
-    featuresTitle: '为什么这份教程真的适合小白',
+    featuresTitle: '为什么适合业务团队',
     featuresSubtitle: '不要求会命令行或 GitHub。',
-    feature1Title: '全部大白话',
+    feature1Title: '业务语言优先',
     feature1Body:
-      '避开术语，用日常话说明。',
+      '先讲场景、流程和验收，再谈技术。',
     feature2Title: '填空式提示词',
     feature2Body:
       '平台、界面、数据存法都是选择题。你只写目标和功能。',
@@ -80,19 +80,19 @@ export const zh = {
     feature5Title: '中英双语对照',
     feature5Body:
       '中文看懂，英文给 Codex。内容一致。',
-    feature6Title: '一上手就能出活',
+    feature6Title: '先交付，再优化',
     feature6Body:
-      '目标很简单：今天就做出能跑的东西。',
+      '今天先跑通一个真实流程。',
 
-    ctaTitle: '准备好了吗？',
-    ctaBody: '三分钟后，先拿到第一段提示词。',
-    ctaButton: '现在就开始',
+    ctaTitle: '先从一个流程开始',
+    ctaBody: '把手头最重复的一件事，交给 Codex 做成工具。',
+    ctaButton: '生成提示词',
 
-    caseTeaserTitle: '你所在的部门，已经有现成案例',
-    caseTeaserSubtitle: '点进去，复制提示词，马上开工。',
+    caseTeaserTitle: '你的团队，已经有现成案例',
+    caseTeaserSubtitle: '选一个相近场景，改几处就能用。',
     caseTeaserMore: '看全部部门案例',
 
-    trustTitle: '这份教程背后的诚意',
+    trustTitle: '内容原则',
     trustLine1: '案例来自真实业务场景。',
     trustLine2: '中英双语，国内访问顺畅。',
     trustLine3: '内容开放，更新透明。',
@@ -101,7 +101,7 @@ export const zh = {
   generator: {
     pageTitle: '提示词生成器',
     pageSubtitle:
-      '像填表一样简单。写好“目标”和“功能”，其它默认项先不用改。',
+      '写清目标、输入、输出；默认项可以直接使用。',
 
     defaultsHint: '我们已经替你挑好默认项，不改也能直接用。',
 
@@ -117,7 +117,7 @@ export const zh = {
     techOptionElectron: '通用做法（最稳，社区资料最多）',
     techOptionTauri: '轻巧做法（软件体积小，启动更快）',
     techOptionPyQt: '偏工具做法（很小的工具也能快速搭）',
-    techOptionAuto: '让 Codex 自己挑（闭眼选这个）',
+    techOptionAuto: '让 Codex 自己挑（推荐）',
 
     sectionUI: '③ 软件长什么样',
     uiLabel: '外观',
@@ -138,7 +138,7 @@ export const zh = {
     complexityOptionStandard: '标准业务版（推荐，能发同事试用）',
     complexityOptionAdvanced: '团队增强版（设置、历史、恢复更完整）',
 
-    sectionGoal: '⑥ 这个软件，是给谁用的？解决他们什么麻烦？',
+    sectionGoal: '⑥ 这个工具给谁用？解决什么问题？',
     goalLabel: '目标（一两句话就好）',
     goalPlaceholder:
       '比如：给我们财务部用，解决每个月手动核对几百张订单和银行流水要花两天的问题。',
@@ -162,7 +162,7 @@ export const zh = {
 
     sectionOutput: '这段就是你要复制的提示词',
     outputHint:
-      '整段复制到 Codex 桌面版。它会先说明方案，再动手实现。',
+      '整段复制到 Codex 桌面版。它会先简述方案，再开始实现。',
     copyButton: '一键复制',
     copied: '已复制',
     copyFailed: '复制失败',
@@ -202,27 +202,27 @@ export const zh = {
     historyDelete: '删除',
     historyClearAll: '全部清空',
 
-    tipCardTitle: '给小白的小提醒',
+    tipCardTitle: '小提示',
     tipCardBody:
-      '不用懂技术。先写清“给谁用、做什么”，其它推荐项保持默认就行。',
-    beginnerStep1Title: '先选模板',
-    beginnerStep1Body: '不确定就保留默认推荐项。',
-    beginnerStep2Title: '填两段话',
-    beginnerStep2Body: '写清给谁用、输入什么、输出什么。',
-    beginnerStep3Title: '复制去 Codex',
-    beginnerStep3Body: '跑不起来再复制修复提示词。',
+      '你提供业务判断，Codex 负责实现。先写清给谁用、输入什么、输出什么。',
+    promptStep1Title: '选模板',
+    promptStep1Body: '不确定就保留默认推荐项。',
+    promptStep2Title: '写目标和流程',
+    promptStep2Body: '把输入、处理、输出说清楚。',
+    promptStep3Title: '交给 Codex',
+    promptStep3Body: '复制后让它实现、运行、验证。',
   },
 
   guide: {
-    pageTitle: '新手上手',
+    pageTitle: '快速上手',
     pageSubtitle:
-      '从零开始。只讲你马上要用的步骤。',
+      '从打开 Codex 到交付小工具，只保留必要步骤。',
 
     tocTitle: '目录',
 
-    sec1Title: '第一章 · Codex 到底是什么',
+    sec1Title: '第一章 · Codex 是什么',
     sec1P1:
-      '把 Codex 当成会写软件的助手。你说需求，它写程序。',
+      '把 Codex 当成会实现工具的助手。你说清业务目标，它负责写代码。',
     sec1P2:
       '你把需求说清楚，它就能先搭出一个版本。',
     sec1P3:
@@ -235,8 +235,8 @@ export const zh = {
     sec2Item2Body: '用 OpenAI 账号登录。ChatGPT 账号也可以。',
     sec2Item3Title: 'Codex 桌面版安装包',
     sec2Item3Body: '从 OpenAI 官网下载，双击安装。',
-    sec2Item4Title: '真的不用懂底层细节',
-    sec2Item4Body: '会打字、会复制粘贴、会双击图标，这些就够了。',
+    sec2Item4Title: '不用先学技术栈',
+    sec2Item4Body: '会描述流程、会验收结果，就够了。',
 
     sec3Title: '第三章 · 第一次打开 Codex',
     sec3P1: '首次打开先登录。登录后会看到一个聊天式界面。',
@@ -257,7 +257,7 @@ export const zh = {
     sec4Item5Title: '不对 = 继续跟它说',
     sec4Item5Body: '看到哪里不对，就直接说"这里按钮颜色不对"、"点导入就崩了"。它会自己改。',
 
-    sec5Title: '第五章 · 写好提示词的五条大白话',
+    sec5Title: '第五章 · 写好提示词的五条原则',
     sec5Rule1Title: '1. 说清楚"给谁用"',
     sec5Rule1Body: '给谁用，决定界面和流程。',
     sec5Rule2Title: '2. 说清楚"要解决什么问题"',
@@ -269,14 +269,14 @@ export const zh = {
     sec5Rule5Title: '5. 出错了别急',
     sec5Rule5Body: '把错误原文复制回去，让它自己修。',
 
-    sec6Title: '第六章 · 会遇到的坑和怎么爬出来',
-    sec6Pit1Title: '坑一 · 软件跑不起来',
+    sec6Title: '第六章 · 常见问题',
+    sec6Pit1Title: '问题一 · 软件跑不起来',
     sec6Pit1Body: '复制完整错误，问它“怎么修”。',
-    sec6Pit2Title: '坑二 · 改来改去越改越乱',
+    sec6Pit2Title: '问题二 · 改来改去越改越乱',
     sec6Pit2Body: '连改几次没效果，就新开任务，重写需求。',
-    sec6Pit3Title: '坑三 · 一上来想做太复杂',
+    sec6Pit3Title: '问题三 · 一上来想做太复杂',
     sec6Pit3Body: '先做最小能用的版本：导入一张表 + 显示一列。跑通再加下一个功能。',
-    sec6Pit4Title: '坑四 · 不知道它在干嘛',
+    sec6Pit4Title: '问题四 · 不知道它在干嘛',
     sec6Pit4Body: '直接问：“你现在在做什么？”',
 
     secStopTitle: '第七章 · 什么时候该停下来',
@@ -289,7 +289,7 @@ export const zh = {
     secStopItem4Title: '大改要开新任务',
     secStopItem4Body: '主流程跑通后，如果想换界面、换技术栈或加很多功能，新开一个任务更稳。',
 
-    sec7Title: '第八章 · 做完了，怎么发给同事',
+    sec7Title: '第八章 · 做完后怎么给同事',
     sec7P1: '让 Codex 打包成 Windows .exe 或 macOS .dmg。',
     sec7P2: '把这个文件发给同事（微信、邮件、网盘都行），他双击就能安装。',
     sec7P3: '如果同事电脑有安全软件拦截，告诉它"这是我自己做的工具"就能放行。',
@@ -297,12 +297,12 @@ export const zh = {
     nextStepTitle: '看完了，下一步做什么',
     nextStepGenerator: '去生成你的第一段提示词',
     nextStepLessons: '七天上手路线',
-    nextStepCookbook: '场景食谱直接抄',
+    nextStepCookbook: '参考场景食谱',
     nextStepCases: '看看部门现成案例',
   },
 
   tips: {
-    pageTitle: '进阶技巧',
+    pageTitle: '实用技巧',
     pageSubtitle: '几个常用技巧，少走弯路。',
 
     tip1Title: '用"角色扮演"让回答更专业',
@@ -342,8 +342,8 @@ export const zh = {
     tip12Body:
       '一个任务做完就新开对话，带上最终提示词和可用版本。',
 
-    pitfallsTitle: '新手常见误区',
-    pitfall1Title: '误区 · 以为它能读你心',
+    pitfallsTitle: '常见误区',
+    pitfall1Title: '误区 · 以为它能读懂没写出的需求',
     pitfall1Body:
       '你没写出来的需求，它都不知道。',
     pitfall2Title: '误区 · 看到内部内容就退',
@@ -365,13 +365,13 @@ export const zh = {
 
   faq: {
     pageTitle: '常见问答',
-    pageSubtitle: '小白用户最常问的问题都在这里。',
+    pageSubtitle: '业务团队最常问的问题都在这里。',
 
     q1: 'Codex 要钱吗？',
     a1: 'Codex 走 OpenAI 账号。目前需要订阅 ChatGPT Plus 或更高级别的付费计划。具体价格请看 OpenAI 官网。',
 
-    q2: '我完全是小白，真的能用吗？',
-    a2: '能。会打字、复制粘贴、双击图标就够了。',
+    q2: '我只懂业务，能用吗？',
+    a2: '能。你负责说清流程和验收标准；Codex 负责实现。',
 
     q3: '做出来的软件能给同事用吗？',
     a3: '能。让 Codex 打包成 .exe 或 .dmg，再发给同事安装。',
@@ -419,7 +419,7 @@ export const zh = {
   footer: {
     about: '关于',
     aboutBody:
-      '面向业务小白的 Codex 桌面版教程。由 ifq.ai 维护，非 OpenAI 官方出品。',
+      '面向业务专家的 Codex 桌面版上手指南。由 ifq.ai 维护，非 OpenAI 官方出品。',
     resourcesTitle: '相关资源',
     resourceOpenAI: 'Codex 官网',
     resourceCodexDocs: 'Codex 官方文档',
@@ -443,7 +443,7 @@ export const zh = {
 
   lessons: {
     pageTitle: '七天上手',
-    pageSubtitle: '每天 15 分钟，一周做出自己的小程序。',
+    pageSubtitle: '每天 15 分钟，一周做出可运行的小工具。',
     dayLabel: '第 {n} 天',
     startLabel: '开始学',
     day1Title: '认识 Codex 桌面版',
@@ -452,9 +452,9 @@ export const zh = {
     day2Title: '做你的第一个小工具',
     day2Hook: '先跑通一个 Excel 汇总小工具',
     day2Goals: '复制教程里的提示词 · 粘贴进 Codex · 看到一个窗口弹出来',
-    day3Title: '把话说清楚',
-    day3Hook: '说清楚，结果更稳',
-    day3Goals: '学会"角色扮演" · 学会给例子 · 学会一次只改一件事',
+    day3Title: '把流程说清楚',
+    day3Hook: '流程清楚，结果更稳',
+    day3Goals: '定义角色 · 给例子 · 一次只改一件事',
     day4Title: '让 Codex 自己修 Bug',
     day4Hook: '遇到错误不要慌。让它自己看、自己改',
     day4Goals: '回传错误 · 学会回退 · 分清卡住和结果不对',
@@ -467,9 +467,9 @@ export const zh = {
     day7Title: '迭代你的第二版',
     day7Hook: '小改两轮，从"能用"到"好用"',
     day7Goals: '收集同事反馈 · 一次只改一个问题 · 准备下一个小工具的想法',
-    recapTitle: '走到这里，你已经不是小白了',
+    recapTitle: '走到这里，你已经能独立交付',
     recapBody:
-      '你已经会安装、提需求、修问题和交付。接下来，把重复工作交给小工具。',
+      '你已经会安装、提需求、修问题和交付。接下来，把重复工作变成工具。',
   },
 
   cases: {

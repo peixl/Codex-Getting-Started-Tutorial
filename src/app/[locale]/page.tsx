@@ -61,12 +61,12 @@ export default async function HomePage({ params }: Props) {
       learningResourceType: ['Tutorial', 'Guide', 'Prompt generator'],
       teaches: [
         'OpenAI Codex desktop app basics',
-        'Prompt writing for non-developers',
+        'Prompt writing for business workflows',
         'Local Windows and macOS desktop app workflows',
       ],
       audience: {
         '@type': 'Audience',
-        audienceType: 'Non-developers and business teams',
+        audienceType: 'Business experts and teams',
       },
       hasCourseInstance: [
         {

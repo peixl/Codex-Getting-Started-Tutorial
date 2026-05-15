@@ -1,8 +1,8 @@
-# Codex Beginner Tutorial · codex.ifq.ai
+# Codex Business Guide · codex.ifq.ai
 
-> A bilingual (Chinese + English) beginner tutorial for the OpenAI Codex desktop app, designed for finance, operations, customer service, HR, logistics, procurement, marketing, data, admin, and product teams. It focuses on local desktop applications for Windows and macOS, and includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
+> A bilingual (Chinese + English) Codex desktop guide for finance, operations, customer service, HR, logistics, procurement, marketing, data, admin, and product teams. It focuses on local desktop applications for Windows and macOS, and includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
-Its purpose is to help business teams describe a problem in plain language and get a useful desktop tool or agent-task result.
+Its purpose is to help business teams describe a workflow clearly and get a useful desktop tool or agent-task result.
 
 The root URL redirects to Chinese or English based on the visitor's browser language. Direct locale URLs remain stable under `/zh/*` and `/en/*`.
 
@@ -10,11 +10,11 @@ The root URL redirects to Chinese or English based on the visitor's browser lang
 
 - [Home](https://codex.ifq.ai/en): Overview of the three-step workflow (fill form → copy prompt → run in Codex), highlights, and department case teasers.
 - [Prompt Generator](https://codex.ifq.ai/en/generator): An interactive fill-in-the-blank form that produces a fully-formed Codex prompt. Inputs: platform (Windows / macOS / both), preset, UI style, data storage approach, complexity tier (Starter MVP / Standard business / Team-ready), goal, needs, and optional extras. Output: a ready-to-paste prompt in Chinese or English with one-click copy, plus a separate recovery prompt for launch or packaging failures.
-- [Beginner Guide](https://codex.ifq.ai/en/guide): An eight-chapter plain-language walkthrough covering what Codex is, what to prepare, first launch, core actions, five rules for good prompts, common pitfalls, when to stop iterating, and how to share the resulting app with teammates.
+- [Quick Start Guide](https://codex.ifq.ai/en/guide): An eight-chapter walkthrough covering what Codex is, what to prepare, first launch, core actions, five rules for good prompts, common issues, when to stop iterating, and how to share the resulting app with teammates.
 - [Department Cases](https://codex.ifq.ai/en/cases): 40+ real-world scenarios from an e-commerce company with ready-to-use prompts.
 - [Scenario Cookbook](https://codex.ifq.ai/en/cookbook): 20+ copy-ready desktop-tool prompts, including order merging, product image packaging, shipment exceptions, product labels, bill reconciliation, campaign calendars, support macros, creator samples, live timers, listing audits, and inventory transfer planning.
-- [Pro Tips](https://codex.ifq.ai/en/tips): Eight productivity tips plus four common misconceptions.
-- [FAQ](https://codex.ifq.ai/en/faq): Ten questions beginners most frequently ask.
+- [Practical Tips](https://codex.ifq.ai/en/tips): Eight productivity tips plus four common misconceptions.
+- [FAQ](https://codex.ifq.ai/en/faq): Common questions business teams ask.
 
 ## Department cases
 
@@ -48,7 +48,7 @@ Every page above has a fully parallel Chinese version under `/zh/` — for examp
 
 ## Use policy
 
-Content and prompts are released under the MIT License. Attribution to codex.ifq.ai is appreciated. Please preserve the plain-language framing when quoting.
+Content and prompts are released under the MIT License. Attribution to codex.ifq.ai is appreciated. Please preserve the business-workflow framing when quoting.
 
 ## Hosting & performance
 

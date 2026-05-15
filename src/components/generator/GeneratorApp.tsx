@@ -264,9 +264,9 @@ export function GeneratorApp({ locale, dict }: Props) {
             </div>
             <ol className="mt-3 grid gap-2 sm:grid-cols-3">
               {[
-                [dict.generator.beginnerStep1Title, dict.generator.beginnerStep1Body],
-                [dict.generator.beginnerStep2Title, dict.generator.beginnerStep2Body],
-                [dict.generator.beginnerStep3Title, dict.generator.beginnerStep3Body],
+                [dict.generator.promptStep1Title, dict.generator.promptStep1Body],
+                [dict.generator.promptStep2Title, dict.generator.promptStep2Body],
+                [dict.generator.promptStep3Title, dict.generator.promptStep3Body],
               ].map(([title, body], index) => (
                 <li
                   key={title}

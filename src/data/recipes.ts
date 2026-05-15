@@ -42,7 +42,7 @@ export const recipes: Recipe[] = [
       features: 'import one Excel (columns: metric, value, delta) and auto-render a 1200x1800 PNG daily report plus an A4 PDF — title, 3 KPI cards, one ranking bar chart, footer.',
       extra: '- Palette: white background, deep gray text; emphasize typographic hierarchy.',
       acceptance: 'drop Excel → preview report → one-click export PNG/PDF; empty data, bad format → friendly message, no crash.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 500-word plain-language user guide.',
+      packaging: '- Package as Windows .exe and macOS .dmg; include a clear 500-word user guide.',
     }, 'en'),
   },
   {

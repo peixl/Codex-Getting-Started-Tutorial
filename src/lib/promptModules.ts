@@ -50,7 +50,7 @@ export const DELIVERY_CONTRACT_ZH = `【桌面交付契约】
 - 交付本地可运行应用，不是方案；第一屏就是主工作台。M1≤15 分钟先出可启动窗口+示例数据/试用模式，M2 接通真实主流程，M3 补异常/UI/隐私，M4 测试+打包+文档。
 - 没有用户真实文件时，先创建贴近业务的脱敏 sample-data 并继续推进。
 - 每个里程碑卡住时的降级策略：M1 卡住 → 换更简单的实现方式先出窗口；M2 卡住 → 先跑通核心 3 步，边缘路径后面补；同一问题 3 次失败 → 降级或禁用边缘功能，先交付主流程。
-- 每次汇报≤6行：完成、验证、跳过原因、下一步+预计时间，减少小白用户等待焦虑。
+- 每次汇报≤6行：完成、验证、跳过原因、下一步+预计时间，让进度清楚。
 - 用业务语言写按钮、错误和说明；支持拖拽+系统打开/保存；空/错格式/取消/无权限/大文件/重名冲突都友好处理，不暴露堆栈。
 - 路径兼容中文、空格、括号、长路径和 Windows/macOS 分隔差异；Windows 快捷键用 Ctrl/Alt，macOS 用 Command/Option。
 - 默认离线、本地处理；不覆盖原文件；不写死密钥、绝对路径、个人邮箱或内网地址。
@@ -62,7 +62,7 @@ export const DELIVERY_CONTRACT_EN = `[Desktop Delivery Contract]
 - No files? make anonymized sample-data; continue.
 - Milestone fallbacks: M1 stalls → simplify approach, get a window up first; M2 stalls → wire core 3 steps, fill edges later; same bug fails 3 times → downgrade/disable edge features, ship the main flow.
 - Updates ≤6 lines: done, verification, skipped reason, next+ETA.
-- Business labels/errors/help for non-technical AI beginners; drag/drop + native open/save; bad/cancel/no-permission/large/conflict cases are friendly, no raw stacks.
+- Business labels/errors/help; drag/drop + native open/save; bad/cancel/no-permission/large/conflict cases are friendly, no raw stacks.
 - Paths handle Chinese, spaces, parentheses, long paths, and Windows/macOS separators; use Ctrl/Alt on Windows and Command/Option on macOS.
 - Offline/local; never overwrite inputs; no hard-coded secrets, absolute paths, personal emails, or internal hosts.
 - Layers: shell / controlled API / UI / core / tests / sample-data / docs; IPC allowlisted; renderer never runs local commands.

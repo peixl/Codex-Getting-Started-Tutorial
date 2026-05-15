@@ -3,7 +3,7 @@ import { buildPrompt, buildRecoveryPrompt, DEFAULT_FORM, type FormState } from '
 
 const GENERATOR_QUALITY_MARKERS = {
   zh: [
-    'AI 小白',
+    '用户负责业务判断',
     '脱敏 sample-data',
     '自检清单',
     'sample-data 做启动',
@@ -14,7 +14,7 @@ const GENERATOR_QUALITY_MARKERS = {
     '同一问题 3 次失败',
   ],
   en: [
-    'non-technical AI beginner',
+    'user owns business judgment',
     'anonymized sample',
     'Self-check',
     'Smoke-tested sample-data',
@@ -41,7 +41,7 @@ describe('buildPrompt', () => {
     const prompt = buildPrompt(makeState({ platform: 'both' }), 'zh');
 
     expect(prompt).toContain('【桌面与 UX 硬要求】');
-    expect(prompt).toContain('AI 小白');
+    expect(prompt).toContain('用户负责业务判断');
     expect(prompt).toContain('脱敏 sample-data');
     expect(prompt).toContain('sample-data 做启动');
     expect(prompt).toContain('路径兼容中文、空格、括号、长路径');
@@ -76,7 +76,7 @@ describe('buildPrompt', () => {
     );
 
     expect(prompt).toContain('macOS desktop app');
-    expect(prompt).toContain('non-technical AI beginner');
+    expect(prompt).toContain('user owns business judgment');
     expect(prompt).toContain('No real files? create anonymized');
     expect(prompt).toContain('Command / Option combinations');
     expect(prompt).toContain('build a macOS .dmg installer');

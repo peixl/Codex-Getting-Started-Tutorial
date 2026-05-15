@@ -1,8 +1,8 @@
-# Codex Beginner Tutorial
+# Codex Business Guide
 
 [简体中文](README.zh-CN.md)
 
-A beginner-first tutorial site for OpenAI Codex Desktop. It is designed for business users who want useful local tools for Windows and macOS, and want to use Codex as an agent for practical tasks.
+A concise OpenAI Codex Desktop guide for business experts who want useful local tools for Windows and macOS, and want to use Codex as an agent for practical tasks.
 
 Live site: **https://codex.ifq.ai**
 
@@ -12,7 +12,7 @@ This project is not an API reference and not a flashy demo.
 
 It is built around one practical goal:
 
-> help non-developers turn a clear business request into a real local desktop app.
+> turn business expertise into a real local desktop app.
 
 The site guides users through a simple path:
 
@@ -39,9 +39,9 @@ Typical scenarios include finance reconciliation, platform bills, daily reportin
 - Produces a ready-to-copy Codex prompt from a lightweight form.
 - Includes quick templates, browser-local history, and prompt language switching.
 
-### Beginner Guide
+### Quick Start
 
-- Explains Codex in plain language from first launch to packaging and sharing.
+- Explains Codex from first launch to packaging and sharing, keeping only the steps that matter.
 
 ### 7-Day Learning Path
 
@@ -55,7 +55,7 @@ Typical scenarios include finance reconciliation, platform bills, daily reportin
 
 - Shows copy-ready prompts for using Codex as an agent on e-commerce operations: sales briefs, order follow-up, support analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
-### Cookbook, Pro Tips, FAQ
+### Cookbook, Practical Tips, FAQ
 
 - Adds copy-ready scenarios for order merging, product image packaging, shipment exceptions, product labels, marketplace bill checks, campaign calendars, support macros, creator samples, competitor pricing, live timers, listing audits, and inventory transfer planning.
 
@@ -106,9 +106,9 @@ If you deploy from the Cloudflare dashboard, use `npm run build` as the Build co
 
 ## Who This Is For
 
-- Teams helping non-developers adopt Codex.
+- Teams helping business roles adopt Codex.
 - Builders creating bilingual prompt-learning experiences.
-- Developers looking for a beginner-first Next.js content site reference.
+- Developers looking for a business-user-focused Next.js content site reference.
 
 ## License
 

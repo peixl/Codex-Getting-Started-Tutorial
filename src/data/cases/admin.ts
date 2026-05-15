@@ -52,7 +52,7 @@ export const adminConferenceRoom: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是公司行政 / 前台同事，不懂代码。',
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是公司行政 / 前台同事，关注业务结果和操作体验。',
       goal: '把"会议室预订 / 访客登记 / 快递签收"三件高频小事集中到一个台账，减少行政被打断的次数。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -102,7 +102,7 @@ export const adminConferenceRoom: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for office admins / reception staff. Non-developer user.',
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for office admins / reception staff. The user cares about business outcomes.',
       goal: 'Consolidate the three biggest daily interruptions — room booking, visitor sign-in, parcel handoff — into one lightweight ledger.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

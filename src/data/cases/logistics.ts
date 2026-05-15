@@ -52,7 +52,7 @@ export const logisticsTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司物流 / 客服同事，不懂代码。',
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司物流 / 客服同事，关注业务结果和操作体验。',
       goal: '把每天几千条订单中的异常件挑出来，交给客服跟进，减少投诉和赔付。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -95,7 +95,7 @@ export const logisticsTracker: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an e-commerce logistics / customer service team. Non-developer user.',
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an e-commerce logistics / customer service team. The user cares about business outcomes.',
       goal: 'Surface exception shipments in minutes, not hours. Hand them to customer service before customers complain.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

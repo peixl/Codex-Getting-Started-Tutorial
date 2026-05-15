@@ -52,7 +52,7 @@ export const customerServiceReplyHelper: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司客服，不懂代码。',
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司客服，关注业务结果和操作体验。',
       goal: '把分散的几百条客服话术集中成一个小工具，搜索后一键复制，提升回复速度。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -92,7 +92,7 @@ export const customerServiceReplyHelper: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for customer service agents. Non-developer user.',
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for customer service agents. The user cares about business outcomes.',
       goal: 'Consolidate hundreds of reply templates into one searchable desktop helper.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

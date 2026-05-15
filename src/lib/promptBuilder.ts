@@ -329,7 +329,7 @@ function implementationZh(state: FormState): string {
     return `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
 - 不写死 API Key、绝对路径、个人邮箱、内网地址；改既有文件前先读，最小 diff。
 - 输出不覆盖原文件，冲突加时间后缀；只读用户选/拖入的文件。
-- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让小白用户先准备数据才开工。
+- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让用户先准备数据才开工。
 - 分层：desktop shell / 受控 API / UI / core / tests / sample-data / docs；真实接线按钮、导入、预览、生成/保存、错误状态。`;
   }
 
@@ -338,7 +338,7 @@ function implementationZh(state: FormState): string {
 - 不写死 API Key、绝对路径、个人邮箱、内网地址；配置走 \`.env.example\`；改既有文件前先读，最小 diff。
 - 输出不覆盖原文件，冲突加时间后缀；改文件/数据前预览或确认；支持撤销/恢复。
 ${retryLine}
-- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让小白用户先准备数据才开工。
+- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让用户先准备数据才开工。
 - 只读用户选/拖入的文件；敏感字段导出前脱敏或提醒，日志不记敏感内容。
 - 分层：desktop shell / preload 或受控 API / renderer UI / core / tests / sample-data / docs；IPC 类型化、白名单化，UI 不直接执行本地命令。
 - 真实接线：按钮、导入、预览、生成/保存、导出、错误状态都可用；核心逻辑小模块、类型明确、错误分层。`;
@@ -362,7 +362,7 @@ function implementationEn(state: FormState): string {
     return `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
 - No hard-coded API keys, absolute paths, personal emails, or internal hosts; read existing files first; minimum diff.
 - Never overwrite inputs; timestamp conflicts; read only picked/dropped files.
-- No real files? create anonymized \`sample-data/\` first; do not block beginner users.
+- No real files? create anonymized \`sample-data/\` first; do not block the user.
 - Layers: desktop shell / controlled API / UI / core / tests / sample-data / docs; real wiring for buttons, import, preview, generate/save, and errors.`;
   }
 
@@ -371,7 +371,7 @@ function implementationEn(state: FormState): string {
 - No hard-coded API keys, absolute paths, personal emails, or internal hosts; use \`.env.example\`; read existing files first; minimum diff.
 - Never overwrite inputs; timestamp conflicts; preview/confirm before mutations; support undo/recovery.
 ${retryLine}
-- No real files? create anonymized \`sample-data/\` first; do not block beginner users.
+- No real files? create anonymized \`sample-data/\` first; do not block the user.
 - Read only picked/dropped files; warn or mask sensitive fields before export; logs exclude sensitive content.
 - Layers: desktop shell / preload or controlled API / renderer UI / core / tests / sample-data / docs; IPC typed and allowlisted, renderer never runs local commands.
 - Real wiring: buttons, import, preview, generate/save, export, and error states work; core logic uses small typed modules and layered errors.`;
@@ -399,7 +399,7 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
     if (state.extras.accessibility) extras.push(ACCESSIBILITY_ZH[state.platform]);
     if (custom) extras.push(custom);
 
-    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。交付本地可运行应用，不是建议。用户是 AI 小白/不懂代码；沟通、按钮、错误和文档都用业务语言。全程中文。
+    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。交付本地可运行应用，不是建议。用户负责业务判断，不负责技术实现；沟通、按钮、错误和文档都用业务语言。全程中文。
 
 【快速交付】
 ${deliveryZh(state.complexity)}
@@ -447,7 +447,7 @@ ${implementationZh(state)}
   if (state.extras.accessibility) extras.push(ACCESSIBILITY_EN[state.platform]);
   if (custom) extras.push(custom);
 
-  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver a runnable local desktop app, not advice. The user is a non-technical AI beginner; use business-language labels, errors, docs, and updates. Use plain English.
+  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver a runnable local desktop app, not advice. The user owns business judgment, not technical implementation; use business-language labels, errors, docs, and updates. Use plain English.
 
 [Fast Delivery]
 ${deliveryEn(state.complexity)}

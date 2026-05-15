@@ -1,16 +1,16 @@
 export const en = {
   meta: {
-    siteName: 'Codex Beginner Tutorial',
-    siteTagline: 'Build your own desktop tool with Codex',
+    siteName: 'Codex Business Guide',
+    siteTagline: 'Turn business expertise into desktop tools with Codex',
     description:
-      'Codex Desktop tutorial for business beginners. Prompts, beginner guide, 7-day path, and a scenario cookbook for local Windows / macOS tools.',
+      'A concise Codex Desktop guide for business teams: prompt generator, workflow practice, department cases, and recipes for local Windows / macOS tools.',
     keywords: [
       'Codex',
       'OpenAI Codex',
       'Codex desktop',
       'Codex tutorial',
       'Codex prompt',
-      'beginner tutorial',
+      'business guide',
       'desktop task assistant',
       'Windows desktop app',
       'macOS desktop app',
@@ -22,24 +22,24 @@ export const en = {
   nav: {
     home: 'Home',
     generator: 'Prompt',
-    guide: 'Get started',
+    guide: 'Quick start',
     lessons: '7-day sprint',
     cookbook: 'Cookbook',
     cases: 'Cases',
-    tips: 'Pro tips',
+    tips: 'Practical tips',
     faq: 'FAQ',
     tryNow: 'Get started',
     switchLang: 'Switch language',
   },
 
   home: {
-    heroEyebrow: 'Made for business beginners',
-    heroTitleLine1: 'You want',
-    heroTitleHighlight: 'a small tool of your own.',
-    heroTitleLine2: 'One message to Codex is enough.',
+    heroEyebrow: 'For business teams',
+    heroTitleLine1: 'Turn business expertise',
+    heroTitleHighlight: 'into a working tool.',
+    heroTitleLine2: 'Tell Codex clearly.',
     heroSubtitle:
-      'Fill blanks, copy the prompt, paste into Codex Desktop. A few minutes later, you have a local tool.',
-    heroCtaPrimary: 'Generate a prompt in 3 minutes',
+      'Fill in the goal and flow, copy the prompt, paste into Codex Desktop. A few minutes later, see a local tool running.',
+    heroCtaPrimary: 'Generate your first prompt',
     heroCtaSecondary: 'See how it works',
     heroStatsLabel1: 'Ready-made cases',
     heroStatsValue1: '90+',
@@ -50,11 +50,11 @@ export const en = {
     heroBadgeWindows: 'Windows 11 · 10',
     heroBadgeMac: 'macOS ready',
 
-    flowTitle: 'Three steps from sentence to software',
-    flowSubtitle: 'Fill the form. Copy. Paste.',
-    flowStep1Title: 'Tell Codex what you want',
+    flowTitle: 'Three steps from workflow to tool',
+    flowSubtitle: 'Fill. Copy. Run.',
+    flowStep1Title: 'Describe the goal and flow',
     flowStep1Body:
-      'Write the goal and features. Defaults are already picked.',
+      'Say who uses it, what goes in, and what comes out. Defaults are ready.',
     flowStep2Title: 'Click "Copy prompt"',
     flowStep2Body:
       'We assemble the prompt. You just copy it.',
@@ -62,11 +62,11 @@ export const en = {
     flowStep3Body:
       'Codex writes, runs, fixes, and verifies. A new window means your tool is alive.',
 
-    featuresTitle: 'Why this tutorial works for beginners',
+    featuresTitle: 'Why this works for business teams',
     featuresSubtitle: 'No command line or GitHub required.',
-    feature1Title: 'Plain-language everything',
+    feature1Title: 'Business language first',
     feature1Body:
-      'No jargon. Just plain steps.',
+      'Start with scenario, flow, and acceptance. Add technical details only when needed.',
     feature2Title: 'Fill-in-the-blank prompts',
     feature2Body:
       'Platform, UI, and storage are choices. You write only goal and features.',
@@ -79,19 +79,19 @@ export const en = {
     feature5Title: 'Bilingual (CN / EN)',
     feature5Body:
       'Chinese for learning, English for Codex. Same content.',
-    feature6Title: 'Output on day one',
+    feature6Title: 'Ship first, refine next',
     feature6Body:
-      'The goal: get something working today.',
+      'Get one real workflow running today.',
 
-    ctaTitle: 'Ready to try?',
-    ctaBody: 'Start with your first prompt in three minutes.',
-    ctaButton: 'Start now',
+    ctaTitle: 'Start with one workflow',
+    ctaBody: 'Turn the most repetitive task on your desk into a tool.',
+    ctaButton: 'Generate prompt',
 
-    caseTeaserTitle: 'Your department already has a case',
-    caseTeaserSubtitle: 'Open a case, copy the prompt, start fast.',
+    caseTeaserTitle: 'Your team already has a case',
+    caseTeaserSubtitle: 'Pick a close scenario and adjust a few words.',
     caseTeaserMore: 'See all department cases',
 
-    trustTitle: 'What we care about',
+    trustTitle: 'Content principles',
     trustLine1: 'Real workflows, tested prompts.',
     trustLine2: 'Bilingual and fast in mainland China.',
     trustLine3: 'Open source, with transparent updates.',
@@ -100,7 +100,7 @@ export const en = {
   generator: {
     pageTitle: 'Prompt Generator',
     pageSubtitle:
-      'Fill the goal and features. Keep the defaults unless you know what to change.',
+      'Write the goal, input, and output. The defaults are ready to use.',
 
     defaultsHint: 'Good defaults are already selected.',
 
@@ -116,7 +116,7 @@ export const en = {
     techOptionElectron: 'Standard (most stable, largest community)',
     techOptionTauri: 'Lightweight (smaller binary, faster startup)',
     techOptionPyQt: 'Utility style (great for small one-off tools)',
-    techOptionAuto: 'Let Codex decide (beginner-safe)',
+    techOptionAuto: 'Let Codex decide (recommended)',
 
     sectionUI: '3. What should it look like',
     uiLabel: 'Look and feel',
@@ -161,7 +161,7 @@ export const en = {
 
     sectionOutput: 'The prompt to copy',
     outputHint:
-      'Copy the whole block into Codex Desktop. It will summarize, then build.',
+      'Copy the whole block into Codex Desktop. It will summarize briefly, then build.',
     copyButton: 'Copy prompt',
     copied: 'Copied',
     copyFailed: 'Copy failed',
@@ -201,27 +201,27 @@ export const en = {
     historyDelete: 'Delete',
     historyClearAll: 'Clear all',
 
-    tipCardTitle: 'Friendly heads-up',
+    tipCardTitle: 'Note',
     tipCardBody:
-      'No tech needed. Write who it is for and what it should do. Keep defaults.',
-    beginnerStep1Title: 'Start from a template',
-    beginnerStep1Body: 'When unsure, keep the recommended defaults.',
-    beginnerStep2Title: 'Write two short parts',
-    beginnerStep2Body: 'Who uses it, what goes in, what comes out.',
-    beginnerStep3Title: 'Paste into Codex',
-    beginnerStep3Body: 'If it fails, copy the fix prompt next.',
+      'You provide the business judgment; Codex handles implementation. Say who uses it, what goes in, and what comes out.',
+    promptStep1Title: 'Pick a template',
+    promptStep1Body: 'When unsure, keep the recommended defaults.',
+    promptStep2Title: 'Write goal and flow',
+    promptStep2Body: 'Clarify input, processing, and output.',
+    promptStep3Title: 'Hand it to Codex',
+    promptStep3Body: 'Paste it and let Codex build, run, and verify.',
   },
 
   guide: {
-    pageTitle: 'Get started',
+    pageTitle: 'Quick start',
     pageSubtitle:
-      'Start from zero. Only the steps you need now.',
+      'From opening Codex to shipping a small tool, with only the necessary steps.',
 
     tocTitle: 'Contents',
 
-    sec1Title: 'Chapter 1 — What Codex really is',
+    sec1Title: 'Chapter 1 — What Codex is',
     sec1P1:
-      'Think of Codex as a software helper. You describe the need; it writes the app.',
+      'Think of Codex as an implementation partner. You describe the business goal; it writes the code.',
     sec1P2:
       'Describe the idea clearly, and Codex can build the first version.',
     sec1P3:
@@ -234,8 +234,8 @@ export const en = {
     sec2Item2Body: 'Use an OpenAI account. Your ChatGPT login works.',
     sec2Item3Title: 'The Codex Desktop installer',
     sec2Item3Body: 'Download it from OpenAI and install.',
-    sec2Item4Title: 'You really do not need inner details',
-    sec2Item4Body: 'Typing, copy-paste, double-click — that is the full skill list.',
+    sec2Item4Title: 'You do not need the tech stack first',
+    sec2Item4Body: 'Describe the workflow and verify the result. That is enough.',
 
     sec3Title: 'Chapter 3 — Opening Codex for the first time',
     sec3P1: 'On first launch, sign in.',
@@ -259,7 +259,7 @@ export const en = {
     sec4Item5Body:
       'If something is wrong, say it plainly. Codex can fix it.',
 
-    sec5Title: 'Chapter 5 — Five plain-language rules for good prompts',
+    sec5Title: 'Chapter 5 — Five rules for good prompts',
     sec5Rule1Title: '1. Say who will use it',
     sec5Rule1Body: 'The user decides the workflow and UI.',
     sec5Rule2Title: '2. Say what problem it solves',
@@ -275,15 +275,15 @@ export const en = {
     sec5Rule5Body:
       'Copy the full error back to Codex.',
 
-    sec6Title: 'Chapter 6 — Common pitfalls',
-    sec6Pit1Title: 'Pitfall 1 — The app will not start',
+    sec6Title: 'Chapter 6 — Common issues',
+    sec6Pit1Title: 'Issue 1 — The app will not start',
     sec6Pit1Body: 'Copy the full error and ask: “How do I fix this?”',
-    sec6Pit2Title: 'Pitfall 2 — Things get messy after many tweaks',
+    sec6Pit2Title: 'Issue 2 — Things get messy after many tweaks',
     sec6Pit2Body: 'If several fixes fail, start fresh with cleaner requirements.',
-    sec6Pit3Title: 'Pitfall 3 — You are asking for too much at once',
+    sec6Pit3Title: 'Issue 3 — You are asking for too much at once',
     sec6Pit3Body:
       'Start small: import one sheet, show one column. Then expand.',
-    sec6Pit4Title: 'Pitfall 4 — You cannot tell what it is doing',
+    sec6Pit4Title: 'Issue 4 — You cannot tell what it is doing',
     sec6Pit4Body: 'Ask: “What are you doing right now?”',
 
     secStopTitle: 'Chapter 7 — When to stop',
@@ -309,7 +309,7 @@ export const en = {
   },
 
   tips: {
-    pageTitle: 'Pro Tips',
+    pageTitle: 'Practical Tips',
     pageSubtitle: 'Useful habits that save time.',
 
     tip1Title: 'Use a role prompt for sharper answers',
@@ -350,7 +350,7 @@ export const en = {
       'After a milestone, start a fresh chat with the latest prompt and working version.',
 
     pitfallsTitle: 'Common misconceptions',
-    pitfall1Title: 'It does NOT read your mind',
+    pitfall1Title: 'It does not know what you did not write',
     pitfall1Body:
       'If you do not write it, Codex does not know it.',
     pitfall2Title: 'Do NOT be intimidated by inner details',
@@ -372,13 +372,13 @@ export const en = {
 
   faq: {
     pageTitle: 'FAQ',
-    pageSubtitle: 'The questions beginners ask most.',
+    pageSubtitle: 'The questions business teams ask most.',
 
     q1: 'Does Codex cost money?',
     a1: 'Codex needs an OpenAI account and paid ChatGPT plan. Check OpenAI for pricing.',
 
-    q2: 'I am a total beginner. Can I use this?',
-    a2: 'Yes. If you can type, copy, paste, and double-click, you are ready.',
+    q2: 'I know the business, not code. Can I use this?',
+    a2: 'Yes. You define the workflow and acceptance checks; Codex handles implementation.',
 
     q3: 'Can I share what I build with teammates?',
     a3: 'Yes. Ask Codex to package as .exe or .dmg, then share the installer.',
@@ -426,7 +426,7 @@ export const en = {
   footer: {
     about: 'About',
     aboutBody:
-      'Codex Desktop tutorial for business beginners. Maintained by ifq.ai. Not OpenAI official.',
+      'Codex Desktop guide for business experts. Maintained by ifq.ai. Not OpenAI official.',
     resourcesTitle: 'Resources',
     resourceOpenAI: 'Codex site',
     resourceCodexDocs: 'Codex docs',
@@ -450,7 +450,7 @@ export const en = {
 
   lessons: {
     pageTitle: '7-day Sprint',
-    pageSubtitle: '15 minutes a day. Ship your own small tool in a week.',
+    pageSubtitle: '15 minutes a day. Ship a working tool in a week.',
     dayLabel: 'Day {n}',
     startLabel: 'Start',
     day1Title: 'Meet Codex Desktop',
@@ -459,9 +459,9 @@ export const en = {
     day2Title: 'Ship your first tiny tool',
     day2Hook: 'First, run a tiny Excel summary tool',
     day2Goals: 'Copy a tutorial prompt · Paste into Codex · See a window pop up',
-    day3Title: 'Say it clearly',
-    day3Hook: 'Clearer asks, better results',
-    day3Goals: 'Use role prompts · Give examples · Change one thing at a time',
+    day3Title: 'Describe the flow clearly',
+    day3Hook: 'Clear flow, better result',
+    day3Goals: 'Define role · Give examples · Change one thing at a time',
     day4Title: 'Let Codex fix its own problems',
     day4Hook: 'Errors are not failures. Feed them back.',
     day4Goals: 'Paste errors · Roll back · Separate crashes from wrong behavior',
@@ -474,9 +474,9 @@ export const en = {
     day7Title: 'Ship v2',
     day7Hook: 'Two small rounds turn "works" into "feels good"',
     day7Goals: 'Collect feedback · Fix one thing at a time · Plan the next tool',
-    recapTitle: 'After day seven, you are no longer a beginner',
+    recapTitle: 'After day seven, you can ship independently',
     recapBody:
-      'You can install, ask, verify, and share. Now use it on repetitive work.',
+      'You can install, ask, verify, and share. Now turn repetitive work into tools.',
   },
 
   cases: {

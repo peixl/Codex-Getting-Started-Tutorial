@@ -50,7 +50,7 @@ export const operationsCampaign: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司运营部的同事，不懂代码。',
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司运营部的同事，关注业务结果和操作体验。',
       goal: '解决大促期间几十件任务同时推进导致状态混乱、责任不清、复盘困难的问题。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -84,7 +84,7 @@ export const operationsCampaign: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an ops team at an e-commerce company. Non-developer user.',
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an ops team at an e-commerce company. The user cares about business outcomes.',
       goal: 'Tame big-sale chaos: a single board with clear status, owners, and history.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

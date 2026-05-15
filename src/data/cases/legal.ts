@@ -52,7 +52,7 @@ export const legalContractTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是公司法务同事，不懂代码。',
+      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是公司法务同事，关注业务结果和操作体验。',
       goal: '把所有合同集中登记、按状态跟进、到期前自动提醒，避免漏签漏催。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -101,7 +101,7 @@ export const legalContractTracker: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an in-house legal team. User is a non-developer.',
+      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for an in-house legal team. User is focused on business outcomes.',
       goal: 'Central ledger for all contracts. Track by status. Auto-remind before expiry. Nothing slips.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
