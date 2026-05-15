@@ -2,7 +2,7 @@
 
 [简体中文](README.zh-CN.md)
 
-A concise OpenAI Codex Desktop guide for business experts who want useful local tools for Windows and macOS, and want to use Codex as an agent for practical tasks.
+A concise OpenAI Codex Desktop guide for people who know the work and want useful local tools for Windows and macOS, plus practical ways to use Codex as an agent.
 
 Live site: **https://codex.ifq.ai**
 
@@ -12,7 +12,7 @@ This project is not an API reference and not a flashy demo.
 
 It is built around one practical goal:
 
-> turn business expertise into a real local desktop app.
+> make your workflow a tool by telling Codex clearly.
 
 The site guides users through a simple path:
 
@@ -106,9 +106,9 @@ If you deploy from the Cloudflare dashboard, use `npm run build` as the Build co
 
 ## Who This Is For
 
-- Teams helping business roles adopt Codex.
+- Teams helping business colleagues adopt Codex.
 - Builders creating bilingual prompt-learning experiences.
-- Developers looking for a business-user-focused Next.js content site reference.
+- Developers looking for a Next.js content-site reference for people who know the work.
 
 ## License
 

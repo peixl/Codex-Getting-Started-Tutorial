@@ -42,7 +42,7 @@ export function Footer({ locale, dict }: Props) {
                   {dict.meta.siteName}
                 </span>
               </div>
-              <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-ink-soft">
+              <p className="mt-4 max-w-sm whitespace-pre-line text-[13px] leading-relaxed text-ink-soft">
                 {dict.footer.aboutBody}
               </p>
               <p className="mt-3 max-w-sm text-[12px] leading-relaxed text-ink-mute">

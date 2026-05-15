@@ -3,12 +3,12 @@
 Canonical URL: https://codex.ifq.ai
 Languages: zh-CN, en-US
 License: MIT
-Audience: business experts and teams
+Audience: people who know the work
 Scope: business-workflow Codex guidance. The core focus remains local desktop applications for Windows and macOS; the site also includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
 ## Site summary
 
-codex.ifq.ai is a concise guide that teaches business professionals how to use the OpenAI Codex desktop application for small, self-contained local tools and e-commerce business tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights. It is intentionally bilingual (Chinese and English) in full parity.
+codex.ifq.ai is a concise guide that teaches people who know the work how to use the OpenAI Codex desktop application for small, self-contained local tools and e-commerce business tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights. It is intentionally bilingual (Chinese and English) in full parity.
 
 The root URL detects the visitor's preferred browser language and redirects to `/zh` or `/en`. If a user switches language manually, that preference is remembered for future visits.
 
@@ -26,7 +26,7 @@ The site is organized into seven main sections:
 
 6. **Practical Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
 
-7. **FAQ** — common questions business teams ask.
+7. **FAQ** — common questions from people who know the work.
 
 ## Featured case studies
 

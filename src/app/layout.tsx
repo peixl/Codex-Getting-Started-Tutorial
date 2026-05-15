@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: '%s',
   },
   description:
-    'Concise OpenAI Codex Desktop guide for business teams — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
+    'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     siteName: 'Codex Business Guide',
     title: 'Codex Business Guide · Codex 上手指南',
     description:
-      'Concise OpenAI Codex Desktop guide for business teams — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
+      'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
     images: [
       {
         url: '/og-image.svg',
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Codex Business Guide · Codex 上手指南',
     description:
-      'Concise OpenAI Codex Desktop guide for business teams — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
+      'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
     images: ['/og-image.svg'],
   },
   other: {

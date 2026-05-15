@@ -35,11 +35,12 @@ export function HomeHero({ locale, dict }: Props) {
 
         <h1 className="display-title mx-auto max-w-[13em] text-balance text-center text-ink sm:max-w-none">
           {dict.home.heroTitleLine1}
-          <span className="mx-1 inline-block align-baseline text-ink/90 sm:mx-2">
+          {locale === 'en' ? ' ' : ''}
+          <span className="inline-block align-baseline text-ink/90">
             {dict.home.heroTitleHighlight}
           </span>
           <br />
-          <span className="mt-2 block text-ink-soft/90 font-medium">
+          <span className="mt-1 block text-ink-soft/90 font-medium">
             {dict.home.heroTitleLine2}
           </span>
         </h1>

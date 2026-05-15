@@ -1,9 +1,9 @@
 export const en = {
   meta: {
     siteName: 'Codex Business Guide',
-    siteTagline: 'Turn business expertise into desktop tools with Codex',
+    siteTagline: 'Turn the work you know into desktop tools with Codex',
     description:
-      'A concise Codex Desktop guide for business teams: prompt generator, workflow practice, department cases, and recipes for local Windows / macOS tools.',
+      'A concise Codex Desktop guide for people who know the work: prompt generator, workflow practice, department cases, and recipes for local Windows / macOS tools.',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -33,9 +33,9 @@ export const en = {
   },
 
   home: {
-    heroEyebrow: 'For business teams',
-    heroTitleLine1: 'Turn business expertise',
-    heroTitleHighlight: 'into a working tool.',
+    heroEyebrow: 'For people who know the work',
+    heroTitleLine1: 'Make your workflow',
+    heroTitleHighlight: 'a tool.',
     heroTitleLine2: 'Tell Codex clearly.',
     heroSubtitle:
       'Fill in the goal and flow, copy the prompt, paste into Codex Desktop. A few minutes later, see a local tool running.',
@@ -62,7 +62,7 @@ export const en = {
     flowStep3Body:
       'Codex writes, runs, fixes, and verifies. A new window means your tool is alive.',
 
-    featuresTitle: 'Why this works for business teams',
+    featuresTitle: 'Why it works when you know the work',
     featuresSubtitle: 'No command line or GitHub required.',
     feature1Title: 'Business language first',
     feature1Body:
@@ -372,7 +372,7 @@ export const en = {
 
   faq: {
     pageTitle: 'FAQ',
-    pageSubtitle: 'The questions business teams ask most.',
+    pageSubtitle: 'Common questions when you know the work, not code.',
 
     q1: 'Does Codex cost money?',
     a1: 'Codex needs an OpenAI account and paid ChatGPT plan. Check OpenAI for pricing.',
@@ -426,7 +426,7 @@ export const en = {
   footer: {
     about: 'About',
     aboutBody:
-      'Codex Desktop guide for business experts. Maintained by ifq.ai. Not OpenAI official.',
+      'A Codex Desktop guide for people who know the work',
     resourcesTitle: 'Resources',
     resourceOpenAI: 'Codex site',
     resourceCodexDocs: 'Codex docs',

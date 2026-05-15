@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "description": "Concise Codex desktop guide for business teams (Windows & macOS)",
+  "description": "Concise Codex desktop guide for people who know the work (Windows & macOS)",
   "scripts": {
     "dev": "next dev",
     "build:next": "next build && node scripts/prepare-standalone.mjs",

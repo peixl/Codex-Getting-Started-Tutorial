@@ -13,9 +13,9 @@
 
 ## Purpose
 
-This guide helps business teams use the OpenAI Codex desktop app for small local Windows/macOS tools and e-commerce agent tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights. It is concise and business-workflow focused.
+This guide helps people who know the work use the OpenAI Codex desktop app for small local Windows/macOS tools and e-commerce agent tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, and review insights. It is concise and business-workflow focused.
 
-The guide stays focused on Codex desktop workflows for business users and agent-task prompt patterns.
+The guide stays focused on Codex desktop workflows for people who know the work and agent-task prompt patterns.
 
 ## Preferred URLs
 

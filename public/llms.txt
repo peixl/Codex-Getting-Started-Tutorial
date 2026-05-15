@@ -2,7 +2,7 @@
 
 > A bilingual (Chinese + English) Codex desktop guide for finance, operations, customer service, HR, logistics, procurement, marketing, data, admin, and product teams. It focuses on local desktop applications for Windows and macOS, and includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
-Its purpose is to help business teams describe a workflow clearly and get a useful desktop tool or agent-task result.
+Its purpose is to help people who know the work describe a workflow clearly and get a useful desktop tool or agent-task result.
 
 The root URL redirects to Chinese or English based on the visitor's browser language. Direct locale URLs remain stable under `/zh/*` and `/en/*`.
 
@@ -14,7 +14,7 @@ The root URL redirects to Chinese or English based on the visitor's browser lang
 - [Department Cases](https://codex.ifq.ai/en/cases): 40+ real-world scenarios from an e-commerce company with ready-to-use prompts.
 - [Scenario Cookbook](https://codex.ifq.ai/en/cookbook): 20+ copy-ready desktop-tool prompts, including order merging, product image packaging, shipment exceptions, product labels, bill reconciliation, campaign calendars, support macros, creator samples, live timers, listing audits, and inventory transfer planning.
 - [Practical Tips](https://codex.ifq.ai/en/tips): Eight productivity tips plus four common misconceptions.
-- [FAQ](https://codex.ifq.ai/en/faq): Common questions business teams ask.
+- [FAQ](https://codex.ifq.ai/en/faq): Common questions from people who know the work.
 
 ## Department cases
 

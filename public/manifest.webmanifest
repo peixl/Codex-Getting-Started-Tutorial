@@ -1,7 +1,7 @@
 {
   "name": "Codex Business Guide",
   "short_name": "Codex Guide",
-  "description": "Concise OpenAI Codex Desktop guide for business teams. Windows and macOS only.",
+  "description": "Concise OpenAI Codex Desktop guide for people who know the work. Windows and macOS only.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

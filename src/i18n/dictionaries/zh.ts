@@ -1,9 +1,9 @@
 export const zh = {
   meta: {
     siteName: 'Codex 上手指南',
-    siteTagline: '让懂业务的人，用 Codex 做出自己的桌面工具',
+    siteTagline: '让懂业务的你，用 Codex 做出自己的桌面工具',
     description:
-      '面向业务专家的 Codex 桌面版上手指南：提示词生成、工作流练习、部门案例和场景食谱，重点做出 Windows / macOS 本地工具。',
+      '给懂业务的你准备的 Codex 桌面版上手指南：提示词生成、工作流练习、部门案例和场景食谱，重点做出 Windows / macOS 本地工具。',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -11,7 +11,7 @@ export const zh = {
       'Codex 教程',
       'Codex 提示词',
       '上手指南',
-      '业务专家',
+      '懂业务的你',
       'Windows 桌面应用',
       'macOS 桌面应用',
       '电商运营',
@@ -34,9 +34,9 @@ export const zh = {
   },
 
   home: {
-    heroEyebrow: '给懂业务的人',
-    heroTitleLine1: '把业务经验',
-    heroTitleHighlight: '变成可运行的小工具',
+    heroEyebrow: '给懂业务的你',
+    heroTitleLine1: '把业务',
+    heroTitleHighlight: '做成工具',
     heroTitleLine2: '和 Codex 说清楚就够了',
     heroSubtitle:
       '填好目标和流程，复制到 Codex 桌面版。几分钟后，先看到一个能跑的本地工具。',
@@ -63,7 +63,7 @@ export const zh = {
     flowStep3Body:
       'Codex 会处理、运行、修正、验证。窗口弹出，就是你的工具。',
 
-    featuresTitle: '为什么适合业务团队',
+    featuresTitle: '为什么适合懂业务的你',
     featuresSubtitle: '不要求会命令行或 GitHub。',
     feature1Title: '业务语言优先',
     feature1Body:
@@ -365,7 +365,7 @@ export const zh = {
 
   faq: {
     pageTitle: '常见问答',
-    pageSubtitle: '业务团队最常问的问题都在这里。',
+    pageSubtitle: '懂业务、不写代码，常见问题都在这里。',
 
     q1: 'Codex 要钱吗？',
     a1: 'Codex 走 OpenAI 账号。目前需要订阅 ChatGPT Plus 或更高级别的付费计划。具体价格请看 OpenAI 官网。',
@@ -419,7 +419,7 @@ export const zh = {
   footer: {
     about: '关于',
     aboutBody:
-      '面向业务专家的 Codex 桌面版上手指南。由 ifq.ai 维护，非 OpenAI 官方出品。',
+      'Codex 桌面版上手指南',
     resourcesTitle: '相关资源',
     resourceOpenAI: 'Codex 官网',
     resourceCodexDocs: 'Codex 官方文档',

@@ -6,7 +6,7 @@ Canonical agent guide: `/agent.md`. This `/agents.md` file remains available for
 
 ## What this guide is
 
-A bilingual (Chinese + English) Codex desktop guide for business roles. The core focus is local desktop apps for Windows and macOS, with ready-made department cases, scenario cookbook recipes, a guided 7-day sprint, and practical tips.
+A bilingual (Chinese + English) Codex desktop guide for people who know the work. The core focus is local desktop apps for Windows and macOS, with ready-made department cases, scenario cookbook recipes, a guided 7-day sprint, and practical tips.
 
 ## Canonical paths
 
