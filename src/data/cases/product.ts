@@ -1,5 +1,5 @@
 import type { CaseBundle } from './types';
-import { composeCasePrompt } from '@/lib/promptModules';
+import { composeCasePrompt, caseRole } from '@/lib/promptModules';
 
 export const productFeedbackInbox: CaseBundle = {
   slug: 'product-feedback-inbox',
@@ -52,7 +52,7 @@ export const productFeedbackInbox: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是产品经理，操作要自然易用。',
+      role: caseRole('产品经理', 'zh'),
       goal: '把分散在各处的用户反馈集中起来、自动分类打标、按优先级排序，让每周规划会前不用熬夜整理。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -95,7 +95,7 @@ export const productFeedbackInbox: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a product manager. The user cares about business outcomes.',
+      role: caseRole('a product manager', 'en'),
       goal: 'Centralize scattered user feedback, auto-tag and prioritize, so weekly planning starts with a clean list.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

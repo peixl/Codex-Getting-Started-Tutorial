@@ -1,5 +1,5 @@
 import type { CaseBundle } from './types';
-import { composeCasePrompt } from '@/lib/promptModules';
+import { composeCasePrompt, caseRole } from '@/lib/promptModules';
 
 export const dataDailyReport: CaseBundle = {
   slug: 'data-daily-report-builder',
@@ -50,7 +50,7 @@ export const dataDailyReport: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是数据 / 运营分析同事，操作要自然易用。',
+      role: caseRole('数据 / 运营分析同事', 'zh'),
       goal: '每天把多张业务 Excel（GMV、订单、流量）合并生成"今日业务快报"的图片或 PDF，省掉重复手工活。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -97,7 +97,7 @@ export const dataDailyReport: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a data / ops-analytics colleague. User is focused on business outcomes.',
+      role: caseRole('a data / ops-analytics colleague', 'en'),
       goal: 'Merge multiple daily Excel files (GMV, orders, traffic) into a "today at a glance" image or PDF — no more manual daily stitching.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

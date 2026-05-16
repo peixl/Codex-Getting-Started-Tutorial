@@ -1,5 +1,5 @@
 import { withDesktopQualityBar, type PromptQualityLang } from '@/lib/promptQuality';
-import { composeRecipePrompt } from '@/lib/promptModules';
+import { composeRecipePrompt, packagingInstruction, recipeRole, RECIPE_ROLE_ZH, RECIPE_ROLE_EN } from '@/lib/promptModules';
 
 export type Recipe = {
   id: string;
@@ -25,24 +25,24 @@ export const recipes: Recipe[] = [
     painZh: 'Excel 数据每天手动贴 PPT，太慢。想一键出图片或 PDF。',
     painEn: 'Manual Excel-to-PPT reporting is slow. Generate an image/PDF instead.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '每天手动把 Excel 数据贴 PPT 太慢，想一键生成可发群的日报图片/PDF。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript',
       features: '把一张 Excel 文件（列：指标名、数值、环比）导入后，自动生成一张 1200×1800 的日报长图（和一份 A4 PDF），带标题 + 三张 KPI 卡 + 一条横条排名 + 页脚。',
       extra: '- 配色以白底 + 深灰字为主，强调排版层级。',
       acceptance: '拖入 Excel → 预览日报 → 一键导出 PNG/PDF；空数据、格式错误 → 友好提示，不闪退。',
-      packaging: '- 同时打包成 Windows .exe 安装包和 macOS .dmg 安装包；附一份 500 字以内的中文使用说明。',
+      packaging: packagingInstruction(500, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'manual Excel-to-PPT daily reporting is too slow; generate a shareable image/PDF in one click.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript',
       features: 'import one Excel (columns: metric, value, delta) and auto-render a 1200x1800 PNG daily report plus an A4 PDF — title, 3 KPI cards, one ranking bar chart, footer.',
       extra: '- Palette: white background, deep gray text; emphasize typographic hierarchy.',
       acceptance: 'drop Excel → preview report → one-click export PNG/PDF; empty data, bad format → friendly message, no crash.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a clear 500-word user guide.',
+      packaging: packagingInstruction(500, 'en'),
     }, 'en'),
   },
   {
@@ -53,24 +53,24 @@ export const recipes: Recipe[] = [
     painZh: '几十张 PDF 发票，要手动抄进 Excel。',
     painEn: 'Dozens of PDF invoices need to become one Excel ledger.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '几十张 PDF 发票手动抄进 Excel 太慢，想批量提取自动整理成台账。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + pdfjs 解析',
       features: '拖入一个包含多份 PDF 的文件夹；软件批量读取每份发票的"发票号 / 开票日期 / 销方 / 购方 / 金额 / 税额 / 价税合计"；输出一张 Excel 台账。',
       extra: '- 对识别不全的字段高亮为黄色，让用户手动补。',
       acceptance: '拖入 PDF 文件夹 → 自动提取 → 生成 Excel 台账；识别不全字段黄色高亮；空文件夹、非 PDF → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。',
+      packaging: packagingInstruction(500, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'manually copying dozens of PDF invoices into Excel is too slow; batch-extract and organize into a ledger.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript with pdfjs parsing',
       features: 'drop a folder of PDFs; extract invoice id / date / seller / buyer / amount / tax / total; write an Excel ledger.',
       extra: '- Highlight uncertain fields in yellow for manual fix.',
       acceptance: 'drop PDF folder → auto-extract → generate Excel; uncertain fields yellow; empty folder, non-PDF → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 500-word user guide.',
+      packaging: packagingInstruction(500, 'en'),
     }, 'en'),
   },
   {
@@ -81,24 +81,24 @@ export const recipes: Recipe[] = [
     painZh: '照片、视频命名太乱，想按日期 + 编号统一。',
     painEn: 'Messy photo/video names. Rename by date + index.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '照片、视频命名太乱，想按日期+编号规则批量统一命名。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript',
       features: '拖入一个文件夹；列出所有文件；允许用规则模板（如"YYYYMMDD-{序号3位}"）批量重命名，改名前预览对照，用户确认后再执行。',
       extra: '- 支持撤销：每次重命名保存一份"还原对照表"到本地，最近三次操作都可回退。',
       acceptance: '拖入文件夹 → 文件列表显示 → 设置规则 → 预览对照 → 确认执行；撤销可回退最近三次。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'messy photo/video names need bulk renaming by date + index rules.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript',
       features: 'drop a folder; show the file list; rename in bulk by a template (e.g. "YYYYMMDD-{idx3}"). Preview before/after, confirm, then execute.',
       extra: '- Undo: save a reversal map locally so users can roll back the last three operations.',
       acceptance: 'drop folder → file list → set rule → preview → confirm; undo rolls back last 3 operations.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 300-word user guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -109,7 +109,7 @@ export const recipes: Recipe[] = [
     painZh: '内部手册在 Excel 里，同事总在群里问。',
     painEn: 'Internal handbook in Excel; teammates keep asking in chat.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '内部手册/商品清单在 Excel 里，同事总在群里问，想做个搜索工具让他们自己查。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript',
@@ -117,10 +117,10 @@ export const recipes: Recipe[] = [
 - 支持"一键复制某字段"，如复制产品编码到剪贴板。
 - Excel 更新后重启软件会自动重载。`,
       acceptance: '打开软件 → 自动加载 Excel → 输入关键词 → 搜索出结果 → 一键复制字段；Excel 更新后重启自动重载。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'internal handbook/product list is in Excel; teammates keep asking in chat. Build a search tool so they can look it up themselves.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript',
@@ -128,7 +128,7 @@ export const recipes: Recipe[] = [
 - One-click copy a specific field (e.g. copy SKU to clipboard).
 - Reload when Excel changes on disk, or on restart.`,
       acceptance: 'launch → auto-load Excel → type keyword → results appear → one-click copy; Excel update → restart → auto-reload.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 300-word guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -139,7 +139,7 @@ export const recipes: Recipe[] = [
     painZh: '不知道时间都去哪了。想自己记一下，周末看汇总。',
     painEn: 'Unsure where your day goes. Want to log it and review weekly.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地时间记录小工具：',
+      role: recipeRole('本地时间记录小工具', 'zh'),
       goal: '不知道时间都去哪了，想记录每天花多少时间在哪件事上，周末看汇总。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 SQLite',
@@ -149,10 +149,10 @@ export const recipes: Recipe[] = [
   4. 一键导出到 Excel。`,
       extra: '- 窗口小（320x420），固定置顶可选。',
       acceptance: '输入事项 → 开始计时 → 停止 → 今日列表显示时长；周视图显示饼图/横条；导出 Excel。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；300 字说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform time-tracker:',
+      role: recipeRole('time-tracker', 'en'),
       goal: 'unsure where your day goes; want to log time per task and review weekly.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local SQLite',
@@ -162,7 +162,7 @@ export const recipes: Recipe[] = [
   4. One-click Excel export.`,
       extra: '- Small window (320x420); always-on-top option.',
       acceptance: 'enter task → start timer → stop → today\'s list shows duration; week view shows bar/pie; export Excel.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 300-word guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -173,7 +173,7 @@ export const recipes: Recipe[] = [
     painZh: '待办 App 太复杂。想要一个打开就能用的。',
     painEn: 'Todo apps feel heavy. Build one that opens fast.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地 Todo 看板：',
+      role: recipeRole('本地 Todo 看板', 'zh'),
       goal: '待办 App 太复杂，想要一个打开就能用的极简看板。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 SQLite',
@@ -181,10 +181,10 @@ export const recipes: Recipe[] = [
       extra: `- 软件启动默认打开最近一次工作视图。
 - 深浅模式跟随系统。`,
       acceptance: '打开软件 → 三列看板显示 → 回车新增卡片 → 拖拽切列 → 双击改标题；重启后数据还在。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；200 字说明。',
+      packaging: packagingInstruction(200, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a personal cross-platform Kanban:',
+      role: recipeRole('personal cross-platform Kanban', 'en'),
       goal: 'todo apps feel heavy; build one that opens fast and just works.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local SQLite',
@@ -192,7 +192,7 @@ export const recipes: Recipe[] = [
       extra: `- Opens in the last-used view.
 - Follows system dark mode.`,
       acceptance: 'launch → three columns → Enter adds card → drag to move → double-click to rename; data persists on restart.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 200-word guide.',
+      packaging: packagingInstruction(200, 'en'),
     }, 'en'),
   },
   {
@@ -203,7 +203,7 @@ export const recipes: Recipe[] = [
     painZh: 'PDF 要合并、拆分、归档，手动太麻烦。',
     painEn: 'Merge, split, and archive PDFs without manual steps.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: 'PDF 要合并、拆分、归档，手动太麻烦，想一键搞定。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + pdf-lib',
@@ -211,10 +211,10 @@ export const recipes: Recipe[] = [
   2. 拆分模式：拖入一份 PDF，输入页码区间（如"1-10, 11-25, 26-end"），按区间导出为多份 PDF。`,
       extra: '- 全程不联网，文件只在本地处理；处理完后弹一个"打开输出文件夹"的按钮。',
       acceptance: '拖入 PDF → 合并或拆分 → 输出文件正确；空文件、格式错误 → 友好提示，不闪退。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'merge, split, and archive PDFs without manual steps.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + pdf-lib',
@@ -222,7 +222,7 @@ export const recipes: Recipe[] = [
   2. Split: drop one PDF, type page ranges (e.g. "1-10, 11-25, 26-end"), export each range as a separate PDF.`,
       extra: '- Fully offline; files stay local. After completion, show an "Open output folder" button.',
       acceptance: 'drop PDFs → merge or split → output correct; empty file, bad format → friendly message, no crash.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 300-word user guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -233,7 +233,7 @@ export const recipes: Recipe[] = [
     painZh: '截图要加水印、压缩、统一尺寸，手动太慢。',
     painEn: 'Watermark, compress, and resize screenshots in one pass.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '截图要加水印、压缩、统一尺寸，手动太慢，想批量处理。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + sharp',
@@ -241,10 +241,10 @@ export const recipes: Recipe[] = [
   2. 设置：水印图片或文字（位置可选右下/左下/居中）、最长边像素（如 1600）、输出格式（jpg/png/webp）、jpg 压缩质量。
   3. 一键批量处理，输出到"原目录_processed"。处理过程显示进度。`,
       acceptance: '拖入文件夹 → 设置水印/尺寸 → 批量处理 → 输出正确；空文件夹、非图片 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字使用说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'watermark, compress, and resize screenshots in one batch pass.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + sharp',
@@ -252,7 +252,7 @@ export const recipes: Recipe[] = [
   2. Settings: watermark image or text (corner choice), longest-edge pixels (e.g. 1600), output format (jpg/png/webp), jpg quality.
   3. One-click batch with progress; output to "<originalFolder>_processed".`,
       acceptance: 'drop folder → set watermark/size → batch process → output correct; empty folder, non-image → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 300-word user guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -263,7 +263,7 @@ export const recipes: Recipe[] = [
     painZh: '系统导出的表有空行、重复、乱格式，每次都要清洗。',
     painEn: 'System exports are messy. Clean blanks, duplicates, dates, and spaces.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '系统导出的表有空行、重复、乱格式，每次都要清洗，想一键搞定。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx + papaparse',
@@ -271,10 +271,10 @@ export const recipes: Recipe[] = [
   2. 提供"清洗动作清单"，复选打勾即可：去除空行、去除完全重复行、去除前后空格、统一日期格式（YYYY-MM-DD）、全角转半角、按某列去重保留首条。
   3. 右侧实时预览清洗后的结果；满意后导出为新文件，原文件不动。`,
       acceptance: '拖入文件 → 选清洗动作 → 预览 → 导出新文件；空文件、格式错误 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含"如何向 Codex 描述新清洗规则"的小段。',
+      packaging: packagingInstruction(400, 'zh', '含"如何向 Codex 描述新清洗规则"的小段'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'system exports are messy; clean blanks, duplicates, dates, and spaces in one click.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx + papaparse',
@@ -282,7 +282,7 @@ export const recipes: Recipe[] = [
   2. Show a checklist of cleaning actions: remove blank rows, drop exact duplicates, trim whitespace, normalize dates (YYYY-MM-DD), convert full-width to half-width, dedupe by chosen column keeping the first.
   3. Live-preview the cleaned result on the right; export to a new file when ready, leaving the original untouched.`,
       acceptance: 'drop file → pick actions → preview → export new file; empty file, bad format → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 400-word user guide including a short section on "how to describe new cleaning rules to Codex".',
+      packaging: packagingInstruction(400, 'en', 'including a short section on "how to describe new cleaning rules to Codex"'),
     }, 'en'),
   },
   {
@@ -293,7 +293,7 @@ export const recipes: Recipe[] = [
     painZh: '会议录音整理太慢，还希望全程本地处理。',
     painEn: 'Summaries take too long. Keep audio processing local.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '会议录音整理太慢，想一键转文字并提炼要点，全程本地处理。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 whisper.cpp（small 中文模型，首次使用自动下载）',
@@ -303,10 +303,10 @@ export const recipes: Recipe[] = [
   4. 一键导出为 .docx 和 .md。`,
       extra: '- 全程在本机跑，不联网；首次模型下载提示用户磁盘占用。',
       acceptance: '拖入音频 → 转写成功 → 提炼要点 → 导出 .docx/.md；空文件、格式错误 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。',
+      packaging: packagingInstruction(500, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'meeting audio summaries take too long; transcribe and extract key points locally.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local whisper.cpp (small multilingual model, auto-downloaded on first use)',
@@ -316,7 +316,7 @@ export const recipes: Recipe[] = [
   4. Export to .docx and .md.`,
       extra: '- Fully offline; warn the user about disk space when downloading the model.',
       acceptance: 'drop audio → transcribe → extract points → export .docx/.md; empty file, bad format → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 500-word user guide.',
+      packaging: packagingInstruction(500, 'en'),
     }, 'en'),
   },
   {
@@ -327,7 +327,7 @@ export const recipes: Recipe[] = [
     painZh: '常查的小信息，总埋在聊天和便签里。',
     painEn: 'Small notes keep getting buried in chat and note apps.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '常查的小信息总埋在聊天和便签里，想要一个常驻桌面的极简便签。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 SQLite',
@@ -337,10 +337,10 @@ export const recipes: Recipe[] = [
   4. 关闭窗口最小化到任务栏 / Dock；开机自启可在设置里打开。
   5. 全部数据存在本地 SQLite，可一键导出为 .json 备份。`,
       acceptance: '打开软件 → 便签列表显示 → 新增/编辑/复制 → 重启数据还在；空数据 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'small notes keep getting buried; build a desktop sticky that boots with you.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local SQLite',
@@ -350,7 +350,7 @@ export const recipes: Recipe[] = [
   4. Close minimizes to tray/dock; launch-at-login optional in settings.
   5. All data in local SQLite; one-click export to .json backup.`,
       acceptance: 'launch → note list shows → add/edit/copy → data persists on restart; empty data → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 300-word user guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -361,7 +361,7 @@ export const recipes: Recipe[] = [
     painZh: '不同渠道要不同尺寸，每次开 PS 太麻烦。',
     painEn: 'Different channels need different sizes. Photoshop is overkill.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '不同渠道要不同尺寸，每次开 PS 太麻烦，想批量转换。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + sharp',
@@ -371,10 +371,10 @@ export const recipes: Recipe[] = [
   4. 一键批量导出到"原目录_resized"文件夹，原图不动。`,
       extra: '- 全程本地处理，不联网；处理过程显示进度。',
       acceptance: '拖入图片 → 选规格/自定义 → 批量导出；空文件夹、非图片 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'different channels need different sizes; bulk-convert without opening Photoshop.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + sharp',
@@ -384,7 +384,7 @@ export const recipes: Recipe[] = [
   4. One-click batch export to a sibling "<originalFolder>_resized"; originals untouched.`,
       extra: '- Fully offline; show progress.',
       acceptance: 'drop images → pick size → batch export; empty folder, non-image → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 300-word user guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -395,7 +395,7 @@ export const recipes: Recipe[] = [
     painZh: '客户名单一合并，重复和格式问题一大堆。',
     painEn: 'Customer lists merge into duplicates and messy formats.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: '客户名单一合并，重复和格式问题一大堆，想自动去重合并。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -405,10 +405,10 @@ export const recipes: Recipe[] = [
   4. 输出一份合并后的 Excel + 一份"被去掉的可疑重复条目"Excel 供复核，原文件不动。`,
       extra: '- 全程本地处理，不联网。',
       acceptance: '拖入多份 Excel → 自动识别 → 去重合并 → 导出合并表和可疑表；空文件、格式错误 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'customer lists merge into duplicates and messy formats; automate deduplication.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -418,7 +418,7 @@ export const recipes: Recipe[] = [
   4. Export a merged Excel plus a "removed-as-duplicate" Excel for review; originals untouched.`,
       extra: '- Fully offline.',
       acceptance: 'drop multiple files → auto-detect → dedupe → export merged + suspicious; empty file, bad format → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -429,7 +429,7 @@ export const recipes: Recipe[] = [
     painZh: 'Markdown 写完汇报，还要手动排成 PPT。',
     painEn: 'Markdown drafts still need manual slide building.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：',
+      role: RECIPE_ROLE_ZH,
       goal: 'Markdown 写完汇报，还要手动排成 PPT，想一键转换。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + pptxgenjs',
@@ -439,10 +439,10 @@ export const recipes: Recipe[] = [
   4. 一键导出 .pptx 文件到指定文件夹；同时保存当前 .md 草稿到本地。`,
       extra: '- 全程本地处理，不联网。',
       acceptance: '写 Markdown → 实时预览 → 一键导出 .pptx；空内容、格式错误 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，含 Markdown 速查表。',
+      packaging: packagingInstruction(400, 'zh', '含 Markdown 速查表'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:',
+      role: RECIPE_ROLE_EN,
       goal: 'Markdown drafts still need manual slide building; convert to PPTX in one click.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + pptxgenjs',
@@ -452,7 +452,7 @@ export const recipes: Recipe[] = [
   4. One-click export to .pptx; auto-save the current .md draft locally.`,
       extra: '- Fully offline.',
       acceptance: 'write Markdown → live preview → one-click export .pptx; empty content, bad format → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; 400-word user guide including a Markdown cheatsheet.',
+      packaging: packagingInstruction(400, 'en', 'including a Markdown cheatsheet'),
     }, 'en'),
   },
   {
@@ -463,7 +463,7 @@ export const recipes: Recipe[] = [
     painZh: '不同平台导出的订单列名不一样，每天合并总表很费时间。',
     painEn: 'Order exports from each marketplace use different columns, making daily consolidation slow.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个电商订单合并小工具：',
+      role: recipeRole('电商订单合并小工具', 'zh'),
       goal: '不同平台导出的订单列名不一样，每天合并总表很费时间，想自动统一。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx + papaparse',
@@ -472,10 +472,10 @@ export const recipes: Recipe[] = [
   3. 订单号重复时合并明细并标红提示；字段缺失用黄色提示。
   4. 导出"订单总表.xlsx"和"异常订单.xlsx"，原文件不动。`,
       acceptance: '拖入多平台 Excel → 自动识别 → 统一字段 → 导出总表和异常表；重复订单标红，缺字段黄色。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明，说明如何新增平台字段映射。',
+      packaging: packagingInstruction(400, 'zh', '说明如何新增平台字段映射'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build an e-commerce order merge tool:',
+      role: recipeRole('e-commerce order merge tool', 'en'),
       goal: 'order exports from each marketplace use different columns, making daily consolidation slow; automate the normalization.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx + papaparse',
@@ -484,7 +484,7 @@ export const recipes: Recipe[] = [
   3. Merge duplicate order IDs and flag them in red; highlight missing fields in yellow.
   4. Export "merged-orders.xlsx" and "order-exceptions.xlsx"; originals untouched.`,
       acceptance: 'drop multi-platform Excel → auto-detect → normalize → export merged + exceptions; duplicates red, missing yellow.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide explaining how to add a new marketplace mapping.',
+      packaging: packagingInstruction(400, 'en', 'explaining how to add a new marketplace mapping'),
     }, 'en'),
   },
   {
@@ -495,7 +495,7 @@ export const recipes: Recipe[] = [
     painZh: '商品图、详情图、短图散在文件夹里，上传前总要人工改名和分包。',
     painEn: 'Product images are scattered across folders and need manual renaming before upload.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个商品图片整理小工具：',
+      role: recipeRole('商品图片整理小工具', 'zh'),
       goal: '商品图、详情图散在文件夹里，上传前总要人工改名和分包，想自动整理。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + sharp',
@@ -505,10 +505,10 @@ export const recipes: Recipe[] = [
   4. 检查每个 SKU 是否缺主图、详情图、尺寸图；缺失项导出 Excel。
   5. 一键输出每个 SKU 一个文件夹的素材包，原图不动。`,
       acceptance: '拖入图片+Excel → 自动归类 → 重命名预览 → 输出素材包；缺失项 Excel 提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a product image packaging tool:',
+      role: recipeRole('product image packaging tool', 'en'),
       goal: 'product images are scattered; auto-sort and rename by SKU before upload.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + sharp',
@@ -518,7 +518,7 @@ export const recipes: Recipe[] = [
   4. Check whether each SKU is missing hero, detail, or size images; export missing items to Excel.
   5. Output one folder per SKU; originals untouched.`,
       acceptance: 'drop images+Excel → auto-sort → rename preview → output packages; missing items exported.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -529,7 +529,7 @@ export const recipes: Recipe[] = [
     painZh: '物流表里有停滞、退回、派送失败、地址异常，客服容易漏跟。',
     painEn: 'Shipment exports hide stalled, returned, failed-delivery, and bad-address orders.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个物流异常筛查小工具：',
+      role: recipeRole('物流异常筛查小工具', 'zh'),
       goal: '物流表里有停滞、退回、派送失败等异常件，客服容易漏跟，想自动筛出来。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -540,10 +540,10 @@ export const recipes: Recipe[] = [
   5. 一键导出"今日物流异常.xlsx"，含建议客服跟进话术。`,
       extra: '- 手机号默认脱敏。',
       acceptance: '拖入快递 Excel → 自动识别字段 → 异常列表标红 → 导出 Excel 含跟进话术；手机号脱敏。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a shipment exception checker:',
+      role: recipeRole('shipment exception checker', 'en'),
       goal: 'shipment exports hide stalled, returned, failed-delivery orders; CS easily misses them. Auto-filter exceptions.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -554,7 +554,7 @@ export const recipes: Recipe[] = [
   5. Export "shipment-exceptions-today.xlsx" with suggested support wording.`,
       extra: '- Phone masked by default.',
       acceptance: 'drop shipment Excel → auto-detect → exception list highlighted → export Excel with CS wording; phone masked.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 300-word user guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -565,7 +565,7 @@ export const recipes: Recipe[] = [
     painZh: '仓库要打印 SKU 标签、价格签、库位贴纸，手动排版容易错。',
     painEn: 'Warehouse label printing for SKUs, price tags, and bin labels is error-prone by hand.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个商品标签生成小工具：',
+      role: recipeRole('商品标签生成小工具', 'zh'),
       goal: '仓库要打印 SKU 标签、价格签、库位贴纸，手动排版容易错，想批量生成。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + bwip-js + pdf-lib',
@@ -575,10 +575,10 @@ export const recipes: Recipe[] = [
   4. 导出适合 A4 或热敏打印的 PDF；打印数量按 Excel 字段重复。
   5. 长商品名自动换行，不挤出标签边界。`,
       acceptance: '导入 Excel → 选尺寸 → 预览 → 导出 PDF；空数据、格式错误 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 300 字中文使用说明。',
+      packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a product label generator:',
+      role: recipeRole('product label generator', 'en'),
       goal: 'warehouse label printing for SKUs, price tags, and bin labels is error-prone; automate it.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + bwip-js + pdf-lib',
@@ -588,7 +588,7 @@ export const recipes: Recipe[] = [
   4. Export PDF for A4 or thermal printer; repeat labels by quantity.
   5. Long product names wrap without overflowing the label.`,
       acceptance: 'import Excel → pick size → preview → export PDF; empty data, bad format → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 300-word user guide.',
+      packaging: packagingInstruction(300, 'en'),
     }, 'en'),
   },
   {
@@ -599,7 +599,7 @@ export const recipes: Recipe[] = [
     painZh: '平台账单里佣金、退款、运费、服务费太多，和订单总额经常对不上。',
     painEn: 'Marketplace bills include commission, refunds, freight, and service fees, often not matching order totals.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个平台账单核对小工具：',
+      role: recipeRole('平台账单核对小工具', 'zh'),
       goal: '平台账单里佣金、退款、运费、服务费太多，和订单总额经常对不上，想自动核对。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -609,10 +609,10 @@ export const recipes: Recipe[] = [
   4. 首页展示总订单额、总到账、总费用、总差异和异常数量。
   5. 导出"账单核对结果.xlsx"，含明细页、异常页、汇总页。`,
       acceptance: '导入订单+账单 → 自动匹配 → 差异标红 → 首页显示汇总 → 导出 Excel 含三页。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明，解释常见差异原因。',
+      packaging: packagingInstruction(500, 'zh', '解释常见差异原因'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a marketplace bill reconciliation tool:',
+      role: recipeRole('marketplace bill reconciliation tool', 'en'),
       goal: 'marketplace bills include commission, refunds, freight, and service fees, often not matching order totals. Automate reconciliation.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -622,7 +622,7 @@ export const recipes: Recipe[] = [
   4. Home view shows total orders, settlement, fees, variance, and exception count.
   5. Export "bill-reconciliation-result.xlsx" with detail, exception, and summary sheets.`,
       acceptance: 'import orders + bill → auto-match → differences red → home summary → export Excel with 3 sheets.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 500-word guide explaining common variance reasons.',
+      packaging: packagingInstruction(500, 'en', 'explaining common variance reasons'),
     }, 'en'),
   },
   {
@@ -633,7 +633,7 @@ export const recipes: Recipe[] = [
     painZh: '报名、备货、素材、价格、直播、复盘节点太多，经常靠人记。',
     painEn: 'Campaign enrollment, stock, materials, price, live sessions, and recap milestones are hard to track manually.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个电商大促日历小工具：',
+      role: recipeRole('电商大促日历小工具', 'zh'),
       goal: '报名、备货、素材、价格、直播、复盘节点太多，经常靠人记，想自动提醒。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 SQLite',
@@ -643,10 +643,10 @@ export const recipes: Recipe[] = [
   4. 逾期任务红色提醒；今天任务可导出为 Excel。
   5. 支持从 Excel 批量导入任务。`,
       acceptance: '新建活动 → 任务模板生成 → 日历/看板视图 → 逾期提醒 → 导出 Excel。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build an e-commerce campaign calendar:',
+      role: recipeRole('e-commerce campaign calendar', 'en'),
       goal: 'campaign milestones are hard to track manually; automate reminders and task templates.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local SQLite',
@@ -656,7 +656,7 @@ export const recipes: Recipe[] = [
   4. Overdue tasks turn red; today's tasks export to Excel.
   5. Bulk import tasks from Excel.`,
       acceptance: 'create campaign → tasks generated → calendar/board view → overdue alert → export Excel.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -667,7 +667,7 @@ export const recipes: Recipe[] = [
     painZh: '客服话术散在文档和聊天里，新人找不到，老人也复制错版本。',
     painEn: 'Support macros are scattered across docs and chats, so agents find or copy the wrong version.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个客服话术库小工具：',
+      role: recipeRole('客服话术库小工具', 'zh'),
       goal: '客服话术散在文档和聊天里，新人找不到，老人也复制错版本，想统一管理。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 SQLite',
@@ -677,10 +677,10 @@ export const recipes: Recipe[] = [
   4. 话术有版本号、更新时间、适用店铺和禁用状态。
   5. 支持从 Excel 导入/导出，记录每条话术复制次数。`,
       acceptance: '搜索话术 → 一键复制 → 变量填写 → 导入/导出 Excel；空数据 → 友好提示。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a customer support macro library:',
+      role: recipeRole('customer support macro library', 'en'),
       goal: 'support macros are scattered across docs and chats; centralize and version them.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local SQLite',
@@ -690,7 +690,7 @@ export const recipes: Recipe[] = [
   4. Each macro has version, updated date, applicable store, and disabled status.
   5. Excel import/export; record copy count per macro.`,
       acceptance: 'search macro → one-click copy → fill variables → import/export Excel; empty data → friendly message.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -701,7 +701,7 @@ export const recipes: Recipe[] = [
     painZh: '寄样、签收、发布、复盘状态分散，市场同事每天要翻很多记录。',
     painEn: 'Sample shipment, receipt, publish status, and recap are scattered across records.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个达人样品跟进小工具：',
+      role: recipeRole('达人样品跟进小工具', 'zh'),
       goal: '寄样、签收、发布、复盘状态分散，市场同事每天要翻很多记录，想集中管理。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 SQLite',
@@ -711,10 +711,10 @@ export const recipes: Recipe[] = [
   4. 每个达人卡片可记录内容链接、播放/互动/成交数据和备注。
   5. 导出今日跟进清单和复盘表。`,
       acceptance: '导入名单 → 看板显示 → 逾期高亮 → 记录数据 → 导出清单。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a creator sample follow-up board:',
+      role: recipeRole('creator sample follow-up board', 'en'),
       goal: 'sample shipment, receipt, publish, and recap status are scattered; centralize tracking.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local SQLite',
@@ -724,7 +724,7 @@ export const recipes: Recipe[] = [
   4. Creator card stores content link, views/interactions/sales, and notes.
   5. Export today's follow-up list and recap sheet.`,
       acceptance: 'import list → board shows → overdue highlights → record data → export list.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -735,7 +735,7 @@ export const recipes: Recipe[] = [
     painZh: '竞品价格表每天复制回来格式很乱，很难看出谁降价了。',
     painEn: 'Daily competitor price sheets come back messy, making price drops hard to spot.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个竞品价格整理小工具：',
+      role: recipeRole('竞品价格整理小工具', 'zh'),
       goal: '竞品价格表每天复制回来格式很乱，很难看出谁降价了，想自动整理对比。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -745,10 +745,10 @@ export const recipes: Recipe[] = [
   4. 支持按我方 SKU 映射竞品商品，展示价差和变化幅度。
   5. 导出"竞品价格变化.xlsx"和一页摘要图片。`,
       acceptance: '导入价格表 → 自动清洗 → 对比标红/标绿 → 导出 Excel 和摘要图。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a competitor price tracker cleaner:',
+      role: recipeRole('competitor price tracker cleaner', 'en'),
       goal: 'daily competitor price sheets come back messy; automate cleaning and comparison.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -758,7 +758,7 @@ export const recipes: Recipe[] = [
   4. Map competitor products to our SKUs and show price gap and movement.
   5. Export "competitor-price-changes.xlsx" and a one-page summary image.`,
       acceptance: 'import price sheets → auto-clean → compare with flags → export Excel + summary image.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -769,7 +769,7 @@ export const recipes: Recipe[] = [
     painZh: '直播时商品顺序、讲解时长、上链接提醒都靠人工盯，容易错过节奏。',
     painEn: 'During live sessions, product order, speaking time, and link reminders are hard to manage manually.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个直播排品计时小工具：',
+      role: recipeRole('直播排品计时小工具', 'zh'),
       goal: '直播时商品顺序、讲解时长、上链接提醒都靠人工盯，容易错过节奏。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + 本地 SQLite',
@@ -779,10 +779,10 @@ export const recipes: Recipe[] = [
   4. 直播中可一键标记跳过、延长、异常，并记录实际时间。
   5. 直播后导出复盘表。`,
       acceptance: '导入排品 → 计时视图 → 到点提醒 → 标记异常 → 导出复盘表。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a live run-sheet timer:',
+      role: recipeRole('live run-sheet timer', 'en'),
       goal: 'product order, speaking time, and link reminders during live sessions are hard to manage manually.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + local SQLite',
@@ -792,7 +792,7 @@ export const recipes: Recipe[] = [
   4. During live, mark skipped, extended, exception, and actual time.
   5. Export recap sheet after the session.`,
       acceptance: 'import run-sheet → timer view → timed reminders → mark exceptions → export recap.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -803,7 +803,7 @@ export const recipes: Recipe[] = [
     painZh: '商品标题、价格、库存、图片、资质经常有缺漏，等上线前才返工。',
     painEn: 'Titles, prices, stock, images, and certificates often miss pieces until the last minute.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个商品资料巡检小工具：',
+      role: recipeRole('商品资料巡检小工具', 'zh'),
       goal: '商品标题、价格、库存、图片、资质经常有缺漏，等上线前才返工，想提前巡检。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -813,10 +813,10 @@ export const recipes: Recipe[] = [
   4. 每个 SKU 生成完整度分数：可上线 / 补齐后上线 / 暂缓。
   5. 导出"商品资料补齐清单.xlsx"。`,
       acceptance: '导入资料 → 自动巡检 → 标出问题 → 完整度评分 → 导出补齐清单。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 400 字中文使用说明。',
+      packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a SKU listing preflight auditor:',
+      role: recipeRole('SKU listing preflight auditor', 'en'),
       goal: 'titles, prices, stock, images, and certificates often miss pieces until launch day; preflight early.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx',
@@ -826,7 +826,7 @@ export const recipes: Recipe[] = [
   4. Generate completeness score per SKU: ready / ready after fixes / pause.
   5. Export "listing-fix-list.xlsx".`,
       acceptance: 'import sheets → auto-audit → flag issues → score SKUs → export fix list.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 400-word user guide.',
+      packaging: packagingInstruction(400, 'en'),
     }, 'en'),
   },
   {
@@ -837,7 +837,7 @@ export const recipes: Recipe[] = [
     painZh: '多仓库存一边断货一边积压，手工算调拨数量太慢。',
     painEn: 'One warehouse stocks out while another overstock; manual transfer planning is slow.',
     promptZh: composeRecipePrompt({
-      role: '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个多仓库存调拨小工具：',
+      role: recipeRole('多仓库存调拨小工具', 'zh'),
       goal: '多仓库存一边断货一边积压，手工算调拨数量太慢，想自动建议。',
       platform: 'Windows 10/11 和 macOS',
       stack: 'Electron + React + TypeScript + xlsx + ECharts',
@@ -847,10 +847,10 @@ export const recipes: Recipe[] = [
   4. 可设置安全库存天数、最低调拨数量、活动保留量。
   5. 导出"调拨建议.xlsx"和"断货风险.xlsx"。`,
       acceptance: '导入库存表 → 自动计算 → 调拨建议 → 风险标红 → 导出 Excel。',
-      packaging: '- 同时打包成 Windows .exe 和 macOS .dmg；附 500 字中文使用说明。',
+      packaging: packagingInstruction(500, 'zh'),
     }, 'zh'),
     promptEn: composeRecipePrompt({
-      role: 'You are a senior engineer for Windows and macOS desktop apps. Build a multi-warehouse transfer planner:',
+      role: recipeRole('multi-warehouse transfer planner', 'en'),
       goal: 'one warehouse stocks out while another overstock; automate transfer planning.',
       platform: 'Windows 10/11 and macOS',
       stack: 'Electron + React + TypeScript + xlsx + ECharts',
@@ -860,7 +860,7 @@ export const recipes: Recipe[] = [
   4. Configurable safety stock days, minimum transfer quantity, campaign reserve.
   5. Export "transfer-suggestions.xlsx" and "stockout-risk.xlsx".`,
       acceptance: 'import stock → auto-calculate → transfer suggestions → risk flags red → export Excel.',
-      packaging: '- Package as Windows .exe and macOS .dmg; include a 500-word user guide.',
+      packaging: packagingInstruction(500, 'en'),
     }, 'en'),
   },
 ];

@@ -1,11 +1,8 @@
 import type { CaseBundle } from './types';
-import { composeCasePrompt } from '@/lib/promptModules';
+import { composeCasePrompt, caseRole, COMMUNICATION_ZH, COMMUNICATION_EN } from '@/lib/promptModules';
 
 // Helper to keep extra cases compact. Each bundle still ships a full bilingual
 // prompt and copy block so /cases/[slug] pages and AI ingestion stay rich.
-
-const COMMUNICATION_ZH = '本地处理；桌面工具风格；中文沟通。';
-const COMMUNICATION_EN = 'Process locally; keep a desktop-tool feel; use plain English.';
 
 // ---------- Finance ----------
 
@@ -58,7 +55,7 @@ export const financeExpenseClassifier: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。请帮我做一个本地运行的桌面小工具，用户是公司财务，关注业务结果和操作体验。',
+      role: caseRole('公司财务', 'zh'),
       goal: '把每月几百行报销明细按类目自动分类、汇总金额，未识别的让用户点几下补齐。',
       platform: '- Windows 10/11 + macOS 桌面应用\n- Electron + React + TypeScript\n- 表格用 SheetJS；规则存本地 JSON',
       features: '1. 主界面：左侧"导入报销 Excel"，支持拖拽；右侧表格实时显示分类结果。\n2. 默认 12 个类目（差旅交通、住宿、餐饮、办公用品、培训、招待、通讯、快递、福利、设备、软件、其他），每个类目有关键字规则和金额范围规则，可在"规则设置"页里改。\n3. 自动匹配：备注/摘要含关键字即归类；多条命中按优先级；都不命中归"待确认"。\n4. "待确认"列表里每行下拉选择类目，并可勾选"记住为新规则"。\n5. 底部汇总卡片：每类合计金额、占比、笔数。\n6. "导出已分类 Excel"按钮，文件名 "报销分类-YYYY-MM.xlsx"。',
@@ -67,7 +64,7 @@ export const financeExpenseClassifier: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is finance staff focused on business outcomes.',
+      role: caseRole('finance staff', 'en'),
       goal: 'Auto-categorize hundreds of reimbursement lines per month, total per category, and let the user resolve unmatched rows with a couple of clicks.',
       platform: '- Windows 10/11 and macOS desktop app\n- Electron + React + TypeScript\n- SheetJS for Excel; local JSON for rules',
       features: '1. Drop-target on the left; live classification table on the right.\n2. 12 default categories (travel, lodging, meals, office, training, entertainment, telecom, shipping, perks, devices, software, other), each with editable keyword + amount-range rules.\n3. Auto-match by keyword priority; misses go to "Needs review".\n4. In "Needs review", dropdown per row to assign; optional "remember as new rule".\n5. Footer summary cards: total amount, share, count per category.\n6. "Export classified Excel" button; default filename "expenses-YYYY-MM.xlsx".',
@@ -125,7 +122,7 @@ export const financeInvoiceTaxChecker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是公司财务，关注业务结果和操作体验。',
+      role: caseRole('公司财务', 'zh'),
       goal: '批量比对发票抬头/税号与公司标准表，挑出错误与重复。',
       platform: '- Windows + macOS 桌面应用；Electron + React + TypeScript；SheetJS',
       features: '1. 两个导入位：发票明细 Excel、标准抬头表 Excel。表头自动识别，关键字段从下拉框选。\n2. 核对规则：抬头完全匹配 + 税号完全匹配 = 通过；任何一项不匹配 = 标红；同一发票号出现多次 = 标橙。\n3. 结果表格按颜色分组；点行展开"差异详情"，逐字符高亮不同。\n4. 顶部统计：通过 / 不匹配 / 重复 / 总数。\n5. "导出问题清单"按钮，附"建议动作"列（换票 / 联系开票方 / 已重复，请退回）。',
@@ -134,7 +131,7 @@ export const financeInvoiceTaxChecker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is finance staff focused on business outcomes.',
+      role: caseRole('finance staff', 'en'),
       goal: 'Batch-compare invoice titles and tax IDs to a master sheet; surface mismatches and duplicates.',
       platform: '- Windows + macOS desktop; Electron + React + TypeScript; SheetJS',
       features: '1. Two import slots: invoice details and master title sheet. Auto-detect headers; user confirms via dropdown.\n2. Rules: exact-match title + exact-match tax ID = pass; any mismatch = red; duplicate invoice number = orange.\n3. Group results by status; click a row to see a per-character diff.\n4. Top summary: passed / mismatched / duplicated / total.\n5. "Export issues" button with a "suggested action" column.',
@@ -194,7 +191,7 @@ export const operationsDailyStandupBoard: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是运营负责人，关注业务结果和操作体验。',
+      role: caseRole('运营负责人', 'zh'),
       goal: '把日常日报从群里沉淀到本地看板，按周自然汇总，挑出阻塞。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 主界面"今日"：列出团队成员，每人一张卡，三个文本框（昨日 / 今日 / 阻塞）。\n2. 切换到"本周"视图：表格行=成员，列=周一到周日，单元格里是该日要点摘要，鼠标悬停看全文。\n3. 顶部"本周阻塞"汇总卡片，自动按人聚合所有标红的阻塞。\n4. "导出本周 Markdown" -> 一份按人组织的周报，附阻塞列表。\n5. 成员列表本地维护；离职/调岗可禁用而不删除历史。',
@@ -203,7 +200,7 @@ export const operationsDailyStandupBoard: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is an ops lead focused on business outcomes.',
+      role: caseRole('an ops lead', 'en'),
       goal: 'Move daily standups out of chat into a local board that naturally rolls up by week and surfaces blockers.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. "Today" view: a card per team member with three text fields (Yesterday / Today / Blocker).\n2. "This week" view: rows = members, columns = Mon–Sun; hover for full text.\n3. Top "Blockers this week" rollup card per person.\n4. Export weekly Markdown, organized per person, with blockers list.\n5. Member list local; disable on leave without losing history.',
@@ -263,7 +260,7 @@ export const operationsCustomerLifecycleTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是社群/客户运营，关注业务结果和操作体验。',
+      role: caseRole('社群/客户运营', 'zh'),
       goal: '把客户跟进从感觉变成节奏：本地表格 + 每日"该联系名单"。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 客户列表：姓名、来源、阶段、最近联系日、负责人、备注。\n2. 阶段规则（可改）：7 天内互动 = 活跃；30 天 = 沉睡；60 天 = 流失；首次接触 14 天内 = 新客。\n3. 顶部"今日跟进"卡片：按规则计算应该联系的人，最多 20 个，可一键移到"已联系"。\n4. 客户详情抽屉：记一句备注、改阶段、改负责人；自动更新最近联系日。\n5. Excel 批量导入；导出当前名单 + 本月跟进日志。',
@@ -272,7 +269,7 @@ export const operationsCustomerLifecycleTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a community/customer ops person focused on business outcomes.',
+      role: caseRole('a community/customer ops person', 'en'),
       goal: 'Turn customer follow-ups from gut feel into a daily rhythm with a local list and an auto "who to reach today".',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Customer list: name, source, stage, last contact, owner, notes.\n2. Stage rules (editable): contact within 7d = active; 30d = dormant; 60d = lost; first-contact within 14d = new.\n3. Top "Today\'s follow-ups" card up to 20 names; one-click "contacted".\n4. Detail drawer: log a note, change stage/owner; last-contact auto-updates.\n5. Excel bulk import; export current list + monthly logs.',
@@ -332,7 +329,7 @@ export const customerServiceComplaintClassifier: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是客服主管，关注业务结果和操作体验。',
+      role: caseRole('客服主管', 'zh'),
       goal: '把每天的投诉文本快速归类，并对升级词第一时间提醒，避免漏处理引发更大问题。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 顶部大文本框，粘贴一段或多段投诉，每段一行，回车确认。\n2. 类目预置 8 类（物流 / 质量 / 服务 / 价格 / 退款 / 安装 / 售后 / 其他），关键字规则可改。\n3. 升级词列表（曝光、投诉、工商、消协、315、法务、媒体…）命中后整行染红，并弹出系统通知。\n4. 中间表格列出每条投诉 + 类目 + 风险等级（普通 / 关注 / 升级）。\n5. 顶部统计：今日总数、各类占比、升级 N 条。\n6. "导出今日摘要 Markdown / Excel" 一键给主管。',
@@ -341,7 +338,7 @@ export const customerServiceComplaintClassifier: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a CS supervisor focused on business outcomes.',
+      role: caseRole('a CS supervisor', 'en'),
       goal: 'Quickly bucket daily complaints and shout when escalation phrases appear.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Big text box at top; paste one or many complaints; one per line.\n2. 8 default buckets (logistics / quality / service / price / refund / install / aftersales / other) with editable keyword rules.\n3. Escalation keywords trigger row-red + OS notification.\n4. Middle table: complaint + category + risk level (normal / watch / escalate).\n5. Top summary: total today, share per type, N escalations.\n6. One-click export of today\'s summary (Markdown / Excel).',
@@ -401,7 +398,7 @@ export const customerServiceFAQBuilder: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是客服培训负责人，关注业务结果和操作体验。',
+      role: caseRole('客服培训负责人', 'zh'),
       goal: '把分散的问答沉淀成可搜索的知识卡片，给新人当上手手册。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 左侧分组树，可自定义增删（售前、售后、物流、退款、安装…）。\n2. 右侧卡片网格，每张卡：问题（一句）、答案（多段）、关键词标签、最近更新人、被搜次数。\n3. 顶部搜索框：分词 + 关键词匹配，输入即过滤；按命中相关度排序。\n4. 卡片操作：编辑、复制答案、收藏、归档；改动留版本历史，可回滚。\n5. 导入：Word / Excel / Markdown；导出：单分组或全部 Markdown。',
@@ -410,7 +407,7 @@ export const customerServiceFAQBuilder: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a CS training lead focused on business outcomes.',
+      role: caseRole('a CS training lead', 'en'),
       goal: 'Turn scattered Q&A into a searchable card deck for new-hire onboarding.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Left group tree (pre-sale, after-sale, logistics, refund…), fully editable.\n2. Right card grid; each card: question, answer (multi-line), keyword tags, last editor, search count.\n3. Top search with tokenized keyword matching; filters as you type; results sorted by relevance.\n4. Card actions: edit, copy answer, favorite, archive; version history with rollback.\n5. Import Word / Excel / Markdown; export one group or all as Markdown.',
@@ -470,7 +467,7 @@ export const hrLeaveTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是 HR，关注业务结果和操作体验。',
+      role: caseRole(' HR', 'zh'),
       goal: '让请假和调休的余额一直清楚，不靠脑子记。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 员工列表：姓名、部门、入职日、四种余额（年假 / 调休 / 病假 / 事假）。\n2. "新增请假单"：选员工、类型、起止日、备注；保存后自动算工作日并扣减。\n3. "新增加班"：选员工、加班时长，自动按 1:1.5 折算调休加到余额上（系数可改）。\n4. 月度结算页：每人四种余额、本月新增、本月使用、期末余额；一键导出 Excel。\n5. 员工档案抽屉：年度年假按入职年限按规则发放（可改），自动按月或按年初一次性发放。',
@@ -479,7 +476,7 @@ export const hrLeaveTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is an HR focused on business outcomes.',
+      role: caseRole('an HR', 'en'),
       goal: 'Keep leave and TOIL balances always clear without memorizing.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Employee list: name, dept, hire date, four balances (annual / TOIL / sick / personal).\n2. "New leave": pick employee, type, dates, notes; auto-computes working days and deducts.\n3. "Log overtime": pick employee, hours; converted by 1:1.5 (editable) and added to TOIL.\n4. Monthly settlement: per-employee four balances, this-month added/used/ending; export Excel.\n5. Employee drawer: annual leave granted by tenure rule (editable), monthly accrual or year-start lump.',
@@ -537,7 +534,7 @@ export const hrInterviewSchedule: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是 HR 招聘负责人，关注业务结果和操作体验。',
+      role: caseRole(' HR 招聘负责人', 'zh'),
       goal: '让一周的面试排期一目了然，避免面试官撞车。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 候选人池：左侧抽屉可增删候选人（姓名、岗位、HR、备注）。\n2. 主面板：本周时间表（周一到周日，9:00-21:00，30 分钟一格）。\n3. 把候选人卡片拖到对应格子里 -> 弹窗填面试官、轮次、地点、备注。\n4. 冲突检测：同一面试官出现在重叠时段 -> 整行红色提示；同一候选人同一时段被排两次 -> 红色。\n5. 切换"周视图"/"日视图"。\n6. "导出本周安排" -> 一份 Markdown，分日列出候选人、时间、岗位、面试官、地点。',
@@ -546,7 +543,7 @@ export const hrInterviewSchedule: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is an HR recruiter lead focused on business outcomes.',
+      role: caseRole('an HR recruiter lead', 'en'),
       goal: 'See the whole week of interviews at a glance and stop double-booking interviewers.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Candidate pool drawer (name, role, HR, notes).\n2. Main view: this week, Mon–Sun, 9:00–21:00, 30-min cells.\n3. Drag a candidate to a cell -> popup for interviewer / round / location / notes.\n4. Conflicts: same interviewer overlapping slots = red; same candidate twice = red.\n5. Toggle week / day view.\n6. Export this week as Markdown by day with all fields.',
@@ -606,7 +603,7 @@ export const logisticsWarehouseStock: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是仓管/物流主管，关注业务结果和操作体验。',
+      role: caseRole('仓管/物流主管', 'zh'),
       goal: '月度盘点把账面表和实盘表的差异一次性算清楚，连金额一起。',
       platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS',
       features: '1. 两个导入位：账面库存 Excel、盘点结果 Excel。字段（SKU、品名、数量、单价）从下拉框确认。\n2. 比对规则：按 SKU 匹配，盘盈（实>账） / 盘亏（实<账） / 未盘到（账有实无） / 多出（实有账无），四类分开展示。\n3. 每行计算差值数量、差额金额；底部总计金额（盘盈金额、盘亏金额、净差）。\n4. 顶部统计：SKU 总数、差异数、差异率、净差金额。\n5. "导出差异明细" Excel，按四类分 sheet。',
@@ -615,7 +612,7 @@ export const logisticsWarehouseStock: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a warehouse/logistics lead focused on business outcomes.',
+      role: caseRole('a warehouse/logistics lead', 'en'),
       goal: 'Compute monthly stocktake diffs (with values) in one go.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS',
       features: '1. Two imports: on-paper Excel and counted Excel. Field mapping (SKU, name, qty, price) confirmed via dropdown.\n2. Compare by SKU; classify into surplus / shortage / unaccounted / extra; show each group.\n3. Per-row diff qty and value; bottom totals (surplus, shortage, net).\n4. Top stats: total SKUs, diff count, diff rate, net value.\n5. Export diff Excel with four sheets.',
@@ -675,7 +672,7 @@ export const logisticsReturnTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商物流主管，关注业务结果和操作体验。',
+      role: caseRole('电商物流主管', 'zh'),
       goal: '把分散在客服-仓库-财务之间的退货件集中到一张本地台账，每条都看得见状态。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 列表字段：订单号、快递单号、寄回地址、应退金额、寄出日、最新跟进、状态、备注。\n2. 四个状态标签（待寄回 / 在途 / 已签收 / 异常），左侧切换。\n3. 自动规则：寄出日 > 7 天且未签收 -> 整行染红，并加入"逾期"卡片。\n4. 单条记录抽屉：增加一条跟进笔记，自动时间戳；可改状态。\n5. Excel 批量导入：按表头映射 SKU、快递单号等字段；导出"本月退货台账"含跟进历史。',
@@ -684,7 +681,7 @@ export const logisticsReturnTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is an e-commerce logistics lead focused on business outcomes.',
+      role: caseRole('an e-commerce logistics lead', 'en'),
       goal: 'Consolidate scattered return-shipment info into one local ledger, with status always visible.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Columns: order, tracking, return address, refund amount, sent date, last note, status, free notes.\n2. Four status tabs (pending / in-transit / received / exception).\n3. Auto rule: > 7 days since sent without signature -> row red and shown in "overdue" card.\n4. Detail drawer: add a timestamped follow-up note; change status.\n5. Excel import with header mapping; export "monthly return ledger" with history.',
@@ -744,7 +741,7 @@ export const procurementPOTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是采购主管，关注业务结果和操作体验。',
+      role: caseRole('采购主管', 'zh'),
       goal: '把每张 PO 的五步进度都摆在台面上，避免反复追问。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. PO 列表字段：单号、供应商、品类、金额、负责人、当前节点、最近更新日、备注。\n2. 行内 5 个圆点：下单 / 供应商确认 / 到货 / 验收 / 付款；点亮表示完成，自动写入完成时间。\n3. "待催办"顶部卡片：节点完成日 > 5 天未推进的全部列出。\n4. 搜索 + 过滤（按供应商、节点、负责人）。\n5. Excel 导入新 PO；导出本周进度 Markdown / Excel。',
@@ -753,7 +750,7 @@ export const procurementPOTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a procurement lead focused on business outcomes.',
+      role: caseRole('a procurement lead', 'en'),
       goal: 'Put every PO\'s five-step progress on the table; stop chasing for updates.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. PO list: number, supplier, category, amount, owner, current step, last update, notes.\n2. Five dots inline: placed / confirmed / received / accepted / paid; click to mark, auto-timestamp.\n3. Top "Needs nudge" card: > 5 days since last step.\n4. Search + filter by supplier / step / owner.\n5. Excel import; weekly export as Markdown / Excel.',
@@ -811,7 +808,7 @@ export const procurementSupplierQualification: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是采购助理，关注业务结果和操作体验。',
+      role: caseRole('采购助理', 'zh'),
       goal: '让供应商资质到期不再靠记忆。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 供应商档案卡：名称、联系人、电话、采购品类、合作起始日、备注。\n2. 资质子表：每行包括类型（营业执照 / 生产许可 / ISO / 食品 / 合同 / 其他）、证书编号、有效期、附件本地路径。\n3. 首页"到期提醒"卡片：分 30 天 / 15 天 / 7 天 三个色块，行内一键"已续期"-> 弹出更新到期日的小框。\n4. 搜索 + 过滤（按品类 / 即将到期 / 已过期）。\n5. 导出本月即将到期资质清单 Excel；导出某供应商档案 PDF（HTML 打印即可）。',
@@ -820,7 +817,7 @@ export const procurementSupplierQualification: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a procurement assistant focused on business outcomes.',
+      role: caseRole('a procurement assistant', 'en'),
       goal: 'Stop relying on memory for supplier document expirations.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Supplier card: name, contact, phone, category, start date, notes.\n2. Documents sub-table: type, number, expiry, local-file path.\n3. Home "Expiry" card grouped into 30 / 15 / 7-day bands; row-level "renewed" with a small popup to update expiry.\n4. Search + filter (category / expiring / expired).\n5. Export expiring list Excel; export a supplier dossier PDF (HTML print is fine).',
@@ -880,7 +877,7 @@ export const marketingContentCalendar: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是市场内容负责人，关注业务结果和操作体验。',
+      role: caseRole('市场内容负责人', 'zh'),
       goal: '把多渠道内容计划集中到一张本地日历，团队节奏对齐。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 月历主视图：横向 31 列日期，纵向 N 行渠道（公众号 / 视频号 / 小红书 / 抖音 / 微博 / 知乎 + 自定义）。\n2. 每格点击新建内容卡：选题、负责人、状态、链接、备注；状态颜色化。\n3. 跨渠道选题撞车检测：同周相似选题（关键字匹配）-> 顶部"撞车提醒"卡片。\n4. 切换日历视图 / 列表视图 / 看板视图。\n5. "本周计划"导出 Markdown，按渠道列出卡片。',
@@ -889,7 +886,7 @@ export const marketingContentCalendar: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a content marketing lead focused on business outcomes.',
+      role: caseRole('a content marketing lead', 'en'),
       goal: 'Centralize multi-channel content plans on one local calendar; align team rhythm.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Month grid: 31 date columns × N channel rows (WeChat / Video / Xiaohongshu / Douyin / Weibo / Zhihu + custom).\n2. Click a cell to create a card (topic, owner, status, link, notes); statuses colored.\n3. Conflict detection: similar topics same week (keyword match) -> top "Conflict" card.\n4. Switch between calendar / list / kanban view.\n5. Export weekly plan as Markdown by channel.',
@@ -947,7 +944,7 @@ export const marketingKOLTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是市场达人合作负责人，关注业务结果和操作体验。',
+      role: caseRole('市场达人合作负责人', 'zh'),
       goal: '让每位达人的合作进度都有据可查，不再卡在"我以为已经发了"。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 达人列表字段：昵称、平台、粉丝量、合作金额、对接人、当前节点、最近更新日、备注。\n2. 五节点圆点：对接 / 寄样 / 收样 / 发布 / 复盘；点击切换并自动写入日期。\n3. 节点超期规则可设（默认：对接 3 天 / 寄样 5 天 / 收样 7 天 / 发布 7 天 / 复盘 7 天）。\n4. 顶部"待催"卡片：所有红点条目分组。\n5. 详情抽屉：写笔记、贴成片链接、记录数据快照（点赞 / 评论 / 销量），方便复盘。\n6. Excel 导入新一批达人；导出本月明细。',
@@ -956,7 +953,7 @@ export const marketingKOLTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a KOL collab lead focused on business outcomes.',
+      role: caseRole('a KOL collab lead', 'en'),
       goal: 'Make every creator collab\'s progress auditable; stop the "I thought it was posted" trap.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Creator list: handle, platform, followers, fee, owner, current step, last update, notes.\n2. Five-dot bar: outreach / sample sent / sample received / published / retro; clicks set date.\n3. Overdue rules editable per step (default 3 / 5 / 7 / 7 / 7 days).\n4. Top "Nudge" card groups all red items.\n5. Detail drawer: notes, links to published content, metric snapshots (likes / comments / sales) for retros.\n6. Excel import; monthly export.',
@@ -1018,7 +1015,7 @@ export const legalNDAVault: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是法务/行政，关注业务结果和操作体验。',
+      role: caseRole('法务/行政', 'zh'),
       goal: '让所有 NDA 都进同一张表，查、提醒、归档都顺手。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. NDA 列表：编号（自动）、对方、签订日、有效期、范围（多选标签）、状态（生效 / 即将到期 / 已到期 / 已终止）、扫描件本地路径、备注。\n2. 顶部"到期提醒"卡片：分三档颜色（60/30/7 天）。\n3. 搜索：对方名、范围关键词；过滤：状态、签订年份。\n4. 单条详情抽屉：可双击附件路径直接打开本地 PDF / 图片。\n5. 导入：从一个文件夹批量导入扫描件，按文件名前缀建立基础记录，再手工补充。\n6. 导出：全部 NDA 索引 Excel；单个 NDA 信息卡 PDF（HTML 打印）。',
@@ -1027,7 +1024,7 @@ export const legalNDAVault: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is legal/admin focused on business outcomes.',
+      role: caseRole('legal/admin', 'en'),
       goal: 'Bring every NDA into one searchable ledger with expiry alerts.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. NDA list: auto-id, counterparty, signed date, validity, scope tags, status, scan path, notes.\n2. Top "Expiry" card with 60/30/7-day bands.\n3. Search by counterparty / scope keyword; filter by status / year.\n4. Detail drawer: double-click attachment path to open local PDF / image.\n5. Bulk import from a folder, generating base records by filename prefix.\n6. Export full index Excel; single NDA info-card PDF.',
@@ -1085,7 +1082,7 @@ export const legalTrademarkMonitor: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是法务/品牌，关注业务结果和操作体验。',
+      role: caseRole('法务/品牌', 'zh'),
       goal: '不再因为忘了续展而失去商标。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 商标列表：注册号、名称、类别（多选标签）、注册日、有效期、申请人、状态、证书本地路径。\n2. 自动算到期日并按 12 / 6 / 3 个月三档颜色提醒。\n3. 首页"今年需续展"卡片：本年内到期且未提交续展申请的全部列出。\n4. 单条详情：提交续展后填写提交日和受理号，状态转为"续展中"，到期日延后 10 年。\n5. 导出本年度续展清单 Excel 给代理机构。',
@@ -1094,7 +1091,7 @@ export const legalTrademarkMonitor: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is legal/brand focused on business outcomes.',
+      role: caseRole('legal/brand', 'en'),
       goal: 'Never lose a trademark to a missed renewal.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Trademark list: number, name, class tags, registered, expiry, applicant, status, cert path.\n2. Auto-derive expiry; alerts at 12 / 6 / 3 months with three colors.\n3. Home "This year\'s renewals" card.\n4. Detail: enter renewal submission date and receipt ID; status moves to "in renewal"; expiry +10 years.\n5. Export this-year renewal list Excel for the agent.',
@@ -1163,7 +1160,7 @@ export const dataWeeklyTrendSnapshot: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a data analyst, light coding.',
+      role: caseRole('a data analyst, light coding', 'en'),
       goal: 'Compress weekly KPI-report grind into five minutes.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; tiny inline SVG sparkline',
       features: '1. Import Excel; detect metric column + past-N-week columns; rightmost = this week.\n2. Per-metric card: current value, WoW, 4–8-week sparkline.\n3. Editable thresholds: +5% green "up"; -5% red "down"; near zero gray "flat".\n4. Editable commentary template auto-filled per direction; the user can tweak per metric.\n5. One-click export of the report as Markdown.',
@@ -1221,7 +1218,7 @@ export const dataKPIDashboard: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是业务数据负责人，关注业务结果和操作体验。',
+      role: caseRole('业务数据负责人', 'zh'),
       goal: '让自己每天关心的几个数 3 秒看完。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 指标卡定义：名称、单位、计算方式（直接录入）、目标值、阈值。\n2. 主界面：网格布局，4-12 张卡，可拖拽换位。\n3. 每张卡显示：今日值、昨日值、变化箭头、7 天迷你折线、是否达标。\n4. 数据导入：每天导入一行 Excel/CSV，按日期归档；可手工补录某天数据。\n5. "极简窗口"按钮：把窗口缩成一行水平条，常驻桌面右上角。',
@@ -1230,7 +1227,7 @@ export const dataKPIDashboard: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a business data owner focused on business outcomes.',
+      role: caseRole('a business data owner', 'en'),
       goal: 'See the few numbers you care about in 3 seconds.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Metric definition: name, unit, manual-entry calc, target, threshold.\n2. Main grid: 4–12 cards, drag to reorder.\n3. Per card: today, yesterday, change arrow, 7-day sparkline, target hit flag.\n4. Daily import from Excel/CSV one row per day; manual backfill allowed.\n5. "Minimal mode" button: shrink to a horizontal bar pinned top-right.',
@@ -1290,7 +1287,7 @@ export const adminVisitorLog: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是公司前台/行政，关注业务结果和操作体验。',
+      role: caseRole('公司前台/行政', 'zh'),
       goal: '让访客登记又快又准，月度统计一键搞定。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 主界面左侧"新增访客"表单：姓名、单位、电话、被访人（下拉，员工列表）、事由（下拉，可改）、备注；提交后右侧"在场"列表新增条目并记进入时间。\n2. "在场"列表每行有"签出"按钮，点击记离开时间，移到"今日记录"。\n3. 顶部统计卡片：今日访客数 / 在场数 / 本周 / 本月。\n4. 历史搜索：按时间段、姓名、单位、被访人。\n5. 员工列表（被访人候选）：本地维护，支持 Excel 导入。\n6. 导出本月访客 Excel。',
@@ -1299,7 +1296,7 @@ export const adminVisitorLog: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is the company receptionist/admin focused on business outcomes.',
+      role: caseRole('the company receptionist/admin', 'en'),
       goal: 'Make visitor logging fast and reliable; monthly stats in one click.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. "New visitor" form on the left: name, company, phone, host (dropdown), purpose, notes -> submit creates an "in-house" record with in-time.\n2. "In-house" right list: each row has check-out button -> records out-time and moves to "today".\n3. Top stats: today / in-house / week / month.\n4. History search by date range, name, company, host.\n5. Employee list (host candidates) locally managed; Excel import supported.\n6. Monthly export Excel.',
@@ -1357,7 +1354,7 @@ export const adminAssetInventory: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是行政/IT 资产管理员，关注业务结果和操作体验。',
+      role: caseRole('行政/IT 资产管理员', 'zh'),
       goal: '让每件资产都有据可查，离职交接和年度盘点不再手忙脚乱。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 资产列表：编号（自动）、类型（笔记本 / 显示器 / 椅子 / 投影仪 / 其他）、品牌型号、采购日、单价、领用人、位置、状态（在用 / 闲置 / 维修 / 报废）。\n2. "员工离职"操作：选择员工 -> 自动生成"待回收"清单，逐项打勾确认回收/转交。\n3. "盘点"模式：导入物理盘点 Excel，按编号比对，列出差异（找不到 / 多出 / 状态对不上）。\n4. 资产详情：变更历史时间线，每次更换领用人、位置都自动记录。\n5. 导出资产明细 Excel；打印资产标签（含编号 + 二维码占位）。',
@@ -1366,7 +1363,7 @@ export const adminAssetInventory: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is an admin/IT asset manager focused on business outcomes.',
+      role: caseRole('an admin/IT asset manager', 'en'),
       goal: 'Every asset traceable; offboarding and audits clean.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Asset list: auto-id, type (laptop / monitor / chair / projector / other), model, purchased, price, holder, location, status (in-use / idle / repair / disposed).\n2. "Offboard": pick employee -> generate to-recover list; check off each.\n3. "Audit" mode: import a count Excel; diff by id; flag missing / extra / status mismatch.\n4. Detail: change history timeline (holder, location).\n5. Export Excel; print labels (id + QR placeholder).',
@@ -1426,7 +1423,7 @@ export const productPriorityBoard: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是产品经理，关注业务结果和操作体验。',
+      role: caseRole('产品经理', 'zh'),
       goal: '让"哪个需求先做"有依据，而不是会议室里谁声音大。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 需求卡片：标题、来源（业务 / 客户 / 内部 / Bug）、价值（1-5 滑块）、工作量（1-5 滑块）、负责人、备注。\n2. 主视图：2×2 矩阵，X 轴工作量、Y 轴价值；卡片按打分自动定位，可拖动调整。\n3. 顶部"本周先做"卡片：自动列出右上象限（价值高 / 工作量低）。\n4. 列表视图作备选，可按价值、工作量、来源排序、搜索。\n5. 一键导出"本周需求优先级" Markdown，按象限分组。',
@@ -1435,7 +1432,7 @@ export const productPriorityBoard: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a PM focused on business outcomes.',
+      role: caseRole('a PM', 'en'),
       goal: 'Make "what to do next" defensible — not the loudest voice in the room.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Feature card: title, source (biz / customer / internal / bug), value slider (1–5), effort slider (1–5), owner, notes.\n2. Main view: 2×2 matrix (X = effort, Y = value); cards auto-place, draggable.\n3. Top "This week\\\'s do-first" card auto-lists the high-value/low-effort quadrant.\n4. List view as a fallback with sort/filter/search.\n5. One-click "weekly priorities" Markdown export by quadrant.',
@@ -1493,7 +1490,7 @@ export const productBetaTesterTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是产品经理，关注业务结果和操作体验。',
+      role: caseRole('产品经理', 'zh'),
       goal: '让每一位内测用户都被持续跟进，反馈被认真分类处理。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: '1. 用户列表：昵称、联系方式、来源（朋友 / 招募 / 客户）、入组日、活跃状态、上次反馈日、下次回访日、备注。\n2. 活跃规则（可改）：14 天有反馈 = 活跃；14-30 天 = 沉默；> 30 天 = 流失。\n3. 反馈记录抽屉：按时间线添加反馈，每条带标签（功能建议 / Bug / 体验 / 商务），状态（待评估 / 已采纳 / 已修复 / 不采纳）。\n4. 顶部"今日待回访"卡片：下次回访日 = 今天的全部列出。\n5. 导出"本周反馈汇总" Markdown，按类型分组、按用户加注。',
@@ -1502,7 +1499,7 @@ export const productBetaTesterTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a PM focused on business outcomes.',
+      role: caseRole('a PM', 'en'),
       goal: 'Every beta tester gets ongoing follow-up; feedback gets categorized and answered.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Tester list: handle, contact, source (friend / recruited / customer), joined, status, last feedback, next check-in, notes.\n2. Editable activity rules: feedback in 14d = active; 14–30d = quiet; > 30d = lost.\n3. Feedback timeline drawer: each item tagged (feature / bug / UX / commercial) with status (to-evaluate / adopted / fixed / declined).\n4. Top "Today\\\'s check-ins" card.\n5. Weekly feedback Markdown export, grouped by type with user notes.',
@@ -1562,7 +1559,7 @@ export const financeMonthlyBudgetTracker: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是公司财务，关注业务结果和操作体验。',
+      role: caseRole('公司财务', 'zh'),
       goal: '让每个部门的当月预算执行情况可视化，提前发现超支风险。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: `1. 导入年度预算表（部门 + 类目 + 月度预算）；每周导入一次实际支出 Excel。
@@ -1575,7 +1572,7 @@ export const financeMonthlyBudgetTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is finance staff, focused on business outcomes.',
+      role: caseRole('finance staff,', 'en'),
       goal: 'Visualize each department\'s mid-month budget execution; catch overruns early.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: `1. Import annual budget (dept + category + monthly amount); weekly import of actual spend Excel.
@@ -1637,7 +1634,7 @@ export const marketingEventChecklist: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是市场同事，关注业务结果和操作体验。',
+      role: caseRole('市场同事', 'zh'),
       goal: '让一场线下活动的所有筹备事项都按时间线井井有条，活动当天不慌。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: `1. 新建活动：名称、日期、规模（小型 < 50 / 中型 50–200 / 大型 > 200）；自动生成默认任务清单（40+ 项，按 D-30 / D-14 / D-7 / D-3 / D-1 / D 当日 / D+3 复盘 分桶）。
@@ -1650,7 +1647,7 @@ export const marketingEventChecklist: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is on the marketing team, focused on business outcomes.',
+      role: caseRole('on the marketing team,', 'en'),
       goal: 'Make every prep task for a live event ordered by timeline so the day-of is calm.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: `1. New event: name, date, scale (small < 50 / medium 50–200 / large > 200) → auto-generates a 40+ task default checklist bucketed D-30 / D-14 / D-7 / D-3 / D-1 / Day-of / D+3 retro.
@@ -1712,7 +1709,7 @@ export const hrBirthdayReminder: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是 HR 同事，关注业务结果和操作体验。',
+      role: caseRole(' HR 同事', 'zh'),
       goal: '让每位同事的生日和入职周年都被提前注意到，公司氛围更暖。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite',
       features: `1. 导入花名册 Excel（姓名 / 部门 / 生日 / 入职日 / 联系方式 / 备注）。生日字段允许"只填月日"（隐去年份）。
@@ -1725,7 +1722,7 @@ export const hrBirthdayReminder: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is on the HR team, focused on business outcomes.',
+      role: caseRole('on the HR team,', 'en'),
       goal: 'Surface every teammate\'s birthday and work anniversary in time so the workplace feels warmer.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: `1. Import roster Excel (name / dept / birthday / hire date / contact / notes). Birthday may be month-day only (year hidden).
@@ -1789,7 +1786,7 @@ export const financePlatformFeeReconciliation: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商财务同事，关注业务结果和操作体验。',
+      role: caseRole('电商财务同事', 'zh'),
       goal: '核对平台结算单中的佣金、支付手续费、技术服务费和活动扣点，找出和订单/退款数据不一致的费用。',
       platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 保存费率规则',
       features: `1. 导入订单表、退款表、平台结算表，自动识别订单号、成交金额、退款金额、费用科目、扣费金额。
@@ -1802,7 +1799,7 @@ export const financePlatformFeeReconciliation: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is on an e-commerce finance team focused on business outcomes.',
+      role: caseRole('on an e-commerce finance team', 'en'),
       goal: 'Reconcile marketplace commission, payment fees, service fees, and campaign rates against order and refund data.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON for fee rules',
       features: `1. Import orders, refunds, and settlement sheets; detect order id, order amount, refund amount, fee item, fee amount.
@@ -1864,7 +1861,7 @@ export const operationsPromotionPriceInspector: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商运营同事，关注业务结果和操作体验。',
+      role: caseRole('电商运营同事', 'zh'),
       goal: '活动上线前批量检查 SKU 到手价和毛利风险，避免活动价、券、满减叠加后低于底价。',
       platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite',
       features: `1. 导入 SKU 价格表：SKU、成本价、日常价、活动价、底价、类目、库存。
@@ -1877,7 +1874,7 @@ export const operationsPromotionPriceInspector: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is an e-commerce operations teammate focused on business outcomes.',
+      role: caseRole('an e-commerce operations teammate', 'en'),
       goal: 'Before a campaign goes live, batch-check final SKU prices and margin risk so stacked discounts do not fall below floor price.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite',
       features: `1. Import SKU price sheet: SKU, cost, normal price, campaign price, floor price, category, stock.
@@ -1939,7 +1936,7 @@ export const customerServiceCompensationDesk: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是客服主管，关注业务结果和操作体验。',
+      role: caseRole('客服主管', 'zh'),
       goal: '统一记录售后补偿，避免重复补偿、漏执行和月底无法统计。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；支持 Excel 导入导出',
       features: `1. 新增补偿记录：订单号、客户昵称/手机号、问题类型、补偿方式、金额/券额、承诺时间、负责人、状态。
@@ -1952,7 +1949,7 @@ export const customerServiceCompensationDesk: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a customer-service lead focused on business outcomes.',
+      role: caseRole('a customer-service lead', 'en'),
       goal: 'Keep after-sales compensation in one place to prevent duplicate compensation, missed execution, and messy month-end stats.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export',
       features: `1. New compensation record: order id, customer nickname/phone, issue type, compensation method, amount/coupon value, promised date, owner, status.
@@ -2014,7 +2011,7 @@ export const logisticsCarrierSlaScorecard: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是物流主管，关注业务结果和操作体验。',
+      role: caseRole('物流主管', 'zh'),
       goal: '按快递承运商统计履约表现，帮助选择更稳定的承运商并发现地区问题。',
       platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 SQLite',
       features: `1. 导入物流轨迹表（订单号、承运商、仓库、省份、揽收时间、签收时间、当前状态）和售后异常表（破损、丢件、退回、投诉）。
@@ -2027,7 +2024,7 @@ export const logisticsCarrierSlaScorecard: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a logistics lead focused on business outcomes.',
+      role: caseRole('a logistics lead', 'en'),
       goal: 'Score carrier fulfillment performance so the team can choose stable carriers and spot regional issues.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local SQLite',
       features: `1. Import shipment tracking sheet (order id, carrier, warehouse, province, pickup time, delivery time, status) and after-sales exceptions (damage, lost, return, complaint).
@@ -2089,7 +2086,7 @@ export const procurementPackagingDemandPlanner: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商采购和仓库同事，关注业务结果和操作体验。',
+      role: caseRole('电商采购和仓库同事', 'zh'),
       goal: '根据近 30 天销量、SKU 包材规则和当前包材库存，预测包材什么时候会缺，并生成采购建议。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS',
       features: `1. 导入 SKU 销量表、包材库存表、SKU-包材映射表、供应商报价表。
@@ -2102,7 +2099,7 @@ export const procurementPackagingDemandPlanner: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The users are e-commerce procurement and warehouse teammates focused on business outcomes.',
+      role: caseRole('e-commerce procurement and warehouse teammates', 'en'),
       goal: 'Use last-30-day sales, SKU packaging rules, and packaging stock to forecast shortages and generate purchase recommendations.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS',
       features: `1. Import SKU sales, packaging inventory, SKU-packaging mapping, and supplier quote sheets.
@@ -2164,7 +2161,7 @@ export const marketingLiveRoomRunOfShow: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是直播运营同事，关注业务结果和操作体验。',
+      role: caseRole('直播运营同事', 'zh'),
       goal: '把直播排品、主播话术、场控提醒和复盘记录集中管理，避免多人拿错版本。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；Excel 导入导出',
       features: `1. 导入商品清单：SKU、商品名、价格、库存、卖点、赠品、佣金、禁说词、链接。
@@ -2177,7 +2174,7 @@ export const marketingLiveRoomRunOfShow: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is a livestream operations teammate focused on business outcomes.',
+      role: caseRole('a livestream operations teammate', 'en'),
       goal: 'Manage livestream product order, host scripts, control-desk reminders, and recap records in one place so no one uses the wrong version.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; Excel import/export',
       features: `1. Import product list: SKU, name, price, stock, selling points, gifts, commission, forbidden words, link.
@@ -2252,7 +2249,7 @@ export const dataSkuProfitRadar: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The user is an e-commerce data analyst; the tool must be usable by non-technical teammates.',
+      role: caseRole('an e-commerce data analyst (tool must be usable by non-technical teammates)', 'en'),
       goal: 'Combine revenue, margin, ads, refunds, and stock turnover to find SKUs worth more resources.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS; ECharts',
       features: `1. Import sales, cost, ad spend, refund, and stock sheets; merge by SKU.
@@ -2327,7 +2324,7 @@ export const productListingQualityChecker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer building local desktop tools. The users are merchandising/product teammates; it must be usable by non-technical teammates.',
+      role: caseRole('merchandising/product teammates (must be usable by non-technical staff)', 'en'),
       goal: 'Batch-check listing materials for completeness and consistency to reduce last-minute rework before launch.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON rules',
       features: `1. Import product sheet, image list, certificate file list.

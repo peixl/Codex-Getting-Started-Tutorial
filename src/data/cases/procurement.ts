@@ -1,5 +1,5 @@
 import type { CaseBundle } from './types';
-import { composeCasePrompt } from '@/lib/promptModules';
+import { composeCasePrompt, caseRole } from '@/lib/promptModules';
 
 export const procurementPriceMonitor: CaseBundle = {
   slug: 'procurement-supplier-price-monitor',
@@ -50,7 +50,7 @@ export const procurementPriceMonitor: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司采购部的同事，关注业务结果和操作体验。',
+      role: caseRole('电商公司采购部的同事', 'zh'),
       goal: '把每周从各个供应商收来的报价集中记录、横向比较，自动发现最优价和异常涨幅，让下单更有依据。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -88,7 +88,7 @@ export const procurementPriceMonitor: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for the procurement team at an e-commerce company. User is focused on business outcomes.',
+      role: caseRole('the procurement team at an e-commerce company', 'en'),
       goal: 'Aggregate weekly supplier quotes, compare across suppliers, flag best prices and unusual increases, and support data-driven ordering.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

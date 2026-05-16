@@ -1,5 +1,5 @@
 import type { CaseBundle } from './types';
-import { composeCasePrompt } from '@/lib/promptModules';
+import { composeCasePrompt, caseRole } from '@/lib/promptModules';
 
 export const marketingCampaignAnalyzer: CaseBundle = {
   slug: 'marketing-campaign-roi-viewer',
@@ -50,7 +50,7 @@ export const marketingCampaignAnalyzer: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司市场部负责投放的同事，关注业务结果和操作体验。',
+      role: caseRole('电商公司市场部负责投放的同事', 'zh'),
       goal: '每天把各渠道的投放数据（花费、成单、销售额）录入一次，自动计算 ROI / CPA / 趋势，并生成可分享的每周日报。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -90,7 +90,7 @@ export const marketingCampaignAnalyzer: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for a marketing team at an e-commerce company. User is focused on business outcomes.',
+      role: caseRole('a marketing team at an e-commerce company', 'en'),
       goal: 'Enter daily channel campaign data (spend, orders, revenue) once, auto-compute ROI / CPA / trends, and generate a weekly report that can be shared.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript

@@ -1,5 +1,5 @@
 import type { CaseBundle } from './types';
-import { composeCasePrompt } from '@/lib/promptModules';
+import { composeCasePrompt, caseRole } from '@/lib/promptModules';
 
 export const financeReconciliation: CaseBundle = {
   slug: 'finance-order-reconciliation',
@@ -52,7 +52,7 @@ export const financeReconciliation: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 桌面小工具，目标用户是电商公司的财务人员，关注业务结果和操作体验。',
+      role: caseRole('电商公司的财务人员', 'zh'),
       goal: '解决财务每月手动对账花 1-2 天的问题。财务只需点几下按钮，就能自动完成订单与银行流水的对账，并导出差异明细。',
       platform: `- 平台：Windows 10 / 11 桌面应用
 - 框架：Electron + React + TypeScript
@@ -89,7 +89,7 @@ export const financeReconciliation: CaseBundle = {
       communication: '一次推进一件事。只有真实阻塞问题再问我。公司名、字段名用占位符（如 {{公司名}}），最后集中列出。全程中文沟通。',
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows desktop tool for the finance team at an e-commerce company. The user is focused on business outcomes.',
+      role: caseRole('the finance team at an e-commerce company', 'en'),
       goal: 'Replace 1-2 days of monthly manual reconciliation with a tool that matches orders to bank statements and exports mismatches in a few clicks.',
       platform: `- Platform: Windows 10 / 11 desktop app
 - Framework: Electron + React + TypeScript

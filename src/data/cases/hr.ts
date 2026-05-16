@@ -1,5 +1,5 @@
 import type { CaseBundle } from './types';
-import { composeCasePrompt } from '@/lib/promptModules';
+import { composeCasePrompt, caseRole } from '@/lib/promptModules';
 
 export const hrOnboardingTracker: CaseBundle = {
   slug: 'hr-onboarding-tracker',
@@ -52,7 +52,7 @@ export const hrOnboardingTracker: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长 Windows 桌面软件的资深工程师。请帮我做一个本地运行的 Windows 小工具，使用者是电商公司 HR，关注业务结果和操作体验。',
+      role: caseRole('电商公司 HR', 'zh'),
       goal: '让 HR 一眼看清每个新员工当前入职进度；领导提问 5 秒内回答；漏项降低到零。',
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
@@ -90,7 +90,7 @@ export const hrOnboardingTracker: CaseBundle = {
       ],
     }, 'zh'),
     en: composeCasePrompt({
-      role: 'You are a senior engineer experienced with Windows desktop apps. Build a local Windows tool for HR at an e-commerce company. The user cares about business outcomes.',
+      role: caseRole('HR at an e-commerce company', 'en'),
       goal: 'Instant visibility into every new hire\'s onboarding status. Zero missed items. Managers get answers in 5 seconds.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
