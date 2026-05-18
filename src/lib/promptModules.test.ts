@@ -277,7 +277,7 @@ describe('composeRecipePrompt', () => {
 
   it('auto-includes recipe constraints', () => {
     const result = composeRecipePrompt(parts, 'zh');
-    expect(result).toContain('不联网');
+    expect(result).toContain('默认本地处理');
     expect(result).toContain('不覆盖原文件');
     expect(result).toContain('sample-data');
   });

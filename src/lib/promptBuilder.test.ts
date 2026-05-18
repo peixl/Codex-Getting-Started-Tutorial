@@ -10,6 +10,10 @@ const GENERATOR_QUALITY_MARKERS = {
     '真实接线',
     'TODO',
     '3 次失败',
+    '快速启动协议',
+    '错误自救',
+    '反模式清单',
+    '完成标准',
   ],
   en: [
     'Start immediately',
@@ -19,6 +23,10 @@ const GENERATOR_QUALITY_MARKERS = {
     'real-wired',
     'TODOs',
     'fails 3 times',
+    'Quick Start Protocol',
+    'Error Recovery',
+    'Anti-Patterns',
+    'Done criteria',
   ],
 } as const;
 

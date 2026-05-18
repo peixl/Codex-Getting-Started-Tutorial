@@ -197,6 +197,26 @@ export const UI_STANDARDS_EN = `[Minimum UI Standards]
 - Error states use red border/text + specific reason + retry button
 - Consistent border-radius (6-8px recommended), soft shadows (0 2px 8px rgba(0,0,0,0.1))`;
 
+// ─── Anti-Patterns ──────────────────────────────────────────────
+
+export const ANTI_PATTERNS_ZH = `【反模式清单 — 以下行为禁止】
+- 写空函数体或 TODO 注释当完成
+- 用假数据渲染 UI 却不接通真实逻辑
+- 不安装依赖就开始写 import
+- 一次性写完所有代码再运行（应逐功能验证）
+- 报错后反复尝试同一方案超过 3 次
+- 用 console.log 代替真实的错误处理 UI
+- 忽略空状态和加载状态`;
+
+export const ANTI_PATTERNS_EN = `[Anti-Patterns — Never Do These]
+- Empty function bodies or TODO comments as "done"
+- Rendering UI with fake data without wiring real logic
+- Writing imports before installing dependencies
+- Writing all code at once then running (verify per feature instead)
+- Retrying the same failing approach more than 3 times
+- Using console.log instead of real error-handling UI
+- Ignoring empty states and loading states`;
+
 // ─── DoD / Stop-Vibe-Coding ───────────────────────────────────────
 
 export const DOD_ZH = `【DoD / 停止 Vibe Coding】
@@ -259,8 +279,8 @@ export const ACCEPTANCE_COMMON_EN = {
 
 // ─── Recipe Constraints (shorter, inline format) ───────────────────
 
-export const RECIPE_CONSTRAINTS_ZH = `- 约束：本地离线/不联网；不覆盖原文件；不造包名；缺真实数据先造脱敏 sample-data。`;
-export const RECIPE_CONSTRAINTS_EN = `- Constraints: local/offline; never overwrite originals; no fake packages; make anonymized sample-data first.`;
+export const RECIPE_CONSTRAINTS_ZH = `- 约束：默认本地处理，联网须加密并告知用户；不覆盖原文件；不造包名；缺真实数据先造脱敏 sample-data。`;
+export const RECIPE_CONSTRAINTS_EN = `- Constraints: process locally by default, network calls require encryption and user consent; never overwrite originals; no fake packages; make anonymized sample-data first.`;
 
 // ─── Communication Defaults ──────────────────────────────────────
 

@@ -57,7 +57,7 @@ export const financeReconciliation: CaseBundle = {
       platform: `- 平台：Windows 10 / 11 桌面应用
 - 框架：Electron + React + TypeScript
 - 表格处理：SheetJS
-- 不需要服务器，不需要联网，纯本地运行
+- 默认本地处理；联网传输须加密并告知用户
 - 交付时打包成 Windows .exe 安装包`,
       features: `1. 首页两个醒目按钮：「导入订单 Excel」「导入银行流水 Excel」，支持拖拽。
 2. 导入后自动显示表头和前 5 行预览，让用户从下拉框里选「订单号」「金额」「交易时间」「备注」字段。记住选择下次默认回填。
@@ -98,7 +98,7 @@ bank.xlsx — 列：交易单号, 收入金额, 交易时间, 摘要（示例：
       platform: `- Platform: Windows 10 / 11 desktop app
 - Framework: Electron + React + TypeScript
 - Spreadsheet parsing: SheetJS
-- No servers, no network required
+- Process locally by default; network calls require encryption and user consent
 - Deliver a Windows .exe installer`,
       features: `1. Home screen with two prominent buttons: "Import Orders Excel" and "Import Bank Excel". Drag-and-drop works.
 2. After import, show headers and first 5 rows. Let the user pick Order ID / Amount / Transaction Time / Notes columns from dropdowns. Remember and pre-fill next time.
@@ -106,7 +106,7 @@ bank.xlsx — 列：交易单号, 收入金额, 交易时间, 摘要（示例：
 4. "Reconcile" button triggers a progress bar. Rule: trim order IDs and use them as keys; difference <= 0.01 = match; duplicate order IDs are grouped and flagged; refunds / reversals are tagged separately, not treated as ordinary mismatches.
 5. Results page has two panes. Left: matched count, mismatched count, match rate, total amount. Right: a mismatch table with order ID, order amount, bank amount, diff, reason (amounts differ / missing in bank / missing in orders / duplicate order / likely refund).
 6. "Export mismatches to Excel" with default filename "diff-YYYY-MM.xlsx".
-7. Fully offline; no uploads.`,
+7. Process locally by default; network calls require encryption and user consent.`,
       style: `- Minimal desktop-tool style: light background, clear sections, radius 8, moderate information density.
 - Primary button: muted dark. Secondary: light gray.
 - Follows Windows light/dark setting.

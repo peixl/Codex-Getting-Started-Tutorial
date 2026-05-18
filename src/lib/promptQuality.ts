@@ -3,6 +3,8 @@ import {
   QUICK_START_EN,
   SAFETY_RULES_ZH,
   SAFETY_RULES_EN,
+  ANTI_PATTERNS_ZH,
+  ANTI_PATTERNS_EN,
   type ModuleLang,
 } from './promptModules';
 
@@ -11,25 +13,7 @@ export type PromptQualityLang = ModuleLang;
 const QUALITY_MARKER_ZH = '【高质量交付补充】';
 const QUALITY_MARKER_EN = '[High-Quality Delivery Addendum]';
 
-// ─── Anti-Patterns ───────────────────────────────────────────────
-
-const ANTI_PATTERNS_ZH = `【反模式清单 — 以下行为禁止】
-- 写空函数体或 TODO 注释当完成
-- 用假数据渲染 UI 却不接通真实逻辑
-- 不安装依赖就开始写 import
-- 一次性写完所有代码再运行（应逐功能验证）
-- 报错后反复尝试同一方案超过 3 次
-- 用 console.log 代替真实的错误处理 UI
-- 忽略空状态和加载状态`;
-
-const ANTI_PATTERNS_EN = `[Anti-Patterns — Never Do These]
-- Empty function bodies or TODO comments as "done"
-- Rendering UI with fake data without wiring real logic
-- Writing imports before installing dependencies
-- Writing all code at once then running (verify per feature instead)
-- Retrying the same failing approach more than 3 times
-- Using console.log instead of real error-handling UI
-- Ignoring empty states and loading states`;
+// ─── Anti-Patterns (imported from promptModules) ────────────────
 
 // ─── Quality Tail Assembly ───────────────────────────────────────
 

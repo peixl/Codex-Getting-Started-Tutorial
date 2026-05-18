@@ -1,3 +1,15 @@
+import {
+  quickStart,
+  projectStructure,
+  ERROR_RECOVERY_ZH,
+  ERROR_RECOVERY_EN,
+  DOD_ZH,
+  DOD_EN,
+  ANTI_PATTERNS_ZH,
+  ANTI_PATTERNS_EN,
+  type ModuleTech,
+} from './promptModules';
+
 export type Platform = 'windows' | 'mac' | 'both';
 export type TechStack = 'electron' | 'tauri' | 'pyqt' | 'auto';
 export type UiStyle = 'minimal' | 'dark' | 'fresh' | 'business';
@@ -242,8 +254,14 @@ ${extras.length ? `\n附加：${extras.join('；')}` : ''}
 界面：${UI_ZH[state.ui]}。${FONT_ZH[state.platform]}。
 数据：${STORAGE_ZH[state.storage]}。
 
+${quickStart(state.tech, 'zh')}
+
+${projectStructure(state.tech, 'zh')}
+
 【交付要求】
 ${deliveryRequirementsZh(state)}
+
+${ERROR_RECOVERY_ZH}
 
 【底线】
 - 默认本地处理；联网传输须加密并告知用户。
@@ -251,6 +269,10 @@ ${deliveryRequirementsZh(state)}
 - 输出不覆盖原文件，冲突加时间后缀。
 - 不把 TODO、空函数、假数据当完成。
 - 每个功能都要真实接线：按钮能点、导入能用、导出有文件。
+
+${ANTI_PATTERNS_ZH}
+
+${DOD_ZH}
 
 做完后只报：做了什么 | 如何打开 | 验证结果 | 剩余限制。
 开始。`;
@@ -278,8 +300,14 @@ Platform: ${PLATFORM_EN[state.platform]}. Stack: ${TECH_EN[state.tech]}
 Visual: ${UI_EN[state.ui]}. ${FONT_EN[state.platform]}.
 Data: ${STORAGE_EN[state.storage]}.
 
+${quickStart(state.tech, 'en')}
+
+${projectStructure(state.tech, 'en')}
+
 [Delivery Requirements]
 ${deliveryRequirementsEn(state)}
+
+${ERROR_RECOVERY_EN}
 
 [Non-Negotiables]
 - Process locally by default; network calls require encryption and user consent.
@@ -287,6 +315,10 @@ ${deliveryRequirementsEn(state)}
 - Never overwrite input files; timestamp conflicts.
 - TODOs, empty functions, or fake data do not count as done.
 - Every feature must be real-wired: buttons work, imports load, exports produce files.
+
+${ANTI_PATTERNS_EN}
+
+${DOD_EN}
 
 When done, report only: what was built | how to open | verification results | remaining limits.
 Start now.`;
