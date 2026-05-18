@@ -39,6 +39,9 @@ export const CONSTRAINTS_EN = `${SAFETY_RULES_EN}\n\n${QUALITY_RULES_EN}`;
 
 export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
   if (lang === 'zh') {
+    const techNote = tech === 'auto'
+      ? '（默认 Electron；若功能极简可选 PyQt，Rust 就绪可选 Tauri）\n'
+      : '';
     const deps = tech === 'tauri'
       ? '@tauri-apps/cli, @tauri-apps/api, react, typescript'
       : tech === 'pyqt'
@@ -50,7 +53,7 @@ export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
         ? '写最小 src/main.tsx + src-tauri/src/main.rs，确认窗口能弹出'
         : '写最小 main.ts（创建窗口）+ index.html + renderer 入口，确认窗口能弹出';
     return `【快速启动协议】
-收到提示词后立即按以下顺序执行，不要先输出方案等确认：
+${techNote}收到提示词后立即按以下顺序执行，不要先输出方案等确认：
 1. 创建项目目录，初始化配置文件
 2. 安装核心依赖：${deps}
 3. ${verify}
@@ -59,6 +62,9 @@ export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
 6. 最后补文档、打包脚本、使用说明`;
   }
 
+  const techNote = tech === 'auto'
+    ? '(Default: Electron. Use PyQt for minimal tools; Tauri only if Rust is ready.)\n'
+    : '';
   const deps = tech === 'tauri'
     ? '@tauri-apps/cli, @tauri-apps/api, react, typescript'
     : tech === 'pyqt'
@@ -70,7 +76,7 @@ export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
       ? 'Write minimal src/main.tsx + src-tauri/src/main.rs; confirm the window launches'
       : 'Write minimal main.ts (create window) + index.html + renderer entry; confirm the window launches';
   return `[Quick Start Protocol]
-Execute immediately in this order after receiving the prompt — do not output a plan and wait:
+${techNote}Execute immediately in this order after receiving the prompt — do not output a plan and wait:
 1. Create project directory, init config files
 2. Install core deps: ${deps}
 3. ${verify}

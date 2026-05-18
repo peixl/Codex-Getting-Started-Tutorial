@@ -234,7 +234,7 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
     if (state.extras.accessibility) extras.push(ACCESSIBILITY_ZH[state.platform]);
     if (custom) extras.push(custom);
 
-    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。你的任务是做出一个本地可运行的桌面工具，不是给建议。收到后直接动手实现，全程中文。
+    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。你的任务是做出一个可在本地运行的桌面工具，不是给建议。收到后直接动手实现，全程中文。
 
 【任务】
 目标：${goal || '（请补充：给谁用？解决什么问题？例："帮财务同事把每月对账从 2 天压到 1 小时"）'}
