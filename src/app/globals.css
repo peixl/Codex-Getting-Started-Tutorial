@@ -58,6 +58,14 @@ html {
 }
 
 @layer base {
+  :where(a, button, summary, label) {
+    min-width: 0;
+  }
+
+  :where(a, button, summary, label, h1, h2, h3, h4, h5, h6, p, li, span) {
+    overflow-wrap: anywhere;
+  }
+
   h1, h2, h3, h4 {
     letter-spacing: 0;
     font-feature-settings: 'ss01';
@@ -80,16 +88,42 @@ html {
   }
   .glass-pill {
     @apply inline-flex items-center gap-2 rounded-full border border-[color:var(--line)] bg-white/70 px-3.5 py-1.5 text-xs font-medium text-[color:var(--fg-secondary)] backdrop-blur-xl;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+    text-align: center;
   }
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-full border border-[color:var(--line)] bg-white/75 px-3 py-1 text-[11px] font-medium text-[color:var(--fg-secondary)] backdrop-blur-xl;
     letter-spacing: 0.01em;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+    text-align: center;
   }
   .chip-accent {
     @apply inline-flex items-center gap-1.5 rounded-full bg-[color:var(--accent-soft)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[color:var(--accent)];
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+    text-align: center;
   }
   .btn {
     @apply focus-ring inline-flex select-none items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 will-change-transform;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .glass-pill > svg,
+  .chip > svg,
+  .chip-accent > svg,
+  .btn > svg {
+    flex-shrink: 0;
   }
   .btn-primary {
     @apply btn bg-[color:var(--fg-primary)] text-white hover:-translate-y-0.5 active:translate-y-0;

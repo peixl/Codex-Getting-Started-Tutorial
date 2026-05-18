@@ -317,7 +317,7 @@ function OptionCard({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        'focus-ring relative w-full overflow-hidden rounded-2xl border px-4 py-3 text-left transition-all duration-200',
+        'focus-ring relative min-w-0 w-full overflow-hidden rounded-2xl border px-4 py-3 text-left transition-all duration-200',
         hasMeta ? 'flex min-h-[88px] flex-col justify-between' : 'flex min-h-[76px] items-center',
         active
           ? 'border-[color:var(--accent)] bg-[linear-gradient(135deg,rgba(10,132,255,0.14),rgba(255,255,255,0.96))] pl-5 shadow-[0_0_0_1px_rgba(10,132,255,0.24),0_14px_34px_rgba(10,132,255,0.14)] ring-2 ring-[rgba(10,132,255,0.2)]'
@@ -328,11 +328,11 @@ function OptionCard({
         <span className="absolute inset-y-3 left-0 w-1 rounded-r-full bg-[color:var(--accent)]" aria-hidden="true" />
       )}
       {hasMeta && (
-        <span className="flex w-full items-center justify-between gap-2" aria-hidden="true">
+        <span className="flex w-full min-w-0 items-start gap-2" aria-hidden="true">
           {icon ? (
             <span
               className={cn(
-                'inline-flex h-8 min-w-8 shrink-0 items-center justify-center rounded-xl border px-1 transition-colors duration-200',
+                'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border px-1 transition-colors duration-200',
                 active
                   ? 'border-[rgba(10,132,255,0.28)] bg-white/80 text-accent'
                   : 'border-[color:var(--line)] bg-white/60 text-ink'
@@ -340,14 +340,12 @@ function OptionCard({
             >
               {icon}
             </span>
-          ) : (
-            <span className="h-8 min-w-0" />
-          )}
-          <span className="flex shrink-0 items-center gap-1.5">
+          ) : null}
+          <span className="ml-auto flex min-w-0 max-w-full flex-wrap items-center justify-end gap-1.5">
             {badge && (
               <span
                 className={cn(
-                  'rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider',
+                  'max-w-full rounded-full px-2 py-0.5 text-center text-[10px] font-semibold leading-[1.2] tracking-normal',
                   active ? 'bg-[color:var(--accent)] text-white' : 'bg-accent-soft text-accent'
                 )}
               >

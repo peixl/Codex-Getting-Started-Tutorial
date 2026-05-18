@@ -52,7 +52,8 @@ secrets.json
 next-env.d.ts
 
 # editor
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 *.swp
 

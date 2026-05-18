@@ -116,11 +116,11 @@ export function CasesExplorer({ cases, locale, dict }: Props) {
                 key={c.slug}
                 className="flex h-full flex-col p-6 transition duration-500 hover:-translate-y-0.5 hover:shadow-lift"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-[color:var(--line)] bg-white/80 text-ink">
                     {deptIcons[c.department]}
                   </div>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex min-w-0 flex-wrap items-center justify-end gap-1.5">
                     <span className="chip">{copy.departmentLabel}</span>
                     <span className="chip">
                       <WindowsIcon size={10} />

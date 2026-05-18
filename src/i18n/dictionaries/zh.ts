@@ -93,7 +93,7 @@ export const zh = {
     caseTeaserMore: '浏览全部部门案例',
 
     trustTitle: '承诺',
-    trustLine1: '案例来自真实场景，提示词经过验证。',
+    trustLine1: '真实案例，提示词已验证。',
     trustLine2: '中英双语，国内打开快。',
     trustLine3: '开源透明。',
   },

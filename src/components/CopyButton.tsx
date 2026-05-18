@@ -88,15 +88,17 @@ export function CopyButton({
       aria-disabled={disabled || undefined}
       title={disabled ? disabledTitle : undefined}
       className={cn(
-        'focus-ring inline-flex items-center gap-2 font-medium transition',
+        'focus-ring inline-flex max-w-full min-w-0 items-center justify-center gap-2 text-center font-medium leading-snug transition',
         padding,
         styles,
         disabled && 'cursor-not-allowed opacity-50 hover:translate-y-0',
         className
       )}
     >
-      {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
-      <span>{failed ? failedLabel : copied ? copiedLabel : label}</span>
+      <span className="shrink-0">
+        {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
+      </span>
+      <span className="min-w-0 break-words">{failed ? failedLabel : copied ? copiedLabel : label}</span>
     </button>
   );
 }
