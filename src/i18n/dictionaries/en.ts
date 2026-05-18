@@ -63,7 +63,7 @@ export const en = {
       'Codex writes, runs, fixes, and verifies. When a window appears, your tool is ready.',
 
     featuresTitle: 'Why it works when you know the work',
-    featuresSubtitle: 'No command line. No GitHub.',
+    featuresSubtitle: 'No programming knowledge required. No commands to write.',
     feature1Title: 'Business language first',
     feature1Body:
       'Start with the scenario, flow, and acceptance criteria. Technical details come later.',

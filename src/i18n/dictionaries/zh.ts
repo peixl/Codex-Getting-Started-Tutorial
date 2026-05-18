@@ -64,7 +64,7 @@ export const zh = {
       'Codex 会自动编写、运行、修正和验证。窗口弹出的那一刻，工具就做好了。',
 
     featuresTitle: '为什么懂业务就够了',
-    featuresSubtitle: '不需要命令行，也不需要 GitHub。',
+    featuresSubtitle: '不需要会编程，也不需要写命令。',
     feature1Title: '业务语言优先',
     feature1Body:
       '先说场景、流程和验收标准，技术细节交给 Codex。',
