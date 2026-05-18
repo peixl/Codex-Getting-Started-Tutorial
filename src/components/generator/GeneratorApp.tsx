@@ -62,7 +62,7 @@ export function GeneratorApp({ locale, dict }: Props) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as { state?: FormState };
-        if (parsed.state) setState(normalizeFormState(parsed.state)); // eslint-disable-line react-hooks/set-state-in-effect -- hydration-safe localStorage restore
+        if (parsed.state) setState(normalizeFormState(parsed.state));
       }
       const historyRaw = window.localStorage.getItem(HISTORY_KEY);
       if (historyRaw) {
@@ -75,7 +75,7 @@ export function GeneratorApp({ locale, dict }: Props) {
   }, []);
 
   useEffect(() => {
-    setLang(locale); // eslint-disable-line react-hooks/set-state-in-effect -- sync prompt lang with locale
+    setLang(locale);
   }, [locale]);
 
   useEffect(() => {
