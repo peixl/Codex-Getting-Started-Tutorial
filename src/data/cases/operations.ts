@@ -67,6 +67,9 @@ export const operationsCampaign: CaseBundle = {
 - 四列列头用柔和不同色（蓝 / 橙红 / 绿 / 紫），饱和度低。
 - 拖拽时卡片轻微放大、阴影加深。
 - 深浅模式跟随系统。`,
+      sampleData: `sample-data/ 中放一个 campaign-tasks.xlsx：
+列：大促名称, 任务名, 负责人, 截止日期, 状态（示例：双11, 主图更新, 张三, 2024-10-25, 进行中）
+包含 2 个大促 × 各 8 条任务，覆盖待开始/进行中/已完成/已逾期。`,
       robustness: `- 所有操作自动本地保存。
 - 每天自动备份到 backup 文件夹，保留 7 天。
 - Excel 字段错时友好提示。`,

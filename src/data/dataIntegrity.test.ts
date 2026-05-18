@@ -59,13 +59,13 @@ describe('case prompt quality markers', () => {
 
   it('every zh prompt contains constraints', () => {
     for (const { slug, prompt } of zhCases) {
-      expect(prompt, `${slug} zh missing 约束`).toContain('【约束】');
+      expect(prompt, `${slug} zh missing 安全底线`).toContain('【安全底线】');
     }
   });
 
   it('every en prompt contains constraints', () => {
     for (const { slug, prompt } of enCases) {
-      expect(prompt, `${slug} en missing Constraints`).toContain('[Constraints]');
+      expect(prompt, `${slug} en missing Safety Rules`).toContain('[Safety Rules]');
     }
   });
 
@@ -93,26 +93,24 @@ describe('case prompt quality markers', () => {
     }
   });
 
-  it('every zh prompt has quality bar (DoD)', () => {
+  it('every zh prompt has quality bar', () => {
     for (const { slug, prompt } of zhCases) {
-      expect(prompt, `${slug} zh missing DoD`).toContain('停止 Vibe Coding');
+      expect(prompt, `${slug} zh missing quality bar`).toContain('【高质量交付补充】');
     }
   });
 
-  it('every en prompt has quality bar (DoD)', () => {
+  it('every en prompt has quality bar', () => {
     for (const { slug, prompt } of enCases) {
-      expect(prompt, `${slug} en missing DoD`).toContain('Stop-Vibe-Coding');
+      expect(prompt, `${slug} en missing quality bar`).toContain('[High-Quality Delivery Addendum]');
     }
   });
 
-  it('every prompt tells Codex to create sample data and smoke test it', () => {
+  it('every prompt tells Codex to create sample data', () => {
     for (const { slug, prompt } of zhCases) {
       expect(prompt, `${slug} zh missing sample-data`).toContain('sample-data');
-      expect(prompt, `${slug} zh missing smoke test`).toContain('烟测');
     }
     for (const { slug, prompt } of enCases) {
       expect(prompt, `${slug} en missing sample-data`).toContain('sample-data');
-      expect(prompt, `${slug} en missing smoke test`).toContain('Smoke test');
     }
   });
 });
@@ -192,14 +190,12 @@ describe('recipe prompt quality markers', () => {
     }
   });
 
-  it('every recipe prompt tells Codex to create sample data and smoke test it', () => {
+  it('every recipe prompt tells Codex to create sample data', () => {
     for (const r of recipes) {
       const zhPrompt = getRecipePrompt(r, 'zh');
       const enPrompt = getRecipePrompt(r, 'en');
       expect(zhPrompt, `${r.id} zh missing sample-data`).toContain('sample-data');
-      expect(zhPrompt, `${r.id} zh missing smoke test`).toContain('烟测');
       expect(enPrompt, `${r.id} en missing sample-data`).toContain('sample-data');
-      expect(enPrompt, `${r.id} en missing smoke test`).toContain('Smoke test');
     }
   });
 });

@@ -5,52 +5,112 @@
  */
 
 export type ModuleLang = 'zh' | 'en';
+export type ModuleTech = 'electron' | 'tauri' | 'pyqt' | 'auto';
 
-// ─── Shared Constraints ───────────────────────────────────────────
+// ─── Safety Rules (non-negotiable baseline) ─────────────────────
 
-export const CONSTRAINTS_ZH = `【约束】
-- 收到提示词后直接动手实现，不要先问方案、不要等确认。
-- 全部本地处理，数据不上传外部服务。
-- 缺真实数据时先造脱敏 sample-data，不等用户提供文件才开工。
-- 不引入不存在的 npm 包；不确定时先查 npm view。
+export const SAFETY_RULES_ZH = `【安全底线】
+- 默认本地处理；需要联网时须加密传输并明确告知用户。
 - 不写死 API Key、绝对路径、个人邮箱或内网地址。
 - 输出不覆盖原文件，冲突加时间后缀。
-- 同一问题 3 次失败 → 降级边缘功能，先交付主流程。
-- 每个功能写完立即运行验证，不要攒到最后才测。`;
+- 不引入不存在的 npm 包；不确定时先查 npm view。
+- 缺真实数据时先造脱敏 sample-data，不等用户提供文件才开工。`;
 
-export const CONSTRAINTS_EN = `[Constraints]
-- Start implementing immediately after receiving this prompt. Do not ask for confirmation or present a plan first.
-- All processing local; no data uploads.
-- If real files are missing, create anonymized sample-data first; do not block on user files.
-- Do not invent npm packages; verify with npm view first.
+export const SAFETY_RULES_EN = `[Safety Rules]
+- Process locally by default; network calls require encryption and explicit user consent.
 - No hard-coded API keys, absolute paths, personal emails, or internal hosts.
 - Never overwrite inputs; timestamp conflicts.
-- Same bug fails 3 times → downgrade edge features, ship the main flow.
-- Verify each feature immediately after writing it; do not batch all testing to the end.`;
+- Do not invent npm packages; verify with npm view first.
+- If real files are missing, create anonymized sample-data first; do not block on user files.`;
+
+// ─── Quality Rules (execution discipline) ────────────────────────
+
+export const QUALITY_RULES_ZH = `【执行纪律】
+- 收到提示词后直接动手实现，不要先问方案、不要等确认。
+- 每个功能写完立即运行验证，不要攒到最后才测。
+- 同一问题 3 次失败 → 降级边缘功能，先交付主流程。`;
+
+export const QUALITY_RULES_EN = `[Execution Discipline]
+- Start implementing immediately after receiving this prompt. Do not ask for confirmation or present a plan first.
+- Verify each feature immediately after writing it; do not batch all testing to the end.
+- Same bug fails 3 times → downgrade edge features, ship the main flow.`;
+
+// Keep legacy exports for backward compatibility with tests
+export const CONSTRAINTS_ZH = `${SAFETY_RULES_ZH}\n\n${QUALITY_RULES_ZH}`;
+export const CONSTRAINTS_EN = `${SAFETY_RULES_EN}\n\n${QUALITY_RULES_EN}`;
 
 // ─── Quick Start Protocol ────────────────────────────────────────
 
-export const QUICK_START_ZH = `【快速启动协议】
+export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
+  if (lang === 'zh') {
+    const deps = tech === 'tauri'
+      ? '@tauri-apps/cli, @tauri-apps/api, react, typescript'
+      : tech === 'pyqt'
+        ? 'python ≥3.10, pyqt6（用 venv 或 uv 管理）'
+        : 'electron, react, react-dom, typescript, @types/react';
+    const verify = tech === 'pyqt'
+      ? '写最小 main.py（创建窗口），确认窗口能弹出'
+      : tech === 'tauri'
+        ? '写最小 src/main.tsx + src-tauri/src/main.rs，确认窗口能弹出'
+        : '写最小 main.ts（创建窗口）+ index.html + renderer 入口，确认窗口能弹出';
+    return `【快速启动协议】
 收到提示词后立即按以下顺序执行，不要先输出方案等确认：
-1. 创建项目目录，初始化 package.json + tsconfig.json
-2. 安装核心依赖：electron, react, react-dom, typescript, @types/react
-3. 写最小 main.ts（创建窗口）+ index.html + renderer 入口，确认窗口能弹出
+1. 创建项目目录，初始化配置文件
+2. 安装核心依赖：${deps}
+3. ${verify}
 4. 创建 sample-data/ 目录，放入贴近业务的脱敏示例数据
 5. 按功能逐个实现，每完成一个功能立即运行验证
 6. 最后补文档、打包脚本、使用说明`;
+  }
 
-export const QUICK_START_EN = `[Quick Start Protocol]
+  const deps = tech === 'tauri'
+    ? '@tauri-apps/cli, @tauri-apps/api, react, typescript'
+    : tech === 'pyqt'
+      ? 'python ≥3.10, pyqt6 (use venv or uv)'
+      : 'electron, react, react-dom, typescript, @types/react';
+  const verify = tech === 'pyqt'
+    ? 'Write minimal main.py (create window); confirm the window launches'
+    : tech === 'tauri'
+      ? 'Write minimal src/main.tsx + src-tauri/src/main.rs; confirm the window launches'
+      : 'Write minimal main.ts (create window) + index.html + renderer entry; confirm the window launches';
+  return `[Quick Start Protocol]
 Execute immediately in this order after receiving the prompt — do not output a plan and wait:
-1. Create project directory, init package.json + tsconfig.json
-2. Install core deps: electron, react, react-dom, typescript, @types/react
-3. Write minimal main.ts (create window) + index.html + renderer entry; confirm the window launches
+1. Create project directory, init config files
+2. Install core deps: ${deps}
+3. ${verify}
 4. Create sample-data/ with realistic anonymized business data
 5. Implement features one by one; verify each immediately after writing
 6. Finish with docs, packaging scripts, and user guide`;
+}
+
+export const QUICK_START_ZH = quickStart('electron', 'zh');
+export const QUICK_START_EN = quickStart('electron', 'en');
 
 // ─── Project Structure ───────────────────────────────────────────
 
-export const PROJECT_STRUCTURE_ZH = `【项目结构】
+export function projectStructure(tech: ModuleTech, lang: ModuleLang): string {
+  if (lang === 'zh') {
+    if (tech === 'tauri') {
+      return `【项目结构】
+├── src/               # React UI（pages, components, hooks）
+├── src-tauri/src/     # Rust 后端（commands, state）
+├── src/core/          # 纯业务逻辑（可独立测试）
+├── sample-data/       # 脱敏示例数据
+├── scripts/           # dev / build / package 脚本
+├── docs/              # 使用说明 + 已知限制
+└── package.json`;
+    }
+    if (tech === 'pyqt') {
+      return `【项目结构】
+├── src/               # 主程序（main.py, windows, widgets）
+├── src/core/          # 纯业务逻辑（可独立测试）
+├── ui/                # Qt Designer .ui 文件（如有）
+├── sample-data/       # 脱敏示例数据
+├── scripts/           # dev / build / package 脚本
+├── docs/              # 使用说明 + 已知限制
+└── requirements.txt`;
+    }
+    return `【项目结构】
 ├── src/main/          # Electron 主进程（main.ts, preload.ts）
 ├── src/renderer/      # React UI（pages, components, hooks）
 ├── src/core/          # 纯业务逻辑（可独立测试，不依赖 Electron）
@@ -59,8 +119,29 @@ export const PROJECT_STRUCTURE_ZH = `【项目结构】
 ├── scripts/           # dev / build / package 脚本
 ├── docs/              # 使用说明 + 已知限制
 └── package.json       # 入口、脚本、依赖`;
+  }
 
-export const PROJECT_STRUCTURE_EN = `[Project Structure]
+  if (tech === 'tauri') {
+    return `[Project Structure]
+├── src/               # React UI (pages, components, hooks)
+├── src-tauri/src/     # Rust backend (commands, state)
+├── src/core/          # Pure business logic (testable independently)
+├── sample-data/       # Anonymized sample data
+├── scripts/           # dev / build / package scripts
+├── docs/              # User guide + known limitations
+└── package.json`;
+  }
+  if (tech === 'pyqt') {
+    return `[Project Structure]
+├── src/               # Main app (main.py, windows, widgets)
+├── src/core/          # Pure business logic (testable independently)
+├── ui/                # Qt Designer .ui files (if any)
+├── sample-data/       # Anonymized sample data
+├── scripts/           # dev / build / package scripts
+├── docs/              # User guide + known limitations
+└── requirements.txt`;
+  }
+  return `[Project Structure]
 ├── src/main/          # Electron main process (main.ts, preload.ts)
 ├── src/renderer/      # React UI (pages, components, hooks)
 ├── src/core/          # Pure business logic (testable, no Electron deps)
@@ -69,6 +150,10 @@ export const PROJECT_STRUCTURE_EN = `[Project Structure]
 ├── scripts/           # dev / build / package scripts
 ├── docs/              # User guide + known limitations
 └── package.json       # entry, scripts, dependencies`;
+}
+
+export const PROJECT_STRUCTURE_ZH = projectStructure('electron', 'zh');
+export const PROJECT_STRUCTURE_EN = projectStructure('electron', 'en');
 
 // ─── Error Recovery ──────────────────────────────────────────────
 
@@ -116,13 +201,13 @@ export const UI_STANDARDS_EN = `[Minimum UI Standards]
 
 export const DOD_ZH = `【DoD / 停止 Vibe Coding】
 完成标准（逐条检查，全部通过才停手）：
-□ 能启动；示例数据跑通真实主流程并产生产物
+□ 能启动；示例数据跑通主流程并产生产物
 □ 异常路径友好（空数据、错格式、取消、重名冲突 → 不闪退）
 □ UI 符合最低视觉标准（字号层级清晰、间距舒适、空状态有引导）
 □ lint/typecheck/test/build 通过
-□ 已用 sample-data 完成 启动 → 主流程 → 导出/保存 烟测，并记录结果
+□ 已用 sample-data 完成 启动 → 主流程 → 导出/保存 烟测
 □ 有 setup/dev/package 脚本、README、使用说明、已知限制、示例数据
-满足即停，新想法写 v2；同一 bug 3 次失败就降级或禁用边缘功能，先交付主流程。`;
+满足即停，新想法写 v2。`;
 
 export const DOD_EN = `[DoD / Stop-Vibe-Coding]
 Done criteria (check each — all must pass before reporting):
@@ -132,29 +217,25 @@ Done criteria (check each — all must pass before reporting):
 ☐ lint/typecheck/test/build pass
 ☐ Smoke test: launch → main flow → export/save with sample-data; note result
 ☐ setup/dev/package scripts, README, guide, limits, and samples exist
-Stop; new ideas go to v2. Same bug fails 3 times: downgrade/disable the edge feature and ship the main flow.`;
+Stop; new ideas go to v2.`;
 
 // ─── Desktop Delivery Contract ────────────────────────────────────
 
 export const DELIVERY_CONTRACT_ZH = `【桌面交付契约】
 - 交付本地可运行应用，不是方案；第一屏就是主工作台。M1≤15 分钟先出可启动窗口+示例数据/试用模式，M2 接通真实主流程，M3 补异常/UI/隐私，M4 测试+打包+文档。
-- 没有用户真实文件时，先创建贴近业务的脱敏 sample-data 并继续推进。
-- 每个里程碑卡住时的降级策略：M1 卡住 → 换更简单的实现方式先出窗口；M2 卡住 → 先跑通核心 3 步，边缘路径后面补；同一问题 3 次失败 → 降级或禁用边缘功能，先交付主流程。
-- 每次汇报≤6行：完成、验证、跳过原因、下一步+预计时间，让进度清楚。
+- 每个里程碑卡住时的降级策略：M1 卡住 → 换更简单的实现方式先出窗口；M2 卡住 → 先跑通核心 3 步，边缘路径后面补。
+- 每次汇报≤6行：完成、验证、跳过原因、下一步+预计时间。
 - 用业务语言写按钮、错误和说明；支持拖拽+系统打开/保存；空/错格式/取消/无权限/大文件/重名冲突都友好处理，不暴露堆栈。
 - 路径兼容中文、空格、括号、长路径和 Windows/macOS 分隔差异；Windows 快捷键用 Ctrl/Alt，macOS 用 Command/Option。
-- 默认离线、本地处理；不覆盖原文件；不写死密钥、绝对路径、个人邮箱或内网地址。
 - 项目分层：desktop shell / controlled API / UI / core / tests / sample-data / docs；IPC 白名单化，UI 不直接执行本地命令。
 - 真实接线：导入、预览、生成/保存、导出、错误状态都可用；不把 TODO、空函数、未用大组件或假数据当完成。`;
 
 export const DELIVERY_CONTRACT_EN = `[Desktop Delivery Contract]
 - Runnable local app, not advice; workspace first. M1≤15 min gets a launchable window + sample/demo data; M2 real flow; M3 errors/UI/privacy; M4 tests+package+docs.
-- No files? make anonymized sample-data; continue.
-- Milestone fallbacks: M1 stalls → simplify approach, get a window up first; M2 stalls → wire core 3 steps, fill edges later; same bug fails 3 times → downgrade/disable edge features, ship the main flow.
+- Milestone fallbacks: M1 stalls → simplify approach, get a window up first; M2 stalls → wire core 3 steps, fill edges later.
 - Updates ≤6 lines: done, verification, skipped reason, next+ETA.
 - Business labels/errors/help; drag/drop + native open/save; bad/cancel/no-permission/large/conflict cases are friendly, no raw stacks.
 - Paths handle Chinese, spaces, parentheses, long paths, and Windows/macOS separators; use Ctrl/Alt on Windows and Command/Option on macOS.
-- Offline/local; never overwrite inputs; no hard-coded secrets, absolute paths, personal emails, or internal hosts.
 - Layers: shell / controlled API / UI / core / tests / sample-data / docs; IPC allowlisted; renderer never runs local commands.
 - Real wiring: import, preview, generate/save, export, and error states work; TODOs, empty functions, or fake data do not count as done.`;
 
@@ -239,8 +320,8 @@ export function acceptanceChecklist(items: string[], lang: ModuleLang): string {
 // ─── Incremental Helper ───────────────────────────────────────────
 // Appends shared constraints to an existing prompt (idempotent via marker).
 
-const CONSTRAINTS_MARKER_ZH = '【约束】';
-const CONSTRAINTS_MARKER_EN = '[Constraints]';
+const CONSTRAINTS_MARKER_ZH = '【安全底线】';
+const CONSTRAINTS_MARKER_EN = '[Safety Rules]';
 
 export function withSharedConstraints(prompt: string, lang: ModuleLang): string {
   const marker = lang === 'zh' ? CONSTRAINTS_MARKER_ZH : CONSTRAINTS_MARKER_EN;
@@ -256,6 +337,7 @@ type CaseSections = {
   goal: string;
   platform: string;
   features: string;
+  sampleData?: string;
   style?: string;
   robustness?: string;
   extra?: string;
@@ -275,6 +357,10 @@ export function composeCasePrompt(sections: CaseSections, lang: ModuleLang): str
   parts.push(lang === 'zh' ? '【核心功能】' : '[Core Features]');
   parts.push(sections.features);
 
+  if (sections.sampleData) {
+    parts.push(lang === 'zh' ? '【示例数据格式】' : '[Sample Data Format]');
+    parts.push(sections.sampleData);
+  }
   if (sections.style) {
     parts.push(lang === 'zh' ? '【界面风格】' : '[Visual Style]');
     parts.push(sections.style);

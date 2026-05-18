@@ -169,221 +169,50 @@ function packageLine(platform: Platform, lang: PromptLang) {
   }
 }
 
-function deliveryZh(complexity: Complexity): string {
-  if (complexity === 'starter') {
-    return `1. 先给 ≤6 行摘要：目标 / 主流程 / 技术栈 / M1。
-2. 只问真实阻塞问题（真实文件、账号、证书、不可逆操作）；其他合理假设并继续。
-3. M1≤15 分钟：可启动窗口 + 主工作台 + 脱敏 sample-data/试用模式 + 一行假结果，先让用户看到成果。M1 卡住 → 换更简单的实现方式，不要死磕。
-4. M2 接通真实主流程并跑示例数据；随后补最必要的错误提示、测试、打包脚本和说明。同一问题 3 次失败 → 降级边缘功能，先交付主流程。`;
-  }
-
-  if (complexity === 'advanced') {
-    return `1. 先给 ≤8 行摘要：目标 / 主流程 / 技术栈 / 验收 / M1 / 风险。
-2. 最多问 3 个真实阻塞问题；其他合理假设并继续实现、运行、修复、验证。
-3. M1≤15 分钟：可启动窗口 + 主工作台 + 脱敏 sample-data/试用模式 + 一行假结果。M1 卡住 → 换更简单方案先出窗口。
-4. M2 接通真实主流程：导入/填写 → 预览 → 生成/保存。M2 卡住 → 先跑通核心 3 步，边缘路径后面补。
-5. M3 补设置、历史、批量、权限/隐私、撤销/恢复和团队使用状态；M4 跑完整验证、打包、文档。
-6. 里程碑汇报 ≤6 行：完成 / 验证 / 跳过原因 / 下一步+预计时间。同一问题 3 次失败 → 降级或禁用，先交付主流程。`;
-  }
-
-  return `1. 先给 ≤8 行摘要：目标 / 主流程 / 技术栈 / 验收 / M1。
-2. 最多问 3 个真实阻塞问题（真实文件、账号、证书、不可逆操作）；其他合理假设并继续。
-3. M1≤15 分钟：可启动窗口 + 主工作台 + 脱敏 sample-data/试用模式 + 一行假结果，先让用户看到成果。M1 卡住 → 换方案先出窗口。
-4. M2 接通真实主流程：导入/填写 → 预览 → 生成/保存；M3 补异常、隐私、撤销/恢复、UI；M4 测试、打包、文档。
-5. 里程碑汇报 ≤6 行，只写：完成 / 验证 / 跳过原因 / 下一步+预计时间。同一问题 3 次失败 → 降级边缘功能，先交付主流程。`;
-}
-
-function deliveryEn(complexity: Complexity): string {
-  if (complexity === 'starter') {
-    return `1. Start with a ≤6-line summary: goal / main flow / stack / M1.
-2. Ask only for true blockers (real files, accounts, certificates, irreversible actions); otherwise assume reasonably and continue.
-3. M1≤15 min: launchable window + workspace + anonymized sample/demo data + one fake result. If M1 stalls, simplify the approach — get a window up first.
-4. M2 wires the real main flow and runs sample data; then add essential errors, tests, package script, and guide. Same bug fails 3 times → downgrade edge features, ship the main flow.`;
-  }
-
-  if (complexity === 'advanced') {
-    return `1. Start with a ≤8-line summary: goal / main flow / stack / acceptance / M1 / risks.
-2. Ask at most 3 truly blocking questions; otherwise assume reasonably and continue implementing, running, fixing, and verifying.
-3. M1≤15 min: launchable window + workspace + anonymized sample/demo data + one fake result. If M1 stalls, simplify — get a window first.
-4. M2 wires the real main flow: import/fill → preview → generate/save. If M2 stalls, wire the core 3 steps first, fill edges later.
-5. M3 adds settings, history, batch, permissions/privacy, undo/recovery, and team-use states. M4 runs full verification, packaging, and docs.
-6. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA. Same bug fails 3 times → downgrade or disable, ship the main flow.`;
-  }
-
-  return `1. Start with a ≤8-line summary: goal / main flow / stack / acceptance / M1.
-2. Ask at most 3 truly blocking questions (real files, accounts, certificates, irreversible actions); otherwise assume reasonably and continue.
-3. M1≤15 min: launchable window + workspace + anonymized sample/demo data + one fake result. If M1 stalls, simplify — get a window up first.
-4. M2 wires the real main flow: import/fill → preview → generate/save. M3 adds errors, privacy, undo/recovery, UI. M4 runs tests, packaging, docs.
-5. Milestone updates are ≤6 lines: done / verification / skipped reason / next+ETA. Same bug fails 3 times → downgrade edge features, ship the main flow.`;
-}
-
-function dodZh(state: FormState): string {
+function deliveryRequirementsZh(state: FormState): string {
   const pack = packageLine(state.platform, 'zh');
-  if (state.complexity === 'starter') {
-    return `完成标准（逐条检查，全部通过才停手）：
-- 能双击或一条命令启动，第一屏就是主工作台。
-- 示例数据跑通真实主流程，并产生文件/图/表格等可检查产物。
-- 至少覆盖空数据、错格式、取消、重名冲突，不闪退。
-- 核心逻辑有测试；lint、类型检查、构建通过；无 TODO、空函数、假接线冒充完成。
-- 有 README、≤300 字使用说明、sample-data 和 package/dev 脚本；${pack}
-满足以上就最终汇报并停手；新想法写进已知限制。`;
-  }
-
+  const lines = [
+    '- 收到后直接动手，不要问方案、不要等确认。',
+    '- 先创建 sample-data/ 放入贴近业务的脱敏示例数据，确保首次启动就能走完主流程。',
+    '- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存。第一屏就是工作台，不做欢迎页。',
+    '- 支持拖拽导入；用系统打开/保存对话框；完成后给"打开输出文件夹"按钮。',
+    '- 每个功能写完立即运行验证，不要攒到最后。',
+    '- 空数据、格式错误、取消操作 → 弹友好中文提示，不闪退、不暴露技术错误。',
+    '- 路径兼容中文、空格、括号；适配深浅模式。',
+    `- ${pack}`,
+    '- 附 ≤500 字中文使用说明 + README。',
+    '- 同一问题连续 3 次失败 → 降级该功能，先保主流程能跑。',
+  ];
   if (state.complexity === 'advanced') {
-    return `完成标准（逐条检查，全部通过才停手）：
-- 能双击或一条命令启动，第一屏就是主工作台。
-- 示例数据和至少 2 个异常样例跑通真实主流程，并产生可检查产物。
-- 空数据、错格式、取消、无权限、重名冲突、大文件、重复数据都有友好状态，不闪退。
-- lint、类型检查、测试、构建通过；核心逻辑、导入导出、错误分支都有自动化测试；无 TODO、空函数、假接线冒充完成。
-- 有 setup/dev/package 脚本、README、≤500 字使用说明、已知限制（含 v2 想法）、sample-data、恢复/备份说明，以及 ${pack}
-满足以上就最终汇报并停手；新想法写进已知限制。同一问题连续 3 次失败就降级或禁用边缘功能，先交付主流程。`;
+    lines.splice(6, 0,
+      '- 加设置页、历史记录、批量处理；危险操作二次确认并可恢复。',
+    );
   }
-
-  return `完成标准（逐条检查，全部通过才停手）：
-- 能双击或一条命令启动，第一屏就是主工作台。
-- 示例数据跑通真实主流程，并产生文件/图/表格等可检查产物。
-- 空数据、错格式、取消、无权限、重名冲突、大文件都有友好状态，不闪退。
-- lint、类型检查、测试、构建通过；核心逻辑至少 1 个自动化测试；无 TODO、空函数、假接线冒充完成。
-- 有 setup/dev/package 脚本、README、≤500 字使用说明、已知限制（含 v2 想法）、sample-data，以及 ${pack}
-满足以上就最终汇报并停手；新想法写进已知限制。同一问题连续 3 次失败就降级或禁用边缘功能，先交付主流程。`;
+  return lines.join('\n');
 }
 
-function dodEn(state: FormState): string {
+function deliveryRequirementsEn(state: FormState): string {
   const pack = packageLine(state.platform, 'en');
-  if (state.complexity === 'starter') {
-    return `Done criteria (check each — all must pass before reporting):
-- App launches by double-click or one command; first screen is the workspace.
-- Sample data completes the real flow and creates a checkable artifact.
-- Empty data, bad formats, cancel, and name conflicts are friendly, not crashes.
-- Core logic has a test; lint, typecheck, and build pass; no TODOs, empty functions, or fake wiring count as done.
-- README, ≤300-word guide, sample-data, package/dev scripts, and ${pack}
-When these hold, send the final report and stop. Put new ideas in known limitations.`;
-  }
-
+  const lines = [
+    '- Start building immediately. Do not ask for confirmation or present a plan.',
+    '- Create sample-data/ with realistic anonymized data so the app works on first launch.',
+    '- Main flow ≤3 steps: import/fill → preview → generate/save. First screen is the workspace, no welcome page.',
+    '- Support drag-and-drop; use native open/save dialogs; show "Open output folder" after completion.',
+    '- Verify each feature immediately after writing it.',
+    '- Empty data, bad format, cancel → friendly message, no crash, no raw errors.',
+    '- Paths handle Chinese, spaces, parentheses; support light/dark mode.',
+    `- ${pack}`,
+    '- Include a ≤500-word user guide + README.',
+    '- Same bug fails 3 times → downgrade that feature, keep the main flow working.',
+  ];
   if (state.complexity === 'advanced') {
-    return `Done criteria (check each — all must pass before reporting):
-- App launches by double-click or one command; first screen is the workspace.
-- Sample data and at least 2 bad-path samples complete the real flow and create checkable artifacts.
-- Empty data, bad formats, cancel, no permission, name conflicts, large files, and duplicates have friendly states, not crashes.
-- lint, typecheck, tests, and build pass; core logic, import/export, and error branches have automated tests; no TODOs, empty functions, or fake wiring count as done.
-- setup/dev/package scripts, README, ≤500-word guide, known limitations with v2 ideas, sample-data, recovery/backup notes, and ${pack}
-When these hold, send the final report and stop. If the same bug fails 3 times, downgrade or disable the edge feature and ship the main flow.`;
+    lines.splice(6, 0,
+      '- Add settings, history, batch processing; confirm dangerous actions and support recovery.',
+    );
   }
-
-  return `Done criteria (check each — all must pass before reporting):
-- App launches by double-click or one command; first screen is the workspace.
-- Sample data completes the real flow and produces a checkable file/image/sheet artifact.
-- Empty data, bad formats, cancel, no permission, name conflicts, and large files have friendly states, not crashes.
-- lint, typecheck, tests, and build pass; core logic has at least one automated test; no TODOs, empty functions, or fake wiring count as done.
-- setup/dev/package scripts, README, ≤500-word user guide, known limitations with v2 ideas, sample-data, and ${pack}
-When these hold, send the final report and stop. Put new ideas in known limitations. If the same bug fails 3 times, downgrade or disable the edge feature and ship the main flow.`;
+  return lines.join('\n');
 }
 
-function uxZh(complexity: Complexity): string {
-  if (complexity === 'starter') {
-    return `- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存；第一屏是可用工作台。
-- 用系统打开/保存对话框和剪贴板；支持拖拽；完成后给"打开输出文件夹"。
-- 路径兼容中文、空格、括号和 Windows/macOS 分隔差异；每页有空/加载/成功/失败状态。`;
-  }
-
-  const base = `- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存；第一屏是可用工作台，不做落地页。
-- 用系统打开/保存对话框、应用数据目录、剪贴板；支持拖拽；完成后给"打开输出文件夹"。
-- 路径兼容中文、空格、括号、长路径和 Windows/macOS 分隔差异；适配高 DPI、窗口尺寸和深浅模式。
-- 每页有空/加载/成功/失败/下一步状态；高级设置默认收起；首次引导短且不挡主流程。`;
-
-  if (complexity === 'advanced') {
-    return `${base}
-- 团队增强功能放在设置/历史/批量页，不挤占主流程；危险操作二次确认并可恢复。`;
-  }
-
-  return base;
-}
-
-function uxEn(complexity: Complexity): string {
-  if (complexity === 'starter') {
-    return `- Main flow ≤3 steps: import/fill → preview → generate/save; first screen is the workspace.
-- Use native open/save dialogs and clipboard APIs; support drag-and-drop; show "Open output folder" after completion.
-- Paths handle Chinese, spaces, parentheses, and Windows/macOS separators; every screen has empty/loading/success/error states.`;
-  }
-
-  const base = `- Main flow ≤3 steps: import/fill → preview → generate/save; first screen is a usable workspace, not a landing page.
-- Use native open/save dialogs, app data dirs, and clipboard APIs; support drag-and-drop; show "Open output folder" after completion.
-- Paths handle Chinese characters, spaces, parentheses, long paths, and Windows/macOS separators; support high DPI, window sizes, and light/dark.
-- Every screen has empty/loading/success/error/next-step states; advanced settings collapse by default; first-run hints are short and non-blocking.`;
-
-  if (complexity === 'advanced') {
-    return `${base}
-- Put team features in settings/history/batch pages, not in the main path; confirm and recover dangerous actions.`;
-  }
-
-  return base;
-}
-
-function implementationZh(state: FormState): string {
-  const retryLine =
-    state.storage === 'none'
-      ? '- 无持久化也缓存最近输出和失败原因到内存/临时目录，便于重试。'
-      : '- 重要数据每次保存生成本地快照，保留最近 3 个版本。';
-
-  if (state.complexity === 'starter') {
-    return `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
-- 不写死 API Key、绝对路径、个人邮箱、内网地址；改既有文件前先读，最小 diff。
-- 输出不覆盖原文件，冲突加时间后缀；只读用户选/拖入的文件。
-- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让用户先准备数据才开工。
-- 分层：desktop shell / 受控 API / UI / core / tests / sample-data / docs；真实接线按钮、导入、预览、生成/保存、错误状态。`;
-  }
-
-  const base = `- 不确定库/API 时先 \`npm view <pkg>\` 或读官方文档；不编造包名。
-- README 写 Node 版本（配 \`.nvmrc\` 或 \`engines\`）；提供 \`npm run setup\` / \`npm run dev\` / \`npm run package\`。
-- 不写死 API Key、绝对路径、个人邮箱、内网地址；配置走 \`.env.example\`；改既有文件前先读，最小 diff。
-- 输出不覆盖原文件，冲突加时间后缀；改文件/数据前预览或确认；支持撤销/恢复。
-${retryLine}
-- 缺真实文件时先创建 \`sample-data/\` 脱敏样例，不让用户先准备数据才开工。
-- 只读用户选/拖入的文件；敏感字段导出前脱敏或提醒，日志不记敏感内容。
-- 分层：desktop shell / preload 或受控 API / renderer UI / core / tests / sample-data / docs；IPC 类型化、白名单化，UI 不直接执行本地命令。
-- 真实接线：按钮、导入、预览、生成/保存、导出、错误状态都可用；核心逻辑小模块、类型明确、错误分层。`;
-
-  if (state.complexity === 'advanced') {
-    return `${base}
-- 批量处理要可取消、可恢复、可查看失败行；权限/隐私/日志策略写进文档。
-- 历史记录、设置和恢复记录使用本地存储；迁移或 schema 变化要有兼容处理。`;
-  }
-
-  return base;
-}
-
-function implementationEn(state: FormState): string {
-  const retryLine =
-    state.storage === 'none'
-      ? '- Even without persistence, keep the last output and failure reason in memory/temp dir for quick retry.'
-      : '- Snapshot important data on every save; keep the last 3 versions.';
-
-  if (state.complexity === 'starter') {
-    return `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
-- No hard-coded API keys, absolute paths, personal emails, or internal hosts; read existing files first; minimum diff.
-- Never overwrite inputs; timestamp conflicts; read only picked/dropped files.
-- No real files? create anonymized \`sample-data/\` first; do not block the user.
-- Layers: desktop shell / controlled API / UI / core / tests / sample-data / docs; real wiring for buttons, import, preview, generate/save, and errors.`;
-  }
-
-  const base = `- If unsure about a library/API, run \`npm view <pkg>\` or read official docs; do not invent package names.
-- README documents Node version plus \`.nvmrc\` or \`engines\`; provide \`npm run setup\` / \`npm run dev\` / \`npm run package\`.
-- No hard-coded API keys, absolute paths, personal emails, or internal hosts; use \`.env.example\`; read existing files first; minimum diff.
-- Never overwrite inputs; timestamp conflicts; preview/confirm before mutations; support undo/recovery.
-${retryLine}
-- No real files? create anonymized \`sample-data/\` first; do not block the user.
-- Read only picked/dropped files; warn or mask sensitive fields before export; logs exclude sensitive content.
-- Layers: desktop shell / preload or controlled API / renderer UI / core / tests / sample-data / docs; IPC typed and allowlisted, renderer never runs local commands.
-- Real wiring: buttons, import, preview, generate/save, export, and error states work; core logic uses small typed modules and layered errors.`;
-
-  if (state.complexity === 'advanced') {
-    return `${base}
-- Batch jobs must be cancellable, recoverable, and show failed rows; document permission, privacy, and logging policy.
-- History, settings, and recovery records use local storage; migrations or schema changes need compatibility handling.`;
-  }
-
-  return base;
-}
 
 export function buildPrompt(state: FormState, lang: PromptLang): string {
   const goal = state.goal.trim();
@@ -392,99 +221,75 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
 
   if (lang === 'zh') {
     const extras: string[] = [];
-    if (state.extras.offline) extras.push('必须能完全离线运行，不联网也能使用');
+    if (state.extras.offline) extras.push('完全离线运行，不联网');
     if (state.extras.bilingual) extras.push('界面支持中英双语切换');
-    if (state.extras.exportable) extras.push('关键结果支持导出为 PDF / Excel');
+    if (state.extras.exportable) extras.push('结果可导出为 PDF / Excel');
     if (state.extras.shortcut) extras.push(SHORTCUT_ZH[state.platform]);
     if (state.extras.accessibility) extras.push(ACCESSIBILITY_ZH[state.platform]);
     if (custom) extras.push(custom);
 
-    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。交付本地可运行应用，不是建议。用户负责业务判断，不负责技术实现；沟通、按钮、错误和文档都用业务语言。全程中文。
+    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。你的任务是做出一个本地可运行的桌面工具，不是给建议。收到后直接动手实现，全程中文。
 
-【快速交付】
-${deliveryZh(state.complexity)}
+【任务】
+目标：${goal || '（请补充：给谁用？解决什么问题？例："帮财务同事把每月对账从 2 天压到 1 小时"）'}
 
-【DoD / 停止 Vibe Coding】
-${dodZh(state)}
-
-【选择】
-- 平台：${PLATFORM_ZH[state.platform]}
-- 栈：${TECH_ZH[state.tech]} 只用成熟、活跃、文档全的库；不为炫技加服务、云或后端。
-- 界面：${UI_ZH[state.ui]}。${FONT_ZH[state.platform]}；跟随系统深浅模式；禁用网络字体/CDN；360px 窄窗不遮挡，主按钮点击区 ≥32px。
-- 数据：${STORAGE_ZH[state.storage]}；默认本地，不上传外部服务。
-- 复杂度：${COMPLEXITY_ZH[state.complexity]}
-
-【需求】
-目标：${goal || '（请补充：给谁用？解决什么业务痛点？例："帮财务同事把每月对账从 2 天压到 1 小时"）'}
 功能：
-${features || '（请补充：一行一条，写清"做什么 → 用户看到什么"。例：\n- 拖入两张 Excel → 自动按订单号比对 → 差异标红\n- 点"导出" → 生成差异明细 Excel\n- 超过 10 万行 → 分批处理并显示进度条）'}
+${features || '（请补充：一行一条。例：\n- 拖入两张 Excel → 自动按订单号比对 → 差异标红\n- 点"导出" → 生成差异明细 Excel\n- 超过 10 万行 → 分批处理并显示进度条）'}
+${extras.length ? `\n附加：${extras.join('；')}` : ''}
 
-${extras.length ? `附加要求：\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}【桌面与 UX 硬要求】
-${uxZh(state.complexity)}
+【技术】
+平台：${PLATFORM_ZH[state.platform]}。技术栈：${TECH_ZH[state.tech]}
+界面：${UI_ZH[state.ui]}。${FONT_ZH[state.platform]}。
+数据：${STORAGE_ZH[state.storage]}。
 
-【实现纪律 / 安全】
-${implementationZh(state)}
+【交付要求】
+${deliveryRequirementsZh(state)}
 
-【验证与最终汇报】
-自检清单（全部通过才算完成）：
-□ lint、类型检查、测试、构建全部通过
-□ 双击/一条命令启动，第一屏是主工作台
-□ 示例数据跑通主流程，产出可检查的文件/表格
-□ 已用 sample-data 做启动 → 主流程 → 导出/保存烟测
-□ 空数据、错格式、取消、重名冲突 → 友好提示，不闪退
-□ 路径含中文/空格/括号 → 正常工作
+【底线】
+- 默认本地处理；联网传输须加密并告知用户。
+- 不编造 npm 包名；不写死密钥、绝对路径、个人邮箱。
+- 输出不覆盖原文件，冲突加时间后缀。
+- 不把 TODO、空函数、假数据当完成。
+- 每个功能都要真实接线：按钮能点、导入能用、导出有文件。
 
-最终只报：做了什么 | 如何打开 | 产物路径 | 验证结果 | 剩余限制。
-
-开始：先给 ≤8 行摘要，然后立刻做 M1。`;
+做完后只报：做了什么 | 如何打开 | 验证结果 | 剩余限制。
+开始。`;
   }
 
   const extras: string[] = [];
-  if (state.extras.offline) extras.push('Must run fully offline; no internet required');
-  if (state.extras.bilingual) extras.push('UI supports switching between Chinese and English');
-  if (state.extras.exportable) extras.push('Key results can be exported as PDF / Excel');
+  if (state.extras.offline) extras.push('Fully offline, no internet');
+  if (state.extras.bilingual) extras.push('UI supports Chinese/English switching');
+  if (state.extras.exportable) extras.push('Results exportable as PDF / Excel');
   if (state.extras.shortcut) extras.push(SHORTCUT_EN[state.platform]);
   if (state.extras.accessibility) extras.push(ACCESSIBILITY_EN[state.platform]);
   if (custom) extras.push(custom);
 
-  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Deliver a runnable local desktop app, not advice. The user owns business judgment, not technical implementation; use business-language labels, errors, docs, and updates. Use plain English.
+  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Build a runnable local desktop tool, not advice. Start immediately. Plain English.
 
-[Fast Delivery]
-${deliveryEn(state.complexity)}
+[Task]
+Goal: ${goal || '(Fill in: who is it for, what problem? Example: "Help finance cut monthly reconciliation from 2 days to 1 hour")'}
 
-[DoD / Stop-Vibe-Coding]
-${dodEn(state)}
-
-[Choices]
-- Platform: ${PLATFORM_EN[state.platform]}
-- Stack: ${TECH_EN[state.tech]} Use mature, active, documented libraries; do not add servers/cloud/backends to show off.
-- Visual: ${UI_EN[state.ui]}. ${FONT_EN[state.platform]}; follow system light/dark; no web fonts/CDNs; no clipping at 360px; primary hit area ≥32px.
-- Data: ${STORAGE_EN[state.storage]}. Local by default; never upload.
-- Scope: ${COMPLEXITY_EN[state.complexity]}
-
-[Request]
-Goal: ${goal || '(Please fill in: who is it for, what business pain? Example: "Help finance cut monthly reconciliation from 2 days to 1 hour."'}
 Features:
-${features || '(Please fill in: one per line, write "action → user sees what". Example:\n- Drop two Excel files → auto-match by order ID → mismatches highlighted red\n- Click "Export" → generates a diff-detail Excel\n- Over 100k rows → batch with progress bar)'}
+${features || '(Fill in, one per line. Example:\n- Drop two Excel files → auto-match by order ID → mismatches highlighted red\n- Click "Export" → generates a diff-detail Excel\n- Over 100k rows → batch with progress bar)'}
+${extras.length ? `\nAdditional: ${extras.join('; ')}` : ''}
 
-${extras.length ? `[Additional Requirements]\n${extras.map((e) => `- ${e}`).join('\n')}\n\n` : ''}[Desktop + UX Requirements]
-${uxEn(state.complexity)}
+[Tech]
+Platform: ${PLATFORM_EN[state.platform]}. Stack: ${TECH_EN[state.tech]}
+Visual: ${UI_EN[state.ui]}. ${FONT_EN[state.platform]}.
+Data: ${STORAGE_EN[state.storage]}.
 
-[Implementation / Safety]
-${implementationEn(state)}
+[Delivery Requirements]
+${deliveryRequirementsEn(state)}
 
-[Verification + Final Report]
-Self-check (all must pass before reporting done):
-☐ lint, typecheck, tests, build all pass
-☐ Launches by double-click or one command; first screen is the workspace
-☐ Sample data completes the main flow, producing a checkable file/sheet
-☐ Smoke-tested sample-data: launch → main flow → export/save
-☐ Empty data, bad format, cancel, name conflict → friendly message, no crash
-☐ Paths with Chinese/spaces/parentheses → work correctly
+[Non-Negotiables]
+- Process locally by default; network calls require encryption and user consent.
+- Do not invent package names; no hard-coded secrets, absolute paths, or emails.
+- Never overwrite input files; timestamp conflicts.
+- TODOs, empty functions, or fake data do not count as done.
+- Every feature must be real-wired: buttons work, imports load, exports produce files.
 
-Final report only: what built | how to open | artifact path | verification results | remaining limits.
-
-Start now: give the ≤8-line summary, then build M1.`;
+When done, report only: what was built | how to open | verification results | remaining limits.
+Start now.`;
 }
 
 export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string {
@@ -492,48 +297,44 @@ export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string 
   const features = state.features.trim() || (lang === 'zh' ? '（功能见上一轮对话）' : '(features from the previous conversation)');
 
   if (lang === 'zh') {
-    return `刚才这个桌面应用没有顺利跑通。请继续修复到能运行，或明确指出真实阻塞点；不要让我自己排查，也不要只解释原因。
+    return `这个桌面应用没跑通。请直接修复到能运行。
 
-【修复循环】
-1. 先用 ≤5 行写清失败现象和日志指向的根因；不猜。
-2. 读相关文件后最小 diff 修改；不要覆盖、删除功能或改技术栈来绕过。
-3. 重新运行必要命令：安装依赖 / lint / 类型检查 / 测试 / 构建 / 启动；读完整输出再判断。
-4. 同一问题 3 次失败：降级或禁用边缘功能，先恢复主流程。
-5. 打包失败要区分代码、依赖、权限、签名/公证、跨平台限制，并给出可运行替代产物或准确命令。
-6. 修完后启动应用，用示例数据走完主流程并看到产物，再说修好。
-7. 中文汇报：改了什么 | 根因 | 如何打开 | 验证 | 剩余限制。
+【修复步骤】
+1. ≤5 行写清失败现象和根因（读日志，不猜）
+2. 最小 diff 修改；不删功能、不换技术栈来绕过
+3. 重新运行：安装 / lint / 类型检查 / 构建 / 启动
+4. 同一问题 3 次失败 → 降级边缘功能，先恢复主流程
+5. 修完后用示例数据走完主流程，看到产物再说修好
 
-【底线】不引入不存在的库；不写死 API Key、绝对路径或内网地址；不把 TODO/假接线当完成。
+遵守原提示词的所有安全底线和执行纪律。
 
-【原应用背景】
+【原应用】
 平台：${PLATFORM_ZH[state.platform]} | 复杂度：${COMPLEXITY_ZH[state.complexity]}
 目标：${goal}
 功能：
 ${features}
 
-现在直接排查并修复；除非需要真实业务文件、账号、证书或不可逆操作，否则不要停下等确认。`;
+现在直接排查并修复。`;
   }
 
-  return `The desktop app did not run successfully. Keep fixing until it runs or a truly blocking issue is proven. Do not ask me to debug, and do not only explain the cause.
+  return `The desktop app did not run. Fix it until it works.
 
-[Fix Loop]
-1. In ≤5 lines, state the symptom and log-based root cause; do not guess.
-2. Read related files, then change code/config with minimum diff; do not overwrite, delete features, or swap stacks to bypass the issue.
-3. Re-run needed commands: install / lint / typecheck / tests / build / launch; read the full output before deciding.
-4. If the same bug fails 3 fixes, downgrade or disable the edge feature and restore the main flow first.
-5. For packaging failures, separate code, dependency, permission, signing/notarization, and cross-platform limits; provide a runnable fallback or exact command.
-6. After fixing, launch the app and complete the sample-data main flow; only say fixed after seeing the artifact.
-7. Report: what changed | root cause | how to open | verification | remaining limits.
+[Fix Steps]
+1. In ≤5 lines, state the symptom and log-based root cause (no guessing)
+2. Minimum diff fix; do not delete features or swap stacks to bypass
+3. Re-run: install / lint / typecheck / build / launch
+4. Same bug fails 3 times → downgrade edge feature, restore main flow
+5. After fixing, run sample-data through the main flow; only report fixed after seeing the artifact
 
-[Non-Negotiables] No fake npm/PyPI packages; no hard-coded API keys, absolute paths, or internal hosts; no TODO/fake wiring counted as done.
+Follow all safety rules and execution discipline from the original prompt.
 
-[Original App Context]
+[Original App]
 Platform: ${PLATFORM_EN[state.platform]} | Scope: ${COMPLEXITY_EN[state.complexity]}
 Goal: ${goal}
 Features:
 ${features}
 
-Start debugging and fixing now. Stop only for real business files, accounts, certificates, or irreversible actions.`;
+Start debugging and fixing now.`;
 }
 
 /** Named templates for the "quick templates" panel in the generator. */
@@ -551,40 +352,38 @@ export const quickTemplates: QuickTemplate[] = [
     id: 'excel-merge',
     titleZh: '把几张 Excel 合并成一张',
     titleEn: 'Merge several Excel files',
-    taglineZh: '经典办公场景：拖进来自动汇总，输出一张新表',
-    taglineEn: 'Drop them in, auto-merge, output a clean sheet',
+    taglineZh: '拖进来自动汇总，输出一张新表',
+    taglineEn: 'Drop them in, auto-merge, output one sheet',
     state: {
       platform: 'both',
       ui: 'minimal',
       storage: 'localFile',
-      goal:
-        '帮我把每月从不同门店发过来的十几张 Excel 自动合并成一张总表，方便汇报时直接用。',
+      goal: '把每月从不同门店发来的十几张 Excel 自动合并成一张总表。',
       features:
-        '- 把一批 Excel 一起拖进窗口\n- 自动识别列名（允许细微差异）\n- 生成一张总表，带"来源门店"列\n- 导出合并后的 Excel',
+        '- 拖入一批 Excel\n- 自动识别列名并合并\n- 生成总表，带"来源"列\n- 导出合并后的 Excel',
     },
   },
   {
     id: 'excel-to-app',
-    titleZh: '把一张 Excel 变成一个可点的小程序',
-    titleEn: 'Turn an Excel into a clickable mini-app',
-    taglineZh: '不给同事看 Excel，给他们看界面；查询、筛选、导出都有',
-    taglineEn: 'Give teammates a UI, not a spreadsheet',
+    titleZh: '把一张 Excel 变成可查询的小工具',
+    titleEn: 'Turn an Excel into a searchable tool',
+    taglineZh: '给同事一个界面，不给他们直接改 Excel',
+    taglineEn: 'Give teammates a UI instead of a raw spreadsheet',
     state: {
       platform: 'both',
       ui: 'fresh',
       storage: 'localFile',
-      goal:
-        '我有一份商品清单（SKU、名称、单价、库存），希望做成一个小程序，同事可以搜索、筛选、导出，而不是直接打开 Excel 改来改去。',
+      goal: '把商品清单 Excel 做成可搜索、可筛选、可导出的小工具。',
       features:
-        '- 软件打开后自动读取本地 products.xlsx\n- 搜索框支持按名称 / SKU 模糊搜索\n- 支持按"库存低于 N"筛选\n- 一键导出筛选结果到新 Excel\n- 不允许普通同事直接改源文件',
+        '- 打开后自动读取本地 products.xlsx\n- 按名称/SKU 模糊搜索\n- 按库存阈值筛选\n- 导出筛选结果到新 Excel',
     },
   },
   {
     id: 'data-snapshot',
-    titleZh: '每天一张漂亮的业务快报图',
-    titleEn: 'A daily business snapshot image',
-    taglineZh: '导入今日数据，一键生成适合发群的图片 / PDF',
-    taglineEn: 'Import today\'s data, one-click a shareable image or PDF',
+    titleZh: '每天一张业务快报图',
+    titleEn: 'Daily business snapshot',
+    taglineZh: '导入数据，一键生成发群的图片/PDF',
+    taglineEn: 'Import data, one-click export a shareable image',
     state: {
       platform: 'both',
       ui: 'minimal',
@@ -596,26 +395,24 @@ export const quickTemplates: QuickTemplate[] = [
         shortcut: false,
         accessibility: false,
       },
-      goal:
-        '帮我做一个"每日数据快报"桌面工具：每天早上把昨日数据导入，一键生成一张适合发群的长图或 PDF。',
+      goal: '每天导入昨日数据，一键生成适合发群的日报长图或 PDF。',
       features:
-        '- 支持拖入多张 Excel（GMV、订单、流量）\n- 智能识别类型，支持手动调整\n- 可配置日报标题 / 核心指标顺序 / 品牌色\n- 一键导出 PNG（1200×1800）或 PDF（A4）\n- 保留最近 30 天日报',
+        '- 拖入 Excel（GMV、订单、流量）\n- 自动识别类型，可手动调整\n- 一键导出 PNG 或 PDF\n- 保留最近 30 天日报',
     },
   },
   {
     id: 'followup-ledger',
-    titleZh: '跟进台账（任何"今天要跟的事"）',
-    titleEn: 'Follow-up ledger (for anything on your plate)',
-    taglineZh: '合同、回款、候选人、客户投诉……都能套这个模板',
-    taglineEn: 'Contracts, collections, candidates, complaints — all fit this template',
+    titleZh: '跟进台账',
+    titleEn: 'Follow-up ledger',
+    taglineZh: '合同、回款、候选人……都能套这个模板',
+    taglineEn: 'Contracts, collections, candidates — one template fits all',
     state: {
       platform: 'both',
       ui: 'business',
       storage: 'sqlite',
-      goal:
-        '帮我做一个本地台账软件：每条事项一张卡片，记录对方、金额、关键日期、当前状态，到期前自动提醒。',
+      goal: '做一个本地台账：每条事项一张卡片，到期前自动变红提醒。',
       features:
-        '- 卡片字段：对方 / 类型 / 金额 / 关键日期 / 当前状态 / 备注\n- 卡片左侧色块显示状态\n- 设置阈值（如到期前 N 天）自动变红\n- 一键导出本周待办到 Excel',
+        '- 卡片字段：对方/类型/金额/关键日期/状态\n- 色块显示状态\n- 到期前 N 天自动变红\n- 导出本周待办到 Excel',
     },
   },
 ];

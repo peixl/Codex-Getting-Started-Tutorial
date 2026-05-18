@@ -1,10 +1,8 @@
 import {
-  DOD_ZH,
-  DOD_EN,
-  DELIVERY_CONTRACT_ZH,
-  DELIVERY_CONTRACT_EN,
   QUICK_START_ZH,
   QUICK_START_EN,
+  SAFETY_RULES_ZH,
+  SAFETY_RULES_EN,
   type ModuleLang,
 } from './promptModules';
 
@@ -40,22 +38,18 @@ const QUALITY_TAIL_ZH = `【高质量交付补充】
 
 ${QUICK_START_ZH}
 
-${DELIVERY_CONTRACT_ZH}
+${SAFETY_RULES_ZH}
 
-${ANTI_PATTERNS_ZH}
-
-${DOD_ZH}`;
+${ANTI_PATTERNS_ZH}`;
 
 const QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
 If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
 
 ${QUICK_START_EN}
 
-${DELIVERY_CONTRACT_EN}
+${SAFETY_RULES_EN}
 
-${ANTI_PATTERNS_EN}
-
-${DOD_EN}`;
+${ANTI_PATTERNS_EN}`;
 
 // ─── Legacy Cleanup ──────────────────────────────────────────────
 

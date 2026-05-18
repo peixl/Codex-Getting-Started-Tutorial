@@ -49,13 +49,13 @@ describe('prompt module constants', () => {
   it('DELIVERY_CONTRACT_ZH mentions milestones', () => {
     expect(DELIVERY_CONTRACT_ZH).toContain('M1');
     expect(DELIVERY_CONTRACT_ZH).toContain('M2');
-    expect(DELIVERY_CONTRACT_ZH).toContain('降级');
+    expect(DELIVERY_CONTRACT_ZH).toContain('卡住');
   });
 
   it('DELIVERY_CONTRACT_EN mentions milestones', () => {
     expect(DELIVERY_CONTRACT_EN).toContain('M1');
     expect(DELIVERY_CONTRACT_EN).toContain('M2');
-    expect(DELIVERY_CONTRACT_EN).toContain('downgrade');
+    expect(DELIVERY_CONTRACT_EN).toContain('stalls');
   });
 
   it('RECIPE_CONSTRAINTS_ZH preserves critical recipe rules', () => {
@@ -130,14 +130,14 @@ describe('withSharedConstraints', () => {
   it('appends constraints to a plain prompt (zh)', () => {
     const result = withSharedConstraints('做一些功能', 'zh');
     expect(result).toContain('做一些功能');
-    expect(result).toContain('【约束】');
+    expect(result).toContain('【安全底线】');
     expect(result).toContain('本地处理');
   });
 
   it('appends constraints to a plain prompt (en)', () => {
     const result = withSharedConstraints('Build something', 'en');
     expect(result).toContain('Build something');
-    expect(result).toContain('[Constraints]');
+    expect(result).toContain('[Safety Rules]');
     expect(result).toContain('local');
   });
 
@@ -178,7 +178,7 @@ describe('composeCasePrompt', () => {
     expect(result).toContain('【核心功能】');
     expect(result).toContain('【界面风格】');
     expect(result).toContain('【稳健性】');
-    expect(result).toContain('【约束】');
+    expect(result).toContain('【安全底线】');
     expect(result).toContain('【交付】');
     expect(result).toContain('验收清单');
     expect(result).toContain('全程中文。');
@@ -197,7 +197,7 @@ describe('composeCasePrompt', () => {
     expect(result).toContain('[Goal]');
     expect(result).toContain('[Platform & Stack]');
     expect(result).toContain('[Core Features]');
-    expect(result).toContain('[Constraints]');
+    expect(result).toContain('[Safety Rules]');
     expect(result).toContain('[Delivery]');
     expect(result).toContain('Acceptance checklist');
   });

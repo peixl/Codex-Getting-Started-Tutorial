@@ -7,17 +7,11 @@ describe('withDesktopQualityBar', () => {
     const second = withDesktopQualityBar(first, 'zh');
 
     expect(first).toContain('【高质量交付补充】');
-    expect(first).toContain('Windows 快捷键用 Ctrl/Alt');
-    expect(first).toContain('示例数据/试用模式');
+    expect(first).toContain('【快速启动协议】');
+    expect(first).toContain('【安全底线】');
+    expect(first).toContain('【反模式清单');
     expect(first).toContain('脱敏 sample-data');
-    expect(first).toContain('烟测');
-    expect(first).toContain('M1≤15 分钟');
-    expect(first).toContain('真实接线');
-    expect(first).toContain('TODO、空函数');
-    expect(first).toContain('DoD / 停止 Vibe Coding');
-    expect(first).toContain('停止 Vibe Coding');
-    expect(first).toContain('完成标准（逐条检查');
-    expect(first).toContain('M1 卡住');
+    expect(first).toContain('≤8 行摘要');
     expect(second).toBe(first);
   });
 
@@ -29,7 +23,6 @@ describe('withDesktopQualityBar', () => {
 
     expect(first).not.toContain('先给简短方案摘要');
     expect(first).toContain('≤8 行摘要');
-    expect(first).toContain('【桌面交付契约】');
   });
 
   it('adds the English quality bar once', () => {
@@ -37,17 +30,11 @@ describe('withDesktopQualityBar', () => {
     const second = withDesktopQualityBar(first, 'en');
 
     expect(first).toContain('[High-Quality Delivery Addendum]');
-    expect(first).toContain('Command/Option');
-    expect(first).toContain('sample/demo data');
+    expect(first).toContain('[Quick Start Protocol]');
+    expect(first).toContain('[Safety Rules]');
+    expect(first).toContain('[Anti-Patterns');
     expect(first).toContain('anonymized sample-data');
-    expect(first).toContain('Smoke test');
-    expect(first).toContain('M1≤15 min');
-    expect(first).toContain('Real wiring');
-    expect(first).toContain('fake data do not count as done');
-    expect(first).toContain('DoD / Stop-Vibe-Coding');
-    expect(first).toContain('Stop-Vibe-Coding');
-    expect(first).toContain('Done criteria (check each');
-    expect(first).toContain('M1 stalls');
+    expect(first).toContain('summarize in ≤8 lines');
     expect(second).toBe(first);
   });
 
@@ -59,6 +46,5 @@ describe('withDesktopQualityBar', () => {
 
     expect(first).not.toContain('brief plan summary');
     expect(first).toContain('summarize in ≤8 lines');
-    expect(first).toContain('[Desktop Delivery Contract]');
   });
 });
