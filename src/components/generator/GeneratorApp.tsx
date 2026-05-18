@@ -11,6 +11,19 @@ import {
   type FormState,
   type PromptLang,
 } from '@/lib/promptBuilder';
+import { getPromptHealth, type PromptHealthCheckId } from '@/lib/generatorPromptHealth';
+import {
+  addHistoryEntry,
+  createHistoryEntry,
+  HISTORY_KEY,
+  type FormStatePatch,
+  type HistoryEntry,
+  mergeFormState,
+  normalizeFormState,
+  parseStoredForm,
+  parseStoredHistory,
+  STORAGE_KEY,
+} from '@/lib/generatorStorage';
 import { GlassPanel } from '@/components/GlassCard';
 import { CopyButton } from '@/components/CopyButton';
 import { cn } from '@/lib/cn';
@@ -22,31 +35,14 @@ type Props = {
   dict: Dictionary;
 };
 
-type HistoryEntry = {
-  id: string;
-  savedAt: string;
-  lang: PromptLang;
-  state: FormState;
-};
-
 type CopiedNotice = 'prompt' | 'recovery' | null;
 
-const STORAGE_KEY = 'codex-tutorial:generator:v2';
-const HISTORY_KEY = 'codex-tutorial:generator:history:v2';
-const MAX_HISTORY = 6;
-
-function normalizeFormState(state?: Partial<FormState>): FormState {
-  return {
-    ...DEFAULT_FORM,
-    ...(state ?? {}),
-    extras: { ...DEFAULT_FORM.extras, ...(state?.extras ?? {}) },
-  };
-}
-
-function includesAny(text: string, words: string[]) {
-  const normalized = text.toLowerCase();
-  return words.some((word) => normalized.includes(word.toLowerCase()));
-}
+const QUALITY_LABEL_KEYS: Record<PromptHealthCheckId, keyof Dictionary['generator']> = {
+  goal: 'qualityGoal',
+  features: 'qualityFeatures',
+  io: 'qualityIo',
+  acceptance: 'qualityAcceptance',
+};
 
 export function GeneratorApp({ locale, dict }: Props) {
   const [state, setState] = useState<FormState>(DEFAULT_FORM);
@@ -58,19 +54,9 @@ export function GeneratorApp({ locale, dict }: Props) {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as { state?: FormState };
-        if (parsed.state) setState(normalizeFormState(parsed.state));
-      }
-      const historyRaw = window.localStorage.getItem(HISTORY_KEY);
-      if (historyRaw) {
-        setHistory(JSON.parse(historyRaw) as HistoryEntry[]);
-      }
-    } catch {
-      // ignore
-    }
+    const storedForm = parseStoredForm(window.localStorage.getItem(STORAGE_KEY));
+    if (storedForm) setState(storedForm);
+    setHistory(parseStoredHistory(window.localStorage.getItem(HISTORY_KEY)));
     setLoaded(true);
   }, []);
 
@@ -104,35 +90,7 @@ export function GeneratorApp({ locale, dict }: Props) {
     const title = lang === 'zh' ? '【我看到的错误/日志】' : '[Observed Error / Logs]';
     return `${recoveryPrompt}\n\n${title}\n${note}`;
   }, [lang, recoveryNote, recoveryPrompt]);
-  const promptHealth = useMemo(() => {
-    const goal = state.goal.trim();
-    const features = state.features.trim();
-    const featureLines = features.split('\n').filter((line) => line.trim().length > 0);
-    const requestText = `${goal}\n${features}`;
-    const checks = [
-      { id: 'goal', label: dict.generator.qualityGoal, ok: goal.length >= 12 },
-      { id: 'features', label: dict.generator.qualityFeatures, ok: featureLines.length >= 2 },
-      {
-        id: 'io',
-        label: dict.generator.qualityIo,
-        ok:
-          includesAny(requestText, ['导入', '输入', '拖入', '文件', 'Excel', 'CSV', 'import', 'input', 'file']) &&
-          includesAny(requestText, ['导出', '生成', '保存', '结果', 'output', 'export', 'save', 'result']),
-      },
-      {
-        id: 'acceptance',
-        label: dict.generator.qualityAcceptance,
-        ok: includesAny(requestText, ['验收', '成功', '完成', '打包', '测试', 'verify', 'test', 'done', 'package']),
-      },
-    ];
-    const passed = checks.filter((check) => check.ok).length;
-    return {
-      checks,
-      passed,
-      total: checks.length,
-      ready: passed >= 3,
-    };
-  }, [dict, state.features, state.goal]);
+  const promptHealth = useMemo(() => getPromptHealth(state), [state]);
 
   const valid = state.goal.trim().length > 0 && state.features.trim().length > 0;
 
@@ -151,13 +109,8 @@ export function GeneratorApp({ locale, dict }: Props) {
     }
   };
 
-  const applyTemplate = (partial: Partial<FormState>) => {
-    setState((prev) => ({
-      ...DEFAULT_FORM,
-      ...prev,
-      ...partial,
-      extras: { ...DEFAULT_FORM.extras, ...prev.extras, ...(partial.extras ?? {}) },
-    }));
+  const applyTemplate = (partial: FormStatePatch) => {
+    setState((prev) => mergeFormState(prev, partial));
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -165,13 +118,7 @@ export function GeneratorApp({ locale, dict }: Props) {
 
   const saveToHistory = () => {
     if (!valid) return;
-    const entry: HistoryEntry = {
-      id: `${Date.now()}-${Math.random().toString(16).slice(2, 6)}`,
-      savedAt: new Date().toISOString(),
-      lang,
-      state,
-    };
-    const next = [entry, ...history].slice(0, MAX_HISTORY);
+    const next = addHistoryEntry(history, createHistoryEntry(state, lang));
     setHistory(next);
     try {
       window.localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
@@ -415,7 +362,7 @@ export function GeneratorApp({ locale, dict }: Props) {
                   >
                     {check.ok ? dict.generator.qualityPass : dict.generator.qualityImprove}
                     {' · '}
-                    {check.label}
+                    {dict.generator[QUALITY_LABEL_KEYS[check.id]]}
                   </span>
                 ))}
               </div>
