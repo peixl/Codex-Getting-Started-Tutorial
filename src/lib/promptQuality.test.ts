@@ -8,9 +8,9 @@ describe('withDesktopQualityBar', () => {
 
     expect(first).toContain('【高质量交付补充】');
     expect(first).toContain('【快速启动协议】');
-    expect(first).toContain('【安全底线】');
+    expect(first).toContain('【DoD');
     expect(first).toContain('【反模式清单');
-    expect(first).toContain('脱敏 sample-data');
+    expect(first).toContain('sample-data');
     expect(first).toContain('≤8 行摘要');
     expect(second).toBe(first);
   });
@@ -31,9 +31,9 @@ describe('withDesktopQualityBar', () => {
 
     expect(first).toContain('[High-Quality Delivery Addendum]');
     expect(first).toContain('[Quick Start Protocol]');
-    expect(first).toContain('[Safety Rules]');
+    expect(first).toContain('[DoD');
     expect(first).toContain('[Anti-Patterns');
-    expect(first).toContain('anonymized sample-data');
+    expect(first).toContain('sample-data');
     expect(first).toContain('summarize in ≤8 lines');
     expect(second).toBe(first);
   });

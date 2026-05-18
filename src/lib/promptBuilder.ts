@@ -184,19 +184,16 @@ function packageLine(platform: Platform, lang: PromptLang) {
 function deliveryRequirementsZh(state: FormState): string {
   const pack = packageLine(state.platform, 'zh');
   const lines = [
-    '- 收到后直接动手，不要问方案、不要等确认。',
     '- 先创建 sample-data/ 放入贴近业务的脱敏示例数据，确保首次启动就能走完主流程。',
     '- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存。第一屏就是工作台，不做欢迎页。',
     '- 支持拖拽导入；用系统打开/保存对话框；完成后给"打开输出文件夹"按钮。',
-    '- 每个功能写完立即运行验证，不要攒到最后。',
     '- 空数据、格式错误、取消操作 → 弹友好中文提示，不闪退、不暴露技术错误。',
     '- 路径兼容中文、空格、括号；适配深浅模式。',
     `- ${pack}`,
     '- 附 ≤500 字中文使用说明 + README。',
-    '- 同一问题连续 3 次失败 → 降级该功能，先保主流程能跑。',
   ];
   if (state.complexity === 'advanced') {
-    lines.splice(6, 0,
+    lines.splice(4, 0,
       '- 加设置页、历史记录、批量处理；危险操作二次确认并可恢复。',
     );
   }
@@ -206,19 +203,16 @@ function deliveryRequirementsZh(state: FormState): string {
 function deliveryRequirementsEn(state: FormState): string {
   const pack = packageLine(state.platform, 'en');
   const lines = [
-    '- Start building immediately. Do not ask for confirmation or present a plan.',
     '- Create sample-data/ with realistic anonymized data so the app works on first launch.',
     '- Main flow ≤3 steps: import/fill → preview → generate/save. First screen is the workspace, no welcome page.',
     '- Support drag-and-drop; use native open/save dialogs; show "Open output folder" after completion.',
-    '- Verify each feature immediately after writing it.',
     '- Empty data, bad format, cancel → friendly message, no crash, no raw errors.',
     '- Paths handle Chinese, spaces, parentheses; support light/dark mode.',
     `- ${pack}`,
     '- Include a ≤500-word user guide + README.',
-    '- Same bug fails 3 times → downgrade that feature, keep the main flow working.',
   ];
   if (state.complexity === 'advanced') {
-    lines.splice(6, 0,
+    lines.splice(4, 0,
       '- Add settings, history, batch processing; confirm dangerous actions and support recovery.',
     );
   }

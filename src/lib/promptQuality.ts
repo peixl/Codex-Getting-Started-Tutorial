@@ -1,10 +1,10 @@
 import {
   QUICK_START_ZH,
   QUICK_START_EN,
-  SAFETY_RULES_ZH,
-  SAFETY_RULES_EN,
   ANTI_PATTERNS_ZH,
   ANTI_PATTERNS_EN,
+  DOD_ZH,
+  DOD_EN,
   type ModuleLang,
 } from './promptModules';
 
@@ -18,22 +18,22 @@ const QUALITY_MARKER_EN = '[High-Quality Delivery Addendum]';
 // ─── Quality Tail Assembly ───────────────────────────────────────
 
 const QUALITY_TAIL_ZH = `【高质量交付补充】
-若上文要求等待确认，改为：≤8 行摘要后直接实现、运行、修复、验证；只因真实文件、账号、证书或不可逆操作停下。
+若上文要求等待确认，改为：≤8 行摘要后直接实现、运行、修复、验证；只在需要真实文件、账号、证书或不可逆操作时停下。
 
 ${QUICK_START_ZH}
 
-${SAFETY_RULES_ZH}
+${ANTI_PATTERNS_ZH}
 
-${ANTI_PATTERNS_ZH}`;
+${DOD_ZH}`;
 
 const QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
 If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
 
 ${QUICK_START_EN}
 
-${SAFETY_RULES_EN}
+${ANTI_PATTERNS_EN}
 
-${ANTI_PATTERNS_EN}`;
+${DOD_EN}`;
 
 // ─── Legacy Cleanup ──────────────────────────────────────────────
 

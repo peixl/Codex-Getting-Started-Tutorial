@@ -24,14 +24,14 @@ describe('prompt module constants', () => {
     expect(CONSTRAINTS_ZH).toContain('本地处理');
     expect(CONSTRAINTS_ZH).toContain('脱敏 sample-data');
     expect(CONSTRAINTS_ZH).toContain('npm view');
-    expect(CONSTRAINTS_ZH).toContain('3 次失败');
+    expect(CONSTRAINTS_ZH).toContain('立即运行验证');
   });
 
   it('CONSTRAINTS_EN contains key rules', () => {
     expect(CONSTRAINTS_EN).toContain('local');
     expect(CONSTRAINTS_EN).toContain('anonymized sample-data');
     expect(CONSTRAINTS_EN).toContain('npm view');
-    expect(CONSTRAINTS_EN).toContain('3 times');
+    expect(CONSTRAINTS_EN).toContain('Verify each feature');
   });
 
   it('DOD_ZH has checklist format', () => {

@@ -26,14 +26,10 @@ export const SAFETY_RULES_EN = `[Safety Rules]
 // ─── Quality Rules (execution discipline) ────────────────────────
 
 export const QUALITY_RULES_ZH = `【执行纪律】
-- 收到提示词后直接动手实现，不要先问方案、不要等确认。
-- 每个功能写完立即运行验证，不要攒到最后才测。
-- 同一问题 3 次失败 → 降级边缘功能，先交付主流程。`;
+- 每个功能写完立即运行验证，不要攒到最后才测。`;
 
 export const QUALITY_RULES_EN = `[Execution Discipline]
-- Start implementing immediately after receiving this prompt. Do not ask for confirmation or present a plan first.
-- Verify each feature immediately after writing it; do not batch all testing to the end.
-- Same bug fails 3 times → downgrade edge features, ship the main flow.`;
+- Verify each feature immediately after writing it; do not batch all testing to the end.`;
 
 // Keep legacy exports for backward compatibility with tests
 export const CONSTRAINTS_ZH = `${SAFETY_RULES_ZH}\n\n${QUALITY_RULES_ZH}`;
