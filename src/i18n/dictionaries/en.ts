@@ -188,6 +188,7 @@ export const en = {
     qualityAcceptance: 'Acceptance',
     qualityWho: 'Who it serves',
     qualityMetric: 'Measurable gain',
+    qualityMetricBonus: '(bonus)',
     qualityPass: 'OK',
     qualityImprove: 'Add',
     qualityGoalHint: 'In one or two sentences, say who it is for, what it solves, and the outcome.',

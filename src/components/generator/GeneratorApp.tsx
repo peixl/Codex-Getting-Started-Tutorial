@@ -369,12 +369,19 @@ export function GeneratorApp({ locale, dict }: Props) {
                       'rounded-full border px-2.5 py-1 text-[11px]',
                       check.ok
                         ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
-                        : 'border-amber-200 bg-amber-50 text-amber-700'
+                        : check.id === 'metric'
+                          ? 'border-gray-200 bg-gray-50 text-gray-700'
+                          : 'border-amber-200 bg-amber-50 text-amber-700'
                     )}
                   >
                     {check.ok ? dict.generator.qualityPass : dict.generator.qualityImprove}
                     {' · '}
                     {dict.generator[QUALITY_LABEL_KEYS[check.id]]}
+                    {check.id === 'metric' && !check.ok && (
+                      <span className="ml-0.5 opacity-60">
+                        {dict.generator.qualityMetricBonus}
+                      </span>
+                    )}
                   </span>
                 ))}
               </div>

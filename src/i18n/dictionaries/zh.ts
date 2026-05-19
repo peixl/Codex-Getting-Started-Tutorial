@@ -189,6 +189,7 @@ export const zh = {
     qualityAcceptance: '验收标准',
     qualityWho: '给谁用',
     qualityMetric: '量化收益',
+    qualityMetricBonus: '（加分项）',
     qualityPass: '已填',
     qualityImprove: '待补充',
     qualityGoalHint: '一两句话说清楚：给谁用、解决什么、产出是什么。',
