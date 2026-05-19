@@ -162,6 +162,33 @@ describe('buildPrompt', () => {
     const safetyOccurrences = prompt.match(/\[Safety Rules\]/g) ?? [];
     expect(safetyOccurrences.length).toBe(1);
   });
+
+  it('maintains consistent section ordering (snapshot)', () => {
+    const prompt = buildPrompt(makeState({ platform: 'both' }), 'zh');
+    const sections = prompt.split('\n\n').filter((s) => s.trim());
+    const sectionHeaders = sections
+      .filter((s) => s.startsWith('【') || s.startsWith('#'))
+      .map((s) => s.split('\n')[0]);
+    expect(sectionHeaders).toMatchInlineSnapshot(`
+      [
+        "【开工前的开场白】",
+        "【任务】",
+        "【技术】",
+        "【快速启动协议】",
+        "【项目结构】",
+        "【UI 最低视觉标准】",
+        "【交付要求】",
+        "【温暖体验契约】",
+        "【完成态画面】",
+        "【错误自救】",
+        "【安全底线】",
+        "【执行纪律】",
+        "【反模式清单 — 以下行为禁止】",
+        "【DoD / 停止 Vibe Coding】",
+        "【收尾汇报模板】",
+      ]
+    `);
+  });
 });
 
 describe('buildRecoveryPrompt', () => {
