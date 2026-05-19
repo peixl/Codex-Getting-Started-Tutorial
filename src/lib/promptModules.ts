@@ -35,6 +35,42 @@ export const QUALITY_RULES_EN = `[Execution Discipline]
 export const CONSTRAINTS_ZH = `${SAFETY_RULES_ZH}\n\n${QUALITY_RULES_ZH}`;
 export const CONSTRAINTS_EN = `${SAFETY_RULES_EN}\n\n${QUALITY_RULES_EN}`;
 
+// ─── Opening Brief (talk to the user before you build) ──────────
+
+export const OPENING_BRIEF_ZH = `【开工前的开场白】
+动手之前，先用至多 8 句告诉用户接下来会发生什么。能 5 句说完，就只用 5 句。
+
+每句一行，带数字序号。短句。干净。有节奏。不用专业词。用「你」对话。讲画面、讲体感、讲结果——不讲实现。
+
+按这个顺序覆盖，宁缺毋滥：
+1. 一句话点题：要做的是什么。
+2. 它替你解决什么。
+3. 关键的几步，一步一句。
+4. 用到了什么，一行带过。
+5. 打开后，你会看到什么。
+6. 大概多久能用上。
+7. 你的文件存在哪，谁能看到。
+8. 准备好了，开始。
+
+说完不等回话，直接动手。`;
+
+export const OPENING_BRIEF_EN = `[Opening Brief]
+Before you build, use up to 8 lines to tell the user what's coming. If 5 lines do it, use 5.
+
+One sentence per line, numbered. Short. Clean. Rhythmic. No jargon. Speak to "you". Picture, feel, result — not implementation.
+
+Cover in order, skip what doesn't fit:
+1. What you'll build, in one line.
+2. The friction it removes.
+3. The key steps — one per line.
+4. The stack, in a line.
+5. What you'll see when it opens.
+6. Roughly how long.
+7. Where your files live. Who sees them.
+8. Ready. Begin.
+
+Don't wait for a reply. Start building.`;
+
 // ─── Quick Start Protocol ────────────────────────────────────────
 
 export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
@@ -372,6 +408,7 @@ export function composeCasePrompt(sections: CaseSections, lang: ModuleLang): str
   const parts: string[] = [];
 
   parts.push(sections.role);
+  parts.push(lang === 'zh' ? OPENING_BRIEF_ZH : OPENING_BRIEF_EN);
   parts.push(lang === 'zh' ? '【目标】' : '[Goal]');
   parts.push(sections.goal);
   parts.push(lang === 'zh' ? '【平台与技术】' : '[Platform & Stack]');

@@ -99,6 +99,26 @@ describe('buildPrompt', () => {
       }
     }
   });
+
+  it('inserts the opening brief between role and task in zh', () => {
+    const prompt = buildPrompt(makeState(), 'zh');
+    expect(prompt).toContain('【开工前的开场白】');
+    const roleIdx = prompt.indexOf('你是资深桌面应用工程师');
+    const briefIdx = prompt.indexOf('【开工前的开场白】');
+    const taskIdx = prompt.indexOf('【任务】');
+    expect(roleIdx).toBeLessThan(briefIdx);
+    expect(briefIdx).toBeLessThan(taskIdx);
+  });
+
+  it('inserts the opening brief between role and task in en', () => {
+    const prompt = buildPrompt(makeState(), 'en');
+    expect(prompt).toContain('[Opening Brief]');
+    const roleIdx = prompt.indexOf('You are a senior');
+    const briefIdx = prompt.indexOf('[Opening Brief]');
+    const taskIdx = prompt.indexOf('[Task]');
+    expect(roleIdx).toBeLessThan(briefIdx);
+    expect(briefIdx).toBeLessThan(taskIdx);
+  });
 });
 
 describe('buildRecoveryPrompt', () => {

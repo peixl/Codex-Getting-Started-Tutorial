@@ -7,6 +7,8 @@ import {
   DOD_EN,
   ANTI_PATTERNS_ZH,
   ANTI_PATTERNS_EN,
+  OPENING_BRIEF_ZH,
+  OPENING_BRIEF_EN,
   type ModuleTech,
 } from './promptModules';
 
@@ -236,6 +238,8 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
 
     return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。你的任务是做出一个可在本地运行的桌面工具，不是给建议。收到后直接动手实现，全程中文。
 
+${OPENING_BRIEF_ZH}
+
 【任务】
 目标：${goal || '（请补充：给谁用？解决什么问题？例："帮财务同事把每月对账从 2 天压到 1 小时"）'}
 
@@ -281,6 +285,8 @@ ${DOD_ZH}
   if (custom) extras.push(custom);
 
   return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Build a runnable local desktop tool, not advice. Start immediately. Plain English.
+
+${OPENING_BRIEF_EN}
 
 [Task]
 Goal: ${goal || '(Fill in: who is it for, what problem? Example: "Help finance cut monthly reconciliation from 2 days to 1 hour")'}

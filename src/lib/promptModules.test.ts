@@ -10,6 +10,8 @@ import {
   RECIPE_CONSTRAINTS_EN,
   ACCEPTANCE_COMMON_ZH,
   ACCEPTANCE_COMMON_EN,
+  OPENING_BRIEF_ZH,
+  OPENING_BRIEF_EN,
   deliveryBlock,
   acceptanceChecklist,
   withSharedConstraints,
@@ -86,6 +88,24 @@ describe('prompt module constants', () => {
     expect(ACCEPTANCE_COMMON_EN.emptyStateFriendly).toContain('no crash');
     expect(ACCEPTANCE_COMMON_EN.pathCompatible).toContain('Chinese');
     expect(ACCEPTANCE_COMMON_EN.exportOk).toContain('Export');
+  });
+
+  it('OPENING_BRIEF_ZH primes Codex to greet the user in ≤8 numbered lines', () => {
+    expect(OPENING_BRIEF_ZH).toContain('【开工前的开场白】');
+    expect(OPENING_BRIEF_ZH).toContain('至多 8 句');
+    expect(OPENING_BRIEF_ZH).toContain('带数字序号');
+    expect(OPENING_BRIEF_ZH).toContain('1.');
+    expect(OPENING_BRIEF_ZH).toContain('8.');
+    expect(OPENING_BRIEF_ZH).toContain('不等回话');
+  });
+
+  it('OPENING_BRIEF_EN primes Codex to greet the user in ≤8 numbered lines', () => {
+    expect(OPENING_BRIEF_EN).toContain('[Opening Brief]');
+    expect(OPENING_BRIEF_EN).toContain('up to 8 lines');
+    expect(OPENING_BRIEF_EN).toContain('numbered');
+    expect(OPENING_BRIEF_EN).toContain('1.');
+    expect(OPENING_BRIEF_EN).toContain('8.');
+    expect(OPENING_BRIEF_EN).toContain("Don't wait");
   });
 });
 
@@ -228,6 +248,34 @@ describe('composeCasePrompt', () => {
     const result = composeCasePrompt(minimal, 'zh');
     expect(result).not.toContain('【界面风格】');
     expect(result).not.toContain('【稳健性】');
+  });
+
+  it('includes the opening brief right after the role (zh)', () => {
+    const result = composeCasePrompt(sections, 'zh');
+    expect(result).toContain('【开工前的开场白】');
+    const roleIdx = result.indexOf('你是一名工程师。');
+    const briefIdx = result.indexOf('【开工前的开场白】');
+    const goalIdx = result.indexOf('【目标】');
+    expect(roleIdx).toBeLessThan(briefIdx);
+    expect(briefIdx).toBeLessThan(goalIdx);
+  });
+
+  it('includes the opening brief right after the role (en)', () => {
+    const enSections = {
+      role: 'You are an engineer.',
+      goal: 'Build a tool.',
+      platform: 'Stack',
+      features: '1. one',
+      deliveryPhases: ['ship'],
+      acceptanceItems: ['☐ ok'],
+    };
+    const result = composeCasePrompt(enSections, 'en');
+    expect(result).toContain('[Opening Brief]');
+    const roleIdx = result.indexOf('You are an engineer.');
+    const briefIdx = result.indexOf('[Opening Brief]');
+    const goalIdx = result.indexOf('[Goal]');
+    expect(roleIdx).toBeLessThan(briefIdx);
+    expect(briefIdx).toBeLessThan(goalIdx);
   });
 });
 
