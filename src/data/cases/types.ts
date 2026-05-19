@@ -37,3 +37,24 @@ export type CaseBundle = {
     en: string;
   };
 };
+
+export type LocalizedText = {
+  zh: string;
+  en: string;
+};
+
+export type DesktopCase = {
+  id: string;
+  category: string;
+  title: LocalizedText;
+  description: LocalizedText;
+  caseGoal: LocalizedText;
+  caseFeatures: {
+    zh: string[];
+    en: string[];
+  };
+  caseInputOutput: LocalizedText;
+  caseAcceptance: LocalizedText;
+  caseRole: LocalizedText;
+  caseMetric: LocalizedText;
+};

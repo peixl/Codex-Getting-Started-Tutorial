@@ -1,5 +1,6 @@
 import type { DesktopCase } from '../types';
 
+
 export const ecommerceProductPhotoWatermark: DesktopCase = {
   id: 'ecommerce-product-photo-watermark',
   category: 'ecommerce',
