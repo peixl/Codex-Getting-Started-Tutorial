@@ -1,6 +1,6 @@
 import type { FormState } from './promptBuilder';
 
-export type PromptHealthCheckId = 'goal' | 'features' | 'io' | 'acceptance';
+export type PromptHealthCheckId = 'goal' | 'features' | 'io' | 'acceptance' | 'who' | 'metric';
 
 export type PromptHealthCheck = {
   id: PromptHealthCheckId;
@@ -49,6 +49,74 @@ const ACCEPTANCE_WORDS = [
   'package',
 ] as const;
 
+const WHO_WORDS = [
+  '财务',
+  '运营',
+  '客服',
+  '销售',
+  '行政',
+  '人事',
+  'hr',
+  '法务',
+  '采购',
+  '市场',
+  '产品',
+  '同事',
+  '团队',
+  '老板',
+  '部门',
+  '门店',
+  '小伙伴',
+  'team',
+  'finance',
+  'ops',
+  'support',
+  'sales',
+  'admin',
+  'legal',
+  'procurement',
+  'marketing',
+  'product',
+  'colleague',
+  'department',
+  'store',
+] as const;
+
+const METRIC_WORDS = [
+  '小时',
+  '分钟',
+  '秒',
+  '天',
+  '周',
+  '月',
+  '单',
+  '张',
+  '行',
+  '条',
+  '份',
+  '%',
+  '倍',
+  '减少',
+  '压到',
+  '缩短',
+  '提高',
+  '提升',
+  'hour',
+  'hours',
+  'minute',
+  'min',
+  'second',
+  'day',
+  'week',
+  'row',
+  'rows',
+  'reduce',
+  'cut',
+  'shorten',
+  'faster',
+  'times',
+] as const;
+
 function includesAny(text: string, words: readonly string[]) {
   const normalized = text.toLowerCase();
   return words.some((word) => normalized.includes(word.toLowerCase()));
@@ -72,6 +140,14 @@ export function getPromptHealth(
       id: 'acceptance',
       ok: includesAny(requestText, ACCEPTANCE_WORDS),
     },
+    {
+      id: 'who',
+      ok: includesAny(requestText, WHO_WORDS),
+    },
+    {
+      id: 'metric',
+      ok: includesAny(requestText, METRIC_WORDS),
+    },
   ];
   const passed = checks.filter((check) => check.ok).length;
 
@@ -79,6 +155,6 @@ export function getPromptHealth(
     checks,
     passed,
     total: checks.length,
-    ready: passed >= 3,
+    ready: passed >= 4,
   };
 }

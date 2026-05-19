@@ -52,7 +52,7 @@ export const OPENING_BRIEF_ZH = `【开工前的开场白】
 7. 你的文件存在哪，谁能看到。
 8. 准备好了，开始。
 
-说完不等回话，直接动手。`;
+说完不等回话，按下面的流程立刻动手。`;
 
 export const OPENING_BRIEF_EN = `[Opening Brief]
 Before you build, use up to 8 lines to tell the user what's coming. If 5 lines do it, use 5.
@@ -69,7 +69,75 @@ Cover in order, skip what doesn't fit:
 7. Where your files live. Who sees them.
 8. Ready. Begin.
 
-Don't wait for a reply. Start building.`;
+Don't wait for a reply. Follow the flow below immediately.`;
+
+// ─── Warm UX Contract (treat the user with care) ────────────────
+
+export const WARM_UX_ZH = `【温暖体验契约】
+代码之外的事，比代码本身更重要。完成时要让用户觉得「这正是我要的」。
+- 首次启动 = Demo 模式：自动加载 sample-data/ 跑完主流程一次，让用户立刻看到结果界面，而不是空状态。
+- 工作台顶部永远有「用示例数据试一试」按钮，任何时候都能一键演示。
+- 按钮、提示、错误一律用业务语言。例：「找不到订单号这一列」，不是「Column "order_id" not found」。
+- 任何写盘操作默认走「另存为」，不覆盖原文件；冲突自动加时间后缀。
+- 步骤 ≥3 的操作给"撤销"或"取消"出口；大于 5 步的关键操作要二次确认。
+- 大批量任务显示进度条 + 预估剩余时间，最长每 1 秒刷新一次。
+- 主流程结束 30 秒内无操作，发系统通知（Toast）告诉用户「做完了」，可点击直达结果。
+- 失败时永远给出"下一步可以做什么"（重试 / 换文件 / 查看日志 / 复制错误），不要只留一行红色字。`;
+
+export const WARM_UX_EN = `[Warm UX Contract]
+What happens around the code matters more than the code itself. The finish should feel like a gift.
+- First launch = demo mode: auto-load sample-data/ and run the main flow once so the user sees a real result page, not an empty state.
+- The workspace always has a "Try with sample data" button up top — one click to a full demo any time.
+- Buttons, hints, and errors in business language. Example: "Can't find the Order ID column", not "Column 'order_id' not found".
+- Any write goes through "Save as" by default; never overwrite originals; timestamp on conflict.
+- Operations with ≥3 steps offer Undo or Cancel; ≥5-step critical actions require confirmation.
+- Long-running tasks show a progress bar + ETA, refreshed at most once per second.
+- If the main flow finishes and the user is idle 30s, fire a system notification ("All done") that opens the result on click.
+- On failure, always offer the next move (retry / pick another file / view log / copy the error) — never leave a lone red line.`;
+
+// ─── Success Picture (the moment of "wow") ──────────────────────
+
+export const SUCCESS_PICTURE_ZH = `【完成态画面】
+主流程结束的那一屏，是用户对这个工具的第一印象。把它当礼物来做。
+- 大号数字 + 业务语言小结，30 字以内。例：「对账 482 单，差异 5 单。已存到 桌面/差异-2026-05.xlsx」。
+- 关键发现用一行带颜色的 chip 摘要：「⚠ 3 单金额不一致 · ✦ 2 单疑似退款」。
+- 三个动作按钮固定位置：「打开输出文件夹」「再做一次」「换一个文件」。
+- 留一个"刚才做了什么"折叠面板，里面是可复制的 5-10 行操作日志。
+- 不展示纯技术信息（耗时毫秒、进程 ID、堆栈）。要展示就用业务表述：「用时 4 秒，处理 482 行」。`;
+
+export const SUCCESS_PICTURE_EN = `[Success Picture]
+The screen at the end of the main flow is the user's lasting impression. Make it feel like a gift.
+- Big-number outcome + a ≤30-word business-language summary. Example: "Reconciled 482 orders, 5 mismatches. Saved to Desktop/diff-2026-05.xlsx".
+- Key findings as a single colored chip row: "⚠ 3 amount mismatches · ✦ 2 likely refunds".
+- Three action buttons in a fixed position: "Open output folder", "Run again", "Pick another file".
+- Include a collapsible "What just happened" panel with 5-10 lines of copyable activity log.
+- No raw technical info (millis, PID, stack traces). If you must show timing, business-frame it: "Done in 4s · 482 rows".`;
+
+// ─── Final Report Schema (how to wrap up) ───────────────────────
+
+export const FINAL_REPORT_ZH = `【收尾汇报模板】
+做完后，按这个固定 4 段格式汇报。每段用 emoji 引导，正文用业务语言。
+✅ 已交付：≤5 条核心能力，业务表述，不写技术名词。
+▶ 如何打开：一条命令或"双击哪个文件"，让用户立刻能用。
+✔ 已跑过的验证：lint / typecheck / build / 用 sample-data 烟测主流程，逐项写结果（PASS / FAIL）。
+⚠ 已知限制 & v2 想法：≤3 条，每条一句话，不是 TODO 列表。`;
+
+export const FINAL_REPORT_EN = `[Final Report Schema]
+When done, wrap up with this 4-section schema. Each section opens with an emoji; body in business language.
+✅ Delivered: ≤5 core capabilities, business framing, no jargon.
+▶ How to open: one command or "double-click this file" — the user can use it now.
+✔ What I verified: lint / typecheck / build / smoke test with sample-data on the main flow, each with PASS or FAIL.
+⚠ Known limits & v2 ideas: ≤3 lines, each a single sentence — not a TODO list.`;
+
+// ─── Inline condensed versions for recipes (short by design) ────
+
+export const WARM_UX_INLINE_ZH = `- 温暖体验：首启 Demo 模式跑通一次；顶部常驻「用示例数据试一试」；按钮/错误用业务语言；不覆盖原文件；完成有 30 字小结 + 系统通知 + 「打开输出文件夹/再做一次」按钮。`;
+
+export const WARM_UX_INLINE_EN = `- Warm UX: first launch auto-runs sample-data demo; keep a "Try with sample data" button up top; buttons/errors in business language; never overwrite originals; finish with a ≤30-word summary + system notification + "Open output folder / Run again" buttons.`;
+
+export const FINAL_REPORT_INLINE_ZH = `- 收尾汇报四段：✅已交付 / ▶如何打开 / ✔已跑过的验证 / ⚠已知限制 & v2 想法。`;
+
+export const FINAL_REPORT_INLINE_EN = `- Final report in four sections: ✅ Delivered / ▶ How to open / ✔ What I verified / ⚠ Known limits & v2 ideas.`;
 
 // ─── Quick Start Protocol ────────────────────────────────────────
 
@@ -89,7 +157,7 @@ export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
         ? '写最小 src/main.tsx + src-tauri/src/main.rs，确认窗口能弹出'
         : '写最小 main.ts（创建窗口）+ index.html + renderer 入口，确认窗口能弹出';
     return `【快速启动协议】
-${techNote}收到提示词后立即按以下顺序执行，不要先输出方案等确认：
+${techNote}输出【开场白】之后立刻按以下顺序执行，不要先输出方案等确认：
 1. 创建项目目录，初始化配置文件
 2. 安装核心依赖：${deps}
 3. ${verify}
@@ -112,7 +180,7 @@ ${techNote}收到提示词后立即按以下顺序执行，不要先输出方案
       ? 'Write minimal src/main.tsx + src-tauri/src/main.rs; confirm the window launches'
       : 'Write minimal main.ts (create window) + index.html + renderer entry; confirm the window launches';
   return `[Quick Start Protocol]
-${techNote}Execute immediately in this order after receiving the prompt — do not output a plan and wait:
+${techNote}After outputting the [Opening Brief], execute in this order — do not output a plan and wait:
 1. Create project directory, init config files
 2. Install core deps: ${deps}
 3. ${verify}
@@ -244,7 +312,12 @@ export const ANTI_PATTERNS_ZH = `【反模式清单 — 以下行为禁止】
 - 一次性写完所有代码再运行（应逐功能验证）
 - 报错后反复尝试同一方案超过 3 次
 - 用 console.log 代替真实的错误处理 UI
-- 忽略空状态和加载状态`;
+- 忽略空状态和加载状态
+- 启动后第一屏是空白 / 欢迎页 / 设置页（应是工作台 + Demo 数据）
+- 错误信息暴露技术名词（"Cannot read property"、"Column not found"）
+- 大批量操作没有进度条 / 预估时间
+- 覆盖原文件不提示、不备份
+- 完成后无任何反馈（没有小结、没有按钮、没有系统通知）`;
 
 export const ANTI_PATTERNS_EN = `[Anti-Patterns — Never Do These]
 - Empty function bodies or TODO comments as "done"
@@ -253,7 +326,12 @@ export const ANTI_PATTERNS_EN = `[Anti-Patterns — Never Do These]
 - Writing all code at once then running (verify per feature instead)
 - Retrying the same failing approach more than 3 times
 - Using console.log instead of real error-handling UI
-- Ignoring empty states and loading states`;
+- Ignoring empty states and loading states
+- First screen on launch is blank / welcome / settings (should be workspace + demo data)
+- Error messages leaking jargon ("Cannot read property", "Column not found")
+- Bulk operations with no progress bar / ETA
+- Overwriting original files with no prompt and no backup
+- Finishing with zero feedback (no summary, no buttons, no system notification)`;
 
 // ─── DoD / Stop-Vibe-Coding ───────────────────────────────────────
 
@@ -329,9 +407,9 @@ export const COMMUNICATION_EN = 'Process locally; keep a desktop-tool feel; use 
 
 export function caseRole(userDesc: string, lang: ModuleLang): string {
   if (lang === 'zh') {
-    return `你是一名擅长本地桌面小工具的资深工程师。请帮我做一个本地运行的桌面小工具，用户是${userDesc}，关注业务结果和操作体验。`;
+    return `你是一名擅长本地桌面小工具的资深工程师，也是一名体贴的产品经理。你写代码前先把自己当成用户走一遍：第一眼看到什么、第一次怎么用、第一次出错怎么自救。请帮我做一个本地运行的桌面小工具，使用的人是${userDesc}，关注业务结果和操作体验。`;
   }
-  return `You are a senior engineer building local desktop tools. The user is ${userDesc}, focused on business outcomes and usability.`;
+  return `You are a senior engineer building local desktop tools and a thoughtful product manager. Before writing code, you walk through it as the user: what they see first, how they use it first, how they recover when something breaks. Build a runnable local desktop tool. The user is ${userDesc}, focused on business outcomes and usability.`;
 }
 
 // ─── Packaging Templates ─────────────────────────────────────────
@@ -433,10 +511,13 @@ export function composeCasePrompt(sections: CaseSections, lang: ModuleLang): str
   if (sections.extra) parts.push(sections.extra);
 
   parts.push(lang === 'zh' ? CONSTRAINTS_ZH : CONSTRAINTS_EN);
+  parts.push(lang === 'zh' ? WARM_UX_ZH : WARM_UX_EN);
+  parts.push(lang === 'zh' ? SUCCESS_PICTURE_ZH : SUCCESS_PICTURE_EN);
   parts.push(lang === 'zh' ? PROJECT_STRUCTURE_ZH : PROJECT_STRUCTURE_EN);
   parts.push(lang === 'zh' ? ERROR_RECOVERY_ZH : ERROR_RECOVERY_EN);
   parts.push(deliveryBlock(sections.deliveryPhases, lang));
   parts.push(acceptanceChecklist(sections.acceptanceItems, lang));
+  parts.push(lang === 'zh' ? FINAL_REPORT_ZH : FINAL_REPORT_EN);
 
   if (sections.communication) parts.push(sections.communication);
 
@@ -468,8 +549,10 @@ export function composeRecipePrompt(parts: RecipeParts, lang: ModuleLang): strin
   if (parts.extra) lines.push(parts.extra);
 
   lines.push(lang === 'zh' ? RECIPE_CONSTRAINTS_ZH : RECIPE_CONSTRAINTS_EN);
+  lines.push(lang === 'zh' ? WARM_UX_INLINE_ZH : WARM_UX_INLINE_EN);
   lines.push(lang === 'zh' ? `- 验收：${parts.acceptance}` : `- Acceptance: ${parts.acceptance}`);
   lines.push(parts.packaging);
+  lines.push(lang === 'zh' ? FINAL_REPORT_INLINE_ZH : FINAL_REPORT_INLINE_EN);
   lines.push(lang === 'zh' ? ERROR_RECOVERY_ZH : ERROR_RECOVERY_EN);
 
   return lines.join('\n');

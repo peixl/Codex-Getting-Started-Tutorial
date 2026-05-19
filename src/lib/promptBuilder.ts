@@ -9,6 +9,14 @@ import {
   ANTI_PATTERNS_EN,
   OPENING_BRIEF_ZH,
   OPENING_BRIEF_EN,
+  SAFETY_RULES_ZH,
+  SAFETY_RULES_EN,
+  WARM_UX_ZH,
+  WARM_UX_EN,
+  SUCCESS_PICTURE_ZH,
+  SUCCESS_PICTURE_EN,
+  FINAL_REPORT_ZH,
+  FINAL_REPORT_EN,
   type ModuleTech,
 } from './promptModules';
 
@@ -193,6 +201,7 @@ function deliveryRequirementsZh(state: FormState): string {
     '- 路径兼容中文、空格、括号；适配深浅模式。',
     `- ${pack}`,
     '- 附 ≤500 字中文使用说明 + README。',
+    '- 真实接线：每个按钮能点、每次导入能用、每次导出都有文件落地；TODO、空函数、假数据不算完成。',
   ];
   if (state.complexity === 'advanced') {
     lines.splice(4, 0,
@@ -212,6 +221,7 @@ function deliveryRequirementsEn(state: FormState): string {
     '- Paths handle Chinese, spaces, parentheses; support light/dark mode.',
     `- ${pack}`,
     '- Include a ≤500-word user guide + README.',
+    '- Real-wired delivery: every button works, every import loads, every export produces a file; TODOs / empty functions / fake data do not count as done.',
   ];
   if (state.complexity === 'advanced') {
     lines.splice(4, 0,
@@ -236,7 +246,7 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
     if (state.extras.accessibility) extras.push(ACCESSIBILITY_ZH[state.platform]);
     if (custom) extras.push(custom);
 
-    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}。你的任务是做出一个可在本地运行的桌面工具，不是给建议。收到后直接动手实现，全程中文。
+    return `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}，也是一名体贴的产品经理。你写代码前先把自己当成用户走一遍：第一眼看到什么、第一次怎么用、第一次出错怎么自救。你的任务是做出一个可在本地运行的桌面工具，不是给建议。收到后直接动手实现，全程中文。
 
 ${OPENING_BRIEF_ZH}
 
@@ -259,20 +269,19 @@ ${projectStructure(state.tech, 'zh')}
 【交付要求】
 ${deliveryRequirementsZh(state)}
 
+${WARM_UX_ZH}
+
+${SUCCESS_PICTURE_ZH}
+
 ${ERROR_RECOVERY_ZH}
 
-【底线】
-- 默认本地处理；联网传输须加密并告知用户。
-- 不编造 npm 包名；不写死密钥、绝对路径、个人邮箱。
-- 输出不覆盖原文件，冲突加时间后缀。
-- 不把 TODO、空函数、假数据当完成。
-- 每个功能都要真实接线：按钮能点、导入能用、导出有文件。
+${SAFETY_RULES_ZH}
 
 ${ANTI_PATTERNS_ZH}
 
 ${DOD_ZH}
 
-做完后只报：做了什么 | 如何打开 | 验证结果 | 剩余限制。
+${FINAL_REPORT_ZH}
 开始。`;
   }
 
@@ -284,7 +293,7 @@ ${DOD_ZH}
   if (state.extras.accessibility) extras.push(ACCESSIBILITY_EN[state.platform]);
   if (custom) extras.push(custom);
 
-  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer. Build a runnable local desktop tool, not advice. Start immediately. Plain English.
+  return `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer and a thoughtful product manager. Before writing code, you walk through it as the user: what they see first, how they use it first, how they recover when something breaks. Build a runnable local desktop tool, not advice. Start immediately. Plain English.
 
 ${OPENING_BRIEF_EN}
 
@@ -307,20 +316,19 @@ ${projectStructure(state.tech, 'en')}
 [Delivery Requirements]
 ${deliveryRequirementsEn(state)}
 
+${WARM_UX_EN}
+
+${SUCCESS_PICTURE_EN}
+
 ${ERROR_RECOVERY_EN}
 
-[Non-Negotiables]
-- Process locally by default; network calls require encryption and user consent.
-- Do not invent package names; no hard-coded secrets, absolute paths, or emails.
-- Never overwrite input files; timestamp conflicts.
-- TODOs, empty functions, or fake data do not count as done.
-- Every feature must be real-wired: buttons work, imports load, exports produce files.
+${SAFETY_RULES_EN}
 
 ${ANTI_PATTERNS_EN}
 
 ${DOD_EN}
 
-When done, report only: what was built | how to open | verification results | remaining limits.
+${FINAL_REPORT_EN}
 Start now.`;
 }
 

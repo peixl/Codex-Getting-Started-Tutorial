@@ -45,12 +45,12 @@ describe('buildPrompt', () => {
     const prompt = buildPrompt(makeState({ platform: 'both' }), 'zh');
 
     expect(prompt).toContain('【交付要求】');
-    expect(prompt).toContain('【底线】');
+    expect(prompt).toContain('【安全底线】');
     expect(prompt).toContain('sample-data');
     expect(prompt).toContain('路径兼容中文、空格、括号');
     expect(prompt).toContain('系统打开/保存对话框');
     expect(prompt).toContain('真实接线');
-    expect(prompt).toContain('不把 TODO');
+    expect(prompt).toContain('TODO、空函数、假数据不算完成');
     expect(prompt).toContain('直接动手');
   });
 
@@ -74,7 +74,7 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('Command / Option combinations');
     expect(prompt).toContain('build a macOS .dmg installer');
     expect(prompt).toContain('native open/save dialogs');
-    expect(prompt).toContain('[Non-Negotiables]');
+    expect(prompt).toContain('[Safety Rules]');
     expect(prompt).toContain('do not count as done');
   });
 
@@ -118,6 +118,49 @@ describe('buildPrompt', () => {
     const taskIdx = prompt.indexOf('[Task]');
     expect(roleIdx).toBeLessThan(briefIdx);
     expect(briefIdx).toBeLessThan(taskIdx);
+  });
+
+  it('threads warm UX and success picture into the generator prompt (zh)', () => {
+    const prompt = buildPrompt(makeState(), 'zh');
+    expect(prompt).toContain('【温暖体验契约】');
+    expect(prompt).toContain('【完成态画面】');
+    expect(prompt).toContain('Demo 模式');
+    expect(prompt).toContain('打开输出文件夹');
+  });
+
+  it('threads warm UX and success picture into the generator prompt (en)', () => {
+    const prompt = buildPrompt(makeState(), 'en');
+    expect(prompt).toContain('[Warm UX Contract]');
+    expect(prompt).toContain('[Success Picture]');
+    expect(prompt).toContain('demo mode');
+    expect(prompt).toContain('Open output folder');
+  });
+
+  it('replaces the ad-hoc closing line with the final report schema (zh)', () => {
+    const prompt = buildPrompt(makeState(), 'zh');
+    expect(prompt).toContain('【收尾汇报模板】');
+    expect(prompt).toContain('✅ 已交付');
+    expect(prompt).not.toContain('做了什么 | 如何打开 | 验证结果 | 剩余限制');
+  });
+
+  it('replaces the ad-hoc closing line with the final report schema (en)', () => {
+    const prompt = buildPrompt(makeState(), 'en');
+    expect(prompt).toContain('[Final Report Schema]');
+    expect(prompt).toContain('✅ Delivered');
+  });
+
+  it('reuses the shared safety rules block instead of inlining a duplicate (zh)', () => {
+    const prompt = buildPrompt(makeState(), 'zh');
+    expect(prompt).toContain('【安全底线】');
+    const safetyOccurrences = prompt.match(/【安全底线】/g) ?? [];
+    expect(safetyOccurrences.length).toBe(1);
+  });
+
+  it('reuses the shared safety rules block instead of inlining a duplicate (en)', () => {
+    const prompt = buildPrompt(makeState(), 'en');
+    expect(prompt).toContain('[Safety Rules]');
+    const safetyOccurrences = prompt.match(/\[Safety Rules\]/g) ?? [];
+    expect(safetyOccurrences.length).toBe(1);
   });
 });
 

@@ -12,6 +12,18 @@ import {
   ACCEPTANCE_COMMON_EN,
   OPENING_BRIEF_ZH,
   OPENING_BRIEF_EN,
+  WARM_UX_ZH,
+  WARM_UX_EN,
+  SUCCESS_PICTURE_ZH,
+  SUCCESS_PICTURE_EN,
+  FINAL_REPORT_ZH,
+  FINAL_REPORT_EN,
+  WARM_UX_INLINE_ZH,
+  WARM_UX_INLINE_EN,
+  FINAL_REPORT_INLINE_ZH,
+  FINAL_REPORT_INLINE_EN,
+  ANTI_PATTERNS_ZH,
+  ANTI_PATTERNS_EN,
   deliveryBlock,
   acceptanceChecklist,
   withSharedConstraints,
@@ -106,6 +118,74 @@ describe('prompt module constants', () => {
     expect(OPENING_BRIEF_EN).toContain('1.');
     expect(OPENING_BRIEF_EN).toContain('8.');
     expect(OPENING_BRIEF_EN).toContain("Don't wait");
+  });
+
+  it('WARM_UX_ZH carries the warm-experience contract', () => {
+    expect(WARM_UX_ZH).toContain('温暖体验契约');
+    expect(WARM_UX_ZH).toContain('Demo 模式');
+    expect(WARM_UX_ZH).toContain('用示例数据试一试');
+    expect(WARM_UX_ZH).toContain('业务语言');
+    expect(WARM_UX_ZH).toContain('另存为');
+    expect(WARM_UX_ZH).toContain('系统通知');
+  });
+
+  it('WARM_UX_EN carries the warm-experience contract', () => {
+    expect(WARM_UX_EN).toContain('Warm UX Contract');
+    expect(WARM_UX_EN).toContain('demo mode');
+    expect(WARM_UX_EN).toContain('Try with sample data');
+    expect(WARM_UX_EN).toContain('business language');
+    expect(WARM_UX_EN).toContain('Save as');
+    expect(WARM_UX_EN).toContain('system notification');
+  });
+
+  it('SUCCESS_PICTURE_ZH paints the moment of completion', () => {
+    expect(SUCCESS_PICTURE_ZH).toContain('完成态画面');
+    expect(SUCCESS_PICTURE_ZH).toContain('30 字');
+    expect(SUCCESS_PICTURE_ZH).toContain('打开输出文件夹');
+    expect(SUCCESS_PICTURE_ZH).toContain('再做一次');
+  });
+
+  it('SUCCESS_PICTURE_EN paints the moment of completion', () => {
+    expect(SUCCESS_PICTURE_EN).toContain('Success Picture');
+    expect(SUCCESS_PICTURE_EN).toContain('30-word');
+    expect(SUCCESS_PICTURE_EN).toContain('Open output folder');
+    expect(SUCCESS_PICTURE_EN).toContain('Run again');
+  });
+
+  it('FINAL_REPORT_ZH defines the four-section schema', () => {
+    expect(FINAL_REPORT_ZH).toContain('收尾汇报模板');
+    expect(FINAL_REPORT_ZH).toContain('✅ 已交付');
+    expect(FINAL_REPORT_ZH).toContain('▶ 如何打开');
+    expect(FINAL_REPORT_ZH).toContain('✔ 已跑过的验证');
+    expect(FINAL_REPORT_ZH).toContain('⚠ 已知限制');
+  });
+
+  it('FINAL_REPORT_EN defines the four-section schema', () => {
+    expect(FINAL_REPORT_EN).toContain('Final Report Schema');
+    expect(FINAL_REPORT_EN).toContain('✅ Delivered');
+    expect(FINAL_REPORT_EN).toContain('▶ How to open');
+    expect(FINAL_REPORT_EN).toContain('✔ What I verified');
+    expect(FINAL_REPORT_EN).toContain('⚠ Known limits');
+  });
+
+  it('WARM_UX_INLINE and FINAL_REPORT_INLINE stay on one line each', () => {
+    expect(WARM_UX_INLINE_ZH.split('\n')).toHaveLength(1);
+    expect(WARM_UX_INLINE_EN.split('\n')).toHaveLength(1);
+    expect(FINAL_REPORT_INLINE_ZH.split('\n')).toHaveLength(1);
+    expect(FINAL_REPORT_INLINE_EN.split('\n')).toHaveLength(1);
+    expect(WARM_UX_INLINE_ZH).toContain('Demo');
+    expect(WARM_UX_INLINE_EN).toContain('demo');
+    expect(FINAL_REPORT_INLINE_ZH).toContain('已交付');
+    expect(FINAL_REPORT_INLINE_EN).toContain('Delivered');
+  });
+
+  it('ANTI_PATTERNS now bars desktop-specific bad behaviors', () => {
+    expect(ANTI_PATTERNS_ZH).toContain('空白');
+    expect(ANTI_PATTERNS_ZH).toContain('进度条');
+    expect(ANTI_PATTERNS_ZH).toContain('覆盖原文件');
+    expect(ANTI_PATTERNS_EN).toContain('blank');
+    expect(ANTI_PATTERNS_EN).toContain('progress bar');
+    expect(ANTI_PATTERNS_EN).toContain('Overwriting original');
   });
 });
 
@@ -277,6 +357,40 @@ describe('composeCasePrompt', () => {
     expect(roleIdx).toBeLessThan(briefIdx);
     expect(briefIdx).toBeLessThan(goalIdx);
   });
+
+  it('injects warm UX and success picture between constraints and project structure (zh)', () => {
+    const result = composeCasePrompt(sections, 'zh');
+    const safetyIdx = result.indexOf('【安全底线】');
+    const warmIdx = result.indexOf('【温暖体验契约】');
+    const successIdx = result.indexOf('【完成态画面】');
+    const structureIdx = result.indexOf('【项目结构】');
+    expect(safetyIdx).toBeGreaterThan(-1);
+    expect(warmIdx).toBeGreaterThan(safetyIdx);
+    expect(successIdx).toBeGreaterThan(warmIdx);
+    expect(structureIdx).toBeGreaterThan(successIdx);
+  });
+
+  it('ends the case prompt with the final report schema (zh)', () => {
+    const result = composeCasePrompt(sections, 'zh');
+    const acceptanceIdx = result.indexOf('验收清单');
+    const reportIdx = result.indexOf('【收尾汇报模板】');
+    expect(reportIdx).toBeGreaterThan(acceptanceIdx);
+    expect(result).toContain('✅ 已交付');
+  });
+
+  it('ends the case prompt with the final report schema (en)', () => {
+    const enSections = {
+      role: 'You are an engineer.',
+      goal: 'Build a tool.',
+      platform: 'Stack',
+      features: '1. one',
+      deliveryPhases: ['ship'],
+      acceptanceItems: ['☐ ok'],
+    };
+    const result = composeCasePrompt(enSections, 'en');
+    expect(result).toContain('[Final Report Schema]');
+    expect(result).toContain('✅ Delivered');
+  });
 });
 
 // ─── composeRecipePrompt ────────────────────────────────────────
@@ -334,5 +448,32 @@ describe('composeRecipePrompt', () => {
     const withExtra = { ...parts, extra: '- 全程不联网。' };
     const result = composeRecipePrompt(withExtra, 'zh');
     expect(result).toContain('全程不联网。');
+  });
+
+  it('keeps recipes short with condensed warm UX and final report lines (zh)', () => {
+    const result = composeRecipePrompt(parts, 'zh');
+    expect(result).toContain('温暖体验');
+    expect(result).toContain('Demo 模式');
+    expect(result).toContain('收尾汇报四段');
+    const warmLine = result.split('\n').find((line) => line.startsWith('- 温暖体验'));
+    const reportLine = result.split('\n').find((line) => line.startsWith('- 收尾汇报四段'));
+    expect(warmLine).toBeDefined();
+    expect(reportLine).toBeDefined();
+  });
+
+  it('keeps recipes short with condensed warm UX and final report lines (en)', () => {
+    const enParts = {
+      role: 'You are an engineer.',
+      goal: 'Build a tool.',
+      platform: 'Windows + macOS',
+      stack: 'Electron + React + TypeScript',
+      features: 'Drop file → process → export',
+      acceptance: 'Drop file → process → export correct',
+      packaging: '- Package .exe and .dmg; user guide.',
+    };
+    const result = composeRecipePrompt(enParts, 'en');
+    expect(result).toContain('Warm UX');
+    expect(result).toContain('demo');
+    expect(result).toContain('Final report in four sections');
   });
 });

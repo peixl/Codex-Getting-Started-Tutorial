@@ -42,6 +42,8 @@ const QUALITY_LABEL_KEYS: Record<PromptHealthCheckId, keyof Dictionary['generato
   features: 'qualityFeatures',
   io: 'qualityIo',
   acceptance: 'qualityAcceptance',
+  who: 'qualityWho',
+  metric: 'qualityMetric',
 };
 
 export function GeneratorApp({ locale, dict }: Props) {
