@@ -352,7 +352,7 @@ export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string 
 2. 最小 diff 修改；不删功能、不换技术栈来绕过
 3. 重新运行：安装 / lint / 类型检查 / 构建 / 启动
 4. 同一问题 3 次失败 → 降级边缘功能，先恢复主流程
-5. 修完后用示例数据走完主流程，看到产物再说修好
+5. 修完后用示例数据走完主流程，看到产物才算修好
 
 遵守原提示词的所有安全底线和执行纪律。
 

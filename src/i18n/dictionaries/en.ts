@@ -190,6 +190,12 @@ export const en = {
     qualityMetric: 'Measurable gain',
     qualityPass: 'OK',
     qualityImprove: 'Add',
+    qualityGoalHint: 'In one or two sentences, say who it is for, what it solves, and the outcome.',
+    qualityFeaturesHint: 'One line each — be concrete: which file to drag in, which button to click, what comes out.',
+    qualityIoHint: 'Name the input and output, e.g. "Import Excel → export diff sheet".',
+    qualityAcceptanceHint: 'Spell out what counts as done in one line, e.g. "main flow runs, empty data does not crash, double-click to open".',
+    qualityWhoHint: 'Say who will use it in one phrase, e.g. "finance teammate / teacher / just me".',
+    qualityMetricHint: 'Give one measurable metric, e.g. "from 2 days to 1 hour" or "one click replaces 30 manual steps".',
 
     quickTemplatesTitle: 'Start from a template',
     quickTemplatesHint: 'One click fills the form. Tweak and go.',

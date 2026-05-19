@@ -46,6 +46,15 @@ const QUALITY_LABEL_KEYS: Record<PromptHealthCheckId, keyof Dictionary['generato
   metric: 'qualityMetric',
 };
 
+const QUALITY_HINT_KEYS: Record<PromptHealthCheckId, keyof Dictionary['generator']> = {
+  goal: 'qualityGoalHint',
+  features: 'qualityFeaturesHint',
+  io: 'qualityIoHint',
+  acceptance: 'qualityAcceptanceHint',
+  who: 'qualityWhoHint',
+  metric: 'qualityMetricHint',
+};
+
 export function GeneratorApp({ locale, dict }: Props) {
   const [state, setState] = useState<FormState>(DEFAULT_FORM);
   const [lang, setLang] = useState<PromptLang>(locale);
@@ -355,6 +364,7 @@ export function GeneratorApp({ locale, dict }: Props) {
                 {promptHealth.checks.map((check) => (
                   <span
                     key={check.id}
+                    title={check.ok ? undefined : dict.generator[QUALITY_HINT_KEYS[check.id]]}
                     className={cn(
                       'rounded-full border px-2.5 py-1 text-[11px]',
                       check.ok
@@ -368,6 +378,25 @@ export function GeneratorApp({ locale, dict }: Props) {
                   </span>
                 ))}
               </div>
+              {!promptHealth.ready && (
+                <ul className="mt-3 space-y-1 text-[11.5px] leading-relaxed text-ink-mute">
+                  {promptHealth.checks
+                    .filter((check) => !check.ok)
+                    .slice(0, 2)
+                    .map((check) => (
+                      <li key={`hint-${check.id}`} className="flex gap-1.5">
+                        <span aria-hidden className="text-amber-600">→</span>
+                        <span>
+                          <span className="font-medium text-ink-soft">
+                            {dict.generator[QUALITY_LABEL_KEYS[check.id]]}
+                          </span>
+                          {' · '}
+                          {dict.generator[QUALITY_HINT_KEYS[check.id]]}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+              )}
             </div>
             <pre className="max-h-[520px] overflow-auto rounded-2xl border border-[color:var(--line)] bg-[#0F1115] p-4 text-[12.5px] leading-[1.75] text-[#E5E7EB]">
               <code className="whitespace-pre-wrap break-words">{prompt}</code>

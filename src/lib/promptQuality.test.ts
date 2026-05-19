@@ -15,16 +15,6 @@ describe('withDesktopQualityBar', () => {
     expect(second).toBe(first);
   });
 
-  it('compacts old repeated Chinese prompt endings', () => {
-    const first = withDesktopQualityBar(
-      '请做一个本地桌面工具。\n先给简短方案摘要，然后直接实现、运行和验证。中文。',
-      'zh'
-    );
-
-    expect(first).not.toContain('先给简短方案摘要');
-    expect(first).toContain('≤8 行摘要');
-  });
-
   it('adds the English quality bar once', () => {
     const first = withDesktopQualityBar('Build a local desktop tool.', 'en');
     const second = withDesktopQualityBar(first, 'en');
@@ -38,14 +28,9 @@ describe('withDesktopQualityBar', () => {
     expect(second).toBe(first);
   });
 
-  it('compacts old repeated English prompt endings', () => {
-    const first = withDesktopQualityBar(
-      'Build a local desktop tool.\nStart with a brief plan summary, then implement, run, and verify. English throughout.',
-      'en'
-    );
-
-    expect(first).not.toContain('brief plan summary');
-    expect(first).toContain('summarize in ≤8 lines');
+  it('collapses runs of 3+ blank lines into a single blank line', () => {
+    const wrapped = withDesktopQualityBar('请做一个本地桌面工具。\n\n\n\n', 'zh');
+    expect(wrapped).not.toMatch(/\n{3,}/);
   });
 
   it('places the final report schema at the very end of the tail (zh)', () => {

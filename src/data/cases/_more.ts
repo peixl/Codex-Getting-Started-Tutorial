@@ -2249,7 +2249,7 @@ export const dataSkuProfitRadar: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('an e-commerce data analyst (tool must be usable by non-technical teammates)', 'en'),
+      role: caseRole('an e-commerce data analyst whose teammates across the business will use this tool — make it one-click and friendly', 'en'),
       goal: 'Combine revenue, margin, ads, refunds, and stock turnover to find SKUs worth more resources.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS; ECharts',
       features: `1. Import sales, cost, ad spend, refund, and stock sheets; merge by SKU.
@@ -2324,7 +2324,7 @@ export const productListingQualityChecker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('merchandising/product teammates (must be usable by non-technical staff)', 'en'),
+      role: caseRole('merchandising/product teammates — the tool should feel natural in their hands, one-click with no setup', 'en'),
       goal: 'Batch-check listing materials for completeness and consistency to reduce last-minute rework before launch.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON rules',
       features: `1. Import product sheet, image list, certificate file list.

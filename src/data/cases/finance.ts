@@ -57,15 +57,13 @@ export const financeReconciliation: CaseBundle = {
       platform: `- 平台：Windows 10 / 11 桌面应用
 - 框架：Electron + React + TypeScript
 - 表格处理：SheetJS
-- 默认本地处理；联网传输须加密并告知用户
 - 交付时打包成 Windows .exe 安装包`,
       features: `1. 首页两个醒目按钮：「导入订单 Excel」「导入银行流水 Excel」，支持拖拽。
 2. 导入后自动显示表头和前 5 行预览，让用户从下拉框里选「订单号」「金额」「交易时间」「备注」字段。记住选择下次默认回填。
 3. 示例字段兼容：订单表常见列「订单号 / 实付金额 / 下单时间 / 店铺」；银行流水常见列「交易单号 / 收入金额 / 交易时间 / 摘要」。列名可有细微差异。
 4. 「开始对账」按钮显示进度条。匹配逻辑：订单号去空格后作为主键；金额差 <= 0.01 元视为匹配；重复订单号要合并提示；退款 / 冲正流水单独标记，不直接当异常。
 5. 结果页两栏：左边展示匹配数、差异数、匹配率、总金额；右边表格列出每一条差异，字段包括订单号、订单金额、银行金额、差额、可能原因（金额不一致 / 银行流水缺失 / 订单缺失 / 重复订单 / 疑似退款）。
-6. 「导出差异明细到 Excel」按钮，默认文件名 "差异明细-YYYY-MM.xlsx"。
-7. 数据默认本地处理，联网功能须告知用户并加密传输。`,
+6. 「导出差异明细到 Excel」按钮，默认文件名 "差异明细-YYYY-MM.xlsx"。`,
       sampleData: `sample-data/ 中放两个文件：
 orders.xlsx — 列：订单号, 实付金额, 下单时间, 店铺（示例：DD202401001, 299.00, 2024-01-05, 旗舰店）
 bank.xlsx — 列：交易单号, 收入金额, 交易时间, 摘要（示例：DD202401001, 299.00, 2024-01-06, 支付宝转入）
@@ -98,15 +96,13 @@ bank.xlsx — 列：交易单号, 收入金额, 交易时间, 摘要（示例：
       platform: `- Platform: Windows 10 / 11 desktop app
 - Framework: Electron + React + TypeScript
 - Spreadsheet parsing: SheetJS
-- Process locally by default; network calls require encryption and user consent
 - Deliver a Windows .exe installer`,
       features: `1. Home screen with two prominent buttons: "Import Orders Excel" and "Import Bank Excel". Drag-and-drop works.
 2. After import, show headers and first 5 rows. Let the user pick Order ID / Amount / Transaction Time / Notes columns from dropdowns. Remember and pre-fill next time.
 3. Example headers to support: orders may use Order ID / Paid Amount / Order Time / Store; bank statements may use Transaction ID / Income Amount / Transaction Time / Memo. Tolerate minor header wording differences.
 4. "Reconcile" button triggers a progress bar. Rule: trim order IDs and use them as keys; difference <= 0.01 = match; duplicate order IDs are grouped and flagged; refunds / reversals are tagged separately, not treated as ordinary mismatches.
 5. Results page has two panes. Left: matched count, mismatched count, match rate, total amount. Right: a mismatch table with order ID, order amount, bank amount, diff, reason (amounts differ / missing in bank / missing in orders / duplicate order / likely refund).
-6. "Export mismatches to Excel" with default filename "diff-YYYY-MM.xlsx".
-7. Process locally by default; network calls require encryption and user consent.`,
+6. "Export mismatches to Excel" with default filename "diff-YYYY-MM.xlsx".`,
       style: `- Minimal desktop-tool style: light background, clear sections, radius 8, moderate information density.
 - Primary button: muted dark. Secondary: light gray.
 - Follows Windows light/dark setting.
