@@ -1,8 +1,8 @@
 import {
   quickStart,
   projectStructure,
-  ERROR_RECOVERY_ZH,
-  ERROR_RECOVERY_EN,
+  errorRecovery,
+  uiStandards,
   DOD_ZH,
   DOD_EN,
   ANTI_PATTERNS_ZH,
@@ -11,6 +11,8 @@ import {
   OPENING_BRIEF_EN,
   SAFETY_RULES_ZH,
   SAFETY_RULES_EN,
+  QUALITY_RULES_ZH,
+  QUALITY_RULES_EN,
   WARM_UX_ZH,
   WARM_UX_EN,
   SUCCESS_PICTURE_ZH,
@@ -266,6 +268,8 @@ ${quickStart(state.tech, 'zh')}
 
 ${projectStructure(state.tech, 'zh')}
 
+${uiStandards(state.tech, 'zh')}
+
 【交付要求】
 ${deliveryRequirementsZh(state)}
 
@@ -273,16 +277,17 @@ ${WARM_UX_ZH}
 
 ${SUCCESS_PICTURE_ZH}
 
-${ERROR_RECOVERY_ZH}
+${errorRecovery(state.tech, 'zh')}
 
 ${SAFETY_RULES_ZH}
+
+${QUALITY_RULES_ZH}
 
 ${ANTI_PATTERNS_ZH}
 
 ${DOD_ZH}
 
-${FINAL_REPORT_ZH}
-开始。`;
+${FINAL_REPORT_ZH}`;
   }
 
   const extras: string[] = [];
@@ -313,6 +318,8 @@ ${quickStart(state.tech, 'en')}
 
 ${projectStructure(state.tech, 'en')}
 
+${uiStandards(state.tech, 'en')}
+
 [Delivery Requirements]
 ${deliveryRequirementsEn(state)}
 
@@ -320,16 +327,17 @@ ${WARM_UX_EN}
 
 ${SUCCESS_PICTURE_EN}
 
-${ERROR_RECOVERY_EN}
+${errorRecovery(state.tech, 'en')}
 
 ${SAFETY_RULES_EN}
+
+${QUALITY_RULES_EN}
 
 ${ANTI_PATTERNS_EN}
 
 ${DOD_EN}
 
-${FINAL_REPORT_EN}
-Start now.`;
+${FINAL_REPORT_EN}`;
 }
 
 export function buildRecoveryPrompt(state: FormState, lang: PromptLang): string {

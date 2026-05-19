@@ -24,6 +24,8 @@ import {
   FINAL_REPORT_INLINE_EN,
   ANTI_PATTERNS_ZH,
   ANTI_PATTERNS_EN,
+  errorRecovery,
+  uiStandards,
   deliveryBlock,
   acceptanceChecklist,
   withSharedConstraints,
@@ -102,22 +104,20 @@ describe('prompt module constants', () => {
     expect(ACCEPTANCE_COMMON_EN.exportOk).toContain('Export');
   });
 
-  it('OPENING_BRIEF_ZH primes Codex to greet the user in ≤8 numbered lines', () => {
+  it('OPENING_BRIEF_ZH primes Codex to greet the user in 3-8 numbered lines', () => {
     expect(OPENING_BRIEF_ZH).toContain('【开工前的开场白】');
-    expect(OPENING_BRIEF_ZH).toContain('至多 8 句');
+    expect(OPENING_BRIEF_ZH).toContain('3-8 句');
     expect(OPENING_BRIEF_ZH).toContain('带数字序号');
-    expect(OPENING_BRIEF_ZH).toContain('1.');
-    expect(OPENING_BRIEF_ZH).toContain('8.');
     expect(OPENING_BRIEF_ZH).toContain('不等回话');
+    expect(OPENING_BRIEF_ZH).toContain('不要承诺时间');
   });
 
-  it('OPENING_BRIEF_EN primes Codex to greet the user in ≤8 numbered lines', () => {
+  it('OPENING_BRIEF_EN primes Codex to greet the user in 3-8 numbered lines', () => {
     expect(OPENING_BRIEF_EN).toContain('[Opening Brief]');
-    expect(OPENING_BRIEF_EN).toContain('up to 8 lines');
+    expect(OPENING_BRIEF_EN).toContain('3-8 lines');
     expect(OPENING_BRIEF_EN).toContain('numbered');
-    expect(OPENING_BRIEF_EN).toContain('1.');
-    expect(OPENING_BRIEF_EN).toContain('8.');
     expect(OPENING_BRIEF_EN).toContain("Don't wait");
+    expect(OPENING_BRIEF_EN).toContain("Don't promise a timeline");
   });
 
   it('WARM_UX_ZH carries the warm-experience contract', () => {
@@ -127,6 +127,58 @@ describe('prompt module constants', () => {
     expect(WARM_UX_ZH).toContain('业务语言');
     expect(WARM_UX_ZH).toContain('另存为');
     expect(WARM_UX_ZH).toContain('系统通知');
+  });
+
+  it('errorRecovery returns Electron-specific advice by default', () => {
+    const zh = errorRecovery('electron', 'zh');
+    expect(zh).toContain('Electron 白屏');
+    expect(zh).toContain('preload');
+    expect(zh).not.toContain('Rust');
+  });
+
+  it('errorRecovery returns Tauri-specific advice', () => {
+    const zh = errorRecovery('tauri', 'zh');
+    expect(zh).toContain('Rust 编译失败');
+    expect(zh).toContain('#[tauri::command]');
+    expect(zh).not.toContain('Electron 白屏');
+    const en = errorRecovery('tauri', 'en');
+    expect(en).toContain('Rust compile error');
+    expect(en).toContain('invoke_handler');
+  });
+
+  it('errorRecovery returns PyQt-specific advice', () => {
+    const zh = errorRecovery('pyqt', 'zh');
+    expect(zh).toContain('pip install');
+    expect(zh).toContain('app.exec()');
+    expect(zh).not.toContain('Electron');
+    const en = errorRecovery('pyqt', 'en');
+    expect(en).toContain('pip install fails');
+    expect(en).toContain('widget.show()');
+  });
+
+  it('errorRecovery auto falls back to Electron', () => {
+    expect(errorRecovery('auto', 'zh')).toContain('Electron 白屏');
+    expect(errorRecovery('auto', 'en')).toContain('Electron white screen');
+  });
+
+  it('uiStandards returns web-based standards for Electron/Tauri', () => {
+    const zh = uiStandards('electron', 'zh');
+    expect(zh).toContain('CSS 变量');
+    expect(zh).toContain('圆角');
+    const en = uiStandards('tauri', 'en');
+    expect(en).toContain('CSS variables');
+    expect(en).toContain('border-radius');
+  });
+
+  it('uiStandards returns native widget guidance for PyQt', () => {
+    const zh = uiStandards('pyqt', 'zh');
+    expect(zh).toContain('QPushButton');
+    expect(zh).toContain('QProgressBar');
+    expect(zh).not.toContain('CSS 变量');
+    const en = uiStandards('pyqt', 'en');
+    expect(en).toContain('QPushButton');
+    expect(en).toContain('QProgressBar');
+    expect(en).not.toContain('CSS variables');
   });
 
   it('WARM_UX_EN carries the warm-experience contract', () => {
@@ -370,15 +422,12 @@ describe('composeCasePrompt', () => {
     expect(structureIdx).toBeGreaterThan(successIdx);
   });
 
-  it('ends the case prompt with the final report schema (zh)', () => {
+  it('leaves the final report to the quality tail (zh)', () => {
     const result = composeCasePrompt(sections, 'zh');
-    const acceptanceIdx = result.indexOf('验收清单');
-    const reportIdx = result.indexOf('【收尾汇报模板】');
-    expect(reportIdx).toBeGreaterThan(acceptanceIdx);
-    expect(result).toContain('✅ 已交付');
+    expect(result).not.toContain('【收尾汇报模板】');
   });
 
-  it('ends the case prompt with the final report schema (en)', () => {
+  it('leaves the final report to the quality tail (en)', () => {
     const enSections = {
       role: 'You are an engineer.',
       goal: 'Build a tool.',
@@ -388,8 +437,7 @@ describe('composeCasePrompt', () => {
       acceptanceItems: ['☐ ok'],
     };
     const result = composeCasePrompt(enSections, 'en');
-    expect(result).toContain('[Final Report Schema]');
-    expect(result).toContain('✅ Delivered');
+    expect(result).not.toContain('[Final Report Schema]');
   });
 });
 

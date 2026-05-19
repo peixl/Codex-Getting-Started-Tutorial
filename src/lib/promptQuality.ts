@@ -5,6 +5,8 @@ import {
   ANTI_PATTERNS_EN,
   DOD_ZH,
   DOD_EN,
+  FINAL_REPORT_ZH,
+  FINAL_REPORT_EN,
   type ModuleLang,
 } from './promptModules';
 
@@ -24,7 +26,9 @@ ${QUICK_START_ZH}
 
 ${ANTI_PATTERNS_ZH}
 
-${DOD_ZH}`;
+${DOD_ZH}
+
+${FINAL_REPORT_ZH}`;
 
 const QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
 If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
@@ -33,7 +37,9 @@ ${QUICK_START_EN}
 
 ${ANTI_PATTERNS_EN}
 
-${DOD_EN}`;
+${DOD_EN}
+
+${FINAL_REPORT_EN}`;
 
 // ─── Legacy Cleanup ──────────────────────────────────────────────
 

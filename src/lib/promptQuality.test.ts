@@ -47,4 +47,26 @@ describe('withDesktopQualityBar', () => {
     expect(first).not.toContain('brief plan summary');
     expect(first).toContain('summarize in ≤8 lines');
   });
+
+  it('places the final report schema at the very end of the tail (zh)', () => {
+    const wrapped = withDesktopQualityBar('请做一个本地桌面工具。', 'zh');
+    const reportIdx = wrapped.indexOf('【收尾汇报模板】');
+    const dodIdx = wrapped.indexOf('【DoD');
+    const antiIdx = wrapped.indexOf('【反模式清单');
+    expect(reportIdx).toBeGreaterThan(-1);
+    expect(reportIdx).toBeGreaterThan(dodIdx);
+    expect(reportIdx).toBeGreaterThan(antiIdx);
+    expect(wrapped.trim().endsWith('TODO 列表。')).toBe(true);
+  });
+
+  it('places the final report schema at the very end of the tail (en)', () => {
+    const wrapped = withDesktopQualityBar('Build a local desktop tool.', 'en');
+    const reportIdx = wrapped.indexOf('[Final Report Schema]');
+    const dodIdx = wrapped.indexOf('[DoD');
+    const antiIdx = wrapped.indexOf('[Anti-Patterns');
+    expect(reportIdx).toBeGreaterThan(-1);
+    expect(reportIdx).toBeGreaterThan(dodIdx);
+    expect(reportIdx).toBeGreaterThan(antiIdx);
+    expect(wrapped.trim().endsWith('not a TODO list.')).toBe(true);
+  });
 });

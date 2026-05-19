@@ -38,38 +38,36 @@ export const CONSTRAINTS_EN = `${SAFETY_RULES_EN}\n\n${QUALITY_RULES_EN}`;
 // ─── Opening Brief (talk to the user before you build) ──────────
 
 export const OPENING_BRIEF_ZH = `【开工前的开场白】
-动手之前，先用至多 8 句告诉用户接下来会发生什么。能 5 句说完，就只用 5 句。
+动手之前，先用 3-8 句告诉用户接下来会发生什么。3 句够就只用 3 句。
 
 每句一行，带数字序号。短句。干净。有节奏。不用专业词。用「你」对话。讲画面、讲体感、讲结果——不讲实现。
 
-按这个顺序覆盖，宁缺毋滥：
-1. 一句话点题：要做的是什么。
-2. 它替你解决什么。
-3. 关键的几步，一步一句。
-4. 用到了什么，一行带过。
-5. 打开后，你会看到什么。
-6. 大概多久能用上。
-7. 你的文件存在哪，谁能看到。
-8. 准备好了，开始。
+下面是可选的素材清单，挑用得上的写，按这个顺序排——用不上的直接跳过，宁缺毋滥：
+- 一句话点题：要做的是什么。
+- 它替你解决什么。
+- 关键的几步，一步一句。
+- 用到了什么，一行带过。
+- 打开后，你会看到什么。
+- 你的文件存在哪，谁能看到。
+- 下一步看什么。
 
-说完不等回话，按下面的流程立刻动手。`;
+不要承诺时间（"X 分钟内可用"），因为不准。说完不等回话，按下面的流程立刻动手。`;
 
 export const OPENING_BRIEF_EN = `[Opening Brief]
-Before you build, use up to 8 lines to tell the user what's coming. If 5 lines do it, use 5.
+Before you build, use 3-8 lines to tell the user what's coming. If 3 lines do it, use 3.
 
 One sentence per line, numbered. Short. Clean. Rhythmic. No jargon. Speak to "you". Picture, feel, result — not implementation.
 
-Cover in order, skip what doesn't fit:
-1. What you'll build, in one line.
-2. The friction it removes.
-3. The key steps — one per line.
-4. The stack, in a line.
-5. What you'll see when it opens.
-6. Roughly how long.
-7. Where your files live. Who sees them.
-8. Ready. Begin.
+Pick from this checklist — keep them in order, skip what doesn't fit. Better to leave one out than fill in fluff:
+- What you'll build, in one line.
+- The friction it removes.
+- The key steps — one per line.
+- The stack, in a line.
+- What you'll see when it opens.
+- Where your files live. Who sees them.
+- What to look at next.
 
-Don't wait for a reply. Follow the flow below immediately.`;
+Don't promise a timeline ("ready in X minutes") — you can't know. Don't wait for a reply. Follow the flow below immediately.`;
 
 // ─── Warm UX Contract (treat the user with care) ────────────────
 
@@ -78,10 +76,10 @@ export const WARM_UX_ZH = `【温暖体验契约】
 - 首次启动 = Demo 模式：自动加载 sample-data/ 跑完主流程一次，让用户立刻看到结果界面，而不是空状态。
 - 工作台顶部永远有「用示例数据试一试」按钮，任何时候都能一键演示。
 - 按钮、提示、错误一律用业务语言。例：「找不到订单号这一列」，不是「Column "order_id" not found」。
-- 任何写盘操作默认走「另存为」，不覆盖原文件；冲突自动加时间后缀。
-- 步骤 ≥3 的操作给"撤销"或"取消"出口；大于 5 步的关键操作要二次确认。
+- 任何写盘操作默认走「另存为」；从不覆盖原文件，冲突自动加时间后缀。
+- 步骤 ≥3 的操作给"撤销"或"取消"出口；≥5 步的关键操作要二次确认。
 - 大批量任务显示进度条 + 预估剩余时间，最长每 1 秒刷新一次。
-- 主流程结束 30 秒内无操作，发系统通知（Toast）告诉用户「做完了」，可点击直达结果。
+- 主流程一完成就在应用内给反馈；若窗口在后台，再发一次系统通知（Toast），点击直达结果。
 - 失败时永远给出"下一步可以做什么"（重试 / 换文件 / 查看日志 / 复制错误），不要只留一行红色字。`;
 
 export const WARM_UX_EN = `[Warm UX Contract]
@@ -89,10 +87,10 @@ What happens around the code matters more than the code itself. The finish shoul
 - First launch = demo mode: auto-load sample-data/ and run the main flow once so the user sees a real result page, not an empty state.
 - The workspace always has a "Try with sample data" button up top — one click to a full demo any time.
 - Buttons, hints, and errors in business language. Example: "Can't find the Order ID column", not "Column 'order_id' not found".
-- Any write goes through "Save as" by default; never overwrite originals; timestamp on conflict.
+- Any write goes through "Save as"; never overwrite originals; timestamp on conflict.
 - Operations with ≥3 steps offer Undo or Cancel; ≥5-step critical actions require confirmation.
 - Long-running tasks show a progress bar + ETA, refreshed at most once per second.
-- If the main flow finishes and the user is idle 30s, fire a system notification ("All done") that opens the result on click.
+- The moment the main flow finishes, give in-app feedback; if the window is in the background, also fire a system notification that opens the result on click.
 - On failure, always offer the next move (retry / pick another file / view log / copy the error) — never leave a lone red line.`;
 
 // ─── Success Picture (the moment of "wow") ──────────────────────
@@ -103,7 +101,7 @@ export const SUCCESS_PICTURE_ZH = `【完成态画面】
 - 关键发现用一行带颜色的 chip 摘要：「⚠ 3 单金额不一致 · ✦ 2 单疑似退款」。
 - 三个动作按钮固定位置：「打开输出文件夹」「再做一次」「换一个文件」。
 - 留一个"刚才做了什么"折叠面板，里面是可复制的 5-10 行操作日志。
-- 不展示纯技术信息（耗时毫秒、进程 ID、堆栈）。要展示就用业务表述：「用时 4 秒，处理 482 行」。`;
+- 不展示底层细节（毫秒、进程 ID、堆栈）；要给时间就用人话——写「用时 4 秒，处理 482 行」，不写「4231ms」。`;
 
 export const SUCCESS_PICTURE_EN = `[Success Picture]
 The screen at the end of the main flow is the user's lasting impression. Make it feel like a gift.
@@ -111,19 +109,19 @@ The screen at the end of the main flow is the user's lasting impression. Make it
 - Key findings as a single colored chip row: "⚠ 3 amount mismatches · ✦ 2 likely refunds".
 - Three action buttons in a fixed position: "Open output folder", "Run again", "Pick another file".
 - Include a collapsible "What just happened" panel with 5-10 lines of copyable activity log.
-- No raw technical info (millis, PID, stack traces). If you must show timing, business-frame it: "Done in 4s · 482 rows".`;
+- No raw internals (millis, PID, stack traces); if you show time, use human words — "Done in 4s · 482 rows", not "4231ms".`;
 
 // ─── Final Report Schema (how to wrap up) ───────────────────────
 
 export const FINAL_REPORT_ZH = `【收尾汇报模板】
-做完后，按这个固定 4 段格式汇报。每段用 emoji 引导，正文用业务语言。
+全部做完后，在对话里按这个固定 4 段格式向我（用户）汇报，不是 UI 文案。每段用 emoji 引导，正文用业务语言。
 ✅ 已交付：≤5 条核心能力，业务表述，不写技术名词。
 ▶ 如何打开：一条命令或"双击哪个文件"，让用户立刻能用。
 ✔ 已跑过的验证：lint / typecheck / build / 用 sample-data 烟测主流程，逐项写结果（PASS / FAIL）。
 ⚠ 已知限制 & v2 想法：≤3 条，每条一句话，不是 TODO 列表。`;
 
 export const FINAL_REPORT_EN = `[Final Report Schema]
-When done, wrap up with this 4-section schema. Each section opens with an emoji; body in business language.
+When everything is done, post this 4-section schema back to me (the user) in chat — not as UI copy. Each section opens with an emoji; body in business language.
 ✅ Delivered: ≤5 core capabilities, business framing, no jargon.
 ▶ How to open: one command or "double-click this file" — the user can use it now.
 ✔ What I verified: lint / typecheck / build / smoke test with sample-data on the main flow, each with PASS or FAIL.
@@ -138,6 +136,10 @@ export const WARM_UX_INLINE_EN = `- Warm UX: first launch auto-runs sample-data 
 export const FINAL_REPORT_INLINE_ZH = `- 收尾汇报四段：✅已交付 / ▶如何打开 / ✔已跑过的验证 / ⚠已知限制 & v2 想法。`;
 
 export const FINAL_REPORT_INLINE_EN = `- Final report in four sections: ✅ Delivered / ▶ How to open / ✔ What I verified / ⚠ Known limits & v2 ideas.`;
+
+export const ERROR_RECOVERY_INLINE_ZH = `- 错误自救：同一错误尝试不超过 3 次；超过则降级该功能、记下问题、先恢复主流程。依赖装不上换大版本或 --legacy-peer-deps；TypeScript 红字过多先 any 跑通；Electron 白屏查 preload / CSP；打包失败先回到 dev 正常态。`;
+
+export const ERROR_RECOVERY_INLINE_EN = `- Error recovery: retry the same fix ≤3 times; beyond that, downgrade the feature, log the issue, restore the main flow. Install fail → bump major or --legacy-peer-deps; too many TS errors → any-type through main flow first; Electron blank → check preload/CSP; build fail → return to a clean dev mode first.`;
 
 // ─── Quick Start Protocol ────────────────────────────────────────
 
@@ -263,27 +265,89 @@ export const PROJECT_STRUCTURE_EN = projectStructure('electron', 'en');
 
 // ─── Error Recovery ──────────────────────────────────────────────
 
-export const ERROR_RECOVERY_ZH = `【错误自救】
+export function errorRecovery(tech: ModuleTech, lang: ModuleLang): string {
+  if (lang === 'zh') {
+    const shared = `- 样式错乱 → 检查 CSS 加载顺序和选择器优先级
+- 同一错误 3 次 → 换方案或降级该功能，不要死磕`;
+    if (tech === 'tauri') {
+      return `【错误自救】
+遇到问题时按以下策略处理，不要反复尝试同一方法：
+- Rust 编译失败 → 读 borrow checker 提示，简化所有权；必要时用 clone() 先跑通
+- Tauri command 前端调不到 → 确认 #[tauri::command] 注解 + .invoke_handler() 注册
+- 前端白屏 → 检查 devtools console、确认 tauri.conf.json 里 devPath 正确
+- JS 依赖安装失败 → 检查包名拼写，降一个大版本，或 --legacy-peer-deps
+- 打包失败 → 分别确认 cargo build 和前端 build 各自通过
+${shared}`;
+    }
+    if (tech === 'pyqt') {
+      return `【错误自救】
+遇到问题时按以下策略处理，不要反复尝试同一方法：
+- pip install 失败 → 确认 Python 版本 ≥3.10，用 venv/uv 隔离环境
+- ImportError → 确认 venv 已激活，注意包名和 import 名不一致（如 pyqt6 vs PyQt6）
+- 窗口不显示 → 确认 app.exec() 和 widget.show() 都调了
+- 布局错乱 → 检查 stretch factor、size policy、minimum size
+- 崩溃无报错 → 用 python -u 运行并检查 stderr，主入口加 try/except
+${shared}`;
+    }
+    return `【错误自救】
 遇到问题时按以下策略处理，不要反复尝试同一方法：
 - 依赖安装失败 → 检查包名拼写，尝试降一个大版本，或换 --legacy-peer-deps
 - TypeScript 报错过多 → 先用 any 跑通主流程，再逐步补类型
 - Electron 白屏 → 检查 preload 路径、CSP 策略、console 报错
 - 打包失败 → 先确认 dev 模式完全正常，再排查打包配置
-- 样式错乱 → 检查 CSS 加载顺序和选择器优先级
-- 同一错误 3 次 → 换方案或降级该功能，不要死磕`;
+${shared}`;
+  }
 
-export const ERROR_RECOVERY_EN = `[Error Recovery]
+  const shared = `- Styles broken → check CSS load order and selector specificity
+- Same error 3 times → switch approach or downgrade that feature, do not keep retrying`;
+  if (tech === 'tauri') {
+    return `[Error Recovery]
+When hitting issues, follow these strategies instead of retrying the same approach:
+- Rust compile error → read borrow checker hints, simplify ownership; clone() to unblock if needed
+- Tauri command not reachable → verify #[tauri::command] annotation + .invoke_handler() registration
+- White screen → check devtools console, confirm devPath in tauri.conf.json
+- JS dependency install fails → check spelling, try one major version down, or --legacy-peer-deps
+- Build fails → confirm cargo build and frontend build pass independently
+${shared}`;
+  }
+  if (tech === 'pyqt') {
+    return `[Error Recovery]
+When hitting issues, follow these strategies instead of retrying the same approach:
+- pip install fails → confirm Python ≥3.10, use venv/uv for isolation
+- ImportError → confirm venv is active; watch for package vs import name mismatch (pyqt6 vs PyQt6)
+- Window doesn't show → confirm app.exec() and widget.show() are both called
+- Layout broken → check stretch factors, size policies, minimum sizes
+- Crash with no error → run with python -u, check stderr, wrap main in try/except
+${shared}`;
+  }
+  return `[Error Recovery]
 When hitting issues, follow these strategies instead of retrying the same approach:
 - Dependency install fails → check spelling, try one major version down, or use --legacy-peer-deps
 - Too many TypeScript errors → use any to get the main flow running, then add types incrementally
 - Electron white screen → check preload path, CSP policy, console errors
 - Packaging fails → confirm dev mode works perfectly first, then debug packaging config
-- Styles broken → check CSS load order and selector specificity
-- Same error 3 times → switch approach or downgrade that feature, do not keep retrying`;
+${shared}`;
+}
+
+export const ERROR_RECOVERY_ZH = errorRecovery('electron', 'zh');
+export const ERROR_RECOVERY_EN = errorRecovery('electron', 'en');
 
 // ─── UI Standards ────────────────────────────────────────────────
 
-export const UI_STANDARDS_ZH = `【UI 最低视觉标准】
+export function uiStandards(tech: ModuleTech, lang: ModuleLang): string {
+  if (lang === 'zh') {
+    if (tech === 'pyqt') {
+      return `【UI 最低视觉标准】
+- 使用系统原生控件（QPushButton, QTableView, QLabel 等），不自绘除非必要
+- 布局用 QVBoxLayout / QHBoxLayout / QGridLayout，设 spacing ≥ 8、margin ≥ 16
+- 字体跟随系统默认；标题用 setBold + pointSize +2，正文不小于系统默认
+- 所有按钮有 setToolTip；禁用态用 setEnabled(False) 而非隐藏
+- 空状态显示 QLabel 引导文案 + 操作按钮，不要留空白窗口
+- 加载状态用 QProgressBar 或 QProgressDialog，不要无反馈
+- 错误状态用 QMessageBox.warning / critical + 具体原因 + 重试选项
+- 窗口最小尺寸 setMinimumSize(640, 480)，支持拖拽缩放`;
+    }
+    return `【UI 最低视觉标准】
 - 标题 ≥ 20px 加粗，正文 ≥ 14px，辅助文字 ≥ 12px
 - 元素间距 ≥ 8px，区块间距 ≥ 16px，页面边距 ≥ 24px
 - 主色、辅色、强调色不超过 3 个，用 CSS 变量统一管理
@@ -292,8 +356,20 @@ export const UI_STANDARDS_ZH = `【UI 最低视觉标准】
 - 加载状态用 spinner 或骨架屏，不要无反馈
 - 错误状态用红色边框/文字 + 具体原因 + 重试按钮
 - 圆角统一（推荐 6-8px），阴影柔和（0 2px 8px rgba(0,0,0,0.1)）`;
+  }
 
-export const UI_STANDARDS_EN = `[Minimum UI Standards]
+  if (tech === 'pyqt') {
+    return `[Minimum UI Standards]
+- Use native widgets (QPushButton, QTableView, QLabel, etc.); no custom painting unless necessary
+- Layout with QVBoxLayout / QHBoxLayout / QGridLayout; spacing ≥ 8, margins ≥ 16
+- Follow system font; headings use setBold + pointSize +2; body no smaller than system default
+- All buttons have setToolTip; disabled state via setEnabled(False), not hiding
+- Empty states show a QLabel with guidance + action button, never a blank window
+- Loading states use QProgressBar or QProgressDialog, never no feedback
+- Error states use QMessageBox.warning/critical + specific reason + retry option
+- Minimum window size setMinimumSize(640, 480); support resize`;
+  }
+  return `[Minimum UI Standards]
 - Headings ≥ 20px bold, body ≥ 14px, secondary ≥ 12px
 - Element spacing ≥ 8px, section spacing ≥ 16px, page margins ≥ 24px
 - Max 3 colors (primary, secondary, accent); manage via CSS variables
@@ -302,6 +378,10 @@ export const UI_STANDARDS_EN = `[Minimum UI Standards]
 - Loading states use a spinner or skeleton, never no feedback
 - Error states use red border/text + specific reason + retry button
 - Consistent border-radius (6-8px recommended), soft shadows (0 2px 8px rgba(0,0,0,0.1))`;
+}
+
+export const UI_STANDARDS_ZH = uiStandards('electron', 'zh');
+export const UI_STANDARDS_EN = uiStandards('electron', 'en');
 
 // ─── Anti-Patterns ──────────────────────────────────────────────
 
@@ -316,7 +396,7 @@ export const ANTI_PATTERNS_ZH = `【反模式清单 — 以下行为禁止】
 - 启动后第一屏是空白 / 欢迎页 / 设置页（应是工作台 + Demo 数据）
 - 错误信息暴露技术名词（"Cannot read property"、"Column not found"）
 - 大批量操作没有进度条 / 预估时间
-- 覆盖原文件不提示、不备份
+- 写盘时覆盖原文件（必须另存为，冲突加时间后缀）
 - 完成后无任何反馈（没有小结、没有按钮、没有系统通知）`;
 
 export const ANTI_PATTERNS_EN = `[Anti-Patterns — Never Do These]
@@ -330,7 +410,7 @@ export const ANTI_PATTERNS_EN = `[Anti-Patterns — Never Do These]
 - First screen on launch is blank / welcome / settings (should be workspace + demo data)
 - Error messages leaking jargon ("Cannot read property", "Column not found")
 - Bulk operations with no progress bar / ETA
-- Overwriting original files with no prompt and no backup
+- Overwriting original files on write (always Save as; timestamp conflicts)
 - Finishing with zero feedback (no summary, no buttons, no system notification)`;
 
 // ─── DoD / Stop-Vibe-Coding ───────────────────────────────────────
@@ -480,6 +560,7 @@ type CaseSections = {
   deliveryPhases: string[];
   acceptanceItems: string[];
   communication?: string;
+  tech?: ModuleTech;
 };
 
 export function composeCasePrompt(sections: CaseSections, lang: ModuleLang): string {
@@ -502,7 +583,7 @@ export function composeCasePrompt(sections: CaseSections, lang: ModuleLang): str
     parts.push(lang === 'zh' ? '【界面风格】' : '[Visual Style]');
     parts.push(sections.style);
   } else {
-    parts.push(lang === 'zh' ? UI_STANDARDS_ZH : UI_STANDARDS_EN);
+    parts.push(uiStandards(sections.tech ?? 'electron', lang));
   }
   if (sections.robustness) {
     parts.push(lang === 'zh' ? '【稳健性】' : '[Robustness]');
@@ -513,11 +594,10 @@ export function composeCasePrompt(sections: CaseSections, lang: ModuleLang): str
   parts.push(lang === 'zh' ? CONSTRAINTS_ZH : CONSTRAINTS_EN);
   parts.push(lang === 'zh' ? WARM_UX_ZH : WARM_UX_EN);
   parts.push(lang === 'zh' ? SUCCESS_PICTURE_ZH : SUCCESS_PICTURE_EN);
-  parts.push(lang === 'zh' ? PROJECT_STRUCTURE_ZH : PROJECT_STRUCTURE_EN);
-  parts.push(lang === 'zh' ? ERROR_RECOVERY_ZH : ERROR_RECOVERY_EN);
+  parts.push(projectStructure(sections.tech ?? 'electron', lang));
+  parts.push(errorRecovery(sections.tech ?? 'electron', lang));
   parts.push(deliveryBlock(sections.deliveryPhases, lang));
   parts.push(acceptanceChecklist(sections.acceptanceItems, lang));
-  parts.push(lang === 'zh' ? FINAL_REPORT_ZH : FINAL_REPORT_EN);
 
   if (sections.communication) parts.push(sections.communication);
 
@@ -553,7 +633,7 @@ export function composeRecipePrompt(parts: RecipeParts, lang: ModuleLang): strin
   lines.push(lang === 'zh' ? `- 验收：${parts.acceptance}` : `- Acceptance: ${parts.acceptance}`);
   lines.push(parts.packaging);
   lines.push(lang === 'zh' ? FINAL_REPORT_INLINE_ZH : FINAL_REPORT_INLINE_EN);
-  lines.push(lang === 'zh' ? ERROR_RECOVERY_ZH : ERROR_RECOVERY_EN);
+  lines.push(lang === 'zh' ? ERROR_RECOVERY_INLINE_ZH : ERROR_RECOVERY_INLINE_EN);
 
   return lines.join('\n');
 }
