@@ -191,6 +191,12 @@ export const zh = {
     qualityMetric: '量化收益',
     qualityPass: '已填',
     qualityImprove: '待补充',
+    qualityGoalHint: '一两句话说清楚：给谁用、解决什么、产出是什么。',
+    qualityFeaturesHint: '一行一条，具体到拖入哪个文件、点哪个按钮、产出什么。',
+    qualityIoHint: '写清楚输入和输出，例如"导入 Excel → 导出差异表"。',
+    qualityAcceptanceHint: '补一句怎么算做完，例如"主流程跑通、空数据不闪退、可双击打开"。',
+    qualityWhoHint: '写一下谁来用，例如"财务同事 / 老师 / 自己用都行"。',
+    qualityMetricHint: '给一个量化指标，例如"从 2 天压到 1 小时"或"一键替代手工 30 步"。',
 
     quickTemplatesTitle: '不想从零开始？挑个模板',
     quickTemplatesHint: '一键填好，改几个字就能用。',

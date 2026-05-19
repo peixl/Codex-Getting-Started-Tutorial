@@ -67,6 +67,10 @@ const WHO_WORDS = [
   '部门',
   '门店',
   '小伙伴',
+  '客户',
+  '用户',
+  '学生',
+  '老师',
   'team',
   'finance',
   'ops',
@@ -80,6 +84,11 @@ const WHO_WORDS = [
   'colleague',
   'department',
   'store',
+  'teammate',
+  'customer',
+  'user',
+  'student',
+  'teacher',
 ] as const;
 
 const METRIC_WORDS = [
@@ -96,6 +105,9 @@ const METRIC_WORDS = [
   '节省',
   '省下',
   '快',
+  '批量',
+  '一键',
+  '成倍',
   'hour',
   'minute',
   'second',
@@ -105,7 +117,16 @@ const METRIC_WORDS = [
   'faster',
   'times',
   'save time',
+  'batch',
+  'one-click',
+  'instant',
+  'in one go',
 ] as const;
+
+// Number + unit pattern: "2 天", "1 小时", "10 万行", "100k rows", "30%".
+// A measurable goal usually has a quantified change; this catches more cases
+// than the keyword list alone.
+const METRIC_NUMBER_UNIT = /\d+\s*(?:%|天|时|分|秒|周|月|年|倍|万|千|百|个|条|行|次|页|kb|mb|gb|k|m|day|hour|min|sec|week|month|year|row|item|page|file)/i;
 
 function includesAny(text: string, words: readonly string[]) {
   const normalized = text.toLowerCase();
@@ -136,7 +157,7 @@ export function getPromptHealth(
     },
     {
       id: 'metric',
-      ok: includesAny(requestText, METRIC_WORDS),
+      ok: includesAny(requestText, METRIC_WORDS) || METRIC_NUMBER_UNIT.test(requestText),
     },
   ];
   const passed = checks.filter((check) => check.ok).length;

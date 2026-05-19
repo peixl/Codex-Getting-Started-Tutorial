@@ -41,6 +41,7 @@ describe('prompt module constants', () => {
     expect(CONSTRAINTS_ZH).toContain('脱敏 sample-data');
     expect(CONSTRAINTS_ZH).toContain('npm view');
     expect(CONSTRAINTS_ZH).toContain('立即运行验证');
+    expect(CONSTRAINTS_ZH).toContain('另存为');
   });
 
   it('CONSTRAINTS_EN contains key rules', () => {
@@ -48,6 +49,7 @@ describe('prompt module constants', () => {
     expect(CONSTRAINTS_EN).toContain('anonymized sample-data');
     expect(CONSTRAINTS_EN).toContain('npm view');
     expect(CONSTRAINTS_EN).toContain('Verify each feature');
+    expect(CONSTRAINTS_EN).toContain('Save as');
   });
 
   it('DOD_ZH has checklist format', () => {
@@ -114,7 +116,7 @@ describe('prompt module constants', () => {
 
   it('OPENING_BRIEF_EN primes Codex to greet the user in 3-8 numbered lines', () => {
     expect(OPENING_BRIEF_EN).toContain('[Opening Brief]');
-    expect(OPENING_BRIEF_EN).toContain('3-8 lines');
+    expect(OPENING_BRIEF_EN).toContain('3-8 numbered lines');
     expect(OPENING_BRIEF_EN).toContain('numbered');
     expect(OPENING_BRIEF_EN).toContain("Don't wait");
     expect(OPENING_BRIEF_EN).toContain("Don't promise a timeline");
@@ -125,7 +127,6 @@ describe('prompt module constants', () => {
     expect(WARM_UX_ZH).toContain('Demo 模式');
     expect(WARM_UX_ZH).toContain('用示例数据试一试');
     expect(WARM_UX_ZH).toContain('业务语言');
-    expect(WARM_UX_ZH).toContain('另存为');
     expect(WARM_UX_ZH).toContain('系统通知');
   });
 
@@ -186,7 +187,6 @@ describe('prompt module constants', () => {
     expect(WARM_UX_EN).toContain('demo mode');
     expect(WARM_UX_EN).toContain('Try with sample data');
     expect(WARM_UX_EN).toContain('business language');
-    expect(WARM_UX_EN).toContain('Save as');
     expect(WARM_UX_EN).toContain('system notification');
   });
 

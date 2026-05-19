@@ -12,14 +12,14 @@ export type ModuleTech = 'electron' | 'tauri' | 'pyqt' | 'auto';
 export const SAFETY_RULES_ZH = `【安全底线】
 - 默认本地处理；需要联网时须加密传输并明确告知用户。
 - 不写死 API Key、绝对路径、个人邮箱或内网地址。
-- 输出不覆盖原文件，冲突加时间后缀。
+- 写盘默认走"另存为"；不覆盖原文件，冲突自动加时间后缀。
 - 不引入不存在的 npm 包；不确定时先查 npm view。
 - 缺真实数据时先造脱敏 sample-data，不等用户提供文件才开工。`;
 
 export const SAFETY_RULES_EN = `[Safety Rules]
 - Process locally by default; network calls require encryption and explicit user consent.
 - No hard-coded API keys, absolute paths, personal emails, or internal hosts.
-- Never overwrite inputs; timestamp conflicts.
+- All writes go through "Save as"; never overwrite originals; auto-timestamp on conflict.
 - Do not invent npm packages; verify with npm view first.
 - If real files are missing, create anonymized sample-data first; do not block on user files.`;
 
@@ -38,36 +38,14 @@ export const CONSTRAINTS_EN = `${SAFETY_RULES_EN}\n\n${QUALITY_RULES_EN}`;
 // ─── Opening Brief (talk to the user before you build) ──────────
 
 export const OPENING_BRIEF_ZH = `【开工前的开场白】
-动手之前，先用 3-8 句告诉用户接下来会发生什么。3 句够就只用 3 句。
-
-每句一行，带数字序号。短句。干净。有节奏。不用专业词。用「你」对话。讲画面、讲体感、讲结果——不讲实现。
-
-下面是可选的素材清单，挑用得上的写，按这个顺序排——用不上的直接跳过，宁缺毋滥：
-- 一句话点题：要做的是什么。
-- 它替你解决什么。
-- 关键的几步，一步一句。
-- 用到了什么，一行带过。
-- 打开后，你会看到什么。
-- 你的文件存在哪，谁能看到。
-- 下一步看什么。
-
-不要承诺时间（"X 分钟内可用"），因为不准。说完不等回话，按下面的流程立刻动手。`;
+动手之前，先用 3-8 句告诉用户接下来会发生什么。3 句够就 3 句，每句一行、带数字序号。
+讲画面、讲体感、讲结果——不讲实现。短句、不用专业词、用「你」对话。
+不要承诺时间（"X 分钟内可用"），因为不准。说完不等回话，按下面的【快速启动协议】立刻动手。`;
 
 export const OPENING_BRIEF_EN = `[Opening Brief]
-Before you build, use 3-8 lines to tell the user what's coming. If 3 lines do it, use 3.
-
-One sentence per line, numbered. Short. Clean. Rhythmic. No jargon. Speak to "you". Picture, feel, result — not implementation.
-
-Pick from this checklist — keep them in order, skip what doesn't fit. Better to leave one out than fill in fluff:
-- What you'll build, in one line.
-- The friction it removes.
-- The key steps — one per line.
-- The stack, in a line.
-- What you'll see when it opens.
-- Where your files live. Who sees them.
-- What to look at next.
-
-Don't promise a timeline ("ready in X minutes") — you can't know. Don't wait for a reply. Follow the flow below immediately.`;
+Before you build, use 3-8 numbered lines to tell the user what's coming. If 3 lines do it, use 3 — one short sentence per line.
+Picture, feel, result — not implementation. Plain words. Speak to "you".
+Don't promise a timeline ("ready in X minutes") — you can't know. Don't wait for a reply. Follow the [Quick Start Protocol] below immediately.`;
 
 // ─── Warm UX Contract (treat the user with care) ────────────────
 
@@ -76,9 +54,8 @@ export const WARM_UX_ZH = `【温暖体验契约】
 - 首次启动 = Demo 模式：自动加载 sample-data/ 跑完主流程一次，让用户立刻看到结果界面，而不是空状态。
 - 工作台顶部永远有「用示例数据试一试」按钮，任何时候都能一键演示。
 - 按钮、提示、错误一律用业务语言。例：「找不到订单号这一列」，不是「Column "order_id" not found」。
-- 任何写盘操作默认走「另存为」；从不覆盖原文件，冲突自动加时间后缀。
 - 步骤 ≥3 的操作给"撤销"或"取消"出口；≥5 步的关键操作要二次确认。
-- 大批量任务显示进度条 + 预估剩余时间，最长每 1 秒刷新一次。
+- 大批量任务显示进度条 + 预估剩余时间，每秒最多刷新一次。
 - 主流程一完成就在应用内给反馈；若窗口在后台，再发一次系统通知（Toast），点击直达结果。
 - 失败时永远给出"下一步可以做什么"（重试 / 换文件 / 查看日志 / 复制错误），不要只留一行红色字。`;
 
@@ -87,7 +64,6 @@ What happens around the code matters more than the code itself. The finish shoul
 - First launch = demo mode: auto-load sample-data/ and run the main flow once so the user sees a real result page, not an empty state.
 - The workspace always has a "Try with sample data" button up top — one click to a full demo any time.
 - Buttons, hints, and errors in business language. Example: "Can't find the Order ID column", not "Column 'order_id' not found".
-- Any write goes through "Save as"; never overwrite originals; timestamp on conflict.
 - Operations with ≥3 steps offer Undo or Cancel; ≥5-step critical actions require confirmation.
 - Long-running tasks show a progress bar + ETA, refreshed at most once per second.
 - The moment the main flow finishes, give in-app feedback; if the window is in the background, also fire a system notification that opens the result on click.
@@ -96,7 +72,7 @@ What happens around the code matters more than the code itself. The finish shoul
 // ─── Success Picture (the moment of "wow") ──────────────────────
 
 export const SUCCESS_PICTURE_ZH = `【完成态画面】
-主流程结束的那一屏，是用户对这个工具的第一印象。把它当礼物来做。
+主流程结束的那一屏，是用户对这个工具最持久的印象。把它当礼物来做。
 - 大号数字 + 业务语言小结，30 字以内。例：「对账 482 单，差异 5 单。已存到 桌面/差异-2026-05.xlsx」。
 - 关键发现用一行带颜色的 chip 摘要：「⚠ 3 单金额不一致 · ✦ 2 单疑似退款」。
 - 三个动作按钮固定位置：「打开输出文件夹」「再做一次」「换一个文件」。
