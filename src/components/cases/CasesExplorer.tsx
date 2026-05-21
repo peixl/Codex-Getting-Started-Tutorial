@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { getCasePrompt, type CaseBundle, type Department } from '@/data/cases';
+import type { Department } from '@/data/cases';
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n';
 import { caseUrl } from '@/lib/routes';
@@ -12,8 +12,18 @@ import { ArrowRightIcon, WindowsIcon } from '@/components/icons';
 import { deptIcons } from '@/components/cases/deptIcons';
 import { CopyButton } from '@/components/CopyButton';
 
+export type CasesExplorerItem = {
+  slug: string;
+  department: Department;
+  title: string;
+  summary: string;
+  departmentLabel: string;
+  prompt: string;
+  searchHaystack: string;
+};
+
 type Props = {
-  cases: CaseBundle[];
+  items: CasesExplorerItem[];
   locale: Locale;
   dict: Dictionary;
 };
@@ -33,24 +43,18 @@ const departmentOptions: Array<Department | 'all'> = [
   'product',
 ];
 
-export function CasesExplorer({ cases, locale, dict }: Props) {
+export function CasesExplorer({ items, locale, dict }: Props) {
   const [filter, setFilter] = useState<Department | 'all'>('all');
   const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
-    return cases.filter((c) => {
-      if (filter !== 'all' && c.department !== filter) return false;
-      if (query.trim()) {
-        const q = query.toLowerCase();
-        const copy = c.i18n[locale];
-        const hay = [copy.title, copy.summary, copy.departmentLabel, ...copy.keywords]
-          .join(' ')
-          .toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
+    const q = query.trim().toLowerCase();
+    return items.filter((item) => {
+      if (filter !== 'all' && item.department !== filter) return false;
+      if (q && !item.searchHaystack.includes(q)) return false;
       return true;
     });
-  }, [cases, filter, query, locale]);
+  }, [items, filter, query]);
 
   const filterLabels: Record<Department | 'all', string> = {
     all: dict.cases.filterAll,
@@ -109,53 +113,50 @@ export function CasesExplorer({ cases, locale, dict }: Props) {
         </GlassCard>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((c) => {
-            const copy = c.i18n[locale];
-            return (
-              <GlassCard
-                key={c.slug}
-                className="flex h-full flex-col p-6 transition duration-500 hover:-translate-y-0.5 hover:shadow-lift"
+          {filtered.map((item) => (
+            <GlassCard
+              key={item.slug}
+              className="flex h-full flex-col p-6 transition duration-500 hover:-translate-y-0.5 hover:shadow-lift"
+            >
+              <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-[color:var(--line)] bg-white/80 text-ink">
+                  {deptIcons[item.department]}
+                </div>
+                <div className="flex min-w-0 flex-wrap items-center justify-end gap-1.5">
+                  <span className="chip">{item.departmentLabel}</span>
+                  <span className="chip">
+                    <WindowsIcon size={10} />
+                    {dict.cases.windowsBadge}
+                  </span>
+                </div>
+              </div>
+              <Link
+                href={caseUrl(locale, item.slug)}
+                className="focus-ring mt-5 block rounded-lg"
               >
-                <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-[color:var(--line)] bg-white/80 text-ink">
-                    {deptIcons[c.department]}
-                  </div>
-                  <div className="flex min-w-0 flex-wrap items-center justify-end gap-1.5">
-                    <span className="chip">{copy.departmentLabel}</span>
-                    <span className="chip">
-                      <WindowsIcon size={10} />
-                      {dict.cases.windowsBadge}
-                    </span>
-                  </div>
-                </div>
+                <h3 className="text-[15px] font-semibold leading-snug text-ink">{item.title}</h3>
+              </Link>
+              <p className="mt-2 flex-1 text-[13px] leading-relaxed text-ink-soft">
+                {item.summary}
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
                 <Link
-                  href={caseUrl(locale, c.slug)}
-                  className="focus-ring mt-5 block rounded-lg"
+                  href={caseUrl(locale, item.slug)}
+                  className="focus-ring inline-flex items-center gap-1 text-[13px] font-semibold text-ink hover:opacity-70"
                 >
-                  <h3 className="text-[15px] font-semibold leading-snug text-ink">{copy.title}</h3>
+                  {dict.cases.readCase}
+                  <ArrowRightIcon size={14} />
                 </Link>
-                <p className="mt-2 flex-1 text-[13px] leading-relaxed text-ink-soft">
-                  {copy.summary}
-                </p>
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
-                  <Link
-                    href={caseUrl(locale, c.slug)}
-                    className="focus-ring inline-flex items-center gap-1 text-[13px] font-semibold text-ink hover:opacity-70"
-                  >
-                    {dict.cases.readCase}
-                    <ArrowRightIcon size={14} />
-                  </Link>
-                  <CopyButton
-                    value={getCasePrompt(c, locale)}
-                    label={dict.cases.copyPrompt}
-                    copiedLabel={dict.cases.copied}
-                    size="sm"
-                    variant="chip"
-                  />
-                </div>
-              </GlassCard>
-            );
-          })}
+                <CopyButton
+                  value={item.prompt}
+                  label={dict.cases.copyPrompt}
+                  copiedLabel={dict.cases.copied}
+                  size="sm"
+                  variant="chip"
+                />
+              </div>
+            </GlassCard>
+          ))}
         </div>
       )}
     </>

@@ -71,9 +71,9 @@ export default async function CasePage({ params }: Props) {
   const promptEn = getCasePrompt(bundle, 'en');
   const localizedPrompt = locale === 'zh' ? promptZh : promptEn;
   const sampleFields = getCaseSampleFields(bundle.department, locale);
-  const related = getCasesByDepartment(bundle.department).filter(
-    (c) => c.slug !== bundle.slug
-  );
+  const related = getCasesByDepartment(bundle.department)
+    .filter((c) => c.slug !== bundle.slug)
+    .slice(0, 6);
 
   const ld = {
     '@context': 'https://schema.org',

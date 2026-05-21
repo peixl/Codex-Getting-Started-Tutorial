@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n';
-import { caseBundles } from '@/data/cases';
-import { CasesExplorer } from '@/components/cases/CasesExplorer';
+import { caseBundles, getCasePrompt } from '@/data/cases';
+import { CasesExplorer, type CasesExplorerItem } from '@/components/cases/CasesExplorer';
 import { Section } from '@/components/Section';
 import { StructuredData } from '@/components/StructuredData';
 import { SITE_URL, caseUrl } from '@/lib/routes';
@@ -33,15 +33,30 @@ export default async function CasesIndexPage({ params }: Props) {
   const locale: Locale = rawLocale;
   const dict = getDictionary(locale);
 
+  const items: CasesExplorerItem[] = caseBundles.map((c) => {
+    const copy = c.i18n[locale];
+    return {
+      slug: c.slug,
+      department: c.department,
+      title: copy.title,
+      summary: copy.summary,
+      departmentLabel: copy.departmentLabel,
+      prompt: getCasePrompt(c, locale),
+      searchHaystack: [copy.title, copy.summary, copy.departmentLabel, ...copy.keywords]
+        .join(' ')
+        .toLowerCase(),
+    };
+  });
+
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: dict.cases.pageTitle,
-    itemListElement: caseBundles.map((c, idx) => ({
+    itemListElement: items.map((item, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
-      url: `${SITE_URL}${caseUrl(locale, c.slug)}`,
-      name: c.i18n[locale].title,
+      url: `${SITE_URL}${caseUrl(locale, item.slug)}`,
+      name: item.title,
     })),
   };
 
@@ -52,7 +67,7 @@ export default async function CasesIndexPage({ params }: Props) {
         title={dict.cases.pageTitle}
         subtitle={dict.cases.pageSubtitle}
       >
-        <CasesExplorer cases={caseBundles} locale={locale} dict={dict} />
+        <CasesExplorer items={items} locale={locale} dict={dict} />
       </Section>
     </>
   );

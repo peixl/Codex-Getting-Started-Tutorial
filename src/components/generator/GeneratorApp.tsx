@@ -83,11 +83,14 @@ export function GeneratorApp({ locale, dict }: Props) {
 
   useEffect(() => {
     if (!loaded) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ state }));
-    } catch {
-      // ignore
-    }
+    const timer = window.setTimeout(() => {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ state }));
+      } catch {
+        // ignore
+      }
+    }, 300);
+    return () => window.clearTimeout(timer);
   }, [state, loaded]);
 
   const update = (partial: Partial<FormState>) =>
