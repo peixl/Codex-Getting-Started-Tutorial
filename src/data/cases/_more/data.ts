@@ -53,7 +53,7 @@ export const dataWeeklyTrendSnapshot: CaseBundle = {
   },
   prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是数据分析师，不懂太多代码。',
+      role: caseRole('数据分析同事', 'zh'),
       goal: '把每周拉指标、写周报的重复活儿压成 5 分钟。',
       platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；图表用纯 SVG 自绘小折线',
       features: '1. 导入 Excel，自动识别"指标名"列和过去 N 周（W-N..W-1）列；最右一列视为本周。\n2. 每个指标渲染一张卡：本周值、环比、4-8 周迷你折线。\n3. 阈值规则（可改）：环比 > +5% 绿色 + "增长"； < -5% 红色 + "下滑"；接近 0 灰色 + "持平"。\n4. 解读模板（可编辑）：根据涨跌方向自动填充一句中文，例如"本周 GMV 较上周增长 7.2%，主要受 618 预热影响"——预热文案占位允许人工编辑。\n5. "导出周报 Markdown"按钮，按指标分组输出。',
@@ -62,7 +62,7 @@ export const dataWeeklyTrendSnapshot: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('a data analyst, light coding', 'en'),
+      role: caseRole('a data analyst', 'en'),
       goal: 'Compress weekly KPI-report grind into five minutes.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; tiny inline SVG sparkline',
       features: '1. Import Excel; detect metric column + past-N-week columns; rightmost = this week.\n2. Per-metric card: current value, WoW, 4–8-week sparkline.\n3. Editable thresholds: +5% green "up"; -5% red "down"; near zero gray "flat".\n4. Editable commentary template auto-filled per direction; the user can tweak per metric.\n5. One-click export of the report as Markdown.',
@@ -189,7 +189,7 @@ export const dataSkuProfitRadar: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是电商数据分析同事，操作要自然易用。',
+      role: caseRole('电商数据分析同事', 'zh'),
       goal: '把销售额、毛利、广告、退款和库存周转合在一起，找出真正值得加资源的 SKU。',
       platform: '- Windows + macOS；Electron + React + TypeScript；本地 SQLite；SheetJS；ECharts',
       features: `1. 导入销售表、成本表、广告消耗表、退款表、库存表，按 SKU 自动合并。
@@ -202,7 +202,7 @@ export const dataSkuProfitRadar: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('an e-commerce data analyst whose teammates across the business will use this tool — make it one-click and friendly', 'en'),
+      role: caseRole('an e-commerce data analyst whose teammates across the business will use this tool', 'en'),
       goal: 'Combine revenue, margin, ads, refunds, and stock turnover to find SKUs worth more resources.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite; SheetJS; ECharts',
       features: `1. Import sales, cost, ad spend, refund, and stock sheets; merge by SKU.

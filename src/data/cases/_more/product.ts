@@ -189,7 +189,7 @@ export const productListingQualityChecker: CaseBundle = {
   },
     prompt: {
     zh: composeCasePrompt({
-      role: '你是一名擅长本地桌面小工具的资深工程师。用户是商品/产品同事，操作要自然易用。',
+      role: caseRole('商品/产品同事', 'zh'),
       goal: '批量检查商品上架资料是否完整、前后一致，减少上线前反复返工。',
       platform: '- Windows + macOS；Electron + React + TypeScript；SheetJS；本地 JSON 规则',
       features: `1. 导入商品资料表、图片清单、资质文件清单。
@@ -202,7 +202,7 @@ export const productListingQualityChecker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('merchandising/product teammates — the tool should feel natural in their hands, one-click with no setup', 'en'),
+      role: caseRole('merchandising/product teammates', 'en'),
       goal: 'Batch-check listing materials for completeness and consistency to reduce last-minute rework before launch.',
       platform: '- Windows + macOS; Electron + React + TypeScript; SheetJS; local JSON rules',
       features: `1. Import product sheet, image list, certificate file list.

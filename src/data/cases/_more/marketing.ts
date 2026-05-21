@@ -202,7 +202,7 @@ export const marketingEventChecklist: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('on the marketing team,', 'en'),
+      role: caseRole('a marketing teammate', 'en'),
       goal: 'Make every prep task for a live event ordered by timeline so the day-of is calm.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: `1. New event: name, date, scale (small < 50 / medium 50–200 / large > 200) → auto-generates a 40+ task default checklist bucketed D-30 / D-14 / D-7 / D-3 / D-1 / Day-of / D+3 retro.

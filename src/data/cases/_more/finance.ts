@@ -204,7 +204,7 @@ export const financeMonthlyBudgetTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('finance staff,', 'en'),
+      role: caseRole('a finance teammate', 'en'),
       goal: 'Visualize each department\'s mid-month budget execution; catch overruns early.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: `1. Import annual budget (dept + category + monthly amount); weekly import of actual spend Excel.

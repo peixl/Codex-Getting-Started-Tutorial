@@ -62,7 +62,7 @@ export const hrLeaveTracker: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('an HR', 'en'),
+      role: caseRole('an HR teammate', 'en'),
       goal: 'Keep leave and TOIL balances always clear without memorizing.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: '1. Employee list: name, dept, hire date, four balances (annual / TOIL / sick / personal).\n2. "New leave": pick employee, type, dates, notes; auto-computes working days and deducts.\n3. "Log overtime": pick employee, hours; converted by 1:1.5 (editable) and added to TOIL.\n4. Monthly settlement: per-employee four balances, this-month added/used/ending; export Excel.\n5. Employee drawer: annual leave granted by tenure rule (editable), monthly accrual or year-start lump.',
@@ -202,7 +202,7 @@ export const hrBirthdayReminder: CaseBundle = {
       communication: COMMUNICATION_ZH,
     }, 'zh'),
     en: composeCasePrompt({
-      role: caseRole('on the HR team,', 'en'),
+      role: caseRole('an HR teammate', 'en'),
       goal: 'Surface every teammate\'s birthday and work anniversary in time so the workplace feels warmer.',
       platform: '- Windows + macOS; Electron + React + TypeScript; local SQLite',
       features: `1. Import roster Excel (name / dept / birthday / hire date / contact / notes). Birthday may be month-day only (year hidden).
