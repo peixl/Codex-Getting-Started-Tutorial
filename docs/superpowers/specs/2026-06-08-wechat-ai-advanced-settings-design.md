@@ -60,7 +60,7 @@ export type ProviderPreset = {
 | `default`(默认网关,简单模式用) | `https://www.packyapi.com/v1` | `openai` | `gpt-5.5` |
 | `openai` | `https://api.openai.com/v1` | `openai` | `gpt-5.5` |
 | `anthropic` | `https://api.anthropic.com` | `anthropic` | `claude-opus-4-8` |
-| `google` | `https://generativelanguage.googleapis.com` | `gemini` | `gemini-2.5-pro` |
+| `google` | `https://generativelanguage.googleapis.com` | `gemini` | `gemini-3.1-pro-preview` |
 | `custom` | `''` | `openai` | `''` |
 
 说明:
@@ -134,7 +134,7 @@ WechatAiApp 组装 { accessKey, lang, baseUrl, protocol, model }
 
 - `wechatAiPrompt.test.ts`:
   - 保留全部现有断言(默认调用仍输出 packyapi/gpt-5.5/reasoning 措辞)。
-  - 新增:`anthropic` 预设 → 含 `https://api.anthropic.com`、`claude-opus-4-8`、extended thinking 措辞;`google` 预设 → 含 Gemini Base URL、`gemini-2.5-pro`、thinking 措辞;`openai` 预设 → 含官方端点。
+  - 新增:`anthropic` 预设 → 含 `https://api.anthropic.com`、`claude-opus-4-8`、extended thinking 措辞;`google` 预设 → 含 Gemini Base URL、`gemini-3.1-pro-preview`、thinking 措辞;`openai` 预设 → 含官方端点。
   - 把「可见文案禁词」断言的扫描对象从整个 `wechatAi` 收窄到简单模式键(排除 `advanced`)。
 - i18n parity 测试:新增键自动覆盖(无需改测试)。
 - `wechatAiProviders.ts`:可加一条断言确保每个预设 protocol/baseUrl/model 自洽(可选)。
