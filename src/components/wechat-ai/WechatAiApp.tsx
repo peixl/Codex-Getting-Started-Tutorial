@@ -6,6 +6,13 @@ import type { Dictionary } from '@/i18n';
 import { CopyButton } from '@/components/CopyButton';
 import { GlassCard, GlassPanel } from '@/components/GlassCard';
 import { buildWeChatAiPrompt } from '@/lib/wechatAiPrompt';
+import { AdvancedSettings } from '@/components/wechat-ai/AdvancedSettings';
+import {
+  DEFAULT_PROVIDER_ID,
+  resolveProviderPreset,
+  type WeChatAiProtocol,
+  type WeChatAiProviderId,
+} from '@/lib/wechatAiProviders';
 import {
   CheckIcon,
   ChatBubbleIcon,
@@ -24,9 +31,63 @@ export function WechatAiApp({ locale, dict }: Props) {
   const [copied, setCopied] = useState(false);
   const valid = accessKey.trim().length > 0;
 
+  const STORAGE_KEY = 'wechat-ai-advanced';
+  const [providerId, setProviderId] = useState<WeChatAiProviderId>(DEFAULT_PROVIDER_ID);
+  const [baseUrl, setBaseUrl] = useState('https://www.packyapi.com/v1');
+  const [protocol, setProtocol] = useState<WeChatAiProtocol>('openai');
+  const [model, setModel] = useState('gpt-5.5');
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as Partial<{
+        providerId: WeChatAiProviderId;
+        baseUrl: string;
+        protocol: WeChatAiProtocol;
+        model: string;
+      }>;
+      if (saved.providerId) setProviderId(saved.providerId);
+      if (typeof saved.baseUrl === 'string') setBaseUrl(saved.baseUrl);
+      if (saved.protocol) setProtocol(saved.protocol);
+      if (typeof saved.model === 'string') setModel(saved.model);
+    } catch {
+      // ignore unreadable/private-mode storage
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ providerId, baseUrl, protocol, model }),
+      );
+    } catch {
+      // ignore unwritable/private-mode storage
+    }
+  }, [providerId, baseUrl, protocol, model]);
+
+  const handleProviderChange = (id: WeChatAiProviderId) => {
+    setProviderId(id);
+    if (id !== 'custom') {
+      const preset = resolveProviderPreset(id);
+      setBaseUrl(preset.baseUrl);
+      setProtocol(preset.protocol);
+      setModel(preset.model);
+    }
+    setCopied(false);
+  };
+
   const prompt = useMemo(
-    () => buildWeChatAiPrompt({ accessKey, lang: locale }),
-    [accessKey, locale]
+    () =>
+      buildWeChatAiPrompt({
+        accessKey,
+        lang: locale,
+        baseUrl: baseUrl.trim() || resolveProviderPreset('default').baseUrl,
+        protocol,
+        model: model.trim() || resolveProviderPreset('default').model,
+      }),
+    [accessKey, locale, baseUrl, protocol, model]
   );
 
   useEffect(() => {
@@ -159,6 +220,32 @@ export function WechatAiApp({ locale, dict }: Props) {
             <p className="mt-3 text-[11px] leading-relaxed text-ink-mute">
               {dict.wechatAi.privacyNote}
             </p>
+
+            <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-50/80 px-3 py-1 text-[11px] font-medium text-emerald-800">
+              <CheckIcon size={12} strokeWidth={3} />
+              {dict.wechatAi.defaultBadge}
+            </p>
+
+            <AdvancedSettings
+              dict={dict}
+              providerId={providerId}
+              baseUrl={baseUrl}
+              protocol={protocol}
+              model={model}
+              onProviderChange={handleProviderChange}
+              onBaseUrlChange={(value) => {
+                setBaseUrl(value);
+                setCopied(false);
+              }}
+              onProtocolChange={(value) => {
+                setProtocol(value);
+                setCopied(false);
+              }}
+              onModelChange={(value) => {
+                setModel(value);
+                setCopied(false);
+              }}
+            />
           </GlassPanel>
 
           <GlassPanel>
