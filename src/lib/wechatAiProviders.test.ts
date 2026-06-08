@@ -3,6 +3,8 @@ import {
   PROVIDER_PRESETS,
   DEFAULT_PROVIDER_ID,
   resolveProviderPreset,
+  matchProviderId,
+  baseUrlIssue,
 } from './wechatAiProviders';
 
 describe('wechatAiProviders', () => {
@@ -40,5 +42,62 @@ describe('wechatAiProviders', () => {
     const ids = PROVIDER_PRESETS.map((p) => p.id);
     expect(new Set(ids).size).toBe(ids.length);
     expect(ids).toContain('default');
+  });
+});
+
+describe('matchProviderId', () => {
+  it('matches the exact default preset config', () => {
+    expect(
+      matchProviderId({
+        baseUrl: 'https://www.packyapi.com/v1',
+        protocol: 'openai',
+        model: 'gpt-5.5',
+      }),
+    ).toBe('default');
+  });
+
+  it('matches a named provider when all three fields equal its preset', () => {
+    expect(
+      matchProviderId({
+        baseUrl: 'https://api.anthropic.com',
+        protocol: 'anthropic',
+        model: 'claude-opus-4-8',
+      }),
+    ).toBe('anthropic');
+    expect(
+      matchProviderId({
+        baseUrl: 'https://api.openai.com/v1',
+        protocol: 'openai',
+        model: 'gpt-5.5',
+      }),
+    ).toBe('openai');
+  });
+
+  it('returns custom when the config diverges from every preset', () => {
+    expect(
+      matchProviderId({
+        baseUrl: 'https://api.anthropic.com',
+        protocol: 'anthropic',
+        model: 'claude-haiku-4-5',
+      }),
+    ).toBe('custom');
+    expect(matchProviderId({ baseUrl: '', protocol: 'openai', model: '' })).toBe('custom');
+  });
+});
+
+describe('baseUrlIssue', () => {
+  it('flags empty input', () => {
+    expect(baseUrlIssue('')).toBe('empty');
+    expect(baseUrlIssue('   ')).toBe('empty');
+  });
+
+  it('flags non-https input as insecure', () => {
+    expect(baseUrlIssue('http://api.example.com')).toBe('insecure');
+    expect(baseUrlIssue('api.example.com')).toBe('insecure');
+  });
+
+  it('accepts a well-formed https url', () => {
+    expect(baseUrlIssue('https://api.openai.com/v1')).toBeNull();
+    expect(baseUrlIssue('  https://api.anthropic.com  ')).toBeNull();
   });
 });

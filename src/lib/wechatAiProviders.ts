@@ -55,3 +55,39 @@ export function resolveProviderPreset(id: WeChatAiProviderId): ProviderPreset {
     PROVIDER_PRESETS.find((preset) => preset.id === DEFAULT_PROVIDER_ID)!
   );
 }
+
+type ProviderConfig = {
+  baseUrl: string;
+  protocol: WeChatAiProtocol;
+  model: string;
+};
+
+/**
+ * Derive which provider a config corresponds to. Returns the matching preset
+ * id when every field equals a known (non-custom) preset, otherwise 'custom'.
+ * Keeps the UI's provider selector and status badge honest about what will
+ * actually be used.
+ */
+export function matchProviderId(config: ProviderConfig): WeChatAiProviderId {
+  const found = PROVIDER_PRESETS.find(
+    (preset) =>
+      preset.id !== 'custom' &&
+      preset.baseUrl === config.baseUrl &&
+      preset.protocol === config.protocol &&
+      preset.model === config.model,
+  );
+  return found ? found.id : 'custom';
+}
+
+export type BaseUrlIssue = 'empty' | 'insecure' | null;
+
+/**
+ * Non-blocking validation for a user-entered Base URL. 'empty' is informational
+ * (falls back to the default gateway); 'insecure' warns about non-https.
+ */
+export function baseUrlIssue(baseUrl: string): BaseUrlIssue {
+  const value = baseUrl.trim();
+  if (!value) return 'empty';
+  if (!/^https:\/\//i.test(value)) return 'insecure';
+  return null;
+}
