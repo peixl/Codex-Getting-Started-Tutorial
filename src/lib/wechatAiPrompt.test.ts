@@ -81,8 +81,12 @@ describe('buildWeChatAiPrompt', () => {
   });
 
   it('keeps user-facing WeChat AI page copy plain and comfortable', () => {
-    const zhVisibleCopy = Object.values(zh.wechatAi).join('\n');
-    const enVisibleCopy = Object.values(en.wechatAi).join('\n');
+    const simpleCopy = (dict: typeof zh) => {
+      const { advanced: _advanced, ...simple } = dict.wechatAi;
+      return Object.values(simple).join('\n');
+    };
+    const zhVisibleCopy = simpleCopy(zh);
+    const enVisibleCopy = simpleCopy(en);
 
     for (const phrase of [
       '不懂技术',
