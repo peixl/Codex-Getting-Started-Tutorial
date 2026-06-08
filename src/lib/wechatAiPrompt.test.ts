@@ -33,6 +33,53 @@ describe('buildWeChatAiPrompt', () => {
     expect(prompt).not.toContain('non-technical');
   });
 
+  it('keeps the default gateway output when no provider args are passed', () => {
+    const prompt = buildWeChatAiPrompt({ accessKey: 'sk-x', lang: 'zh' });
+    expect(prompt).toContain('https://www.packyapi.com/v1');
+    expect(prompt).toContain('gpt-5.5');
+    expect(prompt).toContain('reasoning effort: medium');
+    expect(prompt).toContain('reasoning effort: xhigh');
+  });
+
+  it('builds an Anthropic prompt with extended thinking wording', () => {
+    const prompt = buildWeChatAiPrompt({
+      accessKey: 'sk-ant',
+      lang: 'en',
+      baseUrl: 'https://api.anthropic.com',
+      protocol: 'anthropic',
+      model: 'claude-opus-4-8',
+    });
+    expect(prompt).toContain('https://api.anthropic.com');
+    expect(prompt).toContain('claude-opus-4-8');
+    expect(prompt).toContain('extended thinking');
+    expect(prompt).not.toContain('gpt-5.5');
+  });
+
+  it('builds a Google Gemini prompt with thinking wording', () => {
+    const prompt = buildWeChatAiPrompt({
+      accessKey: 'sk-g',
+      lang: 'en',
+      baseUrl: 'https://generativelanguage.googleapis.com',
+      protocol: 'gemini',
+      model: 'gemini-3.1-pro-preview',
+    });
+    expect(prompt).toContain('https://generativelanguage.googleapis.com');
+    expect(prompt).toContain('gemini-3.1-pro-preview');
+    expect(prompt).toContain('thinking');
+  });
+
+  it('builds an OpenAI direct prompt against the official endpoint', () => {
+    const prompt = buildWeChatAiPrompt({
+      accessKey: 'sk-o',
+      lang: 'zh',
+      baseUrl: 'https://api.openai.com/v1',
+      protocol: 'openai',
+      model: 'gpt-5.5',
+    });
+    expect(prompt).toContain('https://api.openai.com/v1');
+    expect(prompt).toContain('reasoning effort: medium');
+  });
+
   it('keeps user-facing WeChat AI page copy plain and comfortable', () => {
     const zhVisibleCopy = Object.values(zh.wechatAi).join('\n');
     const enVisibleCopy = Object.values(en.wechatAi).join('\n');

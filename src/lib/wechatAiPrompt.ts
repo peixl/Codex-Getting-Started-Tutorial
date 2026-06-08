@@ -1,9 +1,17 @@
 import type { PromptLang } from './promptBuilder';
+import type { WeChatAiProtocol } from './wechatAiProviders';
 
 type BuildWeChatAiPromptOptions = {
   accessKey: string;
   lang: PromptLang;
+  baseUrl?: string;
+  protocol?: WeChatAiProtocol;
+  model?: string;
 };
+
+const DEFAULT_BASE_URL = 'https://www.packyapi.com/v1';
+const DEFAULT_MODEL = 'gpt-5.5';
+const DEFAULT_PROTOCOL: WeChatAiProtocol = 'openai';
 
 function normalizeAccessKey(accessKey: string) {
   return accessKey.trim().replace(/\s+/g, '');
@@ -17,14 +25,60 @@ function formatAccessKey(accessKey: string, lang: PromptLang) {
     : '(your access code will be inserted when copied)';
 }
 
+function thinkingLines(protocol: WeChatAiProtocol, lang: PromptLang): string {
+  if (lang === 'zh') {
+    if (protocol === 'anthropic') {
+      return [
+        '- 开启 extended thinking（深度思考）。',
+        '- 默认 effort: high。',
+        '- 对复杂任务使用 effort: xhigh。',
+      ].join('\n');
+    }
+    if (protocol === 'gemini') {
+      return [
+        '- 开启 thinking（深度思考）。',
+        '- 对复杂任务调高 thinking budget。',
+      ].join('\n');
+    }
+    return [
+      '- 开启 deep thinking / reasoning。',
+      '- 默认 reasoning effort: medium。',
+      '- 对复杂任务使用 reasoning effort: xhigh。',
+    ].join('\n');
+  }
+
+  if (protocol === 'anthropic') {
+    return [
+      '- Enable extended thinking.',
+      '- Default effort: high.',
+      '- For complex tasks, use effort: xhigh.',
+    ].join('\n');
+  }
+  if (protocol === 'gemini') {
+    return [
+      '- Enable thinking.',
+      '- For complex tasks, raise the thinking budget.',
+    ].join('\n');
+  }
+  return [
+    '- Enable deep thinking / reasoning.',
+    '- Default reasoning effort: medium.',
+    '- For complex tasks, use reasoning effort: xhigh.',
+  ].join('\n');
+}
+
 export function buildWeChatAiPrompt({
   accessKey,
   lang,
+  baseUrl = DEFAULT_BASE_URL,
+  protocol = DEFAULT_PROTOCOL,
+  model = DEFAULT_MODEL,
 }: BuildWeChatAiPromptOptions) {
   const key = formatAccessKey(accessKey, lang);
+  const thinking = thinkingLines(protocol, lang);
 
   if (lang === 'zh') {
-    return `你是资深本地电脑助手，目标是帮一位普通用户把 GPT-5.5 的 AI 能力接入微信。请直接执行，不要只给建议。全程中文解释；面对用户时使用清楚、友好的日常表达；执行细节只在必要记录里出现。
+    return `你是资深本地电脑助手，目标是帮一位普通用户把 ${model} 的 AI 能力接入微信。请直接执行，不要只给建议。全程中文解释；面对用户时使用清楚、友好的日常表达；执行细节只在必要记录里出现。
 
 【用户提供】
 - API Key / 通行密钥: ${key}
@@ -41,13 +95,11 @@ export function buildWeChatAiPrompt({
 - 安装后验证 OpenClaw 可用；可通过官方自检方式、应用可打开、或可用命令检查来确认。
 - 如果安装失败，先排查并修复本步，不进入第 2 步。
 
-【第 2 步：配置 GPT-5.5】
-- Base URL: https://www.packyapi.com/v1
-- Model: gpt-5.5
+【第 2 步：配置 ${model}】
+- Base URL: ${baseUrl}
+- Model: ${model}
 - API Key / 通行密钥: ${key}
-- 开启 deep thinking / reasoning。
-- 默认 reasoning effort: medium。
-- 对复杂任务使用 reasoning effort: xhigh。
+${thinking}
 - 配置后做一次最小可行验证，确认模型连接可用；失败则先修复本步，不进入第 3 步。
 
 【第 3 步：接入微信】
@@ -61,12 +113,12 @@ npx -y @tencent-weixin/openclaw-weixin-cli@latest install
 
 【完成标准】
 - OpenClaw 已安装并能正常打开或响应。
-- GPT-5.5 已按指定地址和 Key 配好，深度思考已开启。
+- ${model} 已按指定地址和 Key 配好，深度思考已开启。
 - 微信接入命令已运行，二维码或链接已展示给用户。
 - 用户完成扫码或打开链接确认后，明确告诉用户“微信里已经可以使用新的 AI 助手”。`;
   }
 
-  return `You are a senior local-computer assistant. Help an everyday user add GPT-5.5 AI capability to WeChat. Execute directly; do not merely provide advice. Explain in clear, friendly everyday language, and keep execution details inside notes unless they are necessary.
+  return `You are a senior local-computer assistant. Help an everyday user add ${model} AI capability to WeChat. Execute directly; do not merely provide advice. Explain in clear, friendly everyday language, and keep execution details inside notes unless they are necessary.
 
 [User Provided]
 - API Key / access code: ${key}
@@ -83,13 +135,11 @@ npx -y @tencent-weixin/openclaw-weixin-cli@latest install
 - Verify that OpenClaw is available after installation, using the official check, app launch, or an available command check.
 - If installation fails, diagnose and fix this step before moving to step 2.
 
-[Step 2: Configure GPT-5.5]
-- Base URL: https://www.packyapi.com/v1
-- Model: gpt-5.5
+[Step 2: Configure ${model}]
+- Base URL: ${baseUrl}
+- Model: ${model}
 - API Key / access code: ${key}
-- Enable deep thinking / reasoning.
-- Default reasoning effort: medium.
-- For complex tasks, use reasoning effort: xhigh.
+${thinking}
 - After configuring, run a minimal working check to confirm the model connection works. If it fails, fix this step before moving to step 3.
 
 [Step 3: Connect WeChat]
@@ -103,7 +153,7 @@ npx -y @tencent-weixin/openclaw-weixin-cli@latest install
 
 [Done Means]
 - OpenClaw is installed and can open or respond normally.
-- GPT-5.5 is configured with the specified address and Key, with deep thinking enabled.
+- ${model} is configured with the specified address and Key, with deep thinking enabled.
 - The WeChat connection command ran and showed the QR code or link.
 - After the user confirms by scanning or opening the link, tell the user that the new AI assistant is ready in WeChat.`;
 }
