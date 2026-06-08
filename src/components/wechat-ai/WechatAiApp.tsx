@@ -8,7 +8,7 @@ import { GlassCard, GlassPanel } from '@/components/GlassCard';
 import { buildWeChatAiPrompt } from '@/lib/wechatAiPrompt';
 import { AdvancedSettings } from '@/components/wechat-ai/AdvancedSettings';
 import {
-  DEFAULT_PROVIDER_ID,
+  matchProviderId,
   resolveProviderPreset,
   type WeChatAiProtocol,
   type WeChatAiProviderId,
@@ -32,22 +32,23 @@ export function WechatAiApp({ locale, dict }: Props) {
   const valid = accessKey.trim().length > 0;
 
   const STORAGE_KEY = 'wechat-ai-advanced';
-  const [providerId, setProviderId] = useState<WeChatAiProviderId>(DEFAULT_PROVIDER_ID);
   const [baseUrl, setBaseUrl] = useState('https://www.packyapi.com/v1');
   const [protocol, setProtocol] = useState<WeChatAiProtocol>('openai');
   const [model, setModel] = useState('gpt-5.5');
+
+  // Derive the provider from the actual config so the selector and badge can
+  // never disagree with what will be used.
+  const providerId: WeChatAiProviderId = matchProviderId({ baseUrl, protocol, model });
 
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const saved = JSON.parse(raw) as Partial<{
-        providerId: WeChatAiProviderId;
         baseUrl: string;
         protocol: WeChatAiProtocol;
         model: string;
       }>;
-      if (saved.providerId) setProviderId(saved.providerId);
       if (typeof saved.baseUrl === 'string') setBaseUrl(saved.baseUrl);
       if (saved.protocol) setProtocol(saved.protocol);
       if (typeof saved.model === 'string') setModel(saved.model);
@@ -60,21 +61,18 @@ export function WechatAiApp({ locale, dict }: Props) {
     try {
       window.localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify({ providerId, baseUrl, protocol, model }),
+        JSON.stringify({ baseUrl, protocol, model }),
       );
     } catch {
       // ignore unwritable/private-mode storage
     }
-  }, [providerId, baseUrl, protocol, model]);
+  }, [baseUrl, protocol, model]);
 
   const handleProviderChange = (id: WeChatAiProviderId) => {
-    setProviderId(id);
-    if (id !== 'custom') {
-      const preset = resolveProviderPreset(id);
-      setBaseUrl(preset.baseUrl);
-      setProtocol(preset.protocol);
-      setModel(preset.model);
-    }
+    const preset = resolveProviderPreset(id);
+    setBaseUrl(preset.baseUrl);
+    setProtocol(preset.protocol);
+    setModel(preset.model);
     setCopied(false);
   };
 
@@ -179,7 +177,7 @@ export function WechatAiApp({ locale, dict }: Props) {
               placeholder={dict.wechatAi.keyPlaceholder}
               autoComplete="off"
               spellCheck={false}
-              className="glass-input"
+              className="glass-input text-base"
             />
             <p className="mt-2 text-[11.5px] leading-relaxed text-ink-mute">
               {dict.wechatAi.keyHint}
@@ -221,10 +219,17 @@ export function WechatAiApp({ locale, dict }: Props) {
               {dict.wechatAi.privacyNote}
             </p>
 
-            <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-50/80 px-3 py-1 text-[11px] font-medium text-emerald-800">
-              <CheckIcon size={12} strokeWidth={3} />
-              {dict.wechatAi.defaultBadge}
-            </p>
+            {providerId === 'default' ? (
+              <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-50/80 px-3 py-1 text-[11px] font-medium text-emerald-800">
+                <CheckIcon size={12} strokeWidth={3} />
+                {dict.wechatAi.defaultBadge}
+              </p>
+            ) : (
+              <p className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--line)] bg-white/70 px-3 py-1 text-[11px] font-medium text-ink-soft">
+                <SparkleIcon size={12} />
+                {dict.wechatAi.customBadge}
+              </p>
+            )}
 
             <AdvancedSettings
               dict={dict}
@@ -245,6 +250,7 @@ export function WechatAiApp({ locale, dict }: Props) {
                 setModel(value);
                 setCopied(false);
               }}
+              onReset={() => handleProviderChange('default')}
             />
           </GlassPanel>
 
