@@ -17,12 +17,16 @@ export const zh = {
       '电商运营',
       '财务自动化',
       'AI 工作流',
+      '微信 AI',
+      '微信助手',
+      'OpenClaw',
     ],
   },
 
   nav: {
     home: '首页',
     generator: '提示词',
+    wechatAi: '微信 AI',
     guide: '快速上手',
     lessons: '七天上手',
     cookbook: '场景食谱',
@@ -220,6 +224,49 @@ export const zh = {
     promptStep2Body: '输入、处理、输出说清楚。',
     promptStep3Title: '交给 Codex',
     promptStep3Body: '复制粘贴，让它写代码、跑起来、自己验证。',
+  },
+
+  wechatAi: {
+    eyebrow: '微信新用法',
+    pageTitle: '把智能助手放进微信',
+    pageSubtitle:
+      '填入你的通行密钥，复制给 Codex。Codex 会一步一步准备好，最后你只要扫码或打开页面。',
+    formTitle: '只填这一项',
+    formBody:
+      '把服务方给你的通行密钥贴进来，下面会自动生成一段给 Codex 的话。',
+    keyLabel: '通行密钥',
+    keyPlaceholder: '粘贴你的通行密钥',
+    keyHint:
+      '页面只用它来生成内容，不会保存。离开或刷新后需要重新填写。',
+    validationMissingKey: '先填入通行密钥。',
+    privacyNote:
+      '复制时会一起带给 Codex；页面不会保存，也不会放进最近记录。',
+    copyTitle: '准备交给 Codex 的安排',
+    copyHint:
+      '完整内容已经准备好。这里先用大白话列出会做什么；复制时会自动带上完整内容。',
+    copyButton: '一键复制给 Codex',
+    copyButtonShort: '复制',
+    copied: '已复制',
+    copyFailed: '复制失败，请手动选中',
+    copyNext:
+      '已复制。打开 Codex，新建任务，粘贴发送；看到二维码或页面链接后，按提示完成。',
+    step1Title: '填入通行密钥',
+    step1Body:
+      '这是让助手为你工作的凭证。页面不会保存它。',
+    step2Title: '交给 Codex',
+    step2Body:
+      '复制后粘贴发送，Codex 会按顺序准备。',
+    step3Title: '完成确认',
+    step3Body:
+      '出现二维码或页面链接后，用微信完成确认。',
+    guardTitle: 'Codex 会严格按顺序做',
+    guard1: '第一步成功后才进入第二步。',
+    guard2: '中途卡住会先处理好当前步骤。',
+    guard3: '最后只等你扫码或打开页面确认。',
+    defaultsTitle: '已经帮你选好',
+    default1: '日常问题用均衡模式。',
+    default2: '复杂问题会更认真地处理。',
+    default3: '所有说明尽量用听得懂的话。',
   },
 
   guide: {

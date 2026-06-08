@@ -16,6 +16,7 @@ export function Footer({ locale, dict }: Props) {
   const navLinks = [
     { href: localePath(locale), label: dict.nav.home },
     { href: localePath(locale, 'generator'), label: dict.nav.generator },
+    { href: localePath(locale, 'wechat-ai'), label: dict.nav.wechatAi },
     { href: localePath(locale, 'guide'), label: dict.nav.guide },
     { href: localePath(locale, 'lessons'), label: dict.nav.lessons },
     { href: localePath(locale, 'cases'), label: dict.nav.cases },

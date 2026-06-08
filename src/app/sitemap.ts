@@ -5,7 +5,7 @@ import { AI_RESOURCE_PATHS, SITE_URL } from '@/lib/routes';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ['', 'generator', 'guide', 'lessons', 'cases', 'cookbook', 'tips', 'faq'];
+  const staticPaths = ['', 'generator', 'wechat-ai', 'guide', 'lessons', 'cases', 'cookbook', 'tips', 'faq'];
   const entries: MetadataRoute.Sitemap = [];
   const now = new Date();
 
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url,
         lastModified: now,
         changeFrequency: path === '' ? 'weekly' : 'monthly',
-        priority: path === '' ? 1.0 : path === 'generator' ? 0.9 : 0.8,
+        priority: path === '' ? 1.0 : path === 'generator' || path === 'wechat-ai' ? 0.9 : 0.8,
         alternates: { languages },
       });
     }

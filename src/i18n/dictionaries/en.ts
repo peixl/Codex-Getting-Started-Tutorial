@@ -16,12 +16,16 @@ export const en = {
       'macOS desktop app',
       'business automation',
       'AI business assistant',
+      'WeChat AI',
+      'WeChat assistant',
+      'OpenClaw',
     ],
   },
 
   nav: {
     home: 'Home',
     generator: 'Prompt',
+    wechatAi: 'WeChat AI',
     guide: 'Quick start',
     lessons: '7-day path',
     cookbook: 'Cookbook',
@@ -219,6 +223,49 @@ export const en = {
     promptStep2Body: 'Input, processing, output.',
     promptStep3Title: 'Hand it to Codex',
     promptStep3Body: 'Paste. Codex writes, runs, verifies.',
+  },
+
+  wechatAi: {
+    eyebrow: 'A new WeChat workflow',
+    pageTitle: 'Put an assistant into WeChat',
+    pageSubtitle:
+      'Enter your access code, copy the message into Codex, then follow the final scan or link on screen.',
+    formTitle: 'Fill in one thing',
+    formBody:
+      'Paste the access code from your service provider. The ready-to-send message will be created for you.',
+    keyLabel: 'Access code',
+    keyPlaceholder: 'Paste your access code',
+    keyHint:
+      'This page only uses it to create the message. It is not saved.',
+    validationMissingKey: 'Enter the access code first.',
+    privacyNote:
+      'It is included only when you copy to Codex. This page does not save it or add it to history.',
+    copyTitle: 'What Codex will do',
+    copyHint:
+      'The complete message is ready. This page shows the plain-language plan; copy includes everything Codex needs.',
+    copyButton: 'Copy for Codex',
+    copyButtonShort: 'Copy',
+    copied: 'Copied',
+    copyFailed: 'Copy failed — select manually',
+    copyNext:
+      'Copied. Open Codex, start a new task, paste, and send. When a QR code or link appears, follow it.',
+    step1Title: 'Enter access code',
+    step1Body:
+      'This lets the assistant work for you. The page does not save it.',
+    step2Title: 'Hand it to Codex',
+    step2Body:
+      'Paste and send. Codex will prepare everything in order.',
+    step3Title: 'Confirm in WeChat',
+    step3Body:
+      'When a QR code or link appears, finish the confirmation in WeChat.',
+    guardTitle: 'Codex will go step by step',
+    guard1: 'The first step must succeed before the second starts.',
+    guard2: 'If anything gets stuck, Codex handles the current step first.',
+    guard3: 'At the end, you only scan or open the shown link to confirm.',
+    defaultsTitle: 'Already chosen for you',
+    default1: 'Everyday questions use a balanced mode.',
+    default2: 'Harder questions get more careful handling.',
+    default3: 'Instructions stay plain and easy to follow.',
   },
 
   guide: {
