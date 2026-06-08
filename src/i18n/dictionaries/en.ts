@@ -266,6 +266,27 @@ export const en = {
     default1: 'Everyday questions use a balanced mode.',
     default2: 'Harder questions get more careful handling.',
     default3: 'Instructions stay plain and easy to follow.',
+    defaultBadge: 'Connected through the site gateway by default — already set up',
+    advanced: {
+      toggle: 'Advanced settings',
+      intro:
+        'Connected through the site gateway by default — no change needed. If you bring your own OpenAI, Anthropic, or Google key and want to reach the official endpoint directly, adjust it here.',
+      providerLabel: 'Provider',
+      providerDefault: 'Default gateway (recommended)',
+      providerOpenai: 'OpenAI',
+      providerAnthropic: 'Anthropic',
+      providerGoogle: 'Google',
+      providerCustom: 'Custom',
+      baseUrlLabel: 'Base URL',
+      baseUrlPlaceholder: 'e.g. https://api.openai.com/v1',
+      protocolLabel: 'Protocol',
+      protocolOpenai: 'OpenAI-compatible',
+      protocolAnthropic: 'Anthropic Messages',
+      protocolGemini: 'Google Gemini',
+      modelLabel: 'Model',
+      modelPlaceholder: 'e.g. gpt-5.5',
+      resetLabel: 'Reset to default',
+    },
   },
 
   guide: {

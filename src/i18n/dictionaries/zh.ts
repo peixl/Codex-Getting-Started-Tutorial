@@ -267,6 +267,27 @@ export const zh = {
     default1: '日常问题用均衡模式。',
     default2: '复杂问题会更认真地处理。',
     default3: '所有说明尽量用听得懂的话。',
+    defaultBadge: '默认通过站点网关接入，已配置好',
+    advanced: {
+      toggle: '高级设置',
+      intro:
+        '默认通过站点网关接入，无需改动。如果你自带 OpenAI、Anthropic、Google 等官方密钥，想直连官方接口，可在这里修改。',
+      providerLabel: '接入方',
+      providerDefault: '默认网关（推荐）',
+      providerOpenai: 'OpenAI',
+      providerAnthropic: 'Anthropic',
+      providerGoogle: 'Google',
+      providerCustom: '自定义',
+      baseUrlLabel: '接口地址（Base URL）',
+      baseUrlPlaceholder: '例如 https://api.openai.com/v1',
+      protocolLabel: '接口协议',
+      protocolOpenai: 'OpenAI 兼容',
+      protocolAnthropic: 'Anthropic Messages',
+      protocolGemini: 'Google Gemini',
+      modelLabel: '模型',
+      modelPlaceholder: '例如 gpt-5.5',
+      resetLabel: '恢复默认',
+    },
   },
 
   guide: {
