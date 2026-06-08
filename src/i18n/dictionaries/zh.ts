@@ -268,6 +268,7 @@ export const zh = {
     default2: '复杂问题会更认真地处理。',
     default3: '所有说明尽量用听得懂的话。',
     defaultBadge: '默认通过站点网关接入，已配置好',
+    customBadge: '已切换为自定义接入 · 使用你自己的密钥',
     advanced: {
       toggle: '高级设置',
       intro:
@@ -280,6 +281,8 @@ export const zh = {
       providerCustom: '自定义',
       baseUrlLabel: '接口地址（Base URL）',
       baseUrlPlaceholder: '例如 https://api.openai.com/v1',
+      baseUrlHintInsecure: '建议使用 https:// 开头的地址。',
+      baseUrlHintEmpty: '留空将回落到默认网关。',
       protocolLabel: '接口协议',
       protocolOpenai: 'OpenAI 兼容',
       protocolAnthropic: 'Anthropic Messages',

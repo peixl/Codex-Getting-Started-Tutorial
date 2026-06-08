@@ -267,6 +267,7 @@ export const en = {
     default2: 'Harder questions get more careful handling.',
     default3: 'Instructions stay plain and easy to follow.',
     defaultBadge: 'Connected through the site gateway by default — already set up',
+    customBadge: 'Switched to a custom endpoint — using your own key',
     advanced: {
       toggle: 'Advanced settings',
       intro:
@@ -279,6 +280,8 @@ export const en = {
       providerCustom: 'Custom',
       baseUrlLabel: 'Base URL',
       baseUrlPlaceholder: 'e.g. https://api.openai.com/v1',
+      baseUrlHintInsecure: 'Use an address that starts with https://.',
+      baseUrlHintEmpty: 'Leaving this blank falls back to the default gateway.',
       protocolLabel: 'Protocol',
       protocolOpenai: 'OpenAI-compatible',
       protocolAnthropic: 'Anthropic Messages',
