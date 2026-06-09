@@ -102,19 +102,28 @@ export function buildWeChatAiPrompt({
 ${thinking}
 - 配置后做一次最小可行验证，确认模型连接可用；失败则先修复本步，不进入第 3 步。
 
-【第 3 步：接入微信】
-- 在终端执行：
+【第 3 步：接入微信，并生成清晰可扫的二维码】
+- 在终端执行（保留完整输出，方便读取链接）：
 \`\`\`bash
 npx -y @tencent-weixin/openclaw-weixin-cli@latest install
 \`\`\`
-- 保持输出可见，直到出现二维码和链接。
-- 出现二维码和链接后，暂停自动推进，用普通话告诉用户：请用微信扫码，或打开屏幕上显示的链接完成确认。
+- 保持输出可见，直到出现二维码和登录链接。
+- 终端直接渲染的二维码经常因字体、编码或窗口宽度问题变成乱码、无法扫描。所以不要让用户扫终端里的二维码，而是按下面方式用链接重新生成一张清晰的二维码图片：
+  1. 从命令输出中提取微信登录/确认用的 URL 链接（通常是一条 https 开头的链接）。
+  2. 把这条 URL 生成为一张二维码**图片文件**（PNG 或 SVG），不要用字符拼出来的二维码。要求：纠错等级 M 或更高、四周留白（quiet zone）≥ 2 个模块、每个模块约 8–10 像素、整张约 400–600 像素见方，保证清晰可辨、方便扫码。
+  3. 用本地任意一种可用工具生成即可，例如（哪个能用就用哪个，并按上面的要求调整参数）：
+     - \`qrencode -o wechat-login.png -s 10 -m 2 "<URL>"\`
+     - \`npx -y qrcode "<URL>" -o wechat-login.png\`
+     - Python：\`python3 -c "import qrcode; qrcode.make('<URL>').save('wechat-login.png')"\`（缺库就先 \`pip install 'qrcode[pil]'\`）
+  4. 生成成功后，用系统默认看图程序打开这张图片（macOS：\`open wechat-login.png\`；Windows：\`start wechat-login.png\`；Linux：\`xdg-open wechat-login.png\`）。
+- 然后暂停自动推进，用普通话告诉用户：请用微信扫描刚打开的这张二维码图片完成确认；如果不方便扫码，也可以直接打开这条链接：<URL>。
+- 如果几种生成方式都失败，就把这条 URL 清楚地展示给用户，让其在手机微信里打开，绝不要让用户去扫乱码的终端二维码。
 - 用户完成扫码或打开链接后，再检查流程是否完成。
 
 【完成标准】
 - OpenClaw 已安装并能正常打开或响应。
 - ${model} 已按指定地址和 Key 配好，深度思考已开启。
-- 微信接入命令已运行，二维码或链接已展示给用户。
+- 微信接入命令已运行，并已根据登录链接生成一张清晰可扫的二维码图片展示给用户（必要时同时给出链接）。
 - 用户完成扫码或打开链接确认后，明确告诉用户“微信里已经可以使用新的 AI 助手”。`;
   }
 
@@ -142,18 +151,27 @@ npx -y @tencent-weixin/openclaw-weixin-cli@latest install
 ${thinking}
 - After configuring, run a minimal working check to confirm the model connection works. If it fails, fix this step before moving to step 3.
 
-[Step 3: Connect WeChat]
-- Run this in the terminal:
+[Step 3: Connect WeChat and generate a clean, scannable QR code]
+- Run this in the terminal (keep the full output so the link stays readable):
 \`\`\`bash
 npx -y @tencent-weixin/openclaw-weixin-cli@latest install
 \`\`\`
-- Keep the output visible until the QR code and link appear.
-- When the QR code and link appear, pause automatic progress and tell the user plainly: scan with WeChat, or open the link shown on screen.
+- Keep the output visible until the QR code and login link appear.
+- The QR code rendered directly in the terminal often turns into garbled, unscannable characters because of font, encoding, or window-width issues. So do not ask the user to scan the terminal QR code. Instead, regenerate a clean QR image from the link:
+  1. Extract the WeChat login/confirmation URL from the command output (usually an https link).
+  2. Turn that URL into a QR **image file** (PNG or SVG) — not an ASCII/character QR. Requirements: error correction level M or higher, a quiet zone of >= 2 modules, about 8–10 pixels per module, and a final image around 400–600 pixels square so it stays crisp and easy to scan.
+  3. Use any local tool that works, for example (use whichever is available and adjust flags to meet the requirements above):
+     - \`qrencode -o wechat-login.png -s 10 -m 2 "<URL>"\`
+     - \`npx -y qrcode "<URL>" -o wechat-login.png\`
+     - Python: \`python3 -c "import qrcode; qrcode.make('<URL>').save('wechat-login.png')"\` (if the library is missing, run \`pip install 'qrcode[pil]'\` first)
+  4. Once generated, open the image with the system default viewer (macOS: \`open wechat-login.png\`; Windows: \`start wechat-login.png\`; Linux: \`xdg-open wechat-login.png\`).
+- Then pause automatic progress and tell the user plainly: scan with WeChat the QR image that just opened; if scanning is inconvenient, open this link instead: <URL>.
+- If every generation method fails, show the URL clearly so the user can open it in WeChat on their phone. Never ask the user to scan the garbled terminal QR code.
 - After the user completes scanning or opens the link, check that the flow is complete.
 
 [Done Means]
 - OpenClaw is installed and can open or respond normally.
 - ${model} is configured with the specified address and Key, with deep thinking enabled.
-- The WeChat connection command ran and showed the QR code or link.
+- The WeChat connection command ran, and a clean, scannable QR image was generated from the login link and shown to the user (with the link as a fallback).
 - After the user confirms by scanning or opening the link, tell the user that the new AI assistant is ready in WeChat.`;
 }

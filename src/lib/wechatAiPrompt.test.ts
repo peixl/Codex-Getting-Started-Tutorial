@@ -20,6 +20,26 @@ describe('buildWeChatAiPrompt', () => {
     expect(prompt).not.toContain('不要让用户理解');
   });
 
+  it('tells Codex to regenerate a clean QR image from the link instead of the garbled terminal QR (zh)', () => {
+    const prompt = buildWeChatAiPrompt({ accessKey: 'sk-x', lang: 'zh' });
+
+    expect(prompt).toContain('乱码');
+    expect(prompt).toContain('二维码图片');
+    expect(prompt).toContain('提取');
+    expect(prompt).toContain('wechat-login.png');
+    expect(prompt).toContain('纠错等级');
+  });
+
+  it('tells Codex to regenerate a clean QR image from the link instead of the garbled terminal QR (en)', () => {
+    const prompt = buildWeChatAiPrompt({ accessKey: 'sk-x', lang: 'en' });
+
+    expect(prompt).toContain('garbled');
+    expect(prompt).toContain('QR image');
+    expect(prompt).toContain('Extract the WeChat login/confirmation URL');
+    expect(prompt).toContain('wechat-login.png');
+    expect(prompt).toContain('error correction level M');
+  });
+
   it('builds the required English prompt', () => {
     const prompt = buildWeChatAiPrompt({ accessKey: 'sk-live', lang: 'en' });
 
