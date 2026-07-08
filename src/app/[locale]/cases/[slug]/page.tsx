@@ -3,7 +3,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n';
-import { caseBundles, getCaseBySlug, getCasePrompt, getCasesByDepartment } from '@/data/cases';
+import {
+  caseBundles,
+  getCaseBySlug,
+  getCasePrompt,
+  getCasesByDepartment,
+  type AppPlatform,
+} from '@/data/cases';
 import { getCaseSampleFields } from '@/data/cases/sampleFields';
 import { GlassCard, GlassPanel } from '@/components/GlassCard';
 import { Section } from '@/components/Section';
@@ -18,6 +24,8 @@ import {
   PuzzleIcon,
   RocketIcon,
   SparkleIcon,
+  MacWindowIcon,
+  WebAppIcon,
   WindowsIcon,
 } from '@/components/icons';
 import { deptIcons } from '@/components/cases/deptIcons';
@@ -104,10 +112,7 @@ export default async function CasePage({ params }: Props) {
             {deptIcons[bundle.department]}
           </div>
           <span className="chip">{copy.departmentLabel}</span>
-          <span className="chip">
-            <WindowsIcon size={12} />
-            {dict.cases.windowsBadge}
-          </span>
+          <PlatformBadges platforms={bundle.platforms ?? ['windows', 'mac']} dict={dict} />
         </div>
         <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-ink md:text-5xl" style={{ letterSpacing: '-0.03em' }}>
           {copy.title}
@@ -260,6 +265,46 @@ export default async function CasePage({ params }: Props) {
             ))}
           </div>
         </Section>
+      )}
+    </>
+  );
+}
+
+function PlatformBadges({
+  platforms,
+  dict,
+}: {
+  platforms: AppPlatform[];
+  dict: ReturnType<typeof getDictionary>;
+}) {
+  if (!platforms.includes('web') && platforms.includes('windows') && platforms.includes('mac')) {
+    return (
+      <span className="chip">
+        <MacWindowIcon size={12} />
+        {dict.cases.desktopBadge}
+      </span>
+    );
+  }
+
+  return (
+    <>
+      {platforms.includes('web') && (
+        <span className="chip">
+          <WebAppIcon size={12} />
+          {dict.cases.webBadge}
+        </span>
+      )}
+      {platforms.includes('windows') && (
+        <span className="chip">
+          <WindowsIcon size={12} />
+          {dict.cases.windowsBadge}
+        </span>
+      )}
+      {platforms.includes('mac') && (
+        <span className="chip">
+          <MacWindowIcon size={12} />
+          {dict.cases.macBadge}
+        </span>
       )}
     </>
   );

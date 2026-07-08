@@ -52,6 +52,20 @@ export function WindowsIcon({ size = 48, ...props }: IconProps) {
   );
 }
 
+export function WebAppIcon({ size = 48, ...props }: IconProps) {
+  return (
+    <svg {...baseProps(size)} {...props}>
+      <rect x="6" y="9" width="36" height="30" rx="5" className="hand-stroke" />
+      <path d="M6 17h36" className="hand-stroke" />
+      <circle cx="12" cy="13" r="1.2" fill="currentColor" />
+      <circle cx="16" cy="13" r="1.2" fill="currentColor" />
+      <circle cx="20" cy="13" r="1.2" fill="currentColor" />
+      <path d="M14 25h20M14 31h12" className="hand-stroke" />
+      <path d="M32 28l3 3 5-7" className="hand-stroke" />
+    </svg>
+  );
+}
+
 export function WandIcon({ size = 48, ...props }: IconProps) {
   return (
     <svg {...baseProps(size)} {...props}>

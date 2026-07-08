@@ -28,7 +28,7 @@ import { GlassPanel } from '@/components/GlassCard';
 import { CopyButton } from '@/components/CopyButton';
 import { cn } from '@/lib/cn';
 import { GeneratorForm } from './GeneratorForm';
-import { SparkleIcon, LightBulbIcon, WindowsIcon, MacWindowIcon } from '@/components/icons';
+import { SparkleIcon, LightBulbIcon, WindowsIcon, MacWindowIcon, WebAppIcon } from '@/components/icons';
 
 type Props = {
   locale: Locale;
@@ -192,16 +192,10 @@ export function GeneratorApp({ locale, dict }: Props) {
                 <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-[color:var(--line)] bg-white text-ink">
                   <LightBulbIcon size={16} />
                 </span>
-                <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="chip">
-                    <WindowsIcon size={10} />
-                    Windows
-                  </span>
-                  <span className="chip">
-                    <MacWindowIcon size={10} />
-                    macOS
-                  </span>
-                </div>
+                <TemplatePlatformChips
+                  platform={t.state.platform ?? DEFAULT_FORM.platform}
+                  locale={locale}
+                />
               </div>
               <h4 className="mt-3 text-[13.5px] font-semibold leading-snug text-ink">
                 {locale === 'zh' ? t.titleZh : t.titleEn}
@@ -509,6 +503,60 @@ export function GeneratorApp({ locale, dict }: Props) {
           </GlassPanel>
         </div>
       </div>
+    </div>
+  );
+}
+
+function TemplatePlatformChips({
+  platform,
+  locale,
+}: {
+  platform: FormState['platform'];
+  locale: Locale;
+}) {
+  if (platform === 'web') {
+    return (
+      <div className="flex flex-wrap items-center gap-1.5">
+        <span className="chip">
+          <WebAppIcon size={10} />
+          {locale === 'zh' ? '网站' : 'Web'}
+        </span>
+      </div>
+    );
+  }
+
+  if (platform === 'windows') {
+    return (
+      <div className="flex flex-wrap items-center gap-1.5">
+        <span className="chip">
+          <WindowsIcon size={10} />
+          Windows
+        </span>
+      </div>
+    );
+  }
+
+  if (platform === 'mac') {
+    return (
+      <div className="flex flex-wrap items-center gap-1.5">
+        <span className="chip">
+          <MacWindowIcon size={10} />
+          macOS
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      <span className="chip">
+        <WindowsIcon size={10} />
+        Windows
+      </span>
+      <span className="chip">
+        <MacWindowIcon size={10} />
+        macOS
+      </span>
     </div>
   );
 }

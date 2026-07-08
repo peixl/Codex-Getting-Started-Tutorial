@@ -11,6 +11,8 @@ export type Department =
   | 'admin'
   | 'product';
 
+export type AppPlatform = 'web' | 'windows' | 'mac';
+
 export type CaseCopy = {
   title: string;
   departmentLabel: string;
@@ -27,6 +29,7 @@ export type CaseCopy = {
 export type CaseBundle = {
   slug: string;
   department: Department;
+  platforms?: AppPlatform[];
   icon?: string;
   i18n: {
     zh: CaseCopy;

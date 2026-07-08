@@ -35,14 +35,17 @@ export default async function CasesIndexPage({ params }: Props) {
 
   const items: CasesExplorerItem[] = caseBundles.map((c) => {
     const copy = c.i18n[locale];
+    const platforms = c.platforms ?? ['windows', 'mac'];
+    const platformSearchTerms = getPlatformSearchTerms(platforms, locale);
     return {
       slug: c.slug,
       department: c.department,
       title: copy.title,
       summary: copy.summary,
       departmentLabel: copy.departmentLabel,
+      platforms,
       prompt: getCasePrompt(c, locale),
-      searchHaystack: [copy.title, copy.summary, copy.departmentLabel, ...copy.keywords]
+      searchHaystack: [copy.title, copy.summary, copy.departmentLabel, ...platforms, ...platformSearchTerms, ...copy.keywords]
         .join(' ')
         .toLowerCase(),
     };
@@ -71,4 +74,20 @@ export default async function CasesIndexPage({ params }: Props) {
       </Section>
     </>
   );
+}
+
+function getPlatformSearchTerms(platforms: CasesExplorerItem['platforms'], locale: Locale): string[] {
+  if (locale === 'zh') {
+    const terms: string[] = [];
+    if (platforms.includes('web')) terms.push('网站', '网站应用', '网页', 'web');
+    if (platforms.includes('windows')) terms.push('windows', '电脑', '桌面');
+    if (platforms.includes('mac')) terms.push('mac', 'macos', '电脑', '桌面');
+    return terms;
+  }
+
+  const terms: string[] = [];
+  if (platforms.includes('web')) terms.push('web', 'website', 'web app');
+  if (platforms.includes('windows')) terms.push('windows', 'desktop');
+  if (platforms.includes('mac')) terms.push('mac', 'macos', 'desktop');
+  return terms;
 }

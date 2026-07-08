@@ -1,9 +1,9 @@
 export const en = {
   meta: {
     siteName: 'Codex Business Guide',
-    siteTagline: 'You know the work — Codex turns it into desktop tools.',
+    siteTagline: 'You know the work — Codex turns it into web and desktop tools.',
     description:
-      'Codex Desktop guide: prompt generator, department cases, and recipes for building Windows / macOS tools from your everyday workflows.',
+      'Codex Desktop guide: prompt generator, department cases, and recipes for building website apps plus Windows / macOS tools from everyday workflows.',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -11,6 +11,7 @@ export const en = {
       'Codex tutorial',
       'Codex prompt',
       'business guide',
+      'website app',
       'desktop task assistant',
       'Windows desktop app',
       'macOS desktop app',
@@ -42,7 +43,7 @@ export const en = {
     heroTitleHighlight: 'into a tool.',
     heroTitleLine2: 'Just tell Codex what you need.',
     heroSubtitle:
-      'Write down your goal and workflow, paste into Codex Desktop. Minutes later, your tool is ready.',
+      'Write down your goal and workflow, paste into Codex Desktop. Website app is the default, and desktop tools remain available.',
     heroCtaPrimary: 'Generate your first prompt',
     heroCtaSecondary: 'See what others built',
     heroStatsLabel1: 'Ready-made cases',
@@ -50,9 +51,9 @@ export const en = {
     heroStatsLabel2: 'Just fill in the blanks',
     heroStatsValue2: 'Prompts',
     heroStatsLabel3: 'Yours alone',
-    heroStatsValue3: 'Runs locally',
-    heroBadgeWindows: 'Windows 11 · 10',
-    heroBadgeMac: 'macOS ready',
+    heroStatsValue3: 'Cross-platform',
+    heroBadgeWindows: 'Website first',
+    heroBadgeMac: 'Desktop optional',
 
     flowTitle: 'Three steps: workflow to tool',
     flowSubtitle: 'Fill in. Copy. Run.',
@@ -64,7 +65,7 @@ export const en = {
       'The system assembles the full prompt. You just copy.',
     flowStep3Title: 'Paste into Codex Desktop',
     flowStep3Body:
-      'Codex writes the code, runs it, fixes bugs. When a window pops up, your tool is ready.',
+      'Codex writes the code, runs it, fixes bugs. When the website opens or the desktop window appears, your tool is ready.',
 
     featuresTitle: 'You bring the work, Codex brings the code',
     featuresSubtitle: 'Describe your workflow. Codex writes, runs, and debugs.',
@@ -77,9 +78,9 @@ export const en = {
     feature3Title: 'Department cases',
     feature3Body:
       'Finance, operations, support, HR, logistics, procurement, marketing, legal, data, admin, product — copy and adapt.',
-    feature4Title: 'Local desktop tools',
+    feature4Title: 'Website first, desktop optional',
     feature4Body:
-      'Double-click tools: reconciliation, order cleanup, Excel automation, batch processing.',
+      'Team websites, reconciliation helpers, order cleanup, Excel automation, and batch processing.',
     feature5Title: 'Bilingual site',
     feature5Body:
       'Mirrored in Chinese and English for easy sharing.',
@@ -108,18 +109,20 @@ export const en = {
 
     defaultsHint: 'Defaults are pre-selected — ready to use.',
 
-    sectionPlatform: '1. Platform',
+    sectionPlatform: '1. App type',
+    platformWeb: 'Website app',
     platformWindows: 'Windows',
     platformMac: 'macOS',
     platformBoth: 'Both Windows and macOS',
-    platformHint: 'Most offices use Windows — pre-selected.',
+    platformHint: 'Website app is recommended by default. It opens and deploys across Windows, macOS, and Linux.',
 
     sectionTech: '2. How to build (default if unsure)',
-    techLabel: 'Approach',
+    techLabel: 'Build approach',
     techHintRecommended: 'Recommended',
-    techOptionElectron: 'Standard (most stable, most resources online)',
-    techOptionTauri: 'Lightweight (smaller file, faster startup)',
-    techOptionPyQt: 'Utility (best for quick small tools)',
+    techOptionWebsite: 'Build a website (recommended)',
+    techOptionElectron: 'Desktop software (best for local file work)',
+    techOptionTauri: 'Light desktop software (smaller, faster)',
+    techOptionPyQt: 'Tiny local window tool',
     techOptionAuto: 'Let Codex decide (easiest)',
 
     sectionUI: '3. Look and feel',
@@ -131,7 +134,8 @@ export const en = {
 
     sectionData: '4. Data storage',
     dataLabel: 'Storage',
-    dataOptionLocalFile: 'Local files (Excel / CSV)',
+    dataOptionBrowser: 'Save in browser / download files (website default)',
+    dataOptionLocalFile: 'Local computer files (Excel / CSV)',
     dataOptionSqlite: 'Local database (tens of thousands of rows)',
     dataOptionNone: 'No storage (one-shot)',
 
@@ -218,7 +222,7 @@ export const en = {
     tipCardBody:
       'You handle business judgment; Codex handles code. Say who uses it, what goes in, what comes out.',
     promptStep1Title: 'Pick a template',
-    promptStep1Body: 'When unsure, keep defaults.',
+    promptStep1Body: 'Website app is the recommended default.',
     promptStep2Title: 'Write goal and flow',
     promptStep2Body: 'Input, processing, output.',
     promptStep3Title: 'Hand it to Codex',
@@ -305,7 +309,7 @@ export const en = {
     sec1P2:
       'The more clearly you describe what you want, the closer the first version will be to your vision.',
     sec1P3:
-      'This tutorial covers desktop tools only: Windows / macOS. Double-click to open when done.',
+      'This tutorial recommends website apps by default: open in a browser, deploy across platforms. Windows / macOS desktop tools are still covered.',
 
     sec2Title: 'Chapter 2 — What you need',
     sec2Item1Title: 'A Windows or macOS computer',
@@ -333,8 +337,8 @@ export const en = {
     sec4Item3Title: 'Wait = let it work',
     sec4Item3Body:
       'Ignore the technical details while it\'s working. Just check whether the app runs in the end.',
-    sec4Item4Title: 'Run = see your app',
-    sec4Item4Body: 'When it finishes, a window pops up — that\'s your tool.',
+    sec4Item4Title: 'Run = see your tool',
+    sec4Item4Body: 'When it finishes, the website opens or a desktop window appears — that\'s your tool.',
     sec4Item5Title: 'Not right? = keep talking',
     sec4Item5Body:
       'If something\'s off, just say so. Like "the button color is wrong" or "import crashes the app." Codex will fix it.',
@@ -377,9 +381,9 @@ export const en = {
     secStopItem4Body: 'Once the main flow works, use a fresh task for redesigns, stack swaps, or piles of new features.',
 
     sec7Title: 'Chapter 8 — Sharing what you built',
-    sec7P1: 'Ask Codex to package as a Windows .exe or macOS .dmg installer.',
-    sec7P2: 'Send it by chat, email, or cloud drive. Recipients double-click to install.',
-    sec7P3: 'If antivirus warns them, just tell them "this is an internal tool" and let them allow it.',
+    sec7P1: 'For website apps, ask Codex to document deployment. For desktop tools, package as .exe or .dmg.',
+    sec7P2: 'Share a link for websites; send an installer by chat, email, or cloud drive for desktop tools.',
+    sec7P3: 'If antivirus warns on a desktop installer, tell teammates it is an internal tool and allow it.',
 
     nextStepTitle: 'What\'s next',
     nextStepGenerator: 'Generate your first prompt',
@@ -394,7 +398,7 @@ export const en = {
 
     tip1Title: 'Use a role prompt for sharper answers',
     tip1Body:
-      'Open with "You are a desktop app engineer." Codex will stay sharper and more focused.',
+      'Open with "You are a web app engineer" or "You are a desktop app engineer" so Codex stays focused.',
     tip2Title: 'Ask for a summary, then let it build',
     tip2Body:
       'Have it sketch a 10-line plan first. Once that looks right, let it implement and verify.',
@@ -461,7 +465,7 @@ export const en = {
     a2: 'Absolutely. You describe the workflow and acceptance criteria; the technical work goes to Codex.',
 
     q3: 'Can I share what I build with teammates?',
-    a3: 'Yes. Have Codex package it as an .exe or .dmg installer, and send it along.',
+    a3: 'Yes. Deploy a website app and share the link, or package a desktop tool as an .exe / .dmg installer.',
 
     q4: 'Is what Codex generates safe?',
     a4: 'Local tools carry relatively low risk. For sensitive data, it helps to have a technical colleague take a look.',
@@ -470,7 +474,7 @@ export const en = {
     a5: 'Tell Codex: "The app is slow on large files — please optimize." It will track down the bottleneck and fix it.',
 
     q6: 'Can I build a mobile app?',
-    a6: 'You can, but this tutorial covers desktop only. Mobile publishing is quite a bit more involved.',
+    a6: 'You can, but this tutorial focuses on website apps and desktop tools. Native mobile publishing is more involved.',
 
     q7: 'Can it connect to the internet?',
     a7: 'Yes, but start with offline tools to get your feet wet. Have a technical colleague look over the online parts.',
@@ -479,7 +483,7 @@ export const en = {
     a8: 'You are the acceptance tester — judge the app by its behavior and final output.',
 
     q9: 'Can I collaborate with teammates?',
-    a9: 'Yes. Share your prompts, or pass around the packaged installer.',
+    a9: 'Yes. Share a website link, pass around a packaged installer, or share the prompt for continued iteration.',
 
     q10: 'Who do I contact when something breaks?',
     a10: 'Ask Codex first — it can solve most issues. For account or billing problems, contact OpenAI support.',
@@ -597,7 +601,10 @@ export const en = {
     backToCases: 'Back to cases',
     tryInGenerator: 'Customize this case in the generator',
     relatedCases: 'More from this department',
+    webBadge: 'Web',
+    desktopBadge: 'Desktop',
     windowsBadge: 'Windows app',
+    macBadge: 'macOS app',
   },
 
   cookbook: {

@@ -8,7 +8,8 @@ import { StructuredData } from '@/components/StructuredData';
 import { CopyButton } from '@/components/CopyButton';
 import { SITE_URL } from '@/lib/routes';
 import { getRecipePrompt, recipes } from '@/data/recipes';
-import { LightBulbIcon, WindowsIcon, MacWindowIcon } from '@/components/icons';
+import { LightBulbIcon, WindowsIcon, MacWindowIcon, WebAppIcon } from '@/components/icons';
+import type { AppPlatform } from '@/data/cases';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -57,19 +58,12 @@ export default async function CookbookPage({ params }: Props) {
             const prompt = getRecipePrompt(r, locale);
             return (
               <GlassPanel key={r.id} className="flex flex-col">
-                <div className="flex items-center gap-2">
+                <div className="flex min-h-10 items-center gap-2">
                   <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[color:var(--line)] bg-white/85 text-ink">
                     <LightBulbIcon size={18} />
                   </span>
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="chip">
-                      <WindowsIcon size={10} />
-                      Windows
-                    </span>
-                    <span className="chip">
-                      <MacWindowIcon size={10} />
-                      macOS
-                    </span>
+                    <PlatformBadges platforms={r.platforms ?? ['windows', 'mac']} locale={locale} />
                   </div>
                 </div>
                 <h3 className="mt-4 text-[15px] font-semibold text-ink">{title}</h3>
@@ -94,6 +88,46 @@ export default async function CookbookPage({ params }: Props) {
           })}
         </div>
       </Section>
+    </>
+  );
+}
+
+function PlatformBadges({
+  platforms,
+  locale,
+}: {
+  platforms: AppPlatform[];
+  locale: Locale;
+}) {
+  if (!platforms.includes('web') && platforms.includes('windows') && platforms.includes('mac')) {
+    return (
+      <span className="chip">
+        <MacWindowIcon size={10} />
+        {locale === 'zh' ? '桌面' : 'Desktop'}
+      </span>
+    );
+  }
+
+  return (
+    <>
+      {platforms.includes('web') && (
+        <span className="chip">
+          <WebAppIcon size={10} />
+          {locale === 'zh' ? '网站' : 'Web'}
+        </span>
+      )}
+      {platforms.includes('windows') && (
+        <span className="chip">
+          <WindowsIcon size={10} />
+          Windows
+        </span>
+      )}
+      {platforms.includes('mac') && (
+        <span className="chip">
+          <MacWindowIcon size={10} />
+          macOS
+        </span>
+      )}
     </>
   );
 }

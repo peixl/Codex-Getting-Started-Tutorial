@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   creator: 'ifq.ai',
   publisher: 'ifq.ai',
   category: 'education',
-  classification: 'AI tutorial, Codex desktop, business automation, e-commerce agent tasks',
+  classification: 'AI tutorial, Codex desktop, website apps, business automation, e-commerce agent tasks',
   title: {
     default: 'Codex Business Guide · Codex 上手指南',
     template: '%s',
   },
   description:
-    'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
+    'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, website app cases, Windows/macOS app cases, and e-commerce agent tasks.',
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     siteName: 'Codex Business Guide',
     title: 'Codex Business Guide · Codex 上手指南',
     description:
-      'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
+      'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, website app cases, Windows/macOS app cases, and e-commerce agent tasks.',
     images: [
       {
         url: '/og-image.svg',
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Codex Business Guide · Codex 上手指南',
     description:
-      'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, Windows/macOS app cases, and e-commerce agent task cases.',
+      'Concise OpenAI Codex Desktop guide for people who know the work — prompt generator, workflow guide, website app cases, Windows/macOS app cases, and e-commerce agent tasks.',
     images: ['/og-image.svg'],
   },
   other: {

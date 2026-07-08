@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import type { Department } from '@/data/cases';
+import type { AppPlatform, Department } from '@/data/cases';
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n';
 import { caseUrl } from '@/lib/routes';
 import { GlassCard } from '@/components/GlassCard';
 import { cn } from '@/lib/cn';
-import { ArrowRightIcon, WindowsIcon } from '@/components/icons';
+import { ArrowRightIcon, MacWindowIcon, WebAppIcon, WindowsIcon } from '@/components/icons';
 import { deptIcons } from '@/components/cases/deptIcons';
 import { CopyButton } from '@/components/CopyButton';
 
@@ -18,6 +18,7 @@ export type CasesExplorerItem = {
   title: string;
   summary: string;
   departmentLabel: string;
+  platforms: AppPlatform[];
   prompt: string;
   searchHaystack: string;
 };
@@ -112,22 +113,19 @@ export function CasesExplorer({ items, locale, dict }: Props) {
           </p>
         </GlassCard>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {filtered.map((item) => (
             <GlassCard
               key={item.slug}
               className="flex h-full flex-col p-6 transition duration-500 hover:-translate-y-0.5 hover:shadow-lift"
             >
-              <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
+              <div className="flex min-h-12 min-w-0 flex-wrap items-start justify-between gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-[color:var(--line)] bg-white/80 text-ink">
                   {deptIcons[item.department]}
                 </div>
                 <div className="flex min-w-0 flex-wrap items-center justify-end gap-1.5">
                   <span className="chip">{item.departmentLabel}</span>
-                  <span className="chip">
-                    <WindowsIcon size={10} />
-                    {dict.cases.windowsBadge}
-                  </span>
+                  <PlatformBadges platforms={item.platforms} dict={dict} />
                 </div>
               </div>
               <Link
@@ -158,6 +156,46 @@ export function CasesExplorer({ items, locale, dict }: Props) {
             </GlassCard>
           ))}
         </div>
+      )}
+    </>
+  );
+}
+
+function PlatformBadges({
+  platforms,
+  dict,
+}: {
+  platforms: AppPlatform[];
+  dict: Dictionary;
+}) {
+  if (!platforms.includes('web') && platforms.includes('windows') && platforms.includes('mac')) {
+    return (
+      <span className="chip">
+        <MacWindowIcon size={10} />
+        {dict.cases.desktopBadge}
+      </span>
+    );
+  }
+
+  return (
+    <>
+      {platforms.includes('web') && (
+        <span className="chip">
+          <WebAppIcon size={10} />
+          {dict.cases.webBadge}
+        </span>
+      )}
+      {platforms.includes('windows') && (
+        <span className="chip">
+          <WindowsIcon size={10} />
+          {dict.cases.windowsBadge}
+        </span>
+      )}
+      {platforms.includes('mac') && (
+        <span className="chip">
+          <MacWindowIcon size={10} />
+          {dict.cases.macBadge}
+        </span>
       )}
     </>
   );

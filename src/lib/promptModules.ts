@@ -5,7 +5,7 @@
  */
 
 export type ModuleLang = 'zh' | 'en';
-export type ModuleTech = 'electron' | 'tauri' | 'pyqt' | 'auto';
+export type ModuleTech = 'nextjs' | 'electron' | 'tauri' | 'pyqt' | 'auto';
 
 // ─── Safety Rules (non-negotiable baseline) ─────────────────────
 
@@ -121,6 +121,16 @@ export const ERROR_RECOVERY_INLINE_EN = `- Error recovery: retry the same fix �
 
 export function quickStart(tech: ModuleTech, lang: ModuleLang): string {
   if (lang === 'zh') {
+    if (tech === 'nextjs') {
+      return `【快速启动协议】
+输出【开场白】之后立刻按以下顺序执行，不要先输出方案等确认：
+1. 初始化网站应用项目，使用 TypeScript 和 App Router
+2. 安装核心依赖：next, react, react-dom, typescript, @types/react
+3. 写最小 app/page.tsx，确认 npm run dev 能打开首页
+4. 创建 sample-data/ 或 src/data/seed.ts，放入贴近业务的脱敏示例数据
+5. 按功能逐个实现，每完成一个功能立即运行验证
+6. 最后补 README、部署说明、npm run build / start 验证记录`;
+    }
     const techNote = tech === 'auto'
       ? '（默认 Electron；若功能极简可选 PyQt，Rust 就绪可选 Tauri）\n'
       : '';
@@ -142,6 +152,17 @@ ${techNote}输出【开场白】之后立刻按以下顺序执行，不要先输
 4. 创建 sample-data/ 目录，放入贴近业务的脱敏示例数据
 5. 按功能逐个实现，每完成一个功能立即运行验证
 6. 最后补文档、打包脚本、使用说明`;
+  }
+
+  if (tech === 'nextjs') {
+    return `[Quick Start Protocol]
+After outputting the [Opening Brief], execute in this order — do not output a plan and wait:
+1. Initialize the website app project with TypeScript and App Router
+2. Install core deps: next, react, react-dom, typescript, @types/react
+3. Write a minimal app/page.tsx; confirm npm run dev opens the home page
+4. Create sample-data/ or src/data/seed.ts with realistic anonymized business data
+5. Implement features one by one; verify each immediately after writing
+6. Finish with README, deployment notes, and npm run build / start verification`;
   }
 
   const techNote = tech === 'auto'
@@ -174,6 +195,16 @@ export const QUICK_START_EN = quickStart('electron', 'en');
 
 export function projectStructure(tech: ModuleTech, lang: ModuleLang): string {
   if (lang === 'zh') {
+    if (tech === 'nextjs') {
+      return `【项目结构】
+├── app/               # 网站页面、布局、路由
+├── components/        # 可复用 UI 组件
+├── lib/               # 业务逻辑、校验、数据转换（可独立测试）
+├── src/data/          # 示例数据 / seed 数据
+├── public/            # 静态资源
+├── docs/              # 使用说明 + 部署说明 + 已知限制
+└── package.json       # dev / build / start 脚本`;
+    }
     if (tech === 'tauri') {
       return `【项目结构】
 ├── src/               # React UI（pages, components, hooks）
@@ -205,6 +236,16 @@ export function projectStructure(tech: ModuleTech, lang: ModuleLang): string {
 └── package.json       # 入口、脚本、依赖`;
   }
 
+  if (tech === 'nextjs') {
+    return `[Project Structure]
+├── app/               # Website pages, layouts, routes
+├── components/        # Reusable UI components
+├── lib/               # Business logic, validation, data transforms (testable)
+├── src/data/          # Sample / seed data
+├── public/            # Static assets
+├── docs/              # User guide + deployment notes + known limits
+└── package.json       # dev / build / start scripts`;
+  }
   if (tech === 'tauri') {
     return `[Project Structure]
 ├── src/               # React UI (pages, components, hooks)
@@ -245,6 +286,16 @@ export function errorRecovery(tech: ModuleTech, lang: ModuleLang): string {
   if (lang === 'zh') {
     const shared = `- 样式错乱 → 检查 CSS 加载顺序和选择器优先级
 - 同一错误 3 次 → 换方案或降级该功能，不要死磕`;
+    if (tech === 'nextjs') {
+      return `【错误自救】
+遇到问题时按以下策略处理，不要反复尝试同一方法：
+- 依赖安装失败 → 检查包名拼写，尝试降一个大版本，或换 --legacy-peer-deps
+- 网站路由报错 → 检查 app/ 目录位置、页面文件命名和导入路径
+- Hydration 报错 → 把浏览器专属逻辑放进 useEffect 或 client component
+- npm run build 失败 → 先读完整报错，修类型/路由/静态资源路径，再重跑 build
+- 部署失败 → 先确认本地 npm run build 和 npm run start 都通过，再看平台日志
+${shared}`;
+    }
     if (tech === 'tauri') {
       return `【错误自救】
 遇到问题时按以下策略处理，不要反复尝试同一方法：
@@ -276,6 +327,16 @@ ${shared}`;
 
   const shared = `- Styles broken → check CSS load order and selector specificity
 - Same error 3 times → switch approach or downgrade that feature, do not keep retrying`;
+  if (tech === 'nextjs') {
+    return `[Error Recovery]
+When hitting issues, follow these strategies instead of retrying the same approach:
+- Dependency install fails → check spelling, try one major version down, or use --legacy-peer-deps
+- Website routing error → check app/ directory placement, page file names, and import paths
+- Hydration error → move browser-only logic into useEffect or a client component
+- npm run build fails → read the full error, fix types/routes/static asset paths, then rerun build
+- Deploy fails → confirm local npm run build and npm run start pass before reading platform logs
+${shared}`;
+  }
   if (tech === 'tauri') {
     return `[Error Recovery]
 When hitting issues, follow these strategies instead of retrying the same approach:

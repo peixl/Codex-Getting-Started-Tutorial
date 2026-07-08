@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { buildPrompt, buildRecoveryPrompt, DEFAULT_FORM, type FormState } from './promptBuilder';
+import {
+  buildPrompt,
+  buildRecoveryPrompt,
+  DEFAULT_FORM,
+  quickTemplates,
+  type FormState,
+} from './promptBuilder';
 
 const GENERATOR_QUALITY_MARKERS = {
   zh: [
@@ -41,6 +47,47 @@ function makeState(partial: Partial<FormState> = {}): FormState {
 }
 
 describe('buildPrompt', () => {
+  it('defaults to a website app workflow', () => {
+    expect(DEFAULT_FORM.platform).toBe('web');
+    expect(DEFAULT_FORM.tech).toBe('nextjs');
+    expect(DEFAULT_FORM.storage).toBe('browser');
+  });
+
+  it('builds Chinese website prompts for full-platform website deployment', () => {
+    const prompt = buildPrompt(makeState({ platform: 'web', tech: 'nextjs' }), 'zh');
+
+    expect(prompt).toContain('网站应用');
+    expect(prompt).toContain('Next.js');
+    expect(prompt).toContain('Windows / macOS / Linux');
+    expect(prompt).toContain('npm run build');
+    expect(prompt).toContain('不是桌面安装包');
+    expect(prompt).not.toContain('目标填空 → 复制提示词 → 粘贴到 Codex');
+    expect(prompt).not.toContain('字节跳动式产品方法');
+    expect(prompt).not.toContain('北极星目标');
+  });
+
+  it('adds desktop-to-web migration guidance for website prompts', () => {
+    const prompt = buildPrompt(makeState({ platform: 'web', tech: 'nextjs' }), 'zh');
+
+    expect(prompt).toContain('桌面应用迁移为网站应用');
+    expect(prompt).toContain('Electron / Tauri / PyQt');
+    expect(prompt).toContain('文件上传 / 浏览器下载');
+    expect(prompt).toContain('浏览器本地存储或服务端存储');
+  });
+
+  it('builds English website prompts for full-platform deployment', () => {
+    const prompt = buildPrompt(makeState({ platform: 'web', tech: 'nextjs' }), 'en');
+
+    expect(prompt).toContain('web app');
+    expect(prompt).toContain('Next.js');
+    expect(prompt).toContain('Windows / macOS / Linux');
+    expect(prompt).toContain('npm run build');
+    expect(prompt).toContain('not a desktop installer');
+    expect(prompt).not.toContain('fill goal → copy prompt → paste into Codex');
+    expect(prompt).not.toContain('ByteDance-style product method');
+    expect(prompt).not.toContain('north-star goal');
+  });
+
   it('includes core delivery requirements in Chinese prompts', () => {
     const prompt = buildPrompt(makeState({ platform: 'both' }), 'zh');
 
@@ -103,9 +150,10 @@ describe('buildPrompt', () => {
   it('inserts the opening brief between role and task in zh', () => {
     const prompt = buildPrompt(makeState(), 'zh');
     expect(prompt).toContain('【开工前的开场白】');
-    const roleIdx = prompt.indexOf('你是资深桌面应用工程师');
+    const roleIdx = prompt.indexOf('你是资深网站应用工程师');
     const briefIdx = prompt.indexOf('【开工前的开场白】');
     const taskIdx = prompt.indexOf('【任务】');
+    expect(roleIdx).toBeGreaterThanOrEqual(0);
     expect(roleIdx).toBeLessThan(briefIdx);
     expect(briefIdx).toBeLessThan(taskIdx);
   });
@@ -192,6 +240,14 @@ describe('buildPrompt', () => {
 });
 
 describe('buildRecoveryPrompt', () => {
+  it('asks Codex to fix a website app without desktop wording', () => {
+    const prompt = buildRecoveryPrompt(makeState({ platform: 'web', tech: 'nextjs' }), 'zh');
+
+    expect(prompt).toContain('这个网站应用没跑通');
+    expect(prompt).toContain('npm run build');
+    expect(prompt).not.toContain('这个桌面应用没跑通');
+  });
+
   it('keeps context and asks Codex to continue fixing in Chinese', () => {
     const prompt = buildRecoveryPrompt(makeState({ complexity: 'starter' }), 'zh');
 
@@ -207,5 +263,41 @@ describe('buildRecoveryPrompt', () => {
     expect(prompt).toContain('Fix it until it works');
     expect(prompt).toContain('macOS desktop app');
     expect(prompt).toContain('Re-run');
+  });
+});
+
+describe('quickTemplates', () => {
+  it('includes a desktop-to-web migration template using the website defaults', () => {
+    const template = quickTemplates.find((item) => item.id === 'desktop-to-web');
+
+    expect(template).toBeDefined();
+    expect(template?.state).toMatchObject({
+      platform: 'web',
+      tech: 'nextjs',
+      storage: 'browser',
+    });
+    expect(template?.titleZh).toContain('桌面工具改成网站应用');
+    expect(template?.state.features).toContain('保留原有核心流程');
+  });
+
+  it('fills the 4-column desktop template grid with a balanced platform mix', () => {
+    expect(quickTemplates.length % 4, 'template grid should fill 4-column rows').toBe(0);
+
+    const websiteTemplates = quickTemplates.filter((item) => item.state.platform === 'web');
+    const desktopTemplates = quickTemplates.filter((item) => item.state.platform !== 'web');
+    expect(websiteTemplates.length).toBeGreaterThanOrEqual(4);
+    expect(desktopTemplates.length).toBeGreaterThanOrEqual(4);
+
+    for (let index = 0; index < quickTemplates.length; index += 4) {
+      const row = quickTemplates.slice(index, index + 4);
+      expect(
+        row.some((item) => item.state.platform === 'web'),
+        `row ${index / 4 + 1} should include a website template`,
+      ).toBe(true);
+      expect(
+        row.some((item) => item.state.platform !== 'web'),
+        `row ${index / 4 + 1} should include a desktop template`,
+      ).toBe(true);
+    }
   });
 });

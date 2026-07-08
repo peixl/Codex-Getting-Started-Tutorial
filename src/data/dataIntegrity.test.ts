@@ -2,6 +2,14 @@ import { describe, it, expect } from 'vitest';
 import { caseBundles, getCasePrompt } from './cases/index';
 import { recipes, getRecipePrompt } from './recipes';
 
+function casePlatforms(bundle: (typeof caseBundles)[number]): string[] {
+  return ((bundle as { platforms?: string[] }).platforms ?? ['windows', 'mac']);
+}
+
+function recipePlatforms(recipe: (typeof recipes)[number]): string[] {
+  return ((recipe as { platforms?: string[] }).platforms ?? ['windows', 'mac']);
+}
+
 // ─── Case data integrity ────────────────────────────────────────
 
 describe('case data integrity', () => {
@@ -48,6 +56,17 @@ describe('case data integrity', () => {
     for (const c of caseBundles) {
       expect(validDepts, `${c.slug} has invalid dept: ${c.department}`).toContain(c.department);
     }
+  });
+
+  it('case grid fills complete desktop rows and includes website cases early', () => {
+    expect(caseBundles.length % 4, 'desktop case grid should fill 4-column rows').toBe(0);
+
+    const websiteCases = caseBundles.filter((c) => casePlatforms(c).includes('web'));
+    expect(websiteCases.length, 'needs enough website cases to feel represented').toBeGreaterThanOrEqual(4);
+    expect(
+      caseBundles.slice(0, 12).some((c) => casePlatforms(c).includes('web')),
+      'website cases should not be buried below the first desktop screen',
+    ).toBe(true);
   });
 });
 
@@ -113,6 +132,20 @@ describe('case prompt quality markers', () => {
       expect(prompt, `${slug} en missing sample-data`).toContain('sample-data');
     }
   });
+
+  it('website case prompts use website delivery wording', () => {
+    const websiteCases = caseBundles.filter((c) => casePlatforms(c).includes('web'));
+    for (const c of websiteCases) {
+      const zhPrompt = getCasePrompt(c, 'zh');
+      const enPrompt = getCasePrompt(c, 'en');
+      expect(zhPrompt, `${c.slug} zh missing 网站`).toContain('网站');
+      expect(zhPrompt, `${c.slug} zh missing build`).toContain('npm run build');
+      expect(enPrompt, `${c.slug} en missing website`).toMatch(/web|website/i);
+      expect(enPrompt, `${c.slug} en missing build`).toContain('npm run build');
+      expect(zhPrompt, `${c.slug} zh should not get desktop quick start`).not.toContain('Electron + React + TypeScript');
+      expect(enPrompt, `${c.slug} en should not get desktop quick start`).not.toContain('Electron + React + TypeScript');
+    }
+  });
 });
 
 // ─── Recipe data integrity ──────────────────────────────────────
@@ -142,6 +175,17 @@ describe('recipe data integrity', () => {
       expect(r.painZh.trim(), `${r.id} painZh`).toBeTruthy();
       expect(r.painEn.trim(), `${r.id} painEn`).toBeTruthy();
     }
+  });
+
+  it('recipe grid fills complete desktop rows and includes website recipes early', () => {
+    expect(recipes.length % 2, 'cookbook grid should fill 2-column rows').toBe(0);
+
+    const websiteRecipes = recipes.filter((r) => recipePlatforms(r).includes('web'));
+    expect(websiteRecipes.length, 'needs website recipes in cookbook').toBeGreaterThanOrEqual(2);
+    expect(
+      recipes.slice(0, 8).some((r) => recipePlatforms(r).includes('web')),
+      'website recipes should not be buried below desktop examples',
+    ).toBe(true);
   });
 });
 
@@ -196,6 +240,20 @@ describe('recipe prompt quality markers', () => {
       const enPrompt = getRecipePrompt(r, 'en');
       expect(zhPrompt, `${r.id} zh missing sample-data`).toContain('sample-data');
       expect(enPrompt, `${r.id} en missing sample-data`).toContain('sample-data');
+    }
+  });
+
+  it('website recipe prompts use website delivery wording', () => {
+    const websiteRecipes = recipes.filter((r) => recipePlatforms(r).includes('web'));
+    for (const r of websiteRecipes) {
+      const zhPrompt = getRecipePrompt(r, 'zh');
+      const enPrompt = getRecipePrompt(r, 'en');
+      expect(zhPrompt, `${r.id} zh missing 网站`).toContain('网站');
+      expect(zhPrompt, `${r.id} zh missing build`).toContain('npm run build');
+      expect(enPrompt, `${r.id} en missing website`).toMatch(/web|website/i);
+      expect(enPrompt, `${r.id} en missing build`).toContain('npm run build');
+      expect(zhPrompt, `${r.id} zh should not get desktop quick start`).not.toContain('Electron + React + TypeScript');
+      expect(enPrompt, `${r.id} en should not get desktop quick start`).not.toContain('Electron + React + TypeScript');
     }
   });
 });

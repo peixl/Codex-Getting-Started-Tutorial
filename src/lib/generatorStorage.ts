@@ -24,10 +24,10 @@ export const STORAGE_KEY = 'codex-tutorial:generator:v2';
 export const HISTORY_KEY = 'codex-tutorial:generator:history:v2';
 export const MAX_HISTORY = 6;
 
-const PLATFORMS: readonly Platform[] = ['windows', 'mac', 'both'];
-const TECH_STACKS: readonly TechStack[] = ['electron', 'tauri', 'pyqt', 'auto'];
+const PLATFORMS: readonly Platform[] = ['web', 'windows', 'mac', 'both'];
+const TECH_STACKS: readonly TechStack[] = ['nextjs', 'electron', 'tauri', 'pyqt', 'auto'];
 const UI_STYLES: readonly UiStyle[] = ['minimal', 'dark', 'fresh', 'business'];
-const STORAGE_OPTIONS: readonly Storage[] = ['localFile', 'sqlite', 'none'];
+const STORAGE_OPTIONS: readonly Storage[] = ['browser', 'localFile', 'sqlite', 'none'];
 const COMPLEXITIES: readonly Complexity[] = ['starter', 'standard', 'advanced'];
 const PROMPT_LANGS: readonly PromptLang[] = ['zh', 'en'];
 
@@ -56,12 +56,28 @@ function enumOrDefault<T extends string>(
 export function normalizeFormState(value?: unknown): FormState {
   const state = asRecord(value) ?? {};
   const extras = asRecord(state.extras) ?? {};
+  const platform = enumOrDefault(state.platform, PLATFORMS, DEFAULT_FORM.platform);
+  const explicitTech = typeof state.tech === 'string';
+  const explicitStorage = typeof state.storage === 'string';
+  const normalizedTech = enumOrDefault(state.tech, TECH_STACKS, DEFAULT_FORM.tech);
+  const normalizedStorage = enumOrDefault(state.storage, STORAGE_OPTIONS, DEFAULT_FORM.storage);
+  let tech: TechStack = normalizedTech;
+  if (platform === 'web') {
+    tech = 'nextjs';
+  } else if (!explicitTech || normalizedTech === 'nextjs') {
+    tech = 'auto';
+  }
+
+  let storage: Storage = normalizedStorage;
+  if (platform !== 'web' && (!explicitStorage || normalizedStorage === 'browser')) {
+    storage = 'localFile';
+  }
 
   return {
-    platform: enumOrDefault(state.platform, PLATFORMS, DEFAULT_FORM.platform),
-    tech: enumOrDefault(state.tech, TECH_STACKS, DEFAULT_FORM.tech),
+    platform,
+    tech,
     ui: enumOrDefault(state.ui, UI_STYLES, DEFAULT_FORM.ui),
-    storage: enumOrDefault(state.storage, STORAGE_OPTIONS, DEFAULT_FORM.storage),
+    storage,
     complexity: enumOrDefault(state.complexity, COMPLEXITIES, DEFAULT_FORM.complexity),
     goal: stringOrDefault(state.goal, DEFAULT_FORM.goal),
     features: stringOrDefault(state.features, DEFAULT_FORM.features),

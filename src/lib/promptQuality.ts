@@ -1,6 +1,5 @@
 import {
-  QUICK_START_ZH,
-  QUICK_START_EN,
+  quickStart,
   ANTI_PATTERNS_ZH,
   ANTI_PATTERNS_EN,
   DOD_ZH,
@@ -11,6 +10,7 @@ import {
 } from './promptModules';
 
 export type PromptQualityLang = ModuleLang;
+export type PromptQualityTarget = 'desktop' | 'web';
 
 const QUALITY_MARKER_ZH = '【高质量交付补充】';
 const QUALITY_MARKER_EN = '[High-Quality Delivery Addendum]';
@@ -22,7 +22,7 @@ const QUALITY_MARKER_EN = '[High-Quality Delivery Addendum]';
 const QUALITY_TAIL_ZH = `【高质量交付补充】
 若上文要求等待确认，改为：≤8 行摘要后直接实现、运行、修复、验证；只在需要真实文件、账号、证书或不可逆操作时停下。
 
-${QUICK_START_ZH}
+${quickStart('electron', 'zh')}
 
 ${ANTI_PATTERNS_ZH}
 
@@ -33,7 +33,29 @@ ${FINAL_REPORT_ZH}`;
 const QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
 If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
 
-${QUICK_START_EN}
+${quickStart('electron', 'en')}
+
+${ANTI_PATTERNS_EN}
+
+${DOD_EN}
+
+${FINAL_REPORT_EN}`;
+
+const WEB_QUALITY_TAIL_ZH = `【高质量交付补充】
+若上文要求等待确认，改为：≤8 行摘要后直接实现、运行、修复、验证；只在需要真实文件、账号、证书或不可逆操作时停下。
+
+${quickStart('nextjs', 'zh')}
+
+${ANTI_PATTERNS_ZH}
+
+${DOD_ZH}
+
+${FINAL_REPORT_ZH}`;
+
+const WEB_QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
+If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
+
+${quickStart('nextjs', 'en')}
 
 ${ANTI_PATTERNS_EN}
 
@@ -50,10 +72,20 @@ function dedupeBlankLines(prompt: string): string {
 // ─── Public API ──────────────────────────────────────────────────
 
 export function withDesktopQualityBar(prompt: string, lang: PromptQualityLang): string {
+  return withPromptQualityBar(prompt, lang, 'desktop');
+}
+
+export function withPromptQualityBar(
+  prompt: string,
+  lang: PromptQualityLang,
+  target: PromptQualityTarget = 'desktop',
+): string {
   const marker = lang === 'zh' ? QUALITY_MARKER_ZH : QUALITY_MARKER_EN;
   const compacted = dedupeBlankLines(prompt);
   if (compacted.includes(marker)) return compacted;
 
-  const tail = lang === 'zh' ? QUALITY_TAIL_ZH : QUALITY_TAIL_EN;
+  const tail = lang === 'zh'
+    ? target === 'web' ? WEB_QUALITY_TAIL_ZH : QUALITY_TAIL_ZH
+    : target === 'web' ? WEB_QUALITY_TAIL_EN : QUALITY_TAIL_EN;
   return `${compacted}\n\n${tail}`;
 }

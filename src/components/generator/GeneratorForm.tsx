@@ -12,7 +12,7 @@ import type {
 } from '@/lib/promptBuilder';
 import { GlassPanel } from '@/components/GlassCard';
 import { cn } from '@/lib/cn';
-import { CheckIcon, MacWindowIcon, WindowsIcon } from '@/components/icons';
+import { CheckIcon, MacWindowIcon, WebAppIcon, WindowsIcon } from '@/components/icons';
 
 type Props = {
   state: FormState;
@@ -22,6 +22,38 @@ type Props = {
 };
 
 export function GeneratorForm({ state, update, dict, locale }: Props) {
+  const updatePlatform = (platform: Platform) => {
+    if (platform === 'web') {
+      update({ platform, tech: 'nextjs', storage: 'browser' });
+      return;
+    }
+    update({
+      platform,
+      tech: state.tech === 'nextjs' ? 'auto' : state.tech,
+      storage: state.storage === 'browser' ? 'localFile' : state.storage,
+    });
+  };
+
+  const updateTech = (tech: TechStack) => {
+    if (tech === 'nextjs') {
+      update({ platform: 'web', tech, storage: state.storage === 'browser' ? state.storage : 'browser' });
+      return;
+    }
+    update({
+      tech,
+      platform: state.platform === 'web' ? 'both' : state.platform,
+      storage: state.storage === 'browser' ? 'localFile' : state.storage,
+    });
+  };
+
+  const updateStorage = (storage: Storage) => {
+    if (storage === 'browser') {
+      update({ platform: 'web', tech: 'nextjs', storage });
+      return;
+    }
+    update({ storage });
+  };
+
   const platformOptions: Array<{
     value: Platform;
     label: string;
@@ -29,10 +61,15 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
     recommended?: boolean;
   }> = [
     {
+      value: 'web',
+      label: dict.generator.platformWeb,
+      icon: <WebAppIcon size={20} />,
+      recommended: true,
+    },
+    {
       value: 'windows',
       label: dict.generator.platformWindows,
       icon: <WindowsIcon size={20} />,
-      recommended: true,
     },
     {
       value: 'mac',
@@ -52,7 +89,8 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
   ];
 
   const techOptions: Array<{ value: TechStack; label: string; recommended?: boolean }> = [
-    { value: 'auto', label: dict.generator.techOptionAuto, recommended: true },
+    { value: 'nextjs', label: dict.generator.techOptionWebsite, recommended: true },
+    { value: 'auto', label: dict.generator.techOptionAuto },
     { value: 'electron', label: dict.generator.techOptionElectron },
     { value: 'tauri', label: dict.generator.techOptionTauri },
     { value: 'pyqt', label: dict.generator.techOptionPyQt },
@@ -66,7 +104,8 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
   ];
 
   const dataOptions: Array<{ value: Storage; label: string; recommended?: boolean }> = [
-    { value: 'localFile', label: dict.generator.dataOptionLocalFile, recommended: true },
+    { value: 'browser', label: dict.generator.dataOptionBrowser, recommended: true },
+    { value: 'localFile', label: dict.generator.dataOptionLocalFile },
     { value: 'sqlite', label: dict.generator.dataOptionSqlite },
     { value: 'none', label: dict.generator.dataOptionNone },
   ];
@@ -121,12 +160,12 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
           {dict.generator.sectionPlatform}
         </h3>
         <p className="mb-4 text-[12px] text-ink-mute">{dict.generator.platformHint}</p>
-        <div className="grid gap-3 md:grid-cols-3" role="group" aria-label={dict.generator.sectionPlatform}>
+        <div className="grid gap-3 md:grid-cols-2" role="group" aria-label={dict.generator.sectionPlatform}>
           {platformOptions.map((opt) => (
             <OptionCard
               key={opt.value}
               active={state.platform === opt.value}
-              onClick={() => update({ platform: opt.value })}
+              onClick={() => updatePlatform(opt.value)}
               label={opt.label}
               icon={opt.icon}
               badge={opt.recommended ? dict.generator.techHintRecommended : undefined}
@@ -144,7 +183,7 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
             <OptionCard
               key={opt.value}
               active={state.tech === opt.value}
-              onClick={() => update({ tech: opt.value })}
+              onClick={() => updateTech(opt.value)}
               label={opt.label}
               badge={opt.recommended ? dict.generator.techHintRecommended : undefined}
             />
@@ -174,7 +213,7 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
             <OptionCard
               key={opt.value}
               active={state.storage === opt.value}
-              onClick={() => update({ storage: opt.value })}
+              onClick={() => updateStorage(opt.value)}
               label={opt.label}
               badge={opt.recommended ? dict.generator.techHintRecommended : undefined}
             />

@@ -1,5 +1,5 @@
 import type { CaseBundle, Department } from './types';
-import { withDesktopQualityBar, type PromptQualityLang } from '../../lib/promptQuality';
+import { withPromptQualityBar, type PromptQualityLang } from '../../lib/promptQuality';
 import { financeReconciliation } from './finance';
 import { operationsCampaign } from './operations';
 import { customerServiceReplyHelper } from './customer-service';
@@ -11,6 +11,12 @@ import { legalContractTracker } from './legal';
 import { dataDailyReport } from './data';
 import { adminConferenceRoom } from './admin';
 import { productFeedbackInbox } from './product';
+import {
+  financeExpensePortalWeb,
+  customerServiceSelfServePortalWeb,
+  dataKpiPortalWeb,
+  productFeedbackPortalWeb,
+} from './web';
 import {
   financeExpenseClassifier,
   financeInvoiceTaxChecker,
@@ -47,17 +53,21 @@ import {
   productListingQualityChecker,
 } from './_more';
 
-export type { CaseBundle, CaseCopy, Department } from './types';
+export type { AppPlatform, CaseBundle, CaseCopy, Department } from './types';
 
-// Ordered so the home-page teaser (first 8) shows distinct departments first,
-// while the /cases page lists everything.
+// Ordered so website and desktop examples are visible early instead of burying
+// website cases at the bottom of the /cases page.
 export const caseBundles: CaseBundle[] = [
   financeReconciliation,
+  financeExpensePortalWeb,
   operationsCampaign,
+  customerServiceSelfServePortalWeb,
   customerServiceReplyHelper,
   hrOnboardingTracker,
+  dataKpiPortalWeb,
   logisticsTracker,
   procurementPriceMonitor,
+  productFeedbackPortalWeb,
   marketingCampaignAnalyzer,
   legalContractTracker,
   dataDailyReport,
@@ -107,7 +117,8 @@ export function getCasesByDepartment(department: Department): CaseBundle[] {
 }
 
 export function getCasePrompt(bundle: CaseBundle, locale: PromptQualityLang): string {
-  return withDesktopQualityBar(bundle.prompt[locale], locale);
+  const target = bundle.platforms?.includes('web') ? 'web' : 'desktop';
+  return withPromptQualityBar(bundle.prompt[locale], locale, target);
 }
 
 export const departments: Department[] = [

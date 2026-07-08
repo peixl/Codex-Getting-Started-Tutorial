@@ -3,7 +3,7 @@ export const zh = {
     siteName: 'Codex 上手指南',
     siteTagline: '懂业务就够了，Codex 帮你把想法做成工具',
     description:
-      '写给懂业务的你：从提示词生成到部门案例，把熟悉的流程做成 Windows / macOS 桌面工具。',
+      '写给懂业务的你：从提示词生成到部门案例，把熟悉的流程做成网站应用，也能做 Windows / macOS 桌面工具。',
     keywords: [
       'Codex',
       'OpenAI Codex',
@@ -12,6 +12,7 @@ export const zh = {
       'Codex 提示词',
       '上手指南',
       '懂业务的你',
+      '网站应用',
       'Windows 桌面应用',
       'macOS 桌面应用',
       '电商运营',
@@ -43,7 +44,7 @@ export const zh = {
     heroTitleHighlight: '变成工具',
     heroTitleLine2: '说给 Codex 听就行',
     heroSubtitle:
-      '写下目标和流程，复制到 Codex 桌面版，几分钟后工具就出来了。',
+      '写下目标和流程，复制到 Codex 桌面版，默认做成网站应用，也可以做桌面工具。',
     heroCtaPrimary: '生成你的第一段提示词',
     heroCtaSecondary: '先看看别人做出了什么',
     heroStatsLabel1: '现成案例',
@@ -51,9 +52,9 @@ export const zh = {
     heroStatsLabel2: '填空就能用',
     heroStatsValue2: '提示词',
     heroStatsLabel3: '只属于你',
-    heroStatsValue3: '本机运行',
-    heroBadgeWindows: 'Windows 11 · 10',
-    heroBadgeMac: 'macOS 可用',
+    heroStatsValue3: '全平台',
+    heroBadgeWindows: '网站优先',
+    heroBadgeMac: '桌面可选',
 
     flowTitle: '三步，把流程变成工具',
     flowSubtitle: '填一下 · 复制 · 运行',
@@ -65,7 +66,7 @@ export const zh = {
       '系统拼好整段提示词，你只管复制。',
     flowStep3Title: '粘贴到 Codex 桌面版',
     flowStep3Body:
-      'Codex 会自己写代码、自己跑、自己改 bug。窗口弹出来的那一刻，工具就做好了。',
+      'Codex 会自己写代码、自己跑、自己改 bug。网页能打开或窗口弹出来时，工具就做好了。',
 
     featuresTitle: '懂业务就够了',
     featuresSubtitle: '说清流程，Codex 负责写代码、跑起来、调 bug。',
@@ -78,9 +79,9 @@ export const zh = {
     feature3Title: '现成部门案例',
     feature3Body:
       '财务、运营、客服、人事、物流、采购、市场、法务、数据、行政、产品——每个团队都有可直接照搬的案例。',
-    feature4Title: '本地桌面工具',
+    feature4Title: '网站优先，桌面可选',
     feature4Body:
-      '双击就能打开：对账、订单清洗、Excel 自动化、文件批处理。',
+      '团队网页、对账助手、订单清洗、Excel 自动化、文件批处理都能做。',
     feature5Title: '中英双语站点',
     feature5Body:
       '中英文对照，方便和海外同事共享。',
@@ -109,18 +110,20 @@ export const zh = {
 
     defaultsHint: '默认项已选好，不改也能用。',
 
-    sectionPlatform: '① 哪种电脑',
+    sectionPlatform: '① 做成什么应用',
+    platformWeb: '网站应用',
     platformWindows: 'Windows 电脑',
     platformMac: 'macOS 电脑',
     platformBoth: 'Windows 和 macOS 都要',
-    platformHint: '大多数公司用 Windows，已默认选中。',
+    platformHint: '默认推荐做成网站，Windows、macOS、Linux 都能打开和部署。',
 
     sectionTech: '② 用什么方式做（不确定就选默认）',
-    techLabel: '技术方向',
+    techLabel: '制作方式',
     techHintRecommended: '推荐',
-    techOptionElectron: '通用方案（最稳定，资料最多）',
-    techOptionTauri: '轻量方案（文件小，启动快）',
-    techOptionPyQt: '工具方案（最适合做小工具）',
+    techOptionWebsite: '做成网站（默认推荐）',
+    techOptionElectron: '电脑软件（适合本地文件处理）',
+    techOptionTauri: '轻量电脑软件（文件小，启动快）',
+    techOptionPyQt: '小工具窗口（极简本地工具）',
     techOptionAuto: '让 Codex 自动决定（最省心）',
 
     sectionUI: '③ 界面风格',
@@ -132,7 +135,8 @@ export const zh = {
 
     sectionData: '④ 数据放在哪里',
     dataLabel: '存储方式',
-    dataOptionLocalFile: '本地文件（Excel / CSV，最直观）',
+    dataOptionBrowser: '浏览器里保存 / 下载文件（网站默认）',
+    dataOptionLocalFile: '电脑本地文件（Excel / CSV，最直观）',
     dataOptionSqlite: '本地小数据库（几万条也跑得顺）',
     dataOptionNone: '不需要保存（用完即走）',
 
@@ -219,7 +223,7 @@ export const zh = {
     tipCardBody:
       '你管业务判断，Codex 管技术。写清给谁用、输入什么、输出什么就够了。',
     promptStep1Title: '选模板',
-    promptStep1Body: '不确定就保留默认。',
+    promptStep1Body: '默认推荐网站应用。',
     promptStep2Title: '写目标和流程',
     promptStep2Body: '输入、处理、输出说清楚。',
     promptStep3Title: '交给 Codex',
@@ -306,7 +310,7 @@ export const zh = {
     sec1P2:
       '描述越清楚，第一版越贴近你的想法。',
     sec1P3:
-      '本教程只讲桌面工具：Windows / macOS，做完双击就能打开。',
+      '本教程默认推荐网站应用：浏览器打开、全平台部署；也保留 Windows / macOS 桌面工具做法。',
 
     sec2Title: '第二章 · 需要准备什么',
     sec2Item1Title: '一台 Windows 或 macOS 电脑',
@@ -332,8 +336,8 @@ export const zh = {
     sec4Item3Title: '等待 = 让它干活',
     sec4Item3Body:
       '技术细节不用看，只看最后能不能跑。',
-    sec4Item4Title: '运行 = 看到你的软件',
-    sec4Item4Body: '完成后弹出窗口——那就是你的工具。',
+    sec4Item4Title: '运行 = 看到你的工具',
+    sec4Item4Body: '完成后网页能打开，或桌面窗口弹出——那就是你的工具。',
     sec4Item5Title: '不对 = 继续说',
     sec4Item5Body: '哪里不对就直接说，比如「按钮颜色错了」「点导入就闪退」，它会自己改。',
 
@@ -370,9 +374,9 @@ export const zh = {
     secStopItem4Body: '换界面、换技术栈或加大量功能，都开新任务。',
 
     sec7Title: '第八章 · 分享给同事',
-    sec7P1: '让 Codex 打包成 .exe 或 .dmg。',
-    sec7P2: '微信、邮件或网盘发给同事，双击安装。',
-    sec7P3: '安全软件拦截时，告诉同事「内部工具」允许运行即可。',
+    sec7P1: '网站应用让 Codex 写清部署方式；桌面工具再打包成 .exe 或 .dmg。',
+    sec7P2: '网站发链接给同事；桌面工具用微信、邮件或网盘发安装包。',
+    sec7P3: '桌面安装包被安全软件拦截时，告诉同事「内部工具」允许运行即可。',
 
     nextStepTitle: '接下来做什么',
     nextStepGenerator: '生成你的第一段提示词',
@@ -387,7 +391,7 @@ export const zh = {
 
     tip1Title: '用角色设定让回答更聚焦',
     tip1Body:
-      '开头加一句「你是一名桌面应用工程师」。',
+      '开头加一句「你是一名网站应用工程师」或「桌面应用工程师」。',
     tip2Title: '先要摘要，再动手',
     tip2Body:
       '让它先给 10 行方案摘要，确认后再实现。',
@@ -454,7 +458,7 @@ export const zh = {
     a2: '可以。你描述流程和验收标准，Codex 负责实现。',
 
     q3: '做出来能给同事用吗？',
-    a3: '可以。让 Codex 打包成 .exe 或 .dmg，发给同事装。',
+    a3: '可以。网站应用可以部署后发链接；桌面工具可以打包成 .exe 或 .dmg 发给同事装。',
 
     q4: '生成的软件安全吗？',
     a4: '本地工具风险较低。涉及敏感数据建议让技术同事审查。',
@@ -463,7 +467,7 @@ export const zh = {
     a5: '告诉 Codex「软件很慢，请优化」，它会自己定位并修复。',
 
     q6: '能做手机 App 吗？',
-    a6: '可以，但本教程只讲桌面应用。',
+    a6: '可以，但本教程重点是网站应用和桌面工具；手机原生发布更复杂。',
 
     q7: '能联网获取数据吗？',
     a7: '可以，建议先从离线工具开始。联网功能让技术同事过一下。',
@@ -472,7 +476,7 @@ export const zh = {
     a8: '你是验收人——看行为和输出是否符合预期。',
 
     q9: '能和同事协作吗？',
-    a9: '可以。分享提示词或直接发安装包。',
+    a9: '可以。网站应用发链接，桌面工具发安装包，也可以共享提示词继续迭代。',
 
     q10: '出了问题找谁？',
     a10: '先问 Codex。账号或付费问题联系 OpenAI 客服。',
@@ -590,7 +594,10 @@ export const zh = {
     backToCases: '返回案例列表',
     tryInGenerator: '在生成器中自定义',
     relatedCases: '同部门其他案例',
+    webBadge: '网站应用',
+    desktopBadge: '桌面',
     windowsBadge: 'Windows 应用',
+    macBadge: 'macOS 应用',
   },
 
   cookbook: {

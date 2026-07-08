@@ -1,5 +1,6 @@
-import { withDesktopQualityBar, type PromptQualityLang } from '@/lib/promptQuality';
+import { withPromptQualityBar, type PromptQualityLang } from '@/lib/promptQuality';
 import { composeRecipePrompt, packagingInstruction, recipeRole, RECIPE_ROLE_ZH, RECIPE_ROLE_EN } from '@/lib/promptModules';
+import type { AppPlatform } from './cases';
 
 export type Recipe = {
   id: string;
@@ -8,12 +9,14 @@ export type Recipe = {
   titleEn: string;
   painZh: string;
   painEn: string;
+  platforms?: AppPlatform[];
   promptZh: string;
   promptEn: string;
 };
 
 export function getRecipePrompt(recipe: Recipe, locale: PromptQualityLang): string {
-  return withDesktopQualityBar(locale === 'zh' ? recipe.promptZh : recipe.promptEn, locale);
+  const target = recipe.platforms?.includes('web') ? 'web' : 'desktop';
+  return withPromptQualityBar(locale === 'zh' ? recipe.promptZh : recipe.promptEn, locale, target);
 }
 
 export const recipes: Recipe[] = [
@@ -43,6 +46,41 @@ export const recipes: Recipe[] = [
       extra: '- Palette: white background, deep gray text; emphasize typographic hierarchy.',
       acceptance: 'drop Excel → preview report → one-click export PNG/PDF; empty data, bad format → friendly message, no crash.',
       packaging: packagingInstruction(500, 'en'),
+    }, 'en'),
+  },
+  {
+    id: 'team-file-intake-web',
+    icon: 'folder',
+    titleZh: '做一个团队文件收集网站',
+    titleEn: 'Build a team file intake website',
+    painZh: '同事把文件发在群里，命名混乱，还要人工催交。',
+    painEn: 'Teammates send files in chat with messy names; someone still has to chase missing submissions.',
+    platforms: ['web'],
+    promptZh: composeRecipePrompt({
+      role: '你是资深网站应用工程师，帮我做一个团队文件收集网站：',
+      goal: '让同事通过网页提交文件和备注，负责人能看到谁已提交、谁缺交，并一键下载清单。',
+      platform: '网站应用；支持 Windows / macOS / Linux 构建部署',
+      stack: 'Next.js + React + TypeScript，使用 App Router；浏览器本地存储记录提交状态；npm run build 必须通过',
+      features: `1. 首页是提交看板：已提交 / 未提交 / 需补充三组统计。
+2. 提交表单：姓名、部门、文件类型、备注、文件上传；提交后生成一条记录。
+3. 负责人视图：表格按部门筛选，显示文件名、提交时间、状态、备注。
+4. 缺交名单：预置名单或粘贴名单，自动比对谁还没交。
+5. 导出：下载提交清单 CSV，并能复制缺交提醒文案。`,
+      acceptance: '打开网站 → 用示例名单提交文件 → 看板更新 → 导出清单 → 复制缺交提醒；刷新页面记录还在。',
+      packaging: '- 交付可部署的网站应用；README 写清 npm run dev / build / start 和 Vercel、Cloudflare 或 Node 部署方式。',
+    }, 'zh'),
+    promptEn: composeRecipePrompt({
+      role: 'You are a senior web app engineer. Build a team file intake website:',
+      goal: 'teammates submit files and notes through a web page; the owner sees submitted/missing people and exports a checklist.',
+      platform: 'Web app; build/deploy from Windows / macOS / Linux',
+      stack: 'Next.js + React + TypeScript with App Router; browser local storage for submission state; npm run build must pass',
+      features: `1. Home dashboard: submitted / missing / needs-fix counts.
+2. Submit form: name, department, file type, note, upload; each submission creates a record.
+3. Owner view: filterable table with file name, submitted time, status, notes.
+4. Missing list: paste or seed an expected-name list; auto-detect who has not submitted.
+5. Export: download CSV checklist and copy a missing-submission reminder message.`,
+      acceptance: 'open website → submit with sample roster → dashboard updates → export checklist → copy missing reminder; refresh keeps records.',
+      packaging: '- Deliver a deployable web app; README documents npm run dev / build / start plus Vercel, Cloudflare, or Node deployment.',
     }, 'en'),
   },
   {
@@ -129,6 +167,41 @@ export const recipes: Recipe[] = [
 - Reload when Excel changes on disk, or on restart.`,
       acceptance: 'launch → auto-load Excel → type keyword → results appear → one-click copy; Excel update → restart → auto-reload.',
       packaging: packagingInstruction(300, 'en'),
+    }, 'en'),
+  },
+  {
+    id: 'shared-inventory-web',
+    icon: 'search',
+    titleZh: '做一个多人可看的库存查询网站',
+    titleEn: 'Build a shared inventory lookup website',
+    painZh: '库存表在一个人电脑里，销售和运营总是反复问有没有货。',
+    painEn: 'Inventory lives on one person’s machine; sales and ops keep asking what is in stock.',
+    platforms: ['web'],
+    promptZh: composeRecipePrompt({
+      role: '你是资深网站应用工程师，帮我做一个库存查询网站：',
+      goal: '把库存 Excel 变成团队都能打开的查询网站，输入 SKU 或商品名就能看到库存、仓库和风险提示。',
+      platform: '网站应用；支持 Windows / macOS / Linux 构建部署',
+      stack: 'Next.js + React + TypeScript，使用 App Router；示例数据放 src/data/seed.ts；npm run build 必须通过',
+      features: `1. 首页只有搜索框、筛选器和结果表。
+2. 支持按 SKU、商品名、类目、仓库模糊搜索。
+3. 库存低于安全线时整行标黄，缺货标红。
+4. 支持上传新的库存 CSV / Excel，自动预览前 20 行并校验表头。
+5. 支持导出当前筛选结果 CSV。`,
+      acceptance: '打开网站 → 搜 SKU → 看到库存结果 → 上传新表刷新结果 → 风险行变色 → 导出筛选 CSV。',
+      packaging: '- 交付可部署的网站应用；README 写清 npm run dev / build / start 和部署方式。',
+    }, 'zh'),
+    promptEn: composeRecipePrompt({
+      role: 'You are a senior web app engineer. Build an inventory lookup website:',
+      goal: 'turn an inventory spreadsheet into a team-accessible web lookup where SKU or product name shows stock, warehouse, and risk flags.',
+      platform: 'Web app; build/deploy from Windows / macOS / Linux',
+      stack: 'Next.js + React + TypeScript with App Router; seed data in src/data/seed.ts; npm run build must pass',
+      features: `1. Home has search, filters, and a result table.
+2. Fuzzy search by SKU, product name, category, warehouse.
+3. Below safety stock = yellow row; out of stock = red row.
+4. Upload a new inventory CSV / Excel; preview first 20 rows and validate headers.
+5. Export current filtered result as CSV.`,
+      acceptance: 'open website → search SKU → see stock result → upload new sheet → risk rows recolor → export filtered CSV.',
+      packaging: '- Deliver a deployable web app; README documents npm run dev / build / start and deployment.',
     }, 'en'),
   },
   {

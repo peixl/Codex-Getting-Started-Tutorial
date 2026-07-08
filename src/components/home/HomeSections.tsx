@@ -101,15 +101,15 @@ function HeroVisual({ locale }: { locale: Locale }) {
       ? {
           formWindow: 'Codex · 新建任务',
           formTitle: '你的第一个小工具',
-          formMeta: 'Windows / macOS · 对账助手',
-          platform: '平台 ·  Windows / macOS',
+          formMeta: '网站应用 · 对账助手',
+          platform: '平台 ·  网站优先',
           ui: '界面 ·  简洁',
-          data: '数据 ·  本地 Excel',
+          data: '数据 ·  上传 Excel',
           goalLabel: '目标',
           goalLine1: '每月订单对账',
           goalLine2: '从两天压到一小时',
           copyButton: '复制提示词',
-          appWindow: '对账助手 v1.0  ·  Desktop',
+          appWindow: '对账助手 v1.0  ·  Website',
           appTitle: '对账结果',
           appMeta: '2026 年 4 月',
           matched: '匹配数',
@@ -124,15 +124,15 @@ function HeroVisual({ locale }: { locale: Locale }) {
       : {
           formWindow: 'Codex · New task',
           formTitle: 'Your first tool',
-          formMeta: 'Windows / macOS · Reconciliation helper',
-          platform: 'Platform ·  Windows / macOS',
+          formMeta: 'Website app · Reconciliation helper',
+          platform: 'Platform ·  Website first',
           ui: 'UI ·  Minimal',
-          data: 'Data ·  Local Excel',
+          data: 'Data ·  Excel upload',
           goalLabel: 'Goal',
           goalLine1: 'Reconcile monthly orders',
           goalLine2: 'Cut work from two days to one hour',
           copyButton: 'Copy prompt',
-          appWindow: 'Reconciliation Helper v1.0 · Desktop',
+          appWindow: 'Reconciliation Helper v1.0 · Website',
           appTitle: 'Reconciliation results',
           appMeta: 'April 2026',
           matched: 'Matches',
@@ -206,7 +206,7 @@ function HeroVisual({ locale }: { locale: Locale }) {
               </g>
             </g>
 
-            {/* Right: running desktop app */}
+            {/* Right: running app */}
             <g transform="translate(640 130)">
               <rect width="420" height="410" rx="12" fill="white" opacity="0.96" stroke="#E6E8EE" strokeWidth="1" />
               <g transform="translate(0 0)">
