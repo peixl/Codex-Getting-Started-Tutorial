@@ -31,6 +31,7 @@ describe('generatorStorage', () => {
       features: 42,
       extras: {
         offline: false,
+        onlinePublish: false,
         exportable: false,
         shortcut: true,
         accessibility: 'yes',
@@ -42,11 +43,24 @@ describe('generatorStorage', () => {
     expect(state.features).toBe(DEFAULT_FORM.features);
     expect(state.ui).toBe('business');
     expect(state.complexity).toBe('advanced');
-    expect(state.extras.offline).toBe(false);
+    expect(state.extras.onlinePublish).toBe(false);
+    expect('offline' in state.extras).toBe(false);
     expect(state.extras.exportable).toBe(false);
     expect(state.extras.shortcut).toBe(true);
     expect(state.extras.accessibility).toBe(DEFAULT_FORM.extras.accessibility);
     expect(state.extras.bilingual).toBe(DEFAULT_FORM.extras.bilingual);
+  });
+
+  it('ignores legacy offline extras and restores online publishing by default', () => {
+    const state = normalizeFormState({
+      platform: 'web',
+      extras: {
+        offline: true,
+      },
+    });
+
+    expect(state.extras.onlinePublish).toBe(true);
+    expect('offline' in state.extras).toBe(false);
   });
 
   it('parses stored form wrappers and ignores invalid JSON', () => {
@@ -70,7 +84,7 @@ describe('generatorStorage', () => {
   it('merges template state without dropping existing extra toggles', () => {
     const current = makeState({
       extras: {
-        offline: true,
+        onlinePublish: false,
         bilingual: true,
         exportable: false,
         shortcut: true,
@@ -85,7 +99,7 @@ describe('generatorStorage', () => {
 
     expect(next.platform).toBe('both');
     expect(next.extras).toEqual({
-      offline: true,
+      onlinePublish: false,
       bilingual: true,
       exportable: true,
       shortcut: true,

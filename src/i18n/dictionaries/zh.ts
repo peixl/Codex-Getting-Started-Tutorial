@@ -157,8 +157,8 @@ export const zh = {
       '- 把订单 Excel 和银行流水 Excel 拖进去\n- 自动按订单号比对，标出对不上的\n- 把差异项导出成一份新 Excel',
 
     sectionExtras: '⑧ 额外要求（可选）',
-    extraOfflineLabel: '离线可用',
-    extraOfflineHint: '断网也能正常运行',
+    extraOnlinePublishLabel: '在线发布',
+    extraOnlinePublishHint: '部署后发链接，桌面工具也可接在线服务',
     extraBilingualLabel: '中英双语界面',
     extraBilingualHint: '界面语言可切换',
     extraExportLabel: '结果可导出',
@@ -470,7 +470,7 @@ export const zh = {
     a6: '可以，但本教程重点是网站应用和桌面工具；手机原生发布更复杂。',
 
     q7: '能联网获取数据吗？',
-    a7: '可以，建议先从离线工具开始。联网功能让技术同事过一下。',
+    a7: '可以。本教程现在默认按在线网站标准设计：部署、链接分享、HTTPS、权限和数据边界都要写清；桌面工具也可以接在线服务。',
 
     q8: '怎么判断结果对不对？',
     a8: '你是验收人——看行为和输出是否符合预期。',

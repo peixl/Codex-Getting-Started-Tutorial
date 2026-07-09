@@ -10,14 +10,14 @@ export type ModuleTech = 'nextjs' | 'electron' | 'tauri' | 'pyqt' | 'auto';
 // ─── Safety Rules (non-negotiable baseline) ─────────────────────
 
 export const SAFETY_RULES_ZH = `【安全底线】
-- 默认本地处理；需要联网时须加密传输并明确告知用户。
+- 默认按在线应用数据边界处理；所有网络传输走 HTTPS/加密，只传必要字段，并在界面或 README 说清用途。
 - 不写死 API Key、绝对路径、个人邮箱或内网地址。
 - 写盘默认走"另存为"；不覆盖原文件，冲突自动加时间后缀。
 - 不引入不存在的 npm 包；不确定时先查 npm view。
 - 缺真实数据时先造脱敏 sample-data，不等用户提供文件才开工。`;
 
 export const SAFETY_RULES_EN = `[Safety Rules]
-- Process locally by default; network calls require encryption and explicit user consent.
+- Use online-app data boundaries by default; all network traffic uses HTTPS/encryption, sends only necessary fields, and documents the purpose in UI or README.
 - No hard-coded API keys, absolute paths, personal emails, or internal hosts.
 - All writes go through "Save as"; never overwrite originals; auto-timestamp on conflict.
 - Do not invent npm packages; verify with npm view first.
@@ -103,6 +103,24 @@ When everything is done, post this 4-section schema back to me (the user) in cha
 ✔ What I verified: lint / typecheck / build / smoke test with sample-data on the main flow, each with PASS or FAIL.
 ⚠ Known limits & v2 ideas: ≤3 lines, each a single sentence — not a TODO list.`;
 
+// ─── Codex Execution Loop (current prompt-engineering baseline) ──
+
+export const CODEX_EXECUTION_LOOP_ZH = `【Codex 执行循环】
+- 先整理 Goal / Context / Constraints / Done when：目标、相关文件或数据、约束、完成标准必须在心里成包；缺信息时写明假设并继续。
+- 工作顺序固定为：探查 → 计划 → 实现 → 验证 → 复盘。复杂或模糊任务先用短计划拆成可验证小步，不要一口气写完。
+- 每个小步都要有可观察结果：页面可见、文件生成、测试通过、错误消失或日志证明。没有证据就继续修。
+- 只有独立、读重、可并行的任务才使用并行子任务：代码探索、测试日志分析、文档归纳、风险检查。不要让两个并行任务改同一批文件。
+- 控制上下文污染：大日志和大文件先摘要，保留关键路径、错误、决策和验证结果，不把噪声带进最终汇报。
+- 验证通过后再汇报；若验证失败，先修复或降级边缘功能，保持主流程可运行。`;
+
+export const CODEX_EXECUTION_LOOP_EN = `[Codex Execution Loop]
+- First package Goal / Context / Constraints / Done when: outcome, relevant files or data, constraints, and completion criteria must be explicit. If information is missing, state assumptions and continue.
+- Use this work loop: inspect → plan → implement → verify → review. For complex or fuzzy tasks, make a short plan with verifiable small steps before coding.
+- Every step needs observable evidence: visible UI, generated file, passing test, vanished error, or useful log. If there is no evidence, keep fixing.
+- Use parallel sub-tasks only when they are independent, read-heavy, parallelizable work: code exploration, test-log analysis, document synthesis, or risk review. Do not let two parallel tasks edit the same files.
+- Control context pollution: summarize large logs and files, preserve key paths, errors, decisions, and verification results, and keep noise out of the final report.
+- Report only after verification passes; if verification fails, fix or downgrade edge behavior while keeping the main flow runnable.`;
+
 // ─── Inline condensed versions for recipes (short by design) ────
 
 export const WARM_UX_INLINE_ZH = `- 温暖体验：首启 Demo 模式跑通一次；顶部常驻「用示例数据试一试」；按钮/错误用业务语言；不覆盖原文件；完成有 30 字小结 + 系统通知 + 「打开输出文件夹/再做一次」按钮。`;
@@ -112,6 +130,10 @@ export const WARM_UX_INLINE_EN = `- Warm UX: first launch auto-runs sample-data 
 export const FINAL_REPORT_INLINE_ZH = `- 收尾汇报四段：✅已交付 / ▶如何打开 / ✔已跑过的验证 / ⚠已知限制 & v2 想法。`;
 
 export const FINAL_REPORT_INLINE_EN = `- Final report in four sections: ✅ Delivered / ▶ How to open / ✔ What I verified / ⚠ Known limits & v2 ideas.`;
+
+export const CODEX_EXECUTION_LOOP_INLINE_ZH = `- 执行循环：按 Goal / Context / Constraints / Done when 成包；探查→计划→实现→验证→复盘；只把独立读重任务并行化；不让并行任务改同一批文件；验证后汇报。`;
+
+export const CODEX_EXECUTION_LOOP_INLINE_EN = `- Execution loop: package Goal / Context / Constraints / Done when; inspect→plan→implement→verify→review; parallelize only independent read-heavy work; do not edit the same files in parallel; report after verification.`;
 
 export const ERROR_RECOVERY_INLINE_ZH = `- 错误自救：同一错误尝试不超过 3 次；超过则降级该功能、记下问题、先恢复主流程。依赖装不上换大版本或 --legacy-peer-deps；TypeScript 红字过多先 any 跑通；Electron 白屏查 preload / CSP；打包失败先回到 dev 正常态。`;
 
@@ -512,21 +534,21 @@ export const ACCEPTANCE_COMMON_EN = {
 
 // ─── Recipe Constraints (shorter, inline format) ───────────────────
 
-export const RECIPE_CONSTRAINTS_ZH = `- 约束：默认本地处理，联网须加密并告知用户；不覆盖原文件；不造包名；缺真实数据先造脱敏 sample-data。`;
-export const RECIPE_CONSTRAINTS_EN = `- Constraints: process locally by default, network calls require encryption and user consent; never overwrite originals; no fake packages; make anonymized sample-data first.`;
+export const RECIPE_CONSTRAINTS_ZH = `- 约束：按在线应用数据边界处理，网络请求走 HTTPS 且只传必要字段；不覆盖原文件；不造包名；缺真实数据先造脱敏 sample-data。`;
+export const RECIPE_CONSTRAINTS_EN = `- Constraints: use online-app data boundaries, HTTPS for network requests, and only necessary fields; never overwrite originals; no fake packages; make anonymized sample-data first.`;
 
 // ─── Communication Defaults ──────────────────────────────────────
 
-export const COMMUNICATION_ZH = '本地处理；桌面工具风格；中文沟通。';
-export const COMMUNICATION_EN = 'Process locally; keep a desktop-tool feel; use plain English.';
+export const COMMUNICATION_ZH = '在线可用；桌面工具风格；中文沟通。';
+export const COMMUNICATION_EN = 'Online-usable; keep a desktop-tool feel; use plain English.';
 
 // ─── Role Templates ──────────────────────────────────────────────
 
 export function caseRole(userDesc: string, lang: ModuleLang): string {
   if (lang === 'zh') {
-    return `你是一名擅长本地桌面小工具的资深工程师，也是一名体贴的产品经理。你写代码前先把自己当成用户走一遍：第一眼看到什么、第一次怎么用、第一次出错怎么自救。请帮我做一个本地运行的桌面小工具，使用的人是${userDesc}，关注业务结果和操作体验。`;
+    return `你是一名擅长在线可用桌面小工具的资深工程师，也是一名体贴的产品经理。你写代码前先把自己当成用户走一遍：第一眼看到什么、第一次怎么用、第一次出错怎么自救。请帮我做一个本地窗口可用、也能接在线服务的桌面小工具，使用的人是${userDesc}，关注业务结果和操作体验。`;
   }
-  return `You are a senior engineer building local desktop tools and a thoughtful product manager. Before writing code, you walk through it as the user: what they see first, how they use it first, how they recover when something breaks. Build a runnable local desktop tool. The user is ${userDesc}, focused on business outcomes and usability.`;
+  return `You are a senior engineer building online-usable desktop tools and a thoughtful product manager. Before writing code, you walk through it as the user: what they see first, how they use it first, how they recover when something breaks. Build a desktop tool with a local window and online-service connectivity. The user is ${userDesc}, focused on business outcomes and usability.`;
 }
 
 // ─── Packaging Templates ─────────────────────────────────────────
@@ -546,14 +568,14 @@ export function packagingInstruction(
 
 // ─── Recipe Role Templates ───────────────────────────────────────
 
-export const RECIPE_ROLE_ZH = '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个本地小工具：';
-export const RECIPE_ROLE_EN = 'You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform desktop tool:';
+export const RECIPE_ROLE_ZH = '你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个在线可用的小工具：';
+export const RECIPE_ROLE_EN = 'You are a senior engineer for Windows and macOS desktop apps. Build an online-usable cross-platform desktop tool:';
 
 export function recipeRole(toolDesc: string, lang: ModuleLang): string {
   if (lang === 'zh') {
     return `你是一名擅长 Windows 和 macOS 桌面软件的工程师，帮我做一个${toolDesc}：`;
   }
-  return `You are a senior engineer for Windows and macOS desktop apps. Build a local cross-platform ${toolDesc}:`;
+  return `You are a senior engineer for Windows and macOS desktop apps. Build an online-usable cross-platform ${toolDesc}:`;
 }
 
 // ─── Formatting Helpers ───────────────────────────────────────────
@@ -568,6 +590,38 @@ export function acceptanceChecklist(items: string[], lang: ModuleLang): string {
     ? '验收清单（全部通过才算完成）：'
     : 'Acceptance checklist (all must pass):';
   return `${header}\n${items.join('\n')}`;
+}
+
+function normalizeOnlineExtra(extra: string, lang: ModuleLang): string {
+  const marker = lang === 'zh'
+    ? '- 按在线网站标准处理：可部署、可发链接，网络请求走 HTTPS；桌面壳也预留在线服务/API 接入。'
+    : '- Use online website standards: deployable, shareable by link, HTTPS for network requests; desktop shells also keep online service/API integration points.';
+  const disconnectedPattern = lang === 'zh'
+    ? /(全程)?不联网|完全离线|离线运行|断网/g
+    : /fully offline|works offline|without internet|no internet|offline\b/gi;
+
+  if (!disconnectedPattern.test(extra)) return extra;
+
+  const cleanupPatterns = lang === 'zh'
+    ? [
+        /[-•]?\s*(全程)?不联网[。；;，,]?\s*/g,
+        /[-•]?\s*完全离线[，,；;。]?\s*/g,
+        /[-•]?\s*离线运行[，,；;。]?\s*/g,
+        /[-•]?\s*断网[^。\n；;]*[。；;]?\s*/g,
+      ]
+    : [
+        /[-•]?\s*fully offline[.;,]?\s*/gi,
+        /[-•]?\s*works offline[.;,]?\s*/gi,
+        /[-•]?\s*without internet[.;,]?\s*/gi,
+        /[-•]?\s*no internet[.;,]?\s*/gi,
+        /[-•]?\s*offline\b[.;,]?\s*/gi,
+      ];
+  const cleaned = cleanupPatterns
+    .reduce((text, pattern) => text.replace(pattern, ''), extra)
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+  return [marker, cleaned].filter(Boolean).join('\n');
 }
 
 // ─── Incremental Helper ───────────────────────────────────────────
@@ -626,8 +680,9 @@ export function composeCasePrompt(sections: CaseSections, lang: ModuleLang): str
     parts.push(lang === 'zh' ? '【稳健性】' : '[Robustness]');
     parts.push(sections.robustness);
   }
-  if (sections.extra) parts.push(sections.extra);
+  if (sections.extra) parts.push(normalizeOnlineExtra(sections.extra, lang));
 
+  parts.push(lang === 'zh' ? CODEX_EXECUTION_LOOP_ZH : CODEX_EXECUTION_LOOP_EN);
   parts.push(lang === 'zh' ? CONSTRAINTS_ZH : CONSTRAINTS_EN);
   parts.push(lang === 'zh' ? WARM_UX_ZH : WARM_UX_EN);
   parts.push(lang === 'zh' ? SUCCESS_PICTURE_ZH : SUCCESS_PICTURE_EN);
@@ -659,11 +714,27 @@ export function composeRecipePrompt(parts: RecipeParts, lang: ModuleLang): strin
 
   lines.push(parts.role);
   lines.push(lang === 'zh' ? `- 目标：${parts.goal}` : `- Goal: ${parts.goal}`);
+  lines.push(lang === 'zh'
+    ? '- 用户：按目标中的业务角色服务；若目标没写清，先从场景推断并在开场白说明假设。'
+    : '- User: serve the business role implied by the goal; if unclear, infer from context and state the assumption in the opening brief.');
+  lines.push(lang === 'zh'
+    ? '- 输入：明确用户要填写、上传、拖入或导入的资料；缺真实文件时先创建脱敏 sample-data。'
+    : '- Input: identify what users fill, upload, drop, or import; if real files are missing, create anonymized sample-data first.');
+  lines.push(lang === 'zh'
+    ? '- 输出：明确页面结果、下载文件、复制内容或本地保存产物；结果必须能被用户直接拿走。'
+    : '- Output: define the page result, downloaded file, copied content, or saved artifact; the user must be able to take it away.');
+  lines.push(lang === 'zh'
+    ? '- 主流程：打开应用 → 填写/上传 → 预览 → 生成/下载/保存。'
+    : '- Main flow: open app → fill/upload → preview → generate/download/save.');
   lines.push(lang === 'zh' ? `- 平台：${parts.platform}` : `- Platform: ${parts.platform}`);
   lines.push(lang === 'zh' ? `- 做法：${parts.stack}` : `- Stack: ${parts.stack}`);
   lines.push(lang === 'zh' ? `- 功能：${parts.features}` : `- Features: ${parts.features}`);
+  lines.push(lang === 'zh'
+    ? '- 验证命令：安装依赖后运行 lint / typecheck / test / build；网站再跑 npm run start 烟测，桌面再跑启动或打包烟测。'
+    : '- Verification commands: after install, run lint / typecheck / test / build; for web also smoke-test npm run start, for desktop smoke-test launch or packaging.');
+  lines.push(lang === 'zh' ? CODEX_EXECUTION_LOOP_INLINE_ZH : CODEX_EXECUTION_LOOP_INLINE_EN);
 
-  if (parts.extra) lines.push(parts.extra);
+  if (parts.extra) lines.push(normalizeOnlineExtra(parts.extra, lang));
 
   lines.push(lang === 'zh' ? RECIPE_CONSTRAINTS_ZH : RECIPE_CONSTRAINTS_EN);
   lines.push(lang === 'zh' ? WARM_UX_INLINE_ZH : WARM_UX_INLINE_EN);

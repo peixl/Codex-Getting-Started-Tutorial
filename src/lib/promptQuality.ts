@@ -4,6 +4,8 @@ import {
   ANTI_PATTERNS_EN,
   DOD_ZH,
   DOD_EN,
+  CODEX_EXECUTION_LOOP_ZH,
+  CODEX_EXECUTION_LOOP_EN,
   FINAL_REPORT_ZH,
   FINAL_REPORT_EN,
   type ModuleLang,
@@ -24,6 +26,8 @@ const QUALITY_TAIL_ZH = `【高质量交付补充】
 
 ${quickStart('electron', 'zh')}
 
+${CODEX_EXECUTION_LOOP_ZH}
+
 ${ANTI_PATTERNS_ZH}
 
 ${DOD_ZH}
@@ -34,6 +38,8 @@ const QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
 If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
 
 ${quickStart('electron', 'en')}
+
+${CODEX_EXECUTION_LOOP_EN}
 
 ${ANTI_PATTERNS_EN}
 
@@ -46,6 +52,8 @@ const WEB_QUALITY_TAIL_ZH = `【高质量交付补充】
 
 ${quickStart('nextjs', 'zh')}
 
+${CODEX_EXECUTION_LOOP_ZH}
+
 ${ANTI_PATTERNS_ZH}
 
 ${DOD_ZH}
@@ -56,6 +64,8 @@ const WEB_QUALITY_TAIL_EN = `[High-Quality Delivery Addendum]
 If the prompt says to wait for confirmation, summarize in ≤8 lines, then implement/run/fix/verify; stop only for real files, accounts, certificates, or irreversible actions.
 
 ${quickStart('nextjs', 'en')}
+
+${CODEX_EXECUTION_LOOP_EN}
 
 ${ANTI_PATTERNS_EN}
 

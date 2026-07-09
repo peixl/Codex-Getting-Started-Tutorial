@@ -55,9 +55,9 @@ export const dataDailyReport: CaseBundle = {
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - SheetJS 处理 Excel
-- html-to-image 或 puppeteer-core（离线渲染）生成图片 / PDF
+- html-to-image 或 puppeteer-core（浏览器或服务端渲染）生成图片 / PDF
 - 本地 SQLite 保存模板和映射
-- 完全离线，打包成 Windows .exe 安装包`,
+- 可在线使用，网络请求走 HTTPS，打包成 Windows .exe 安装包`,
       features: `1. 首页三块：
    - 数据导入：拖拽区 + 已识别数据预览。
    - 模板设置：日报标题、品牌色、核心指标顺序、图表类型。
@@ -107,9 +107,9 @@ category.xlsx — 列：日期, 品类, 销量, 金额（示例：2024-01-15, �
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
 - SheetJS for Excel
-- html-to-image or offline puppeteer-core for PNG/PDF rendering
+- html-to-image or headless puppeteer-core for PNG/PDF rendering
 - Local SQLite for templates + mappings
-- Fully offline; ship a Windows .exe installer`,
+- Online-usable with HTTPS API boundaries; ship a Windows .exe installer`,
       features: `1. Home has three panes: Import, Template, Generate.
 2. Smart detection: infer data kind (GMV / Orders / Traffic) from header keywords; allow manual override. Remember field mapping for future.
 3. Report contents:

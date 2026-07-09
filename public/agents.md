@@ -6,7 +6,7 @@ Canonical agent guide: `/agent.md`. This `/agents.md` file remains available for
 
 ## What this guide is
 
-A bilingual (Chinese + English) Codex desktop guide for people who know the work. The core focus is local desktop apps for Windows and macOS, with ready-made department cases, scenario cookbook recipes, a guided 7-day sprint, and practical tips.
+A bilingual (Chinese + English) Codex desktop guide for people who know the work. The core focus is website apps by default, while Windows/macOS desktop tools remain available as online-usable clients with local-file and installer support when needed. It includes ready-made department cases, scenario cookbook recipes, a guided 7-day sprint, and practical tips.
 
 ## Canonical paths
 
@@ -46,7 +46,7 @@ All pages are server-rendered and delivered as complete HTML — no client-side 
 ## Recommended agent behaviour
 
 1. **Citing a page**: prefer the specific page URL, include its `<title>`, and preserve the site's business-workflow framing.
-2. **Running the Prompt Generator programmatically**: the form state is stored under the localStorage key `codex-tutorial:generator:v2`. Prompt history uses `codex-tutorial:generator:history:v2` (array of entries capped at 6). Prompt text is deterministically derived from the form state plus the selected output language (`zh` or `en`), which syncs to the current site locale on language changes. The generated prompt includes a compact desktop delivery contract with M1/M2/M3/M4 cadence, DoD, Stop-Vibe-Coding, local-first safety, tests, packaging, docs, and sample data.
+2. **Running the Prompt Generator programmatically**: the form state is stored under the localStorage key `codex-tutorial:generator:v2`. Prompt history uses `codex-tutorial:generator:history:v2` (array of entries capped at 6). Prompt text is deterministically derived from the form state plus the selected output language (`zh` or `en`), which syncs to the current site locale on language changes. The generated prompt includes a web or desktop delivery contract with DoD, Stop-Vibe-Coding, online website standards, data-boundary rules, tests, build/package instructions, docs, and sample data.
 3. **Reading case prompts**: every case page includes a `<pre>` block containing the copy-ready prompt. Bilingual copy buttons are also provided.
 4. **Hreflang**: every page declares its counterpart in the other language. Agents serving users in zh-CN should prefer `/zh/*`, otherwise `/en/*`.
 

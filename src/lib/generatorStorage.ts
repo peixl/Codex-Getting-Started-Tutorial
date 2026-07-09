@@ -82,7 +82,10 @@ export function normalizeFormState(value?: unknown): FormState {
     goal: stringOrDefault(state.goal, DEFAULT_FORM.goal),
     features: stringOrDefault(state.features, DEFAULT_FORM.features),
     extras: {
-      offline: booleanOrDefault(extras.offline, DEFAULT_FORM.extras.offline),
+      onlinePublish: booleanOrDefault(
+        extras.onlinePublish,
+        DEFAULT_FORM.extras.onlinePublish,
+      ),
       bilingual: booleanOrDefault(extras.bilingual, DEFAULT_FORM.extras.bilingual),
       exportable: booleanOrDefault(extras.exportable, DEFAULT_FORM.extras.exportable),
       shortcut: booleanOrDefault(extras.shortcut, DEFAULT_FORM.extras.shortcut),

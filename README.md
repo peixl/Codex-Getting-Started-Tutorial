@@ -29,7 +29,7 @@ Typical scenarios include finance reconciliation, platform bills, daily reportin
 - Remember explicit user language choice instead of resetting it later.
 - Keep prompt output aligned with the current site language.
 - Support deep links without locale prefixes such as `/guide` or `/faq`.
-- Keep the core app-building path focused on local desktop apps, while showing safe agent-task patterns for broader Codex work.
+- Keep the core app-building path focused on deployable website apps; desktop tools remain available as online-usable clients with local file handling when needed.
 - Explain everything in business language before technical language.
 
 ## Main Sections

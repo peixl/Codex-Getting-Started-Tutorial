@@ -57,7 +57,7 @@ export const adminConferenceRoom: CaseBundle = {
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite
-- 完全离线，打包成 Windows .exe 安装包`,
+- 可在线使用，网络请求走 HTTPS，打包成 Windows .exe 安装包`,
       features: `左侧三个标签页：会议室 / 访客 / 快递。右侧主内容区按标签切换。
 
 【会议室页】
@@ -106,7 +106,7 @@ export const adminConferenceRoom: CaseBundle = {
       goal: 'Consolidate the three biggest daily interruptions — room booking, visitor sign-in, parcel handoff — into one lightweight ledger.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; ship a Windows .exe installer`,
+- Local SQLite plus HTTPS API boundary; ship a Windows .exe installer`,
       features: `Left sidebar tabs: Rooms / Visitors / Parcels.
 
 [Rooms tab]

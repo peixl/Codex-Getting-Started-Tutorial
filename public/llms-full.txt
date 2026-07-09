@@ -4,17 +4,17 @@ Canonical URL: https://codex.ifq.ai
 Languages: zh-CN, en-US
 License: MIT
 Audience: people who know the work
-Scope: business-workflow Codex guidance. The core focus remains local desktop applications for Windows and macOS; the site also includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
+Scope: business-workflow Codex guidance. The core focus is website apps by default; desktop tools remain available as online-usable Windows/macOS clients with local-file and installer support when needed. The site also includes e-commerce agent task cases for sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights.
 
 ## Site summary
 
-codex.ifq.ai is a concise guide that teaches people who know the work how to use the OpenAI Codex desktop application for small, self-contained local tools and e-commerce business tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights. It is intentionally bilingual (Chinese and English) in full parity.
+codex.ifq.ai is a concise guide that teaches people who know the work how to use the OpenAI Codex desktop application to turn business workflows into website apps by default, with Windows/macOS desktop tools still available as online-usable clients when local files or installers are the right shape. It also covers e-commerce business tasks such as sales briefs, order follow-up, support issue analysis, product launch checks, inventory, procurement, ads, competitor pricing, member segmentation, coupon risk, live recaps, category reviews, and review insights. It is intentionally bilingual (Chinese and English) in full parity.
 
 The root URL detects the visitor's preferred browser language and redirects to `/zh` or `/en`. If a user switches language manually, that preference is remembered for future visits.
 
 The site is organized into seven main sections:
 
-1. **Prompt Generator** — an interactive form that converts a clear business workflow into a professional Codex prompt. Form fields: platform (Windows / macOS / both), preset (Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (local files / SQLite / none), complexity tier (Starter MVP / Standard business version / Team-ready version), goal, needs, and optional extras (offline, bilingual, export, shortcuts, accessibility). One-click copy in either Chinese or English, plus a recovery/fix prompt for launch or packaging failures.
+1. **Prompt Generator** — an interactive form that converts a clear business workflow into a professional Codex prompt. Form fields: platform (website / Windows / macOS / both), preset (Next.js website / Electron / Tauri / PyQt / let-Codex-decide), UI style (minimal / dark / fresh / business), storage (browser / local files / SQLite / none), complexity tier (Starter MVP / Standard business version / Team-ready version), goal, needs, and optional extras (online publishing, bilingual UI, export, shortcuts, accessibility). One-click copy in either Chinese or English, plus a recovery/fix prompt for launch, build, or packaging failures.
 
 2. **Quick Start Guide** — eight concise chapters. Chapters cover: what Codex is; what you need to get started; first launch walkthrough; core actions; five rules for writing good prompts; common issues and how to recover; when to stop iterating; how to share the resulting app with teammates.
 
@@ -22,7 +22,7 @@ The site is organized into seven main sections:
 
 4. **Agent Task Cases** — 20 copy-ready prompts for using Codex as an e-commerce business agent: daily sales brief, order exception follow-up, customer-service issue themes, product launch readiness, inventory replenishment, supplier quote comparison, ads/creator recap, review insights, campaign precheck, competitor pricing, member segmentation, coupon-risk audit, return triage, store rating diagnosis, platform-rule digest, cross-warehouse allocation, category monthly review, live recap, creator sample follow-up, and bundle design. These prompts emphasize clear inputs, business judgment, flexible assumptions, and usable action lists.
 
-5. **Scenario Cookbook** — 20+ copy-ready local desktop-tool prompts. It includes general office utilities plus e-commerce tools for order merging, SKU image packaging, shipment exception checks, product label printing, marketplace bill reconciliation, campaign calendars, support macro libraries, creator sample tracking, competitor price cleaning, live run-sheet timing, listing audits, and inventory transfer planning.
+5. **Scenario Cookbook** — 20+ copy-ready web and desktop prompts. It includes general office utilities plus e-commerce tools for order merging, SKU image packaging, shipment exception checks, product label printing, marketplace bill reconciliation, campaign calendars, support macro libraries, creator sample tracking, competitor price cleaning, live run-sheet timing, listing audits, file intake, inventory lookup, and inventory transfer planning.
 
 6. **Practical Tips** — eight concrete productivity techniques plus four misconceptions to avoid.
 
@@ -59,18 +59,19 @@ Solution: a local tool that ingests daily export files, applies four toggleable 
 
 Every prompt produced by the generator follows this schema (Chinese and English variants available):
 
-- Compact role instruction for local Windows/macOS desktop delivery
-- Fast-delivery cadence: ≤8-line summary, M1 launchable shell in ≤15 min, M2 real main flow, M3 robustness/UI/privacy, M4 verification/package/docs
+- Compact role instruction for website apps by default, with desktop tools remaining available when selected
+- Website delivery: Next.js + React + TypeScript, workspace-first UI, sample data, `npm run build`, `npm run start`, deployment notes, and real-flow verification
+- Desktop delivery: native file handling, path compatibility, launch/package smoke tests, installer notes, and local sample data
 - Definition of Done and Stop-Vibe-Coding rules to prevent endless scope drift and stop once the verified artifact exists
-- Platform, stack, visual style, desktop details, data storage, and complexity tier
+- Platform, stack, visual style, web/desktop details, data storage, and complexity tier
 - User-filled goal and needs list
-- Optional extras: offline, bilingual, export, keyboard shortcuts, accessibility
-- Robustness and safety constraints: native dialogs, path compatibility, business-language errors, real flow wiring, no fake completion, verification, package scripts
+- Optional extras: online publishing, bilingual UI, export, keyboard shortcuts, accessibility
+- Robustness and safety constraints: online website standards, browser/server data boundaries, browser downloads or native dialogs, path compatibility, business-language errors, real flow wiring, no fake completion, verification, build/package scripts
 - Final report format with artifact path, verification evidence, and known limits
 
 The generator also provides a separate recovery prompt. If Codex fails to launch, import data, or package the app, the user can copy this follow-up prompt so Codex continues inspecting logs, rerunning checks, and reporting a verified fix.
 
-Case and cookbook prompts are passed through a compact desktop delivery contract before display/copy. The wrapper removes repeated legacy "start with a brief plan" endings, then reinforces: local runnable output, workspace-first UI, ≤6-line progress updates, Stop-Vibe-Coding, native dialogs, no default overwrites, sample data/demo mode, no fake completion, edge-case handling, verification, packaging scripts, installer limits, and platform-appropriate shortcuts (Ctrl/Alt on Windows, Command/Option on macOS).
+Case and cookbook prompts are passed through a web or desktop delivery contract before display/copy. The wrapper removes repeated legacy "start with a brief plan" endings, then reinforces: runnable output, online website standards, workspace-first UI, concise progress updates, Stop-Vibe-Coding, browser/server data boundaries, browser downloads or native dialogs, no default overwrites, sample data/demo mode, no fake completion, edge-case handling, verification, Next.js build checks where relevant, packaging scripts where relevant, installer limits, and platform-appropriate shortcuts (Ctrl/Alt on Windows, Command/Option on macOS).
 
 ## Quick Start Guide chapter titles
 

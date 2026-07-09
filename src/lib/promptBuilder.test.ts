@@ -17,6 +17,9 @@ const GENERATOR_QUALITY_MARKERS = {
     'TODO',
     '3 次',
     '快速启动协议',
+    'Codex 执行循环',
+    'Goal / Context / Constraints / Done when',
+    '探查 → 计划 → 实现 → 验证 → 复盘',
     '错误自救',
     '反模式清单',
     '完成标准',
@@ -30,6 +33,9 @@ const GENERATOR_QUALITY_MARKERS = {
     'TODOs',
     '3 times',
     'Quick Start Protocol',
+    'Codex Execution Loop',
+    'Goal / Context / Constraints / Done when',
+    'inspect → plan → implement → verify → review',
     'Error Recovery',
     'Anti-Patterns',
     'Done criteria',
@@ -51,6 +57,8 @@ describe('buildPrompt', () => {
     expect(DEFAULT_FORM.platform).toBe('web');
     expect(DEFAULT_FORM.tech).toBe('nextjs');
     expect(DEFAULT_FORM.storage).toBe('browser');
+    expect(DEFAULT_FORM.extras.onlinePublish).toBe(true);
+    expect('offline' in DEFAULT_FORM.extras).toBe(false);
   });
 
   it('builds Chinese website prompts for full-platform website deployment', () => {
@@ -73,6 +81,33 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('Electron / Tauri / PyQt');
     expect(prompt).toContain('文件上传 / 浏览器下载');
     expect(prompt).toContain('浏览器本地存储或服务端存储');
+  });
+
+  it('uses online website standards instead of disconnected execution', () => {
+    const zh = buildPrompt(makeState({ platform: 'web', tech: 'nextjs' }), 'zh');
+    const en = buildPrompt(makeState({ platform: 'web', tech: 'nextjs' }), 'en');
+
+    expect(zh).toContain('【在线网站标准】');
+    expect(zh).toContain('可部署上线并发链接给同事');
+    expect(zh).toContain('环境变量');
+    expect(zh).toContain('浏览器端/服务端边界');
+    expect(en).toContain('[Online Website Standard]');
+    expect(en).toContain('deployable and shareable by link');
+    expect(en).toContain('environment variables');
+    expect(en).toContain('browser/server boundary');
+    expect(`${zh}\n${en}`).not.toMatch(/断网|完全离线|不联网|Fully offline|Works offline|without internet/i);
+  });
+
+  it('makes selected desktop apps online-usable clients too', () => {
+    const zh = buildPrompt(makeState({ platform: 'both', tech: 'electron' }), 'zh');
+    const en = buildPrompt(makeState({ platform: 'both', tech: 'electron' }), 'en');
+
+    expect(zh).toContain('桌面应用也要在线可用');
+    expect(zh).toContain('HTTPS API');
+    expect(zh).toContain('网络异常');
+    expect(en).toContain('Desktop apps must also be online-usable');
+    expect(en).toContain('HTTPS API');
+    expect(en).toContain('network failure');
   });
 
   it('builds English website prompts for full-platform deployment', () => {
@@ -176,6 +211,18 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('打开输出文件夹');
   });
 
+  it('threads the Codex execution loop into generator prompts', () => {
+    const zh = buildPrompt(makeState(), 'zh');
+    const en = buildPrompt(makeState(), 'en');
+
+    expect(zh).toContain('【Codex 执行循环】');
+    expect(zh).toContain('不要让两个并行任务改同一批文件');
+    expect(zh).toContain('验证通过后再汇报');
+    expect(en).toContain('[Codex Execution Loop]');
+    expect(en).toContain('Do not let two parallel tasks edit the same files');
+    expect(en).toContain('Report only after verification passes');
+  });
+
   it('threads warm UX and success picture into the generator prompt (en)', () => {
     const prompt = buildPrompt(makeState(), 'en');
     expect(prompt).toContain('[Warm UX Contract]');
@@ -225,6 +272,8 @@ describe('buildPrompt', () => {
         "【快速启动协议】",
         "【项目结构】",
         "【UI 最低视觉标准】",
+        "【Codex 执行循环】",
+        "【在线网站标准】",
         "【交付要求】",
         "【温暖体验契约】",
         "【完成态画面】",
@@ -275,6 +324,10 @@ describe('quickTemplates', () => {
       platform: 'web',
       tech: 'nextjs',
       storage: 'browser',
+    });
+    expect(template?.state.extras).toMatchObject({
+      onlinePublish: true,
+      exportable: true,
     });
     expect(template?.titleZh).toContain('桌面工具改成网站应用');
     expect(template?.state.features).toContain('保留原有核心流程');

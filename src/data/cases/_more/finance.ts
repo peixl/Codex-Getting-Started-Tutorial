@@ -48,7 +48,7 @@ export const financeExpenseClassifier: CaseBundle = {
         'A dozen default categories with editable rules.',
         'Unmatched items in a side panel; pick once, remembered next time.',
         'Footer totals per category; one-click export.',
-        'Runs locally by default; network calls require encryption and user consent.',
+        'Online-usable with HTTPS requests and explicit data-boundary notes.',
       ],
       keywords: ['expense', 'classification', 'finance', 'excel'],
     },

@@ -57,7 +57,7 @@ export const hrOnboardingTracker: CaseBundle = {
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite
-- 完全离线，打包 Windows .exe 安装包
+- 可在线使用，网络请求走 HTTPS，打包 Windows .exe 安装包
 
 【数据模型】
 员工：姓名、工号（可选）、岗位、部门、入职日、师父、状态（在办 / 完成 / 离职）。
@@ -94,7 +94,7 @@ export const hrOnboardingTracker: CaseBundle = {
       goal: 'Instant visibility into every new hire\'s onboarding status. Zero missed items. Managers get answers in 5 seconds.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; Windows .exe installer
+- Local SQLite plus HTTPS API boundary; Windows .exe installer
 
 [Data Model]
 Employee: name, employee id (optional), role, department, start date, buddy, status (In progress / Done / Left).

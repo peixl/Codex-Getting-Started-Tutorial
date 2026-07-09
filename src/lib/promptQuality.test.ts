@@ -12,6 +12,9 @@ describe('withDesktopQualityBar', () => {
     expect(first).toContain('【反模式清单');
     expect(first).toContain('sample-data');
     expect(first).toContain('≤8 行摘要');
+    expect(first).toContain('【Codex 执行循环】');
+    expect(first).toContain('Goal / Context / Constraints / Done when');
+    expect(first).toContain('验证通过后再汇报');
     expect(second).toBe(first);
   });
 
@@ -25,6 +28,9 @@ describe('withDesktopQualityBar', () => {
     expect(first).toContain('[Anti-Patterns');
     expect(first).toContain('sample-data');
     expect(first).toContain('summarize in ≤8 lines');
+    expect(first).toContain('[Codex Execution Loop]');
+    expect(first).toContain('Goal / Context / Constraints / Done when');
+    expect(first).toContain('Report only after verification passes');
     expect(second).toBe(first);
   });
 

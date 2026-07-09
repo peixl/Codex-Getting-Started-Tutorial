@@ -156,8 +156,8 @@ export const en = {
       '- Drag in order Excel and bank statement Excel\n- Auto-match by order ID, highlight mismatches\n- Export mismatches as a new Excel file',
 
     sectionExtras: '8. Extras (optional)',
-    extraOfflineLabel: 'Works offline',
-    extraOfflineHint: 'Runs without internet',
+    extraOnlinePublishLabel: 'Publish online',
+    extraOnlinePublishHint: 'Deploy and share by link; desktop tools can connect online too',
     extraBilingualLabel: 'Bilingual UI',
     extraBilingualHint: 'Switchable English / Chinese',
     extraExportLabel: 'Export results',
@@ -477,7 +477,7 @@ export const en = {
     a6: 'You can, but this tutorial focuses on website apps and desktop tools. Native mobile publishing is more involved.',
 
     q7: 'Can it connect to the internet?',
-    a7: 'Yes, but start with offline tools to get your feet wet. Have a technical colleague look over the online parts.',
+    a7: 'Yes. This tutorial now defaults to online website standards: deployment, link sharing, HTTPS, permissions, and data boundaries should be explicit; desktop tools can connect to online services too.',
 
     q8: 'How do I know the result is correct?',
     a8: 'You are the acceptance tester — judge the app by its behavior and final output.',

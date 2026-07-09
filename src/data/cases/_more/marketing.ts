@@ -167,7 +167,7 @@ export const marketingEventChecklist: CaseBundle = {
       keywords: ['活动', '线下', '清单', '市场'],
     },
     en: {
-      title: 'Offline Event Checklist',
+      title: 'On-site Event Checklist',
       departmentLabel: 'Marketing',
       summary:
         'Break a live event from kickoff to retro into a tickable checklist, scheduled by countdown.',
@@ -184,7 +184,7 @@ export const marketingEventChecklist: CaseBundle = {
         'Main view grouped: Today / Within 3 days / Within a week / Done.',
         'Post-event one-click retro checklist Markdown: what slipped, what to keep.',
       ],
-      keywords: ['event', 'offline', 'checklist', 'marketing'],
+      keywords: ['event', 'on-site', 'checklist', 'marketing'],
     },
   },
     prompt: {

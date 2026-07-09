@@ -55,7 +55,7 @@ export const operationsCampaign: CaseBundle = {
       platform: `- Windows 10/11 桌面应用
 - Electron + React + TypeScript
 - 本地 SQLite
-- 离线运行，打包 Windows .exe 安装包`,
+- 可在线使用，网络请求走 HTTPS，打包 Windows .exe 安装包`,
       features: `1. 首页：大促卡片列表（双 11、618、年货节…），每张卡显示起止日、总进度条（已完成 / 总任务），"新建大促"按钮。
 2. 大促详情页：四列看板——预热、爆发、返场、复盘。每列可装多张任务卡。
 3. 任务卡片：任务名、负责人（文本）、截止日、状态（待办 / 进行中 / 已完成 / 延期）、备注。
@@ -91,7 +91,7 @@ export const operationsCampaign: CaseBundle = {
       goal: 'Tame big-sale chaos: a single board with clear status, owners, and history.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; ship Windows .exe`,
+- Local SQLite plus HTTPS API boundary; ship Windows .exe`,
       features: `1. Home: campaign cards with start/end + overall progress bar. "New campaign" button.
 2. Detail: Kanban with four columns — Warm-up, Peak, Post-sale, Retro.
 3. Task card: title, owner (free text), due date, status (Todo / In progress / Done / Delayed), notes.

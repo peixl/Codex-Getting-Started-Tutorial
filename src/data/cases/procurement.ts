@@ -56,7 +56,7 @@ export const procurementPriceMonitor: CaseBundle = {
 - Electron + React + TypeScript
 - 本地 SQLite 存报价历史
 - SheetJS 处理 Excel
-- 离线运行，打包成 Windows .exe 安装包`,
+- 可在线使用，网络请求走 HTTPS，打包成 Windows .exe 安装包`,
       features: `1. 首页 SKU 列表：每行展示 SKU 名、最新最低价、对应供应商、相对上一期的涨跌百分比（红涨绿跌）。
 2. 点击 SKU 进入详情页：横向列出所有供应商最新报价、历史最低 / 平均值、一条简易折线图（最近 12 期）。
 3. 数据录入：
@@ -94,7 +94,7 @@ export const procurementPriceMonitor: CaseBundle = {
 - Electron + React + TypeScript
 - Local SQLite for quote history
 - SheetJS for Excel
-- Fully offline; ship a Windows .exe installer`,
+- Online-usable with HTTPS API boundaries; ship a Windows .exe installer`,
       features: `1. Home SKU list: name, latest min price, supplier, % change vs last period (red up, green down).
 2. SKU detail: all suppliers' latest quotes side by side, min/mean, a simple 12-period line chart.
 3. Data input:

@@ -58,7 +58,7 @@ export const logisticsTracker: CaseBundle = {
 - Electron + React + TypeScript
 - SheetJS 处理 Excel / CSV
 - 本地 SQLite 保留最近 30 天导入历史
-- 完全离线，打包 Windows .exe 安装包
+- 可在线使用，网络请求走 HTTPS，打包 Windows .exe 安装包
 
 【字段映射】
 导入时支持列名映射（中英兼容）：订单号、快递公司、快递单号、收件人姓名、收件人电话、当前状态、最近更新时间、派送次数、异常标签。首次映射后记住。`,
@@ -101,7 +101,7 @@ export const logisticsTracker: CaseBundle = {
 - Electron + React + TypeScript
 - SheetJS for Excel/CSV
 - Local SQLite rolling 30-day history
-- Offline; ship Windows .exe installer
+- Online-usable with HTTPS API boundaries; ship Windows .exe installer
 
 [Column Mapping]
 Handle common headers (Chinese + English): order id, carrier, tracking id, recipient name, recipient phone, current status, last update time, delivery attempts, exception tag. Remember mappings.`,

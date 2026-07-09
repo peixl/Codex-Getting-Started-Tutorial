@@ -43,7 +43,7 @@ export const marketingCampaignAnalyzer: CaseBundle = {
         'Per-channel detail table below: spend, orders, ROI, delta vs yesterday.',
         'Bulk import from Excel, auto-aggregated by date.',
         'One-click "weekly report" as PDF or image, ready to drop into chat.',
-        'Runs locally; nothing leaves your PC.',
+        'Online-usable with explicit HTTPS/data-boundary notes.',
       ],
       keywords: ['marketing', 'ROI', 'campaign', 'daily report', 'channel analytics'],
     },
@@ -57,7 +57,7 @@ export const marketingCampaignAnalyzer: CaseBundle = {
 - 本地 SQLite 存历史数据
 - SheetJS 处理 Excel
 - PDF 输出用成熟的本地库（如 pdf-lib）
-- 完全离线，打包成 Windows .exe 安装包`,
+- 可在线使用，网络请求走 HTTPS，打包成 Windows .exe 安装包`,
       features: `1. 首页三张大卡片：今日整体花费 / 销售额 / ROI，并显示较昨日的涨跌。
 2. 第二区：今日各渠道详情（表格）。列：渠道、花费、曝光、点击、成单、销售额、ROI、CPA、与昨日对比（百分比，红涨绿跌）。
 3. 数据录入：
@@ -96,7 +96,7 @@ export const marketingCampaignAnalyzer: CaseBundle = {
 - Electron + React + TypeScript
 - Local SQLite for history
 - SheetJS for Excel; pdf-lib for PDF export
-- Fully offline; ship a Windows .exe installer`,
+- Online-usable with HTTPS API boundaries; ship a Windows .exe installer`,
       features: `1. Home: three big cards — today's total spend / revenue / ROI — with deltas vs yesterday.
 2. Per-channel detail table: channel, spend, impressions, clicks, orders, revenue, ROI, CPA, delta vs yesterday (% up/down).
 3. Data entry:

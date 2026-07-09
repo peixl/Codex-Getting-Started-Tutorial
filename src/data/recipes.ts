@@ -282,7 +282,7 @@ export const recipes: Recipe[] = [
       stack: 'Electron + React + TypeScript + pdf-lib',
       features: `1. 合并模式：拖入若干 PDF，可上下拖动调顺序，输入输出文件名后一键合并。
   2. 拆分模式：拖入一份 PDF，输入页码区间（如"1-10, 11-25, 26-end"），按区间导出为多份 PDF。`,
-      extra: '- 全程不联网，文件只在本地处理；处理完后弹一个"打开输出文件夹"的按钮。',
+      extra: '- 按在线网站标准处理，文件处理边界写清；处理完后提供"下载结果"和"打开输出文件夹"按钮。',
       acceptance: '拖入 PDF → 合并或拆分 → 输出文件正确；空文件、格式错误 → 友好提示，不闪退。',
       packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
@@ -293,7 +293,7 @@ export const recipes: Recipe[] = [
       stack: 'Electron + React + TypeScript + pdf-lib',
       features: `1. Merge: drop several PDFs, drag to reorder, type output filename, click merge.
   2. Split: drop one PDF, type page ranges (e.g. "1-10, 11-25, 26-end"), export each range as a separate PDF.`,
-      extra: '- Fully offline; files stay local. After completion, show an "Open output folder" button.',
+      extra: '- Use online website standards; document file-processing boundaries. After completion, show "Download result" and "Open output folder" buttons.',
       acceptance: 'drop PDFs → merge or split → output correct; empty file, bad format → friendly message, no crash.',
       packaging: packagingInstruction(300, 'en'),
     }, 'en'),
@@ -374,7 +374,7 @@ export const recipes: Recipe[] = [
   2. 一键转写为带时间戳的中文文本，旁边一栏支持手动微调。
   3. 转写完成后，再点"提炼要点"按钮，按"决议 / 待办 / 风险"三段输出 Markdown 摘要（提示词内置，可在设置里改）。
   4. 一键导出为 .docx 和 .md。`,
-      extra: '- 全程在本机跑，不联网；首次模型下载提示用户磁盘占用。',
+      extra: '- 本机转写与在线服务边界写清；首次模型下载提示用户磁盘占用，网络失败给重试入口。',
       acceptance: '拖入音频 → 转写成功 → 提炼要点 → 导出 .docx/.md；空文件、格式错误 → 友好提示。',
       packaging: packagingInstruction(500, 'zh'),
     }, 'zh'),
@@ -387,7 +387,7 @@ export const recipes: Recipe[] = [
   2. One-click transcribe with timestamps; right pane allows manual edits.
   3. After transcription, click "Extract key points" to produce a Markdown summary in three sections: Decisions / Action items / Risks (built-in prompt, editable in settings).
   4. Export to .docx and .md.`,
-      extra: '- Fully offline; warn the user about disk space when downloading the model.',
+      extra: '- Document local transcription and online-service boundaries; warn about disk space when downloading the model and provide retry on network failure.',
       acceptance: 'drop audio → transcribe → extract points → export .docx/.md; empty file, bad format → friendly message.',
       packaging: packagingInstruction(500, 'en'),
     }, 'en'),
@@ -442,7 +442,7 @@ export const recipes: Recipe[] = [
   2. 预设三档常用规格（"公众号头图 900×500 jpg"、"朋友圈方图 1080×1080 jpg"、"网站缩略图 600 长边 webp"），可一键切换；也可自定义"长边像素 + 输出格式 + 质量"。
   3. 支持"按比例裁剪"或"留白填充"两种适配方式。
   4. 一键批量导出到"原目录_resized"文件夹，原图不动。`,
-      extra: '- 全程本地处理，不联网；处理过程显示进度。',
+      extra: '- 按在线网站标准处理，写清本地处理与在线服务边界；处理过程显示进度。',
       acceptance: '拖入图片 → 选规格/自定义 → 批量导出；空文件夹、非图片 → 友好提示。',
       packaging: packagingInstruction(300, 'zh'),
     }, 'zh'),
@@ -455,7 +455,7 @@ export const recipes: Recipe[] = [
   2. Three preset profiles ("WeChat header 900×500 jpg", "Square social 1080×1080 jpg", "Website thumb 600 longest-edge webp"). Custom mode: longest-edge px + format + quality.
   3. Two fit modes: crop by ratio, or pad with whitespace.
   4. One-click batch export to a sibling "<originalFolder>_resized"; originals untouched.`,
-      extra: '- Fully offline; show progress.',
+      extra: '- Use online website standards; document local processing and online-service boundaries; show progress.',
       acceptance: 'drop images → pick size → batch export; empty folder, non-image → friendly message.',
       packaging: packagingInstruction(300, 'en'),
     }, 'en'),
@@ -476,7 +476,7 @@ export const recipes: Recipe[] = [
   2. 标准化：手机号统一去掉 +86 / 空格 / -；邮箱小写；姓名去前后空格。
   3. 去重规则可选：手机号相同 / 邮箱相同 / 手机+姓名 都视为同一人；冲突时保留信息最完整的一条，并把其他来源的备注合并到一栏。
   4. 输出一份合并后的 Excel + 一份"被去掉的可疑重复条目"Excel 供复核，原文件不动。`,
-      extra: '- 全程本地处理，不联网。',
+      extra: '- 按在线网站标准处理，写清本地处理与在线服务边界。',
       acceptance: '拖入多份 Excel → 自动识别 → 去重合并 → 导出合并表和可疑表；空文件、格式错误 → 友好提示。',
       packaging: packagingInstruction(400, 'zh'),
     }, 'zh'),
@@ -489,7 +489,7 @@ export const recipes: Recipe[] = [
   2. Normalize: strip +86, spaces, dashes from phone; lowercase email; trim names.
   3. Configurable dedupe key: phone / email / phone+name. On collision, keep the most complete row and merge other sources' notes into a "merged_notes" column.
   4. Export a merged Excel plus a "removed-as-duplicate" Excel for review; originals untouched.`,
-      extra: '- Fully offline.',
+      extra: '- Use online website standards and document local processing plus online-service boundaries.',
       acceptance: 'drop multiple files → auto-detect → dedupe → export merged + suspicious; empty file, bad format → friendly message.',
       packaging: packagingInstruction(400, 'en'),
     }, 'en'),
@@ -510,7 +510,7 @@ export const recipes: Recipe[] = [
   2. 转换规则：一级标题 = 章节封面页；二级标题 = 内容页标题；二级标题下的项目符号 = 内容页要点（最多 6 条，多了自动分页）；三个连续 --- = 强插一张过渡页。
   3. 提供三套主题（极简白、深色科技、暖橙商务），可在顶部一键切换；字体使用系统默认。
   4. 一键导出 .pptx 文件到指定文件夹；同时保存当前 .md 草稿到本地。`,
-      extra: '- 全程本地处理，不联网。',
+      extra: '- 按在线网站标准处理，写清本地处理与在线服务边界。',
       acceptance: '写 Markdown → 实时预览 → 一键导出 .pptx；空内容、格式错误 → 友好提示。',
       packaging: packagingInstruction(400, 'zh', '含 Markdown 速查表'),
     }, 'zh'),
@@ -523,7 +523,7 @@ export const recipes: Recipe[] = [
   2. Conversion rules: H1 → section cover slide; H2 → content slide title; bullets under H2 → content slide bullets (max 6, auto-paginate beyond); a triple --- inserts a transition slide.
   3. Three themes (Minimal White, Dark Tech, Warm Business Orange) with one-click switch in the top bar; system fonts.
   4. One-click export to .pptx; auto-save the current .md draft locally.`,
-      extra: '- Fully offline.',
+      extra: '- Use online website standards and document local processing plus online-service boundaries.',
       acceptance: 'write Markdown → live preview → one-click export .pptx; empty content, bad format → friendly message.',
       packaging: packagingInstruction(400, 'en', 'including a Markdown cheatsheet'),
     }, 'en'),

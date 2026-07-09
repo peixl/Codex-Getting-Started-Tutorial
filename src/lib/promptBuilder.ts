@@ -13,6 +13,8 @@ import {
   SAFETY_RULES_EN,
   QUALITY_RULES_ZH,
   QUALITY_RULES_EN,
+  CODEX_EXECUTION_LOOP_ZH,
+  CODEX_EXECUTION_LOOP_EN,
   WARM_UX_ZH,
   WARM_UX_EN,
   SUCCESS_PICTURE_ZH,
@@ -29,7 +31,7 @@ export type Storage = 'browser' | 'localFile' | 'sqlite' | 'none';
 export type Complexity = 'starter' | 'standard' | 'advanced';
 
 export type Extras = {
-  offline: boolean;
+  onlinePublish: boolean;
   bilingual: boolean;
   exportable: boolean;
   shortcut: boolean;
@@ -57,7 +59,7 @@ export const DEFAULT_FORM: FormState = {
   goal: '',
   features: '',
   extras: {
-    offline: true,
+    onlinePublish: true,
     bilingual: false,
     exportable: true,
     shortcut: false,
@@ -118,6 +120,19 @@ const SHORTCUT_EN: Record<Platform, string> = {
   windows: 'Shortcuts for common actions using Windows-style Ctrl / Alt combinations; avoid system shortcuts',
   mac: 'Shortcuts for common actions using macOS-style Command / Option combinations; avoid system shortcuts',
   both: 'Shortcuts: Windows uses Ctrl / Alt, macOS uses Command / Option; keep actions familiar per platform',
+};
+
+const ONLINE_PUBLISH_ZH: Record<Platform, string> = {
+  web: '可部署上线并发链接给同事；README 写清域名、环境变量、预览、回滚和正式发布步骤',
+  windows: 'Windows 桌面应用也要在线可用：可接 HTTPS API / 云同步 / 自动更新；README 写清网络配置、账号和失败重试方式',
+  mac: 'macOS 桌面应用也要在线可用：可接 HTTPS API / 云同步 / 自动更新；README 写清网络配置、账号和失败重试方式',
+  both: '桌面应用也要在线可用：Windows / macOS 都可接 HTTPS API、云同步和自动更新；README 写清网络配置、账号和失败重试方式',
+};
+const ONLINE_PUBLISH_EN: Record<Platform, string> = {
+  web: 'Deployable and shareable by link; README covers domain, environment variables, preview, rollback, and production release steps',
+  windows: 'Windows desktop apps must also be online-usable: connect to HTTPS APIs, cloud sync, and auto-update; README covers network config, accounts, and retry behavior',
+  mac: 'macOS desktop apps must also be online-usable: connect to HTTPS APIs, cloud sync, and auto-update; README covers network config, accounts, and retry behavior',
+  both: 'Desktop apps must also be online-usable on Windows and macOS: connect to HTTPS APIs, cloud sync, and auto-update; README covers network config, accounts, and retry behavior',
 };
 
 const TECH_ZH: Record<TechStack, string> = {
@@ -199,6 +214,22 @@ const WEB_MIGRATION_EN = `[Desktop-to-web migration]
 - Multi-window desktop UI → web routes, tabs, or dialogs; menus/shortcuts → top toolbar and discoverable buttons.
 - After migration, provide a comparison table: old capability, web replacement, implemented status, and reason if deferred.`;
 
+const ONLINE_STANDARD_ZH = `【在线网站标准】
+- 默认按在线网站标准设计：可部署、可分享链接、可在浏览器或联网桌面客户端使用，不把单机执行当交付目标。
+- 先拆成页面/路由、表单与上传、预览与结果、导出与分享、设置与权限、失败与恢复六类能力；每类都要有可点击的真实状态。
+- 需要账号、API、数据库或文件存储时，用环境变量和可替换配置；先用 sample-data / mock service 跑通，再写清接真实服务的位置。
+- 写清浏览器端/服务端边界：哪些数据只在浏览器处理，哪些请求进入服务端，哪些字段需要脱敏、权限、审计或删除入口。
+- 网络异常、接口超时、权限失效、部署失败都要有页面级反馈和重试路径；不能白屏，也不能只让用户看终端。
+- 桌面应用也要在线可用：把桌面壳视为网站/服务的客户端，保留 HTTPS API、同步、账号、更新和远程配置边界。`;
+
+const ONLINE_STANDARD_EN = `[Online Website Standard]
+- Design to online website standards by default: deployable and shareable by link, usable in browsers or connected desktop clients; single-machine execution is not the delivery goal.
+- Break the product into pages/routes, forms/uploads, preview/results, export/share, settings/permissions, and failure/recovery; each area needs real clickable states.
+- When accounts, APIs, databases, or file storage are needed, use environment variables and replaceable config; ship sample-data / mock services first, then document where real services connect.
+- Document the browser/server boundary: what stays in the browser, what reaches the server, and which fields need masking, permissions, audit, or deletion controls.
+- Network failure, API timeout, expired permission, and deployment failure need page-level feedback plus retry paths; no blank screens and no terminal-only recovery.
+- Desktop apps must also be online-usable: treat the desktop shell as a client for the website/service, with HTTPS API, sync, account, update, and remote-config boundaries.`;
+
 function isWebTarget(state: Pick<FormState, 'platform'>) {
   return state.platform === 'web';
 }
@@ -263,6 +294,7 @@ function deliveryRequirementsZh(state: FormState): string {
     '- 先创建 sample-data/ 放入贴近业务的脱敏示例数据，确保首次启动就能走完主流程。',
     '- 主流程 ≤3 步：导入/填写 → 预览 → 生成/保存。第一屏就是工作台，不做欢迎页。',
     '- 支持拖拽导入；用系统打开/保存对话框；完成后给"打开输出文件夹"按钮。',
+    '- 桌面应用也要在线可用：提供网络状态、HTTPS API 配置、账号/同步/自动更新入口或清晰的接入边界；网络异常要能重试并保留本地草稿。',
     '- 空数据、格式错误、取消操作 → 弹友好中文提示，不闪退、不暴露技术错误。',
     '- 路径兼容中文、空格、括号；适配深浅模式。',
     `- ${pack}`,
@@ -301,6 +333,7 @@ function deliveryRequirementsEn(state: FormState): string {
     '- Create sample-data/ with realistic anonymized data so the app works on first launch.',
     '- Main flow ≤3 steps: import/fill → preview → generate/save. First screen is the workspace, no welcome page.',
     '- Support drag-and-drop; use native open/save dialogs; show "Open output folder" after completion.',
+    '- Desktop apps must also be online-usable: provide network status, HTTPS API config, account/sync/auto-update entry points or clear integration boundaries; network failure supports retry and keeps local drafts.',
     '- Empty data, bad format, cancel → friendly message, no crash, no raw errors.',
     '- Paths handle Chinese, spaces, parentheses; support light/dark mode.',
     `- ${pack}`,
@@ -326,7 +359,7 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
 
   if (lang === 'zh') {
     const extras: string[] = [];
-    if (state.extras.offline) extras.push('完全离线运行，不联网');
+    if (state.extras.onlinePublish) extras.push(ONLINE_PUBLISH_ZH[state.platform]);
     if (state.extras.bilingual) extras.push('界面支持中英双语切换');
     if (state.extras.exportable) extras.push('结果可导出为 PDF / Excel');
     if (state.extras.shortcut) extras.push(SHORTCUT_ZH[state.platform]);
@@ -334,7 +367,7 @@ export function buildPrompt(state: FormState, lang: PromptLang): string {
     if (custom) extras.push(custom);
     const role = webTarget
       ? `你是资深网站应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}，也是一名体贴的产品经理。你写代码前先把自己当成用户走一遍：第一眼看到什么、第一次怎么用、第一次出错怎么自救。你的任务是做出一个可构建、可部署、可在浏览器使用的网站应用，不是给建议。收到后直接动手实现，全程中文。`
-      : `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}，也是一名体贴的产品经理。你写代码前先把自己当成用户走一遍：第一眼看到什么、第一次怎么用、第一次出错怎么自救。你的任务是做出一个可在本地运行的桌面工具，不是给建议。收到后直接动手实现，全程中文。`;
+      : `你是资深桌面应用工程师，擅长 ${ROLE_DOMAIN_ZH[state.platform]}，也是一名体贴的产品经理。你写代码前先把自己当成用户走一遍：第一眼看到什么、第一次怎么用、第一次出错怎么自救。你的任务是做出一个本地窗口可用、同时能接在线服务的桌面工具，不是给建议。收到后直接动手实现，全程中文。`;
     const productBlock = webTarget ? `\n\n${WEB_MIGRATION_ZH}` : '';
 
     return `${role}
@@ -359,6 +392,10 @@ ${projectStructure(tech as ModuleTech, 'zh')}
 
 ${uiStandards(tech as ModuleTech, 'zh')}
 
+${CODEX_EXECUTION_LOOP_ZH}
+
+${ONLINE_STANDARD_ZH}
+
 【交付要求】
 ${deliveryRequirementsZh(state)}
 
@@ -380,7 +417,7 @@ ${FINAL_REPORT_ZH}`;
   }
 
   const extras: string[] = [];
-  if (state.extras.offline) extras.push('Fully offline, no internet');
+  if (state.extras.onlinePublish) extras.push(ONLINE_PUBLISH_EN[state.platform]);
   if (state.extras.bilingual) extras.push('UI supports Chinese/English switching');
   if (state.extras.exportable) extras.push('Results exportable as PDF / Excel');
   if (state.extras.shortcut) extras.push(SHORTCUT_EN[state.platform]);
@@ -388,7 +425,7 @@ ${FINAL_REPORT_ZH}`;
   if (custom) extras.push(custom);
   const role = webTarget
     ? `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer and a thoughtful product manager. Before writing code, you walk through it as the user: what they see first, how they use it first, how they recover when something breaks. Build a deployable browser-based web app, not advice. Start immediately. Plain English.`
-    : `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer and a thoughtful product manager. Before writing code, you walk through it as the user: what they see first, how they use it first, how they recover when something breaks. Build a runnable local desktop tool, not advice. Start immediately. Plain English.`;
+    : `You are a senior ${ROLE_DOMAIN_EN[state.platform]} engineer and a thoughtful product manager. Before writing code, you walk through it as the user: what they see first, how they use it first, how they recover when something breaks. Build a desktop tool with a local window and online-service connectivity, not advice. Start immediately. Plain English.`;
   const productBlock = webTarget ? `\n\n${WEB_MIGRATION_EN}` : '';
 
   return `${role}
@@ -412,6 +449,11 @@ ${quickStart(tech as ModuleTech, 'en')}
 ${projectStructure(tech as ModuleTech, 'en')}
 
 ${uiStandards(tech as ModuleTech, 'en')}
+
+${CODEX_EXECUTION_LOOP_EN}
+
+[Online Website Standard]
+${ONLINE_STANDARD_EN.split('\n').slice(1).join('\n')}
 
 [Delivery Requirements]
 ${deliveryRequirementsEn(state)}
@@ -518,7 +560,7 @@ export const quickTemplates: QuickTemplate[] = [
       ui: 'business',
       storage: 'browser',
       extras: {
-        offline: false,
+        onlinePublish: true,
         bilingual: false,
         exportable: true,
         shortcut: true,
@@ -589,7 +631,7 @@ export const quickTemplates: QuickTemplate[] = [
       ui: 'minimal',
       storage: 'browser',
       extras: {
-        offline: false,
+        onlinePublish: true,
         bilingual: false,
         exportable: true,
         shortcut: false,
@@ -612,7 +654,7 @@ export const quickTemplates: QuickTemplate[] = [
       ui: 'minimal',
       storage: 'sqlite',
       extras: {
-        offline: true,
+        onlinePublish: true,
         bilingual: false,
         exportable: true,
         shortcut: false,
@@ -635,7 +677,7 @@ export const quickTemplates: QuickTemplate[] = [
       ui: 'business',
       storage: 'browser',
       extras: {
-        offline: false,
+        onlinePublish: true,
         bilingual: false,
         exportable: true,
         shortcut: false,

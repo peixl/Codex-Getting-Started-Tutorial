@@ -24,6 +24,10 @@ import {
   FINAL_REPORT_INLINE_EN,
   ANTI_PATTERNS_ZH,
   ANTI_PATTERNS_EN,
+  CODEX_EXECUTION_LOOP_ZH,
+  CODEX_EXECUTION_LOOP_EN,
+  CODEX_EXECUTION_LOOP_INLINE_ZH,
+  CODEX_EXECUTION_LOOP_INLINE_EN,
   errorRecovery,
   uiStandards,
   deliveryBlock,
@@ -37,19 +41,25 @@ import {
 
 describe('prompt module constants', () => {
   it('CONSTRAINTS_ZH contains key rules', () => {
-    expect(CONSTRAINTS_ZH).toContain('本地处理');
+    expect(CONSTRAINTS_ZH).toContain('在线应用');
+    expect(CONSTRAINTS_ZH).toContain('HTTPS');
+    expect(CONSTRAINTS_ZH).toContain('数据边界');
     expect(CONSTRAINTS_ZH).toContain('脱敏 sample-data');
     expect(CONSTRAINTS_ZH).toContain('npm view');
     expect(CONSTRAINTS_ZH).toContain('立即运行验证');
     expect(CONSTRAINTS_ZH).toContain('另存为');
+    expect(CONSTRAINTS_ZH).not.toContain('默认本地处理');
   });
 
   it('CONSTRAINTS_EN contains key rules', () => {
-    expect(CONSTRAINTS_EN).toContain('local');
+    expect(CONSTRAINTS_EN).toContain('online-app');
+    expect(CONSTRAINTS_EN).toContain('HTTPS');
+    expect(CONSTRAINTS_EN).toContain('data boundaries');
     expect(CONSTRAINTS_EN).toContain('anonymized sample-data');
     expect(CONSTRAINTS_EN).toContain('npm view');
     expect(CONSTRAINTS_EN).toContain('Verify each feature');
     expect(CONSTRAINTS_EN).toContain('Save as');
+    expect(CONSTRAINTS_EN).not.toContain('Process locally by default');
   });
 
   it('DOD_ZH has checklist format', () => {
@@ -231,6 +241,29 @@ describe('prompt module constants', () => {
     expect(FINAL_REPORT_INLINE_EN).toContain('Delivered');
   });
 
+  it('CODEX_EXECUTION_LOOP_ZH encodes current Codex prompting guidance', () => {
+    expect(CODEX_EXECUTION_LOOP_ZH).toContain('Goal / Context / Constraints / Done when');
+    expect(CODEX_EXECUTION_LOOP_ZH).toContain('探查 → 计划 → 实现 → 验证 → 复盘');
+    expect(CODEX_EXECUTION_LOOP_ZH).toContain('独立、读重、可并行');
+    expect(CODEX_EXECUTION_LOOP_ZH).toContain('不要让两个并行任务改同一批文件');
+    expect(CODEX_EXECUTION_LOOP_ZH).toContain('验证通过后再汇报');
+  });
+
+  it('CODEX_EXECUTION_LOOP_EN encodes current Codex prompting guidance', () => {
+    expect(CODEX_EXECUTION_LOOP_EN).toContain('Goal / Context / Constraints / Done when');
+    expect(CODEX_EXECUTION_LOOP_EN).toContain('inspect → plan → implement → verify → review');
+    expect(CODEX_EXECUTION_LOOP_EN).toContain('independent, read-heavy, parallelizable');
+    expect(CODEX_EXECUTION_LOOP_EN).toContain('Do not let two parallel tasks edit the same files');
+    expect(CODEX_EXECUTION_LOOP_EN).toContain('Report only after verification passes');
+  });
+
+  it('keeps execution-loop inline variants compact', () => {
+    expect(CODEX_EXECUTION_LOOP_INLINE_ZH).toContain('执行循环');
+    expect(CODEX_EXECUTION_LOOP_INLINE_ZH.split('\n')).toHaveLength(1);
+    expect(CODEX_EXECUTION_LOOP_INLINE_EN).toContain('Execution loop');
+    expect(CODEX_EXECUTION_LOOP_INLINE_EN.split('\n')).toHaveLength(1);
+  });
+
   it('ANTI_PATTERNS now bars desktop-specific bad behaviors', () => {
     expect(ANTI_PATTERNS_ZH).toContain('空白');
     expect(ANTI_PATTERNS_ZH).toContain('进度条');
@@ -283,14 +316,14 @@ describe('withSharedConstraints', () => {
     const result = withSharedConstraints('做一些功能', 'zh');
     expect(result).toContain('做一些功能');
     expect(result).toContain('【安全底线】');
-    expect(result).toContain('本地处理');
+    expect(result).toContain('在线应用');
   });
 
   it('appends constraints to a plain prompt (en)', () => {
     const result = withSharedConstraints('Build something', 'en');
     expect(result).toContain('Build something');
     expect(result).toContain('[Safety Rules]');
-    expect(result).toContain('local');
+    expect(result).toContain('online-app');
   });
 
   it('is idempotent — does not double-append (zh)', () => {
@@ -356,7 +389,7 @@ describe('composeCasePrompt', () => {
 
   it('auto-includes constraints without manual addition', () => {
     const result = composeCasePrompt(sections, 'zh');
-    expect(result).toContain('本地处理');
+    expect(result).toContain('在线应用');
     expect(result).toContain('npm view');
   });
 
@@ -458,9 +491,16 @@ describe('composeRecipePrompt', () => {
     const result = composeRecipePrompt(parts, 'zh');
     expect(result).toContain('你是一名工程师。');
     expect(result).toContain('- 目标：做一个小工具。');
+    expect(result).toContain('- 用户：');
+    expect(result).toContain('- 输入：');
+    expect(result).toContain('- 输出：');
+    expect(result).toContain('- 主流程：');
     expect(result).toContain('- 平台：Windows + macOS');
     expect(result).toContain('- 做法：Electron + React + TypeScript');
     expect(result).toContain('- 功能：拖入文件 → 处理 → 导出');
+    expect(result).toContain('- 验证命令：');
+    expect(result).toContain('- 执行循环：');
+    expect(result).toContain('验证后汇报');
     expect(result).toContain('约束');
     expect(result).toContain('- 验收：拖入文件 → 处理成功 → 导出正确');
     expect(result).toContain('打包 .exe 和 .dmg');
@@ -478,24 +518,32 @@ describe('composeRecipePrompt', () => {
     };
     const result = composeRecipePrompt(enParts, 'en');
     expect(result).toContain('- Goal: Build a tool.');
+    expect(result).toContain('- User:');
+    expect(result).toContain('- Input:');
+    expect(result).toContain('- Output:');
+    expect(result).toContain('- Main flow:');
     expect(result).toContain('- Platform: Windows + macOS');
     expect(result).toContain('- Stack: Electron + React + TypeScript');
     expect(result).toContain('- Features: Drop file → process → export');
+    expect(result).toContain('- Verification commands:');
+    expect(result).toContain('- Execution loop:');
+    expect(result).toContain('report after verification');
     expect(result).toContain('Constraints');
     expect(result).toContain('- Acceptance: Drop file → process → export correct');
   });
 
   it('auto-includes recipe constraints', () => {
     const result = composeRecipePrompt(parts, 'zh');
-    expect(result).toContain('默认本地处理');
+    expect(result).toContain('在线应用');
     expect(result).toContain('不覆盖原文件');
     expect(result).toContain('sample-data');
   });
 
-  it('includes extra when provided', () => {
+  it('normalizes disconnected legacy extras when provided', () => {
     const withExtra = { ...parts, extra: '- 全程不联网。' };
     const result = composeRecipePrompt(withExtra, 'zh');
-    expect(result).toContain('全程不联网。');
+    expect(result).not.toContain('全程不联网');
+    expect(result).toContain('按在线网站标准处理');
   });
 
   it('keeps recipes short with condensed warm UX and final report lines (zh)', () => {

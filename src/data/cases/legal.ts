@@ -58,7 +58,7 @@ export const legalContractTracker: CaseBundle = {
 - Electron + React + TypeScript
 - 本地 SQLite
 - 打包成 Windows .exe 安装包
-- 完全离线`,
+- 可在线使用，网络请求走 HTTPS`,
       features: `1. 首页卡片列表：可按状态筛选；可按到期日排序；每张卡片左侧有状态色块（红黄绿）。
 2. 新建 / 编辑合同：表单清晰，必填项标注；"附件"字段支持选本地文件，保存相对路径而非复制。
 3. 待办看板：单独一页，汇总所有"待寄送 / 待签回 / 30 天内到期"的合同，便于每周例会使用。
@@ -72,7 +72,7 @@ export const legalContractTracker: CaseBundle = {
    - 导出待办清单到 Excel，字段包括：编号 / 对方 / 状态 / 到期日 / 剩余天数 / 风险原因 / 建议动作，作为法务周会材料。
 7. 隐私保护：
    - 敏感字段（金额、对方名称）在列表页可切换"隐藏"按钮，临时遮蔽便于共享屏幕。
-   - 数据默认本地存储，联网传输须加密并告知用户。
+   - 本地数据与在线服务边界写清；网络传输走 HTTPS，只传必要字段并告知用户。
 8. 搜索 / 筛选：支持关键词搜索合同编号、对方、备注。`,
       style: `- 业务型：表格清晰、信息密度适中、分隔线柔和。
 - 状态色块饱和度低；不用刺眼红。
@@ -105,7 +105,7 @@ export const legalContractTracker: CaseBundle = {
       goal: 'Central ledger for all contracts. Track by status. Auto-remind before expiry. Nothing slips.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; ship a Windows .exe installer`,
+- Local SQLite plus HTTPS API boundary; ship a Windows .exe installer`,
       features: `1. Home card list: filter by status; sort by expiry; left-edge status color band.
 2. Create/edit form with clear required fields. Attachment field picks a local file; store relative path, do not copy.
 3. Follow-up board: aggregates To-send, Awaiting-signature, and Expiring-within-30-days — weekly-review ready.

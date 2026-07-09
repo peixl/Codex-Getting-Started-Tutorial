@@ -58,7 +58,7 @@ export const customerServiceReplyHelper: CaseBundle = {
 - Electron + React + TypeScript
 - 本地 SQLite 存话术 + 本地配置存偏好
 - 全局快捷键 Ctrl+Shift+R 唤起；如果被系统或其它软件占用，在设置里提示并允许改成其它组合
-- 打包 Windows .exe 安装包，完全离线`,
+- 打包 Windows .exe 安装包；可接在线服务，网络请求走 HTTPS`,
       features: `1. 窗口尺寸小巧（约 600x500），无需最大化。仅搜索框 + 结果列表两部分。
 2. 搜索模糊匹配：标题 / 正文 / 关键词标签任一命中。按相关度排序。输入 300ms 后触发。
 3. 分类标签：全部 / 物流 / 退换货 / 尺码 / 发票 / 售后 / 自定义。
@@ -98,7 +98,7 @@ export const customerServiceReplyHelper: CaseBundle = {
 - Electron + React + TypeScript
 - Local SQLite + config file
 - Global shortcut: Ctrl+Shift+R; if occupied by the system or another app, show a clear settings prompt and allow a different combination
-- Windows .exe installer; fully offline`,
+- Windows .exe installer; online-usable with HTTPS API boundaries`,
       features: `1. Compact window (~600x500). Search box + results.
 2. Fuzzy search across title, body, keywords. Relevance ranking. 300ms debounce.
 3. Category chips: All / Shipping / Returns / Sizing / Invoices / Post-purchase / Custom.

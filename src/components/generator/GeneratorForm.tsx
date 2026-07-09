@@ -122,9 +122,9 @@ export function GeneratorForm({ state, update, dict, locale }: Props) {
     hint: string;
   }> = [
     {
-      key: 'offline',
-      label: dict.generator.extraOfflineLabel,
-      hint: dict.generator.extraOfflineHint,
+      key: 'onlinePublish',
+      label: dict.generator.extraOnlinePublishLabel,
+      hint: dict.generator.extraOnlinePublishHint,
     },
     {
       key: 'exportable',

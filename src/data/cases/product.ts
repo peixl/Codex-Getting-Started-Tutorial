@@ -58,7 +58,7 @@ export const productFeedbackInbox: CaseBundle = {
 - Electron + React + TypeScript
 - 本地 SQLite
 - 打包成 Windows .exe 安装包
-- 完全离线`,
+- 可在线使用，网络请求走 HTTPS`,
       features: `1. 首页反馈瀑布流：卡片展示前 150 字 + 标签色块 + 优先级角标 + 来源图标。
 2. 筛选：标签多选、来源、用户类型、状态。排序：时间 / 热度（命中次数，多个相似反馈合并后的总数）。
 3. 新增：
@@ -99,7 +99,7 @@ export const productFeedbackInbox: CaseBundle = {
       goal: 'Centralize scattered user feedback, auto-tag and prioritize, so weekly planning starts with a clean list.',
       platform: `- Windows 10/11 desktop app
 - Electron + React + TypeScript
-- Local SQLite; offline; ship a Windows .exe installer`,
+- Local SQLite plus HTTPS API boundary; ship a Windows .exe installer`,
       features: `1. Home feed: cards with 150-char snippet, tag chips, priority corner, source icon.
 2. Filter by tag (multi) / source / user type / status. Sort by date or heat (merged count).
 3. Add: single-entry form with source + user type; bulk paste (one line per item) with keyword-based auto-tagging.
