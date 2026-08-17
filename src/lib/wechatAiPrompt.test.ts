@@ -8,8 +8,8 @@ describe('buildWeChatAiPrompt', () => {
     const prompt = buildWeChatAiPrompt({ accessKey: ' sk-test-123 ', lang: 'zh' });
 
     expect(prompt).toContain('https://openclaw.ai');
-    expect(prompt).toContain('https://www.packyapi.com/v1');
-    expect(prompt).toContain('gpt-5.5');
+    expect(prompt).toContain('http://192.168.12.4:48761/v1');
+    expect(prompt).toContain('gpt-5.6-sol');
     expect(prompt).toContain('"sk-test-123"');
     expect(prompt).toContain('reasoning effort: medium');
     expect(prompt).toContain('reasoning effort: xhigh');
@@ -44,8 +44,8 @@ describe('buildWeChatAiPrompt', () => {
     const prompt = buildWeChatAiPrompt({ accessKey: 'sk-live', lang: 'en' });
 
     expect(prompt).toContain('Install OpenClaw');
-    expect(prompt).toContain('Base URL: https://www.packyapi.com/v1');
-    expect(prompt).toContain('Model: gpt-5.5');
+    expect(prompt).toContain('Base URL: http://192.168.12.4:48761/v1');
+    expect(prompt).toContain('Model: gpt-5.6-sol');
     expect(prompt).toContain('"sk-live"');
     expect(prompt).toContain('step 1 must succeed before step 2');
     expect(prompt).toContain('scan with WeChat');
@@ -55,8 +55,8 @@ describe('buildWeChatAiPrompt', () => {
 
   it('keeps the default gateway output when no provider args are passed', () => {
     const prompt = buildWeChatAiPrompt({ accessKey: 'sk-x', lang: 'zh' });
-    expect(prompt).toContain('https://www.packyapi.com/v1');
-    expect(prompt).toContain('gpt-5.5');
+    expect(prompt).toContain('http://192.168.12.4:48761/v1');
+    expect(prompt).toContain('gpt-5.6-sol');
     expect(prompt).toContain('reasoning effort: medium');
     expect(prompt).toContain('reasoning effort: xhigh');
   });
@@ -72,7 +72,7 @@ describe('buildWeChatAiPrompt', () => {
     expect(prompt).toContain('https://api.anthropic.com');
     expect(prompt).toContain('claude-opus-4-8');
     expect(prompt).toContain('extended thinking');
-    expect(prompt).not.toContain('gpt-5.5');
+    expect(prompt).not.toContain('gpt-5.6-sol');
   });
 
   it('builds a Google Gemini prompt with thinking wording', () => {
@@ -94,7 +94,7 @@ describe('buildWeChatAiPrompt', () => {
       lang: 'zh',
       baseUrl: 'https://api.openai.com/v1',
       protocol: 'openai',
-      model: 'gpt-5.5',
+      model: 'gpt-5.6-sol',
     });
     expect(prompt).toContain('https://api.openai.com/v1');
     expect(prompt).toContain('reasoning effort: medium');
@@ -119,8 +119,8 @@ describe('buildWeChatAiPrompt', () => {
       '终端',
       '命令',
       'OpenClaw',
-      'gpt-5.5',
-      'GPT-5.5',
+      'gpt-5.6-sol',
+      'gpt-5.6-sol',
     ]) {
       expect(zhVisibleCopy).not.toContain(phrase);
     }
@@ -135,8 +135,8 @@ describe('buildWeChatAiPrompt', () => {
       'terminal',
       'command',
       'OpenClaw',
-      'gpt-5.5',
-      'GPT-5.5',
+      'gpt-5.6-sol',
+      'gpt-5.6-sol',
     ]) {
       expect(enVisibleCopy).not.toContain(phrase);
     }

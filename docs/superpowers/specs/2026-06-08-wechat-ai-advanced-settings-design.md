@@ -8,8 +8,8 @@
 `/wechat-ai` 页面帮普通用户把 AI 接入微信。当前实现:
 
 - `WechatAiApp.tsx` 只暴露**一个输入框**(通行密钥),调用 `buildWeChatAiPrompt()` 生成一段给 Codex 的提示词并复制。
-- `wechatAiPrompt.ts` 把厂商配置**硬编码**:Base URL `https://www.packyapi.com/v1`、模型 `gpt-5.5`、OpenAI 兼容协议、reasoning effort medium/xhigh。
-- 用户可见文案**刻意不含任何技术词**,且 `wechatAiPrompt.test.ts` 有一条断言会在 `API Key`/`Base URL`/`Model:`/`reasoning`/`OpenClaw`/`gpt-5.5` 等词出现在可见文案时**失败**。这是对普通用户体验的强约束。
+- `wechatAiPrompt.ts` 把厂商配置**硬编码**:Base URL `http://192.168.12.4:48761/v1`、模型 `gpt-5.6-sol`、OpenAI 兼容协议、reasoning effort medium/xhigh。
+- 用户可见文案**刻意不含任何技术词**,且 `wechatAiPrompt.test.ts` 有一条断言会在 `API Key`/`Base URL`/`Model:`/`reasoning`/`OpenClaw`/`gpt-5.6-sol` 等词出现在可见文案时**失败**。这是对普通用户体验的强约束。
 
 ## 目标
 
@@ -57,8 +57,8 @@ export type ProviderPreset = {
 
 | id | Base URL | 协议 | 默认模型 |
 |---|---|---|---|
-| `default`(默认网关,简单模式用) | `https://www.packyapi.com/v1` | `openai` | `gpt-5.5` |
-| `openai` | `https://api.openai.com/v1` | `openai` | `gpt-5.5` |
+| `default`(默认网关,简单模式用) | `http://192.168.12.4:48761/v1` | `openai` | `gpt-5.6-sol` |
+| `openai` | `https://api.openai.com/v1` | `openai` | `gpt-5.6-sol` |
 | `anthropic` | `https://api.anthropic.com` | `anthropic` | `claude-opus-4-8` |
 | `google` | `https://generativelanguage.googleapis.com` | `gemini` | `gemini-3.1-pro-preview` |
 | `custom` | `''` | `openai` | `''` |
@@ -76,15 +76,15 @@ export type ProviderPreset = {
 type BuildWeChatAiPromptOptions = {
   accessKey: string;
   lang: PromptLang;
-  baseUrl?: string;             // 缺省 https://www.packyapi.com/v1
+  baseUrl?: string;             // 缺省 http://192.168.12.4:48761/v1
   protocol?: WeChatAiProtocol;  // 缺省 'openai'
-  model?: string;               // 缺省 'gpt-5.5'
+  model?: string;               // 缺省 'gpt-5.6-sol'
 };
 ```
 
 行为:
-- **不传任何新参数时,生成结果与现状逐字节一致**(packyapi + gpt-5.5 + reasoning 措辞),现有断言不受影响。
-- 第 2 步的 Base URL、模型用变量替换;标题/正文里写死的 `GPT-5.5` 改用模型变量(简单模式仍解析为 `gpt-5.5`,可见文案不受影响,因为模型词只出现在提示词里、不在 UI 文案里)。
+- **不传任何新参数时,生成结果与现状逐字节一致**(packyapi + gpt-5.6-sol + reasoning 措辞),现有断言不受影响。
+- 第 2 步的 Base URL、模型用变量替换;标题/正文里写死的 `gpt-5.6-sol` 改用模型变量(简单模式仍解析为 `gpt-5.6-sol`,可见文案不受影响,因为模型词只出现在提示词里、不在 UI 文案里)。
 - 第 2 步的「深度思考」措辞按协议切换(各协议对应一句自然语言指引):
   - `openai`:reasoning effort medium,复杂任务 xhigh(保持现状)。
   - `anthropic`:开启 extended thinking;effort high,复杂任务 xhigh。
@@ -133,7 +133,7 @@ WechatAiApp 组装 { accessKey, lang, baseUrl, protocol, model }
 ## 测试
 
 - `wechatAiPrompt.test.ts`:
-  - 保留全部现有断言(默认调用仍输出 packyapi/gpt-5.5/reasoning 措辞)。
+  - 保留全部现有断言(默认调用仍输出 packyapi/gpt-5.6-sol/reasoning 措辞)。
   - 新增:`anthropic` 预设 → 含 `https://api.anthropic.com`、`claude-opus-4-8`、extended thinking 措辞;`google` 预设 → 含 Gemini Base URL、`gemini-3.1-pro-preview`、thinking 措辞;`openai` 预设 → 含官方端点。
   - 把「可见文案禁词」断言的扫描对象从整个 `wechatAi` 收窄到简单模式键(排除 `advanced`)。
 - i18n parity 测试:新增键自动覆盖(无需改测试)。

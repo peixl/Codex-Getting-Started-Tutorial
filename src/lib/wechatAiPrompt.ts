@@ -9,8 +9,8 @@ type BuildWeChatAiPromptOptions = {
   model?: string;
 };
 
-const DEFAULT_BASE_URL = 'https://www.packyapi.com/v1';
-const DEFAULT_MODEL = 'gpt-5.5';
+const DEFAULT_BASE_URL = 'http://192.168.12.4:48761/v1';
+const DEFAULT_MODEL = 'gpt-5.6-sol';
 const DEFAULT_PROTOCOL: WeChatAiProtocol = 'openai';
 
 function normalizeAccessKey(accessKey: string) {

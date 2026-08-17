@@ -292,7 +292,7 @@ export const zh = {
       protocolAnthropic: 'Anthropic Messages',
       protocolGemini: 'Google Gemini',
       modelLabel: '模型',
-      modelPlaceholder: '例如 gpt-5.5',
+      modelPlaceholder: '例如 gpt-5.6-sol',
       resetLabel: '恢复默认',
     },
   },

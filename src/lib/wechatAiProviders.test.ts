@@ -10,9 +10,9 @@ import {
 describe('wechatAiProviders', () => {
   it('default preset keeps the current PackyAPI gateway', () => {
     const preset = resolveProviderPreset('default');
-    expect(preset.baseUrl).toBe('https://www.packyapi.com/v1');
+    expect(preset.baseUrl).toBe('http://192.168.12.4:48761/v1');
     expect(preset.protocol).toBe('openai');
-    expect(preset.model).toBe('gpt-5.5');
+    expect(preset.model).toBe('gpt-5.6-sol');
   });
 
   it('exposes openai / anthropic / google presets with correct endpoints', () => {
@@ -49,9 +49,9 @@ describe('matchProviderId', () => {
   it('matches the exact default preset config', () => {
     expect(
       matchProviderId({
-        baseUrl: 'https://www.packyapi.com/v1',
+        baseUrl: 'http://192.168.12.4:48761/v1',
         protocol: 'openai',
-        model: 'gpt-5.5',
+        model: 'gpt-5.6-sol',
       }),
     ).toBe('default');
   });
@@ -68,7 +68,7 @@ describe('matchProviderId', () => {
       matchProviderId({
         baseUrl: 'https://api.openai.com/v1',
         protocol: 'openai',
-        model: 'gpt-5.5',
+        model: 'gpt-5.6-sol',
       }),
     ).toBe('openai');
   });

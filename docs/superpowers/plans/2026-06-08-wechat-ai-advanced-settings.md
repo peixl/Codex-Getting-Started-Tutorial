@@ -45,9 +45,9 @@ import {
 describe('wechatAiProviders', () => {
   it('default preset keeps the current PackyAPI gateway', () => {
     const preset = resolveProviderPreset('default');
-    expect(preset.baseUrl).toBe('https://www.packyapi.com/v1');
+    expect(preset.baseUrl).toBe('http://192.168.12.4:48761/v1');
     expect(preset.protocol).toBe('openai');
-    expect(preset.model).toBe('gpt-5.5');
+    expect(preset.model).toBe('gpt-5.6-sol');
   });
 
   it('exposes openai / anthropic / google presets with correct endpoints', () => {
@@ -112,15 +112,15 @@ export const DEFAULT_PROVIDER_ID: WeChatAiProviderId = 'default';
 export const PROVIDER_PRESETS: ProviderPreset[] = [
   {
     id: 'default',
-    baseUrl: 'https://www.packyapi.com/v1',
+    baseUrl: 'http://192.168.12.4:48761/v1',
     protocol: 'openai',
-    model: 'gpt-5.5',
+    model: 'gpt-5.6-sol',
   },
   {
     id: 'openai',
     baseUrl: 'https://api.openai.com/v1',
     protocol: 'openai',
-    model: 'gpt-5.5',
+    model: 'gpt-5.6-sol',
   },
   {
     id: 'anthropic',
@@ -179,8 +179,8 @@ In `src/lib/wechatAiPrompt.test.ts`, add these tests **inside** the existing `de
 ```ts
   it('keeps the default gateway output when no provider args are passed', () => {
     const prompt = buildWeChatAiPrompt({ accessKey: 'sk-x', lang: 'zh' });
-    expect(prompt).toContain('https://www.packyapi.com/v1');
-    expect(prompt).toContain('gpt-5.5');
+    expect(prompt).toContain('http://192.168.12.4:48761/v1');
+    expect(prompt).toContain('gpt-5.6-sol');
     expect(prompt).toContain('reasoning effort: medium');
     expect(prompt).toContain('reasoning effort: xhigh');
   });
@@ -196,7 +196,7 @@ In `src/lib/wechatAiPrompt.test.ts`, add these tests **inside** the existing `de
     expect(prompt).toContain('https://api.anthropic.com');
     expect(prompt).toContain('claude-opus-4-8');
     expect(prompt).toContain('extended thinking');
-    expect(prompt).not.toContain('gpt-5.5');
+    expect(prompt).not.toContain('gpt-5.6-sol');
   });
 
   it('builds a Google Gemini prompt with thinking wording', () => {
@@ -218,7 +218,7 @@ In `src/lib/wechatAiPrompt.test.ts`, add these tests **inside** the existing `de
       lang: 'zh',
       baseUrl: 'https://api.openai.com/v1',
       protocol: 'openai',
-      model: 'gpt-5.5',
+      model: 'gpt-5.6-sol',
     });
     expect(prompt).toContain('https://api.openai.com/v1');
     expect(prompt).toContain('reasoning effort: medium');
@@ -228,7 +228,7 @@ In `src/lib/wechatAiPrompt.test.ts`, add these tests **inside** the existing `de
 - [ ] **Step 2: Run tests to verify they fail**
 
 Run: `npx vitest run src/lib/wechatAiPrompt.test.ts`
-Expected: FAIL — Anthropic/Google assertions fail because the current builder ignores the new args and always emits packyapi/gpt-5.5.
+Expected: FAIL — Anthropic/Google assertions fail because the current builder ignores the new args and always emits packyapi/gpt-5.6-sol.
 
 - [ ] **Step 3: Rewrite `wechatAiPrompt.ts` to accept provider args**
 
@@ -246,8 +246,8 @@ type BuildWeChatAiPromptOptions = {
   model?: string;
 };
 
-const DEFAULT_BASE_URL = 'https://www.packyapi.com/v1';
-const DEFAULT_MODEL = 'gpt-5.5';
+const DEFAULT_BASE_URL = 'http://192.168.12.4:48761/v1';
+const DEFAULT_MODEL = 'gpt-5.6-sol';
 const DEFAULT_PROTOCOL: WeChatAiProtocol = 'openai';
 
 function normalizeAccessKey(accessKey: string) {
@@ -487,7 +487,7 @@ In `src/i18n/dictionaries/zh.ts`, inside the `wechatAi: { ... }` object, add a n
       protocolAnthropic: 'Anthropic Messages',
       protocolGemini: 'Google Gemini',
       modelLabel: '模型',
-      modelPlaceholder: '例如 gpt-5.5',
+      modelPlaceholder: '例如 gpt-5.6-sol',
       resetLabel: '恢复默认',
     },
 ```
@@ -515,7 +515,7 @@ In `src/i18n/dictionaries/en.ts`, inside the `wechatAi: { ... }` object at the s
       protocolAnthropic: 'Anthropic Messages',
       protocolGemini: 'Google Gemini',
       modelLabel: 'Model',
-      modelPlaceholder: 'e.g. gpt-5.5',
+      modelPlaceholder: 'e.g. gpt-5.6-sol',
       resetLabel: 'Reset to default',
     },
 ```
@@ -732,9 +732,9 @@ Inside `WechatAiApp`, just after the existing `const [copied, setCopied] = useSt
 ```tsx
   const STORAGE_KEY = 'wechat-ai-advanced';
   const [providerId, setProviderId] = useState<WeChatAiProviderId>(DEFAULT_PROVIDER_ID);
-  const [baseUrl, setBaseUrl] = useState('https://www.packyapi.com/v1');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.12.4:48761/v1');
   const [protocol, setProtocol] = useState<WeChatAiProtocol>('openai');
-  const [model, setModel] = useState('gpt-5.5');
+  const [model, setModel] = useState('gpt-5.6-sol');
 
   useEffect(() => {
     try {

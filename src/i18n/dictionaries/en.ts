@@ -291,7 +291,7 @@ export const en = {
       protocolAnthropic: 'Anthropic Messages',
       protocolGemini: 'Google Gemini',
       modelLabel: 'Model',
-      modelPlaceholder: 'e.g. gpt-5.5',
+      modelPlaceholder: 'e.g. gpt-5.6-sol',
       resetLabel: 'Reset to default',
     },
   },
