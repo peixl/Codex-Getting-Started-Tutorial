@@ -45,7 +45,7 @@ import {
 describe('wechatAiProviders', () => {
   it('default preset keeps the current PackyAPI gateway', () => {
     const preset = resolveProviderPreset('default');
-    expect(preset.baseUrl).toBe('http://192.168.12.4:48761/v1');
+    expect(preset.baseUrl).toBe('http://192.168.12.7:48761/v1');
     expect(preset.protocol).toBe('openai');
     expect(preset.model).toBe('gpt-5.6-sol');
   });
@@ -112,7 +112,7 @@ export const DEFAULT_PROVIDER_ID: WeChatAiProviderId = 'default';
 export const PROVIDER_PRESETS: ProviderPreset[] = [
   {
     id: 'default',
-    baseUrl: 'http://192.168.12.4:48761/v1',
+    baseUrl: 'http://192.168.12.7:48761/v1',
     protocol: 'openai',
     model: 'gpt-5.6-sol',
   },
@@ -179,7 +179,7 @@ In `src/lib/wechatAiPrompt.test.ts`, add these tests **inside** the existing `de
 ```ts
   it('keeps the default gateway output when no provider args are passed', () => {
     const prompt = buildWeChatAiPrompt({ accessKey: 'sk-x', lang: 'zh' });
-    expect(prompt).toContain('http://192.168.12.4:48761/v1');
+    expect(prompt).toContain('http://192.168.12.7:48761/v1');
     expect(prompt).toContain('gpt-5.6-sol');
     expect(prompt).toContain('reasoning effort: medium');
     expect(prompt).toContain('reasoning effort: xhigh');
@@ -246,7 +246,7 @@ type BuildWeChatAiPromptOptions = {
   model?: string;
 };
 
-const DEFAULT_BASE_URL = 'http://192.168.12.4:48761/v1';
+const DEFAULT_BASE_URL = 'http://192.168.12.7:48761/v1';
 const DEFAULT_MODEL = 'gpt-5.6-sol';
 const DEFAULT_PROTOCOL: WeChatAiProtocol = 'openai';
 
@@ -732,7 +732,7 @@ Inside `WechatAiApp`, just after the existing `const [copied, setCopied] = useSt
 ```tsx
   const STORAGE_KEY = 'wechat-ai-advanced';
   const [providerId, setProviderId] = useState<WeChatAiProviderId>(DEFAULT_PROVIDER_ID);
-  const [baseUrl, setBaseUrl] = useState('http://192.168.12.4:48761/v1');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.12.7:48761/v1');
   const [protocol, setProtocol] = useState<WeChatAiProtocol>('openai');
   const [model, setModel] = useState('gpt-5.6-sol');
 

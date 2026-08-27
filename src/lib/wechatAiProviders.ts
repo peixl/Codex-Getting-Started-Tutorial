@@ -19,7 +19,7 @@ export const DEFAULT_PROVIDER_ID: WeChatAiProviderId = 'default';
 export const PROVIDER_PRESETS: ProviderPreset[] = [
   {
     id: 'default',
-    baseUrl: 'http://192.168.12.4:48761/v1',
+    baseUrl: 'http://192.168.12.7:48761/v1',
     protocol: 'openai',
     model: 'gpt-5.6-sol',
   },

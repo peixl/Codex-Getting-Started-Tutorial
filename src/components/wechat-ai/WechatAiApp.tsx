@@ -32,7 +32,7 @@ export function WechatAiApp({ locale, dict }: Props) {
   const valid = accessKey.trim().length > 0;
 
   const STORAGE_KEY = 'wechat-ai-advanced';
-  const [baseUrl, setBaseUrl] = useState('http://192.168.12.4:48761/v1');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.12.7:48761/v1');
   const [protocol, setProtocol] = useState<WeChatAiProtocol>('openai');
   const [model, setModel] = useState('gpt-5.6-sol');
 

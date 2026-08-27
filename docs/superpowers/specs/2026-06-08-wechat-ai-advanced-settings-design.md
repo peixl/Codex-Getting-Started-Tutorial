@@ -8,7 +8,7 @@
 `/wechat-ai` 页面帮普通用户把 AI 接入微信。当前实现:
 
 - `WechatAiApp.tsx` 只暴露**一个输入框**(通行密钥),调用 `buildWeChatAiPrompt()` 生成一段给 Codex 的提示词并复制。
-- `wechatAiPrompt.ts` 把厂商配置**硬编码**:Base URL `http://192.168.12.4:48761/v1`、模型 `gpt-5.6-sol`、OpenAI 兼容协议、reasoning effort medium/xhigh。
+- `wechatAiPrompt.ts` 把厂商配置**硬编码**:Base URL `http://192.168.12.7:48761/v1`、模型 `gpt-5.6-sol`、OpenAI 兼容协议、reasoning effort medium/xhigh。
 - 用户可见文案**刻意不含任何技术词**,且 `wechatAiPrompt.test.ts` 有一条断言会在 `API Key`/`Base URL`/`Model:`/`reasoning`/`OpenClaw`/`gpt-5.6-sol` 等词出现在可见文案时**失败**。这是对普通用户体验的强约束。
 
 ## 目标
@@ -57,7 +57,7 @@ export type ProviderPreset = {
 
 | id | Base URL | 协议 | 默认模型 |
 |---|---|---|---|
-| `default`(默认网关,简单模式用) | `http://192.168.12.4:48761/v1` | `openai` | `gpt-5.6-sol` |
+| `default`(默认网关,简单模式用) | `http://192.168.12.7:48761/v1` | `openai` | `gpt-5.6-sol` |
 | `openai` | `https://api.openai.com/v1` | `openai` | `gpt-5.6-sol` |
 | `anthropic` | `https://api.anthropic.com` | `anthropic` | `claude-opus-4-8` |
 | `google` | `https://generativelanguage.googleapis.com` | `gemini` | `gemini-3.1-pro-preview` |
@@ -76,7 +76,7 @@ export type ProviderPreset = {
 type BuildWeChatAiPromptOptions = {
   accessKey: string;
   lang: PromptLang;
-  baseUrl?: string;             // 缺省 http://192.168.12.4:48761/v1
+  baseUrl?: string;             // 缺省 http://192.168.12.7:48761/v1
   protocol?: WeChatAiProtocol;  // 缺省 'openai'
   model?: string;               // 缺省 'gpt-5.6-sol'
 };

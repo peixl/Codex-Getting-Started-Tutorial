@@ -10,7 +10,7 @@ import {
 describe('wechatAiProviders', () => {
   it('default preset keeps the current PackyAPI gateway', () => {
     const preset = resolveProviderPreset('default');
-    expect(preset.baseUrl).toBe('http://192.168.12.4:48761/v1');
+    expect(preset.baseUrl).toBe('http://192.168.12.7:48761/v1');
     expect(preset.protocol).toBe('openai');
     expect(preset.model).toBe('gpt-5.6-sol');
   });
@@ -49,7 +49,7 @@ describe('matchProviderId', () => {
   it('matches the exact default preset config', () => {
     expect(
       matchProviderId({
-        baseUrl: 'http://192.168.12.4:48761/v1',
+        baseUrl: 'http://192.168.12.7:48761/v1',
         protocol: 'openai',
         model: 'gpt-5.6-sol',
       }),
